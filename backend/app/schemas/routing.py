@@ -39,6 +39,7 @@ class RouteAnalysisRequestSchema(BaseModel):
     max_acceptable_severity: str = Field(default="HIGH", description="Maximum acceptable flood severity threshold before route hazard")
     max_alternatives: int = Field(default=3, ge=1, le=5, description="Maximum number of candidate routes to evaluate")
     provider_mode: str | None = Field(default=None, description="Optional routing provider mode: REAL_DATA (OSRM only), SYNTHETIC (dev/test only), or None (defaults to settings.ROUTING_PROVIDER)")
+    zone_id: str | None = Field(default=None, description="Optional intelligence zone identifier (defaults to deep_mumbai_mithi)")
 
 
 class RoutePointExposureSchema(BaseModel):

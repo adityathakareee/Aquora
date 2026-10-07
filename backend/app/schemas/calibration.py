@@ -24,6 +24,10 @@ class CalibrationEvaluationRequest(BaseModel):
         default=10,
         description="Number of sample predictions to return in summary"
     )
+    zone_id: Optional[str] = Field(
+        default=None,
+        description="Optional target intelligence zone ID"
+    )
 
 
 class PredictionSummary(BaseModel):

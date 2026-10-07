@@ -41,6 +41,7 @@ from app.schemas.alerts import (
     EvidenceStrength,
     ExplainabilityStepResponseSchema,
 )
+from app.services.spatial_resolver import SpatialZoneResolver, UnsupportedZoneError
 
 GOVERNANCE_TEXT = (
     "Alerts are model-based decision-support signals and are not guarantees of real-world conditions."
@@ -74,9 +75,13 @@ class AlertsService:
         now_utc = datetime.now(timezone.utc)
         generated_alerts: list[AlertResponseSchema] = []
 
+        zone_id = getattr(payload, "zone_id", None)
+        if zone_id:
+            SpatialZoneResolver.validate_capability(zone_id, "deep_intelligence")
+
         # 1. Evaluate Phase 9 Digital Twin Run
         if payload.digital_twin_run_id:
-            twin_alerts = await self._evaluate_digital_twin_alerts(payload.digital_twin_run_id, now_utc)
+            twin_alerts = await self._evaluate_digital_twin_alerts(payload.digital_twin_run_id, now_utc, zone_id=zone_id)
             generated_alerts.extend(twin_alerts)
 
         # 2. Evaluate Phase 10 Travel Window / Routing Run
@@ -110,15 +115,27 @@ class AlertsService:
         )
 
     async def _evaluate_digital_twin_alerts(
-        self, run_id: str, now_utc: datetime
+        self, run_id: str, now_utc: datetime, zone_id: str | None = None
     ) -> list[AlertResponseSchema]:
         """Evaluate Phase 9 Digital Twin forecast run for flood onset and high/severe risk."""
         results: list[AlertResponseSchema] = []
         
-        # Synthetic/Authoritative Phase 9 canonical slice metrics simulation
-        condition_key = "MITHI_RIVER_BASIN:ONSET_60M"
+        norm_id = SpatialZoneResolver.normalize_zone_id(zone_id)
+        zone_info = SpatialZoneResolver.resolve_zone(norm_id)
+
+        if norm_id == SpatialZoneResolver.DEFAULT_ZONE_ID:
+            condition_key = "MITHI_RIVER_BASIN:ONSET_60M"
+            affected_entity_type = "RIVER_BASIN"
+            affected_id = "MITHI_BASIN"
+            zone_display_name = "Mithi River Basin"
+        else:
+            condition_key = f"{zone_info.get('entity_code', norm_id)}:ONSET_60M"
+            affected_entity_type = "ZONE"
+            affected_id = zone_info.get("entity_code", norm_id)
+            zone_display_name = zone_info.get("name", norm_id)
+
         fingerprint = self._compute_fingerprint(
-            AlertType.FLOOD_ONSET.value, "RIVER_BASIN", "MITHI_BASIN", condition_key
+            AlertType.FLOOD_ONSET.value, affected_entity_type, affected_id, condition_key
         )
 
         existing = await self._find_active_alert_by_fingerprint(fingerprint)
@@ -130,13 +147,13 @@ class AlertsService:
                 source_phase="Phase9",
                 source_run_id=run_id,
                 now_utc=now_utc,
-                summary="Modeled high-severity flooding persists in Mithi River Basin (+60 min slice)."
+                summary=f"Modeled high-severity flooding persists in {zone_display_name} (+60 min slice)."
             )
             results.append(alert_res)
         else:
             alert_id = f"alt_{uuid.uuid4().hex[:12]}"
-            title = "MODELED HIGH FLOOD RISK — Mithi River Basin"
-            summary = "High-severity flooding is modeled by approximately +60 minutes based on Digital Twin projection."
+            title = f"MODELED HIGH FLOOD RISK — {zone_display_name}"
+            summary = f"High-severity flooding is modeled by approximately +60 minutes based on Digital Twin projection for {zone_display_name}."
             rec_action = "Initiate pre-positioning of dewatering pumps and notify emergency transit authorities."
 
             explain_steps = [

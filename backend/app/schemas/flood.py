@@ -47,6 +47,7 @@ class FloodSimulationRequestSchema(BaseModel):
         description="Historical flood event identifier for REAL_DATA mode ('E01' to 'E07')"
     )
     study_area_id: str | None = Field(default="mithi_urban_catchment", description="Optional study area ID")
+    zone_id: str | None = Field(default=None, description="Optional target intelligence zone ID")
     start_time: str | None = Field(default="2020-08-05T08:00:00Z", description="ISO timestamp for simulation start time")
     horizon_minutes: int = Field(default=180, ge=10, le=300, description="Simulation horizon in minutes (up to 3 hours / 300 min)")
     timestep_minutes: int = Field(default=10, description="Simulation timestep in minutes (5, 10, 15, 30, 60)")

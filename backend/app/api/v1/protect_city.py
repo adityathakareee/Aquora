@@ -31,6 +31,7 @@ from app.schemas.protect_city import (
     ProtectCityResponseSchema,
 )
 from app.services.protect_city_service import ProtectCityProcessingService
+from app.services.spatial_resolver import UnsupportedZoneError
 
 router = APIRouter(prefix="/protect-city", tags=["Protect the City"])
 
@@ -50,8 +51,14 @@ async def analyze_protect_city_endpoint(
     Combines Phase 9 Digital Twin evolution, Phase 4 terrain flow, Phase 5 drainage context,
     Phase 10 route exposure, and Phase 11 critical facility accessibility into deterministic recommendations.
     """
-    service = ProtectCityProcessingService(db=db)
-    return await service.analyze_protect_city(payload)
+    try:
+        service = ProtectCityProcessingService(db=db)
+        return await service.analyze_protect_city(payload)
+    except (ValueError, UnsupportedZoneError) as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e),
+        ) from e
 
 
 @router.get(

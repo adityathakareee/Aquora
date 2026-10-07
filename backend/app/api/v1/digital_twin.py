@@ -19,6 +19,7 @@ from app.schemas.digital_twin import (
     DigitalTwinTimeSliceSchema,
 )
 from app.services.digital_twin_service import DigitalTwinProcessingService
+from app.services.spatial_resolver import UnsupportedZoneError
 
 router = APIRouter(prefix="/digital-twin", tags=["Flood Digital Twin"])
 
@@ -37,8 +38,14 @@ async def create_digital_twin_run(
     Trigger end-to-end 0-180 minute Digital Twin run for Mithi River catchment pilot.
     Couples Phase 6 physics engine, Phase 3 rainfall, Phase 4 terrain, Phase 5 drainage, and Phase 8 prototype ML score.
     """
-    service = DigitalTwinProcessingService(db=db)
-    return await service.create_run(payload)
+    try:
+        service = DigitalTwinProcessingService(db=db)
+        return await service.create_run(payload)
+    except (UnsupportedZoneError, ValueError) as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e),
+        ) from e
 
 
 @router.get(

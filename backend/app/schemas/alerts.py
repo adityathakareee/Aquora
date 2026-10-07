@@ -54,6 +54,7 @@ class AlertGenerateRequestSchema(BaseModel):
     protect_city_run_id: str | None = Field(None, description="Authoritative Phase 12 Protect City Run ID")
     ground_truth_run_id: str | None = Field(None, description="Authoritative Phase 13 Ground Truth Verification Run ID")
     simulator_run_id: str | None = Field(None, description="Authoritative Phase 14 Simulator Run ID")
+    zone_id: str | None = Field(None, description="Optional target intelligence zone ID (defaults to Mumbai Deep Zone)")
 
     @model_validator(mode="after")
     def validate_at_least_one_source(self) -> "AlertGenerateRequestSchema":

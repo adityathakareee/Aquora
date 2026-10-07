@@ -8,11 +8,14 @@ All responses explicitly carry `model_status: PROTOTYPE_ONLY` and `calibration_s
 from typing import Any, Dict
 from fastapi import APIRouter, HTTPException, status
 
+from app.schemas.intelligence_contracts import IntelligenceLevel
 from app.schemas.calibration import (
     CalibrationEvaluationRequest,
     CalibrationEvaluationResponse,
 )
 from app.services.calibration_service import CalibrationService
+from app.services.ml_model_registry import FloodModelRegistry
+from app.services.spatial_resolver import SpatialZoneResolver, UnsupportedZoneError
 
 router = APIRouter(prefix="/calibration", tags=["Phase 8 — Calibration Prototype"])
 
@@ -49,6 +52,11 @@ def get_calibration_metadata() -> Dict[str, Any]:
 )
 def evaluate_calibration(payload: CalibrationEvaluationRequest) -> CalibrationEvaluationResponse:
     try:
+        if payload.zone_id is not None:
+            norm_id = SpatialZoneResolver.normalize_zone_id(payload.zone_id)
+            SpatialZoneResolver.resolve_zone(norm_id)
+            SpatialZoneResolver.validate_capability(norm_id, "deep_intelligence")
+
         service = CalibrationService()
         features_df = service.prepare_features_for_event(
             event_id=payload.event_id or "E05"
@@ -60,6 +68,13 @@ def evaluate_calibration(payload: CalibrationEvaluationRequest) -> CalibrationEv
             provider_mode=payload.provider_mode
         )
         return CalibrationEvaluationResponse(**res)
+    except UnsupportedZoneError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=str(e)
+        ) from e
+    except HTTPException:
+        raise
     except FileNotFoundError as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,

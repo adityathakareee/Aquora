@@ -14,6 +14,7 @@ class DigitalTwinRunRequestSchema(BaseModel):
     """Request payload to create a Flood Digital Twin run."""
 
     study_area_id: str | None = Field(default="mithi_catchment_mumbai", description="Target pilot study area ID")
+    zone_id: str | None = Field(default=None, description="Optional target intelligence zone ID")
     start_time: str | None = Field(default=None, description="ISO8601 simulation start timestamp")
     horizon_minutes: int = Field(default=180, ge=30, le=360, description="Simulation horizon in minutes (default 180 min / 3 hours)")
     timestep_minutes: int = Field(default=30, description="Display timestep interval in minutes (default 30 min)")

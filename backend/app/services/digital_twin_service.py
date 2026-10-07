@@ -41,6 +41,7 @@ from app.services.calibration_service import (
     CalibrationService,
 )
 from app.services.flood_service import FloodProcessingService
+from app.services.spatial_resolver import SpatialZoneResolver, UnsupportedZoneError
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -129,6 +130,11 @@ class DigitalTwinProcessingService:
             horizon_minutes=request.horizon_minutes,
         )
 
+        # 1. Resolve and validate intelligence zone
+        zone_id = getattr(request, "zone_id", None)
+        if zone_id:
+            SpatialZoneResolver.validate_capability(zone_id, "physical_flood_solver")
+
         # 1. Invoke Phase 6 physical simulation authority with forecast forcing
         flood_service = FloodProcessingService(db=self.db)
         terrain_id = None
@@ -142,6 +148,7 @@ class DigitalTwinProcessingService:
             horizon_minutes=request.horizon_minutes,
             timestep_minutes=request.timestep_minutes,
             terrain_dataset_id=terrain_id,
+            zone_id=zone_id,
         )
 
         # In REAL_DATA mode, this raises explicit error if forecast or DEM fails (0 synthetic fallback)

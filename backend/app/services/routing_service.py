@@ -38,6 +38,7 @@ from app.services.digital_twin_service import (
     DigitalTwinProcessingService,
     _classify_severity,
 )
+from app.services.spatial_resolver import SpatialZoneResolver, UnsupportedZoneError
 
 SEVERITY_RANK = {
     "DRY": 0,
@@ -123,12 +124,14 @@ class DigitalTwinRasterReader:
         nodata: float | None = -9999.0,
         bounds: dict[str, float] | None = None,
         data_matrix: np.ndarray | None = None,
+        zone_id: str | None = None,
     ):
         self.crs = crs or "EPSG:4326"
         self.width = width
         self.height = height
         self.nodata = nodata
-        self.bounds = bounds or MUMBAI_MITHI_BOUNDS
+        self.zone_id = zone_id
+        self.bounds = bounds or SpatialZoneResolver.get_zone_bounds(zone_id)
         self.data_matrix = data_matrix
 
         # Initialize Affine transform matrix
@@ -146,7 +149,7 @@ class DigitalTwinRasterReader:
             self.transform = (dx, 0.0, min_lon, 0.0, -dy, max_lat)
 
     @classmethod
-    def from_geotiff(cls, file_path: Path) -> "DigitalTwinRasterReader":
+    def from_geotiff(cls, file_path: Path, zone_id: str | None = None) -> "DigitalTwinRasterReader":
         """
         Open actual GeoTIFF file using rasterio (if available) or raw binary reader.
         Raises controlled ValueError if raster missing CRS or unreadable.
@@ -172,6 +175,7 @@ class DigitalTwinRasterReader:
                     height=height,
                     nodata=nodata,
                     data_matrix=data,
+                    zone_id=zone_id,
                 )
         except ValueError:
             raise
@@ -182,7 +186,7 @@ class DigitalTwinRasterReader:
                 arr = np.frombuffer(raw_bytes, dtype=np.float32)
                 if len(arr) == 1600:
                     arr = arr.reshape((40, 40))
-                    return cls(data_matrix=arr)
+                    return cls(data_matrix=arr, zone_id=zone_id)
             except (ValueError, OSError):
                 pass
             raise ValueError(f"Unreadable Digital Twin GeoTIFF raster artifact {file_path}: {err}") from err
@@ -275,7 +279,9 @@ class DigitalTwinRasterReader:
             # Deterministic simulation matching Phase 9 if data_matrix not provided
             cell_lat = self.bounds["min_lat"] + (row + 0.5) * ((self.bounds["max_lat"] - self.bounds["min_lat"]) / self.height)
             cell_lon = self.bounds["min_lon"] + (col + 0.5) * ((self.bounds["max_lon"] - self.bounds["min_lon"]) / self.width)
-            dist_to_river = abs((cell_lat - 19.076) * 111.0 + (cell_lon - 72.877) * 111.0)
+            center_lat = self.bounds.get("center_lat", (self.bounds["min_lat"] + self.bounds["max_lat"]) / 2.0)
+            center_lon = self.bounds.get("center_lon", (self.bounds["min_lon"] + self.bounds["max_lon"]) / 2.0)
+            dist_to_river = abs((cell_lat - center_lat) * 111.0 + (cell_lon - center_lon) * 111.0)
             depth_factor = max(0.0, 1.0 - (dist_to_river / 3.0))
             time_factor = np.sin(np.pi * (min_slice / 180.0)) if min_slice > 0 else 0.05
             rain_intensity = 65.0 if min_slice <= 60 else (40.0 if min_slice <= 120 else 10.0)
@@ -335,11 +341,16 @@ class RoutingProcessingService:
             provider=self.provider.provider_mode if hasattr(self.provider, "provider_mode") else "DEFAULT",
         )
 
-        # 1. Coordinate Validation
+        # 1. Coordinate & Zone Capability Validation
         if not (-90 <= request.origin.latitude <= 90 and -180 <= request.origin.longitude <= 180):
             raise ValueError(f"Invalid origin coordinates: {request.origin}")
         if not (-90 <= request.destination.latitude <= 90 and -180 <= request.destination.longitude <= 180):
             raise ValueError(f"Invalid destination coordinates: {request.destination}")
+
+        zone_id = getattr(request, "zone_id", None)
+        if zone_id:
+            SpatialZoneResolver.validate_capability(zone_id, "critical_facility_routing")
+        zone_bounds = SpatialZoneResolver.get_zone_bounds(zone_id)
 
         # 2. Fetch Candidate Routes from Provider
         req_provider_mode = (request.provider_mode or ("REAL_DATA" if settings.ROUTING_PROVIDER.upper() == "OSRM" else "SYNTHETIC")).upper()
@@ -412,12 +423,12 @@ class RoutingProcessingService:
                 slice_tif_path = Path(dt_run.output_directory) / "map" / f"slice_{min_slice:03d}.tif" if dt_run and dt_run.output_directory else None
                 if slice_tif_path and slice_tif_path.exists():
                     try:
-                        reader = DigitalTwinRasterReader.from_geotiff(slice_tif_path)
+                        reader = DigitalTwinRasterReader.from_geotiff(slice_tif_path, zone_id=zone_id)
                     except Exception as raster_err:  # noqa: BLE001
                         logger.warning("Failed to open GeoTIFF artifact, falling back to spatial reader", path=str(slice_tif_path), error=str(raster_err))
-                        reader = DigitalTwinRasterReader(width=40, height=40, bounds=MUMBAI_MITHI_BOUNDS)
+                        reader = DigitalTwinRasterReader(width=40, height=40, bounds=zone_bounds, zone_id=zone_id)
                 else:
-                    reader = DigitalTwinRasterReader(width=40, height=40, bounds=MUMBAI_MITHI_BOUNDS)
+                    reader = DigitalTwinRasterReader(width=40, height=40, bounds=zone_bounds, zone_id=zone_id)
 
                 slice_samples: list[dict[str, Any]] = []
                 affected_dist = 0.0

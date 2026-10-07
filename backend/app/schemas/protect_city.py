@@ -130,6 +130,7 @@ class ProtectCityRequestSchema(BaseModel):
     candidate_types: list[str] | None = Field(default=None, description="Optional filter by intervention candidate categories")
     priority_limit: int = Field(default=20, ge=1, le=100, description="Maximum number of recommendations to return")
     time_horizon_minutes: int | None = Field(default=180, description="Optional time horizon filter in minutes (30, 60, 120, 180)")
+    zone_id: str | None = Field(default=None, description="Optional intelligence zone identifier (defaults to deep_mumbai_mithi)")
 
 
 class ProtectCityResponseSchema(BaseModel):

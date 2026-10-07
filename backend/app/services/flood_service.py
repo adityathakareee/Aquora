@@ -37,6 +37,7 @@ from app.schemas.flood import (
     FloodSimulationRunResponseSchema,
 )
 from app.schemas.geospatial import BoundingBox
+from app.services.spatial_resolver import SpatialZoneResolver, UnsupportedZoneError
 
 
 class FloodProcessingService:
@@ -112,8 +113,11 @@ class FloodProcessingService:
                 if init_dt.tzinfo is None:
                     init_dt = init_dt.replace(tzinfo=timezone.utc)
 
-                # Mithi bounding box in EPSG:4326 (lon: 72.83 to 72.93, lat: 19.03 to 19.13)
-                bbox = BoundingBox(minx=72.83, miny=19.03, maxx=72.93, maxy=19.13)
+                # Resolve intelligence zone bounding box and validate solver capability
+                zone_id = getattr(request, "zone_id", None)
+                if zone_id:
+                    SpatialZoneResolver.validate_capability(zone_id, "physical_flood_solver")
+                bbox = SpatialZoneResolver.get_zone_bbox(zone_id)
 
                 # Fetch real forecast; raises explicit exception on error (NO synthetic fallback in REAL_DATA mode)
                 forecast_schemas = await self.open_meteo_forecast_provider.fetch_0_3h_horizon_forecasts(
@@ -254,7 +258,10 @@ class FloodProcessingService:
                     init_dt = datetime.now(timezone.utc)
                 if init_dt.tzinfo is None:
                     init_dt = init_dt.replace(tzinfo=timezone.utc)
-                bbox = BoundingBox(minx=72.83, miny=19.03, maxx=72.93, maxy=19.13)
+                zone_id = getattr(request, "zone_id", None)
+                if zone_id:
+                    SpatialZoneResolver.validate_capability(zone_id, "physical_flood_solver")
+                bbox = SpatialZoneResolver.get_zone_bbox(zone_id)
                 forecast_schemas = await self.synthetic_forecast_provider.fetch_0_3h_horizon_forecasts(
                     bbox=bbox, initialization_time=init_dt
                 )

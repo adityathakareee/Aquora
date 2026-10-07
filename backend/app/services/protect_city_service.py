@@ -42,6 +42,7 @@ from app.services.digital_twin_service import (
     DigitalTwinProcessingService,
 )
 from app.services.routing_service import SEVERITY_RANK
+from app.services.spatial_resolver import SpatialZoneResolver, UnsupportedZoneError
 
 PRIORITY_RANK = {"CRITICAL": 4, "HIGH": 3, "MEDIUM": 2, "LOW": 1, "UNKNOWN": 0}
 
@@ -204,6 +205,12 @@ class ProtectCityProcessingService:
         now_utc = datetime.now(timezone.utc)
         run_id = f"protect_run_{uuid.uuid4().hex[:12]}"
 
+        # 0. Validate Intelligence Zone & Capabilities
+        zone_id = getattr(request, "zone_id", None)
+        if zone_id:
+            SpatialZoneResolver.validate_capability(zone_id, "critical_facility_routing")
+        zone_bounds = SpatialZoneResolver.get_zone_bounds(zone_id)
+
         # 1. Resolve Digital Twin Run
         dt_service = DigitalTwinProcessingService(db=self.db)
         if request.digital_twin_run_id:
@@ -243,8 +250,8 @@ class ProtectCityProcessingService:
         for cand in cands:
             # Query Digital Twin cell inspection across 7 slices (0..180 min)
             # Row/col estimate for candidate coordinates
-            grid_r = int((cand.latitude - MUMBAI_MITHI_BOUNDS["min_lat"]) / ((MUMBAI_MITHI_BOUNDS["max_lat"] - MUMBAI_MITHI_BOUNDS["min_lat"]) / 40))
-            grid_c = int((cand.longitude - MUMBAI_MITHI_BOUNDS["min_lon"]) / ((MUMBAI_MITHI_BOUNDS["max_lon"] - MUMBAI_MITHI_BOUNDS["min_lon"]) / 40))
+            grid_r = int((cand.latitude - zone_bounds["min_lat"]) / ((zone_bounds["max_lat"] - zone_bounds["min_lat"]) / 40))
+            grid_c = int((cand.longitude - zone_bounds["min_lon"]) / ((zone_bounds["max_lon"] - zone_bounds["min_lon"]) / 40))
             cell_id = f"CELL_R{max(0, min(39, grid_r)):04d}_C{max(0, min(39, grid_c)):04d}"
 
             slice_depths: dict[int, float] = {}
