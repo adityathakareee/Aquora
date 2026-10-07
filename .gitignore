@@ -83,6 +83,8 @@ data/processed/*
 !data/processed/phase7/dataset/
 !data/processed/phase7/terrain/
 !data/processed/phase7/terrain/*
+backend/data/processed/*
+!backend/data/processed/README.md
 
 # Heavy Satellite & Geospatial Binaries
 *.geotiff

@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useReadinessQuery } from '@/queries/useHealthQuery';
 import { fetchAlerts } from '@/api/alerts';
 import { useAppStore } from '@/store/useAppStore';
+import { useLocationStore } from '@/store/useLocationStore';
 
 interface TopBarProps {
   onOpenMobileMenu?: () => void;
@@ -21,6 +22,7 @@ const WaveMark: React.FC = () => (
 export const TopBar: React.FC<TopBarProps> = ({ onOpenMobileMenu }) => {
   const { data: readiness } = useReadinessQuery();
   const { setActiveTab, navigateToLanding } = useAppStore();
+  const { displayName, activeIntelligenceLevel } = useLocationStore();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const isConnected = readiness?.status === 'ok' || readiness?.status === 'degraded';
 
@@ -91,10 +93,23 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenMobileMenu }) => {
 
       {/* ── Center: location + time ─────────────────────── */}
       <div className="hidden md:flex items-center gap-4 text-[12px]">
-        <span className="flex items-center gap-1.5 font-semibold text-slate-700">
-          <MapPin className="w-3.5 h-3.5 text-[#008080]" />
-          Mumbai · Mithi Catchment
-        </span>
+        <div className="flex items-center gap-2">
+          <span className="flex items-center gap-1.5 font-semibold text-slate-700">
+            <MapPin className="w-3.5 h-3.5 text-[#008080]" />
+            {displayName}
+          </span>
+          <span
+            className={`px-1.5 py-0.5 rounded text-[10px] font-bold tracking-wider uppercase ${
+              activeIntelligenceLevel === 'DEEP'
+                ? 'bg-teal-50 text-teal-700 border border-teal-200'
+                : activeIntelligenceLevel === 'REGIONAL'
+                ? 'bg-blue-50 text-blue-700 border border-blue-200'
+                : 'bg-slate-100 text-slate-700 border border-slate-200'
+            }`}
+          >
+            {activeIntelligenceLevel} ZONE
+          </span>
+        </div>
         <span className="w-px h-3.5 bg-slate-200" />
         <span className="flex items-center gap-1.5 font-medium text-slate-500">
           <Clock className="w-3.5 h-3.5 text-slate-400" />

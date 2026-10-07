@@ -36,6 +36,8 @@ REQUIRED_PRODUCTION_TABLES = [
     "simulator_scenarios",
     "simulator_runs",
     "alerts",
+    "geographic_entities",
+    "intelligence_zones",
 ]
 
 
@@ -50,7 +52,7 @@ def apply_alembic_migrations() -> None:
     except Exception:
         logger.info("Database connection target configured via settings.DATABASE_URL")
 
-    logger.info("Verifying database schema migration status (alembic upgrade head)... Target head: 0013_phase15_alerts")
+    logger.info("Verifying database schema migration status (alembic upgrade head)... Target head: 0014_phase1_india_hierarchy")
     try:
         from alembic.config import Config
         from alembic import command

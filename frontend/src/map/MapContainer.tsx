@@ -1,5 +1,6 @@
 import React from 'react';
 import { LeafletMap } from './LeafletMap';
+import { useLocationStore } from '@/store/useLocationStore';
 
 export const MapContainer: React.FC<{
   center?: [number, number];
@@ -7,11 +8,16 @@ export const MapContainer: React.FC<{
   className?: string;
   height?: string;
   floodIntensityMultiplier?: number;
-}> = ({ center = [19.076, 72.8777], zoom = 13, className, height = '400px', floodIntensityMultiplier = 1.0 }) => {
+}> = ({ center, zoom, className, height = '400px', floodIntensityMultiplier = 1.0 }) => {
+  const storeCenter = useLocationStore((s) => s.mapCenter);
+  const storeZoom = useLocationStore((s) => s.mapZoom);
+  const effectiveCenter = center || storeCenter;
+  const effectiveZoom = zoom !== undefined ? zoom : storeZoom;
+
   return (
     <LeafletMap
-      center={center}
-      zoom={zoom}
+      center={effectiveCenter}
+      zoom={effectiveZoom}
       height={height}
       className={className}
       floodIntensityMultiplier={floodIntensityMultiplier}

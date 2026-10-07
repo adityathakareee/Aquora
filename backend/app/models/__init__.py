@@ -44,6 +44,10 @@ from app.models.simulator import (
     SimulatorRun,
     SimulatorScenario,
 )
+from app.models.geographic import (
+    GeographicEntity,
+    IntelligenceZone,
+)
 from app.models.spatial import RasterMetadata, StudyArea, VectorFeature
 from app.models.terrain import (
     Catchment,
@@ -82,9 +86,11 @@ __all__ = [
     "FloodSimulationArtifact",
     "FloodSimulationDiagnostic",
     "FloodSimulationRun",
+    "GeographicEntity",
     "GroundTruthEvidence",
     "GroundTruthRun",
     "IngestionRun",
+    "IntelligenceZone",
     "InterventionCandidate",
     "ModelRun",
     "ObservationComparison",
