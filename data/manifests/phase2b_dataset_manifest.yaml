@@ -1,0 +1,107 @@
+manifest_version: 1.0.0
+phase: PHASE_2B_INDIA_GEOGRAPHIC_TERRAIN_FOUNDATION
+created_at: '2026-10-07T18:55:18.420276+00:00'
+datasets:
+- dataset_id: P2B-ADMIN-001
+  dataset_name: India Administrative Boundaries
+  provider: Survey of India / Datameet GIS
+  source_type: Vector GeoJSON
+  version: '2024.1'
+  acquisition_date: '2026-10-08'
+  license: ODbL / Open Government Data
+  coverage: India-wide (Country, 36 States/UTs, Key Districts)
+  native_resolution: Vector Polygon
+  crs: EPSG:4326
+  raw_path: data/raw/boundaries/india_administrative_boundaries.geojson
+  processed_path: data/processed/boundaries/india_administrative_hierarchy.json
+  status: INGESTED_AND_VERIFIED
+  entities_count: 45
+- dataset_id: P2B-BASIN-001
+  dataset_name: HydroBASINS India River Basins
+  provider: HydroSHEDS / WWF
+  source_type: Vector GeoJSON
+  version: v1.c
+  acquisition_date: '2026-10-08'
+  license: Free for non-commercial research
+  coverage: Subcontinental India (8 Major Basins)
+  native_resolution: Vector (~90m baseline)
+  crs: EPSG:4326
+  raw_path: data/raw/boundaries/hydrobasins_india.geojson
+  processed_path: data/processed/boundaries/hydrobasins_india.json
+  status: INGESTED_AND_VERIFIED
+  basins_count: 8
+- dataset_id: P2B-DEM-001
+  dataset_name: Copernicus DEM GLO-30 Elevation
+  provider: European Space Agency (ESA) / Copernicus Programme
+  source_type: Raster GeoTIFF
+  version: 2021 Baseline
+  acquisition_date: '2026-10-08'
+  license: Open Access Copernicus License
+  coverage: Target Multi-Basin Validation Footprints (Ganga, Brahmaputra, Godavari,
+    Narmada, Mithi)
+  native_resolution: 30m (1 arc-sec)
+  crs: EPSG:4326
+  raw_path: data/raw/dem/copernicus_glo30/
+  processed_path: data/processed/dem/
+  status: NORMALIZED_AND_VERIFIED
+  units: Meters above sea level
+- dataset_id: P2B-SLOPE-001
+  dataset_name: Copernicus Derived Terrain Slope
+  provider: AQUORA Terrain Engine (Derived from Copernicus DEM GLO-30)
+  source_type: Derived Raster GeoTIFF
+  version: 1.0.0
+  acquisition_date: '2026-10-08'
+  license: Internal AQUORA Derivative
+  coverage: Target Multi-Basin Validation Footprints
+  native_resolution: 30m
+  crs: EPSG:4326
+  raw_path: data/processed/dem/
+  processed_path: data/processed/terrain/*_slope_30m.tif
+  status: DERIVED_AND_VERIFIED
+  units: Degrees [0, 90]
+- dataset_id: P2B-HYDRO-001
+  dataset_name: HydroRIVERS India Network
+  provider: HydroSHEDS / WWF
+  source_type: Vector GeoJSON
+  version: v1.0
+  acquisition_date: '2026-10-08'
+  license: Free for non-commercial research
+  coverage: Target Basin River Channels
+  native_resolution: Vector Polyline
+  crs: EPSG:4326
+  raw_path: data/raw/hydrography/hydrorivers/
+  processed_path: data/processed/hydrography/hydrorivers_*.geojson
+  status: INGESTED_AND_VERIFIED
+  attributes:
+  - river_id
+  - river_name
+  - strahler_order
+  - upstream_drainage_area_km2
+- dataset_id: P2B-DIST-001
+  dataset_name: Metric Distance to River
+  provider: AQUORA Spatial Engine (Derived from HydroRIVERS)
+  source_type: Derived Raster GeoTIFF
+  version: 1.0.0
+  acquisition_date: '2026-10-08'
+  license: Internal AQUORA Derivative
+  coverage: Target Multi-Basin Validation Footprints
+  native_resolution: 30m grid
+  crs: EPSG:4326
+  raw_path: data/processed/hydrography/
+  processed_path: data/processed/terrain/*_distance_to_river_30m.tif
+  status: DERIVED_AND_VERIFIED
+  units: Meters (>= 0.0)
+- dataset_id: P2B-LC-001
+  dataset_name: ESA WorldCover 2021 10m & Derived 30m Products
+  provider: ESA / VITO Remote Sensing
+  source_type: Raster GeoTIFF & Derived 30m Grids
+  version: 2021 V200
+  acquisition_date: '2026-10-08'
+  license: CC-BY 4.0
+  coverage: Target Multi-Basin Validation Footprints
+  native_resolution: 10m native; aggregated to 30m dominant class & built-up fraction
+  crs: EPSG:4326
+  raw_path: data/raw/landcover/worldcover/
+  processed_path: data/processed/landcover/*_landcover_30m.tif
+  status: AGGREGATED_AND_VERIFIED
+  classes: '10: Tree, 40: Cropland, 50: Built-up, 80: Permanent Water'

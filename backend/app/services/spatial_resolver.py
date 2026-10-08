@@ -51,6 +51,14 @@ class SpatialZoneResolver:
         "mithi": DEFAULT_ZONE_ID,
         "mithi_catchment_mumbai": DEFAULT_ZONE_ID,
         "default": DEFAULT_ZONE_ID,
+        "ganga": "regional_ganga_basin",
+        "ganga_basin": "regional_ganga_basin",
+        "brahmaputra": "regional_brahmaputra_basin",
+        "brahmaputra_basin": "regional_brahmaputra_basin",
+        "godavari": "regional_godavari_basin",
+        "godavari_basin": "regional_godavari_basin",
+        "narmada": "regional_narmada_basin",
+        "narmada_basin": "regional_narmada_basin",
     }
 
     @classmethod
