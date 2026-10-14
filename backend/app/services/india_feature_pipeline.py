@@ -37,6 +37,7 @@ from app.schemas.intelligence_contracts import (
     AQUORA_ML_FEATURE_SCHEMA_V1,
     IntelligenceLevel,
 )
+from app.services.india_population_service import IndiaPopulationService
 from app.services.india_rainfall_service import IndiaRainfallService
 from app.services.india_spatial_service import IndiaSpatialService
 from app.services.spatial_resolver import (
@@ -230,8 +231,10 @@ class IndiaFeaturePipelineService:
                 provenance["soil_saturation_source"] = "UNAVAILABLE"
 
             # Population density: Gridded Census/WorldPop raster is currently uningested
-            features["population_density_per_km2"] = None
-            provenance["population_density_source"] = "UNAVAILABLE"
+            pop_density, pop_prov = IndiaPopulationService.get_population_density(latitude, longitude)
+            features["population_density_per_km2"] = pop_density
+            provenance["population_density_source"] = pop_prov.get("source", "UNAVAILABLE")
+            provenance["population_density_status"] = pop_prov.get("status", "UNAVAILABLE")
         else:
             # National tier: strictly None
             features["basin_drainage_area_km2"] = None

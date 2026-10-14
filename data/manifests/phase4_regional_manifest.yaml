@@ -1,0 +1,95 @@
+phase: "Phase 4 - Regional Flood Intelligence & Watershed Risk Modeling (Level 2)"
+version: "1.0.0"
+created_at: "2026-10-15T00:55:00Z"
+governance:
+  status: "IMPLEMENTED_INFRASTRUCTURE_VERIFIED"
+  specification: "ml/aquora_ml_feature_schema_v1.json"
+  schema_version: "1.0.0"
+  zero_fabrication_enforced: true
+  physics_engine_isolated: true
+  zero_leakage_enforced: true
+
+predictor_features:
+  count: 14
+  core_national_count: 11
+  regional_expansion_count: 3
+  order_governed:
+    - rainfall_1h_mm
+    - rainfall_3h_mm
+    - rainfall_6h_mm
+    - rainfall_24h_mm
+    - rainfall_72h_mm
+    - rainfall_anomaly_index
+    - elevation_m
+    - slope_deg
+    - distance_to_river_m
+    - historical_flood_frequency
+    - landcover_class
+    - basin_drainage_area_km2
+    - soil_saturation_index
+    - population_density_per_km2
+  deep_zone_exclusive_prohibited:
+    - flow_accumulation_cells
+    - drainage_proxy_score
+    - built_up_fraction
+    - distance_to_road_m
+    - distance_to_waterway_m
+    - tide_level_m
+
+supported_basins:
+  active:
+    - basin_id: "BASIN-GANGA"
+      name: "Ganga River Basin"
+      drainage_area_km2: 861452.0
+    - basin_id: "BASIN-BRAHMAPUTRA"
+      name: "Brahmaputra River Basin"
+      drainage_area_km2: 194413.0
+    - basin_id: "BASIN-GODAVARI"
+      name: "Godavari River Basin"
+      drainage_area_km2: 312812.0
+    - basin_id: "BASIN-NARMADA"
+      name: "Narmada River Basin"
+      drainage_area_km2: 98796.0
+    - basin_id: "BASIN-MITHI"
+      name: "Mithi Catchment / Coastal Maharashtra Basin"
+      drainage_area_km2: 72.95
+
+services_and_modules:
+  schemas: "backend/app/schemas/regional.py"
+  population_service: "backend/app/services/india_population_service.py"
+  regional_intelligence_service: "backend/app/services/regional_intelligence_service.py"
+  model_registry: "backend/app/services/ml_model_registry.py"
+  api_router: "backend/app/api/v1/intelligence.py"
+
+model_registry_integration:
+  model_class: "RegionalBasinModel"
+  model_id: "aquora_regional_basin_model_v1"
+  model_version: "1.0.0-regional"
+  intelligence_level: "REGIONAL"
+  operational_status: "PLANNED"
+  is_ready: false
+  heuristic_mode:
+    status: "UNCALIBRATED_REGIONAL_SCREENING"
+    scientific_basis: "Dimensionless composite index of 24h rainfall, soil saturation, river proximity, and terrain slope"
+    disclaimer: "Uncalibrated meso-scale screening index, not a calibrated probability or hydraulic depth"
+
+api_endpoints:
+  - path: "/api/v1/intelligence/regional"
+    method: "POST"
+    request_schema: "RegionalIntelligenceRequest"
+    response_schema: "RegionalIntelligenceResponse"
+    description: "Evaluates 14 Core+Regional features for meso-scale watershed risk; reports explicit out-of-coverage outside supported basins"
+  - path: "/api/v1/intelligence/regional/batch"
+    method: "POST"
+    request_schema: "RegionalBatchRequest"
+    response_schema: "RegionalBatchResponse"
+    description: "Bounded batch regional intelligence up to 250 points across India"
+  - path: "/api/v1/intelligence/regional/basins/{basin_id}"
+    method: "GET"
+    response_schema: "BasinSummaryResponse"
+    description: "Hydrographic basin metadata, boundaries, drainage area, and operational capability summary"
+
+zero_fabrication_accounting:
+  population_data: "Uningested locally (WorldPop/Census GeoTIFFs absent); returns None with UNAVAILABLE provenance"
+  critical_facilities: "366 verified facilities in Mumbai/Mithi; None with CRITICAL_FACILITIES_UNINGESTED in other basins"
+  hydraulic_depths: "Phase 6 deterministic physics solver strictly uninvoked; zero simulation imitation"

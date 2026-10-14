@@ -25,11 +25,20 @@ from app.schemas.screening import (
     NationalScreeningResponse,
     ScreeningStatus,
 )
+from app.schemas.regional import (
+    BasinSummaryResponse,
+    RegionalBatchRequest,
+    RegionalBatchResponse,
+    RegionalIntelligenceRequest,
+    RegionalIntelligenceResponse,
+)
 from app.services.india_feature_pipeline import IndiaFeaturePipelineService
 from app.services.ml_model_registry import FloodModelRegistry
+from app.services.regional_intelligence_service import RegionalIntelligenceService
 
 router = APIRouter(prefix="/intelligence", tags=["Intelligence Tiers & Capabilities"])
 feature_pipeline_service = IndiaFeaturePipelineService()
+regional_intelligence_service = RegionalIntelligenceService()
 
 # Registered operational intelligence zones
 REGISTERED_ZONES: Dict[str, Dict[str, Any]] = {
@@ -481,3 +490,57 @@ async def screen_national_batch(request: NationalScreeningBatchRequest) -> Natio
         model_id=model.model_id,
         model_version=model.model_version,
     )
+
+
+# ==============================================================================
+# PHASE 4: LEVEL 2 REGIONAL INTELLIGENCE ENDPOINTS
+# ==============================================================================
+
+
+@router.post(
+    "/regional",
+    response_model=RegionalIntelligenceResponse,
+    summary="Regional Flood Intelligence & Watershed Risk",
+    description=(
+        "Level 2 Regional flood intelligence across supported Indian river basins. "
+        "Evaluates the 14 authorized features (11 Core National + 3 Regional Expansion). "
+        "Never fabricates values for uningested features or outside supported basins."
+    ),
+)
+async def get_regional_intelligence(
+    request: RegionalIntelligenceRequest,
+) -> RegionalIntelligenceResponse:
+    return regional_intelligence_service.evaluate_point(request)
+
+
+@router.post(
+    "/regional/batch",
+    response_model=RegionalBatchResponse,
+    summary="Batch Regional Flood Intelligence",
+    description="Bounded batch regional flood intelligence for up to 250 points across India.",
+)
+async def get_regional_intelligence_batch(
+    request: RegionalBatchRequest,
+) -> RegionalBatchResponse:
+    if len(request.points) > 250:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Batch size {len(request.points)} exceeds maximum allowed limit of 250 points.",
+        )
+    return regional_intelligence_service.evaluate_batch(request)
+
+
+@router.get(
+    "/regional/basins/{basin_id}",
+    response_model=BasinSummaryResponse,
+    summary="River Basin Hydrographic Summary",
+    description="Get metadata, boundaries, drainage area, and operational capabilities for an Indian river basin.",
+)
+async def get_basin_summary(basin_id: str) -> BasinSummaryResponse:
+    summary = RegionalIntelligenceService.get_basin_summary(basin_id)
+    if not summary:
+        raise HTTPException(
+            status_code=404,
+            detail=f"River basin '{basin_id}' not found in canonical HydroBASINS hierarchy.",
+        )
+    return summary
