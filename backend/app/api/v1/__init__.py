@@ -5,6 +5,7 @@ from app.api.v1.calibration import router as calibration_router
 from app.api.v1.critical_access import router as critical_access_router
 from app.api.v1.digital_twin import router as digital_twin_router
 from app.api.v1.drainage import router as drainage_router
+from app.api.v1.features import router as features_router
 from app.api.v1.flood import router as flood_router
 from app.api.v1.ground_truth import router as ground_truth_router
 from app.api.v1.health import router as health_router
@@ -21,6 +22,7 @@ v1_router = APIRouter(prefix="/v1")
 v1_router.include_router(health_router)
 v1_router.include_router(locations_router)
 v1_router.include_router(intelligence_router)
+v1_router.include_router(features_router)
 v1_router.include_router(rainfall_router)
 v1_router.include_router(sar_router)
 v1_router.include_router(terrain_router)

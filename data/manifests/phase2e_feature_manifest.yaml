@@ -1,0 +1,72 @@
+phase: "Phase 2E - National Flood Feature Pipeline & Multiscale Feature Generation"
+version: "1.0.0"
+created_at: "2026-10-14T15:27:00Z"
+governance:
+  status: "COMPLETE_VERIFIED"
+  specification: "ml/aquora_ml_feature_schema_v1.json"
+  schema_version: "1.0.0"
+  zero_leakage_enforced: true
+  physics_engine_isolated: true
+
+pipeline_service:
+  module: "backend/app/services/india_feature_pipeline.py"
+  class: "IndiaFeaturePipelineService"
+  total_features: 20
+  tiers:
+    CORE_NATIONAL:
+      count: 11
+      features:
+        - rainfall_1h_mm
+        - rainfall_3h_mm
+        - rainfall_6h_mm
+        - rainfall_24h_mm
+        - rainfall_72h_mm
+        - rainfall_anomaly_index
+        - elevation_m
+        - slope_deg
+        - distance_to_river_m
+        - historical_flood_frequency
+        - landcover_class
+    REGIONAL_EXPANSION:
+      count: 3
+      features:
+        - basin_drainage_area_km2
+        - soil_saturation_index
+        - population_density_per_km2
+    DEEP_ZONE_EXCLUSIVE:
+      count: 6
+      features:
+        - flow_accumulation_cells
+        - drainage_proxy_score
+        - built_up_fraction
+        - distance_to_road_m
+        - distance_to_waterway_m
+        - tide_level_m
+
+api_endpoints:
+  - path: "/api/v1/features/schema"
+    method: "GET"
+    description: "Returns schema v1.0.0 tier breakdown and metadata"
+  - path: "/api/v1/features/extract/point"
+    method: "POST"
+    description: "Point extraction for 20 features with provenance"
+  - path: "/api/v1/features/extract/batch"
+    method: "POST"
+    description: "Bounded batch grid extraction to JSON or Parquet"
+
+test_coverage:
+  suite: "backend/tests/test_phase2e_feature_pipeline.py"
+  total_tests: 14
+  passed: 14
+  failed: 0
+  acceptance_matrix:
+    P2E-ACC-01: "PASS (11 Core National Features)"
+    P2E-ACC-02: "PASS (Regional Gating & Isolation)"
+    P2E-ACC-03: "PASS (Deep Zone Isolation)"
+    P2E-ACC-04: "PASS (Schema Validation v1.0.0)"
+    P2E-ACC-05: "PASS (Missing Data None/NaN Preservation)"
+    P2E-ACC-06: "PASS (Zero Rainfall 0.0 Preservation)"
+    P2E-ACC-07: "PASS (Candidate Target Label Isolation)"
+    P2E-ACC-08: "PASS (Physics Engine Exclusion)"
+    P2E-ACC-09: "PASS (Batch Bounds & Parquet Serialization)"
+    P2E-ACC-10: "PASS (REST API Integration)"
