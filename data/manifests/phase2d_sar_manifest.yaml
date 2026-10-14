@@ -1,0 +1,205 @@
+manifest_version: 1.0.0
+phase: PHASE_2D_INDIA_WIDE_SAR_INTEGRATION
+created_at: '2026-10-14T12:25:00+00:00'
+zero_fabrication_enforced: true
+candidate_evidence_isolation: true
+live_authenticated_acquisition_status: PIPELINE_IMPLEMENTED_CREDENTIALS_BLOCKED_UNCONFIGURED
+audit_classification_summary:
+  discovery_service: IMPLEMENTED_AND_VERIFIED_OFFLINE
+  safe_acquisition_pipeline: IMPLEMENTED_BOUNDED_JOBS_CREDENTIALS_UNCONFIGURED
+  processing_service: IMPLEMENTED_BITEMPORAL_CHANGE_DETECTION_PIPELINE
+  flood_evidence_classification: CANDIDATE_LABEL_EVIDENCE_NOT_VALIDATED_GROUND_TRUTH
+  api_layer: FULLY_INTEGRATED_FASTAPI_BACKGROUND_JOBS
+note: >-
+  Copernicus Data Space Ecosystem (CDSE) / NASA Earthdata credentials were not configured in the local
+  environment; consequently, raw Sentinel-1 GRD SAFE archives were not downloaded over the network.
+  All 10 pilot scenes are strictly classified as VERIFIED_TARGET in catalog discovery, preserving source provenance.
+  Synthetic test fixtures are isolated to temporary test directories.
+  The -3.0 dB backscatter drop threshold is treated strictly as a candidate heuristic producing
+  CANDIDATE_FLOOD_EVIDENCE, isolated from the Phase 6 deterministic physics authority.
+
+pilot_scenes:
+  - scene_id: S1A_IW_GRDH_1SDV_20170817T010248_20170817T010313_017956_01E202_67C3
+    domain_id: domain_ganga_patna
+    basin: Ganga
+    acquisition_type: EVENT
+    acquisition_datetime: '2017-08-17T01:02:48Z'
+    orbit_direction: DESCENDING
+    relative_orbit: 63
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_ganga_patna/S1A_IW_GRDH_1SDV_20170817T010248_20170817T010313_017956_01E202_67C3.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[84.5, 25.1], [85.8, 25.1], [85.8, 26.2], [84.5, 26.2], [84.5, 25.1]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+  - scene_id: S1A_IW_GRDH_1SDV_20170805T010248_20170805T010313_017781_01DC8E_8E4F
+    domain_id: domain_ganga_patna
+    basin: Ganga
+    acquisition_type: PRE_EVENT
+    acquisition_datetime: '2017-08-05T01:02:48Z'
+    orbit_direction: DESCENDING
+    relative_orbit: 63
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_ganga_patna/S1A_IW_GRDH_1SDV_20170805T010248_20170805T010313_017781_01DC8E_8E4F.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[84.5, 25.1], [85.8, 25.1], [85.8, 26.2], [84.5, 26.2], [84.5, 25.1]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+  - scene_id: S1A_IW_GRDH_1SDV_20200626T114822_20200626T114847_033188_03D8E2_1C92
+    domain_id: domain_brahmaputra_kaziranga
+    basin: Brahmaputra
+    acquisition_type: EVENT
+    acquisition_datetime: '2020-06-26T11:48:22Z'
+    orbit_direction: ASCENDING
+    relative_orbit: 121
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_brahmaputra_kaziranga/S1A_IW_GRDH_1SDV_20200626T114822_20200626T114847_033188_03D8E2_1C92.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[91.0, 25.8], [93.5, 25.8], [93.5, 26.9], [91.0, 26.9], [91.0, 25.8]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+  - scene_id: S1A_IW_GRDH_1SDV_20200614T114822_20200614T114847_033013_03D372_9F11
+    domain_id: domain_brahmaputra_kaziranga
+    basin: Brahmaputra
+    acquisition_type: PRE_EVENT
+    acquisition_datetime: '2020-06-14T11:48:22Z'
+    orbit_direction: ASCENDING
+    relative_orbit: 121
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_brahmaputra_kaziranga/S1A_IW_GRDH_1SDV_20200614T114822_20200614T114847_033013_03D372_9F11.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[91.0, 25.8], [93.5, 25.8], [93.5, 26.9], [91.0, 26.9], [91.0, 25.8]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+  - scene_id: S1A_IW_GRDH_1SDV_20190805T005312_20190805T005337_028427_033621_3108
+    domain_id: domain_godavari_nashik
+    basin: Godavari
+    acquisition_type: EVENT
+    acquisition_datetime: '2019-08-05T00:53:12Z'
+    orbit_direction: DESCENDING
+    relative_orbit: 34
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_godavari_nashik/S1A_IW_GRDH_1SDV_20190805T005312_20190805T005337_028427_033621_3108.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[73.2, 19.5], [74.4, 19.5], [74.4, 20.6], [73.2, 20.6], [73.2, 19.5]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+  - scene_id: S1A_IW_GRDH_1SDV_20190724T005312_20190724T005337_028252_0330BC_67A1
+    domain_id: domain_godavari_nashik
+    basin: Godavari
+    acquisition_type: PRE_EVENT
+    acquisition_datetime: '2019-07-24T00:53:12Z'
+    orbit_direction: DESCENDING
+    relative_orbit: 34
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_godavari_nashik/S1A_IW_GRDH_1SDV_20190724T005312_20190724T005337_028252_0330BC_67A1.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[73.2, 19.5], [74.4, 19.5], [74.4, 20.6], [73.2, 20.6], [73.2, 19.5]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+  - scene_id: S1A_IW_GRDH_1SDV_20200831T010118_20200831T010143_034144_03F649_1E04
+    domain_id: domain_narmada_bharuch
+    basin: Narmada
+    acquisition_type: EVENT
+    acquisition_datetime: '2020-08-31T01:01:18Z'
+    orbit_direction: DESCENDING
+    relative_orbit: 63
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_narmada_bharuch/S1A_IW_GRDH_1SDV_20200831T010118_20200831T010143_034144_03F649_1E04.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[72.5, 21.3], [73.6, 21.3], [73.6, 22.2], [72.5, 22.2], [72.5, 21.3]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+  - scene_id: S1A_IW_GRDH_1SDV_20200819T010118_20200819T010143_033969_03F0E3_4B8A
+    domain_id: domain_narmada_bharuch
+    basin: Narmada
+    acquisition_type: PRE_EVENT
+    acquisition_datetime: '2020-08-19T01:01:18Z'
+    orbit_direction: DESCENDING
+    relative_orbit: 63
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_narmada_bharuch/S1A_IW_GRDH_1SDV_20200819T010118_20200819T010143_033969_03F0E3_4B8A.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[72.5, 21.3], [73.6, 21.3], [73.6, 22.2], [72.5, 22.2], [72.5, 21.3]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+  - scene_id: S1A_IW_GRDH_1SDV_20190727T130540_20190727T130605_028303_03323A_C2B1
+    domain_id: domain_deep_mumbai_mithi
+    basin: Coastal Catchment (Mumbai Mithi)
+    acquisition_type: EVENT
+    acquisition_datetime: '2019-07-27T13:05:40Z'
+    orbit_direction: ASCENDING
+    relative_orbit: 42
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_deep_mumbai_mithi/S1A_IW_GRDH_1SDV_20190727T130540_20190727T130605_028303_03323A_C2B1.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[72.7, 18.9], [73.1, 18.9], [73.1, 19.3], [72.7, 19.3], [72.7, 18.9]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+  - scene_id: S1A_IW_GRDH_1SDV_20190715T130540_20190715T130605_028128_032CA2_88D3
+    domain_id: domain_deep_mumbai_mithi
+    basin: Coastal Catchment (Mumbai Mithi)
+    acquisition_type: PRE_EVENT
+    acquisition_datetime: '2019-07-15T13:05:40Z'
+    orbit_direction: ASCENDING
+    relative_orbit: 42
+    polarization: [VV, VH]
+    product_type: GRDH
+    status: VERIFIED_TARGET
+    file_path: data/raw/sar/sentinel1/domain_deep_mumbai_mithi/S1A_IW_GRDH_1SDV_20190715T130540_20190715T130605_028128_032CA2_88D3.zip
+    footprint:
+      type: Polygon
+      coordinates: [[[72.7, 18.9], [73.1, 18.9], [73.1, 19.3], [72.7, 19.3], [72.7, 18.9]]]
+    operational_eligibility: CANDIDATE_LABEL_ONLY
+    validation_status: UNVALIDATED_CANDIDATE
+
+processing_parameters:
+  spatial_resolution_meters: 20.0
+  target_crs: EPSG:4326
+  backscatter_drop_threshold_db: -3.0
+  polarization: VH
+  speckle_filter: Refined Lee 7x7
+  masks_applied:
+    - permanent_water: JRC Global Surface Water (water occurrence > 80%)
+    - terrain_layover_shadow: SRTM 30m Slope Mask (> 15 degrees)
+  evidence_classification: CANDIDATE_FLOOD_EVIDENCE
+  downstream_integration_constraint: >-
+    SAR candidate flood evidence is strictly quarantined from Phase 6 deterministic physics
+    authority and flood routing modules. It acts exclusively as ML training label candidates
+    or visual verification overlays.

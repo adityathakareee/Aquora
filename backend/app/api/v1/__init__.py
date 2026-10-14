@@ -13,6 +13,7 @@ from app.api.v1.locations import router as locations_router
 from app.api.v1.protect_city import router as protect_city_router
 from app.api.v1.rainfall import router as rainfall_router
 from app.api.v1.routing import router as routing_router
+from app.api.v1.sar import router as sar_router
 from app.api.v1.simulator import router as simulator_router
 from app.api.v1.terrain import router as terrain_router
 
@@ -21,6 +22,7 @@ v1_router.include_router(health_router)
 v1_router.include_router(locations_router)
 v1_router.include_router(intelligence_router)
 v1_router.include_router(rainfall_router)
+v1_router.include_router(sar_router)
 v1_router.include_router(terrain_router)
 v1_router.include_router(drainage_router)
 v1_router.include_router(flood_router)

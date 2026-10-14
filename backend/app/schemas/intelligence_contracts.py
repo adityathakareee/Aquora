@@ -99,6 +99,9 @@ class DeepDataContract(RegionalDataContract):
     tide_level_m: Optional[float] = Field(None, description="Real-time or harmonic tide water level in meters (coastal zones only)")
     sar_delta_vv_db: Optional[float] = Field(None, description="Sentinel-1 GRD VV bitemporal backscatter delta in dB")
     modeled_depth_m: Optional[float] = Field(None, ge=0.0, description="Phase 6 deterministic hydraulic water depth in meters")
+    sar_available: bool = Field(False, description="Whether SAR backscatter observations are available for this contract")
+    sar_operational_status: Optional[str] = Field("OPERATIONAL_OBSERVATION_UNAVAILABLE", description="Operational availability status for SAR")
+    sar_provenance: Optional[str] = Field("UNAVAILABLE", description="Provenance classification of SAR backscatter observation")
 
 
 # ==============================================================================

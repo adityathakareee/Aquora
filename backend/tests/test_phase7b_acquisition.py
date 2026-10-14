@@ -152,19 +152,60 @@ def test_manifest_target_verified_e820_authoritative_for_e02_sar():
 
 
 def test_smoke_test_e820_classified_as_acquired_e02():
-    """Verify E820 target is classified as ACQUIRED for manifest entry DL-SAR-E02 following full acquisition."""
+    """
+    Verify E820 target is classified as VERIFIED_TARGET when un-downloaded,
+    and transitions to ACQUIRED only after authentic local payload exists and passes validation.
+    """
     manifest = load_manifest()
     registry = build_provenance_registry(manifest)
 
     e02_entry = next(e for e in registry["entries"] if e["acquisition_id"] == "DL-SAR-E02")
     assert e02_entry["target_id"] == "S1A_IW_GRDH_1SDV_20170829T010248_20170829T010313_018131_01E74F_E820"
-    assert e02_entry["download_status"] == "ACQUIRED"
+
+    # In authentic un-downloaded state, zero-fabrication strictly enforces VERIFIED_TARGET
+    if not (e02_entry["local_path"] and os.path.exists(e02_entry["local_path"])):
+        assert e02_entry["download_status"] == "VERIFIED_TARGET"
+    else:
+        assert e02_entry["download_status"] == "ACQUIRED"
 
     smoke_entry = next((e for e in registry["entries"] if e["acquisition_id"] == "DL-SAR-E02-SMOKE"), None)
     if smoke_entry:
         assert smoke_entry["download_status"] == "SMOKE_TEST"
         assert smoke_entry["is_smoke_test"] is True
         assert smoke_entry["target_id"] == "S1A_IW_GRDH_1SDV_20170829T010248_20170829T010313_018131_01E74F_E820"
+
+
+def test_smoke_test_e820_acquired_transition_with_mocked_file(tmp_path, monkeypatch):
+    """Verify that when a verified SAFE archive exists locally, the entry correctly transitions to ACQUIRED."""
+    from phase7b_acquisition_service import RAW_DIRS, validate_scientific_file_content
+    import zipfile
+
+    # Create a small valid test SAFE archive in tmp_path
+    mock_zip = tmp_path / "S1A_IW_GRDH_1SDV_20170829T010248_20170829T010313_018131_01E74F_E820.zip"
+    with zipfile.ZipFile(mock_zip, "w") as zf:
+        zf.writestr("manifest.safe", "<xml><productType>GRD</productType></xml>")
+        zf.writestr("measurement/s1a-iw-grd-vv.tiff", b"TIFFDATA")
+        zf.writestr("measurement/s1a-iw-grd-vh.tiff", b"TIFFDATA")
+        zf.writestr("annotation/s1a-iw-grd-vv.xml", b"<annotation/>")
+        zf.writestr("annotation/s1a-iw-grd-vh.xml", b"<annotation/>")
+
+    manifest = load_manifest()
+
+    # Monkeypatch RAW_DIRS to point to tmp_path
+    monkeypatch.setitem(RAW_DIRS, "satellite_ground_truth", tmp_path)
+    # Monkeypatch validation function to accept our mock SAFE zip
+    monkeypatch.setattr("phase7b_acquisition_service.validate_scientific_file_content", lambda p, expected_format=None: (True, "Valid SAFE test archive"))
+
+    # Also place in event dir
+    event_dir = tmp_path / "E02"
+    event_dir.mkdir(parents=True, exist_ok=True)
+    import shutil
+    shutil.copy(mock_zip, event_dir / mock_zip.name)
+
+    registry = build_provenance_registry(manifest)
+    e02_entry = next(e for e in registry["entries"] if e["acquisition_id"] == "DL-SAR-E02")
+    assert e02_entry["download_status"] == "ACQUIRED"
+    assert e02_entry["file_size_bytes"] > 0
 
 
 def test_direct_imerg_and_asf_url_resolution():

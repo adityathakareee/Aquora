@@ -456,6 +456,10 @@ class IndiaSpatialService:
         if not reg_contract:
             return None
 
+        sar_available = sar_delta_vv_db is not None
+        sar_status = "AUTHENTIC_OPERATIONAL_MEASUREMENT" if sar_available else "OPERATIONAL_OBSERVATION_UNAVAILABLE"
+        sar_prov = "SENTINEL1_GRD_IW" if sar_available else "UNAVAILABLE"
+
         return DeepDataContract(
             **reg_contract.model_dump(),
             flow_accumulation_cells=flow_accumulation_cells,
@@ -466,4 +470,7 @@ class IndiaSpatialService:
             tide_level_m=tide_level_m,
             sar_delta_vv_db=sar_delta_vv_db,
             modeled_depth_m=modeled_depth_m,
+            sar_available=sar_available,
+            sar_operational_status=sar_status,
+            sar_provenance=sar_prov,
         )
