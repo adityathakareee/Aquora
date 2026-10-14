@@ -1,0 +1,71 @@
+phase: "Phase 3 - Machine Learning Model Training (National Screening Model)"
+version: "1.0.0"
+created_at: "2026-10-14T23:45:00Z"
+governance:
+  status: "IMPLEMENTED_INFRASTRUCTURE_VERIFIED_TRAINING_GATED"
+  specification: "ml/aquora_ml_feature_schema_v1.json"
+  schema_version: "1.0.0"
+  zero_fabrication_enforced: true
+  physics_engine_isolated: true
+  zero_leakage_enforced: true
+
+predictor_features:
+  count: 11
+  tier: "CORE_NATIONAL"
+  order_governed:
+    - rainfall_1h_mm
+    - rainfall_3h_mm
+    - rainfall_6h_mm
+    - rainfall_24h_mm
+    - rainfall_72h_mm
+    - rainfall_anomaly_index
+    - elevation_m
+    - slope_deg
+    - distance_to_river_m
+    - historical_flood_frequency
+    - landcover_class
+
+training_pipeline:
+  dataset_generator_module: "ml/dataset_generator.py"
+  dataset_generator_class: "NationalDatasetGenerator"
+  training_pipeline_module: "ml/training_pipeline.py"
+  training_pipeline_class: "NationalScreeningTrainingPipeline"
+  validation_strategy: "GroupKFold (HydroBASINS basin_id spatial grouping)"
+  leakage_prevention:
+    - "Basin grouping ensures no spatial spillover across folds"
+    - "Target labels isolated from features in separate columns"
+    - "Unknown labels (-1) strictly excluded from supervised training"
+    - "SAR backscatter delta and Phase 6 hydraulic depth excluded"
+  data_sufficiency_gate:
+    status: "ENFORCED"
+    rule: "Requires authentic supervised samples, both classes, and >= 2 independent spatial basins"
+    operational_label_audit: "Pilot domains have 100% unobserved (-1) labels; operational training halted honestly"
+
+model_registry_integration:
+  registry_module: "backend/app/services/ml_model_registry.py"
+  model_class: "NationalScreeningModel"
+  model_id: "aquora_national_screening_xgboost_v1"
+  model_version: "1.0.0-screening"
+  operational_status: "PLANNED"  # Zero-fabrication honest unready status
+  is_ready: false
+  unready_behavior: "Returns explicit MODEL_NOT_TRAINED status with None probability; never fabricates fake scores"
+
+api_endpoints:
+  - path: "/api/v1/intelligence/screening/national"
+    method: "POST"
+    request_schema: "NationalScreeningRequest"
+    response_schema: "NationalScreeningResponse"
+    description: "Evaluates 11 Core National ML features for macro flood susceptibility; reports MODEL_NOT_TRAINED when unverified"
+  - path: "/api/v1/intelligence/screening/national/batch"
+    method: "POST"
+    request_schema: "NationalScreeningBatchRequest"
+    response_schema: "NationalScreeningBatchResponse"
+    description: "Bounded batch screening up to 250 points across India"
+
+test_coverage:
+  suite: "backend/tests/test_phase3_national_screening_model.py"
+  total_tests: 14
+  passed: 14
+  regression_suites_verified:
+    - "backend/tests/test_phase1_india_expansion.py (10 passed)"
+    - "backend/tests/test_phase2e_feature_pipeline.py (14 passed)"

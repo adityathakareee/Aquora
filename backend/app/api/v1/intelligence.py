@@ -18,9 +18,18 @@ from app.schemas.intelligence_contracts import (
     IntelligenceLevel,
     ZoneStatus,
 )
+from app.schemas.screening import (
+    NationalScreeningBatchRequest,
+    NationalScreeningBatchResponse,
+    NationalScreeningRequest,
+    NationalScreeningResponse,
+    ScreeningStatus,
+)
+from app.services.india_feature_pipeline import IndiaFeaturePipelineService
 from app.services.ml_model_registry import FloodModelRegistry
 
 router = APIRouter(prefix="/intelligence", tags=["Intelligence Tiers & Capabilities"])
+feature_pipeline_service = IndiaFeaturePipelineService()
 
 # Registered operational intelligence zones
 REGISTERED_ZONES: Dict[str, Dict[str, Any]] = {
@@ -335,3 +344,140 @@ async def get_feature_schema() -> Dict[str, Any]:
 async def list_models() -> List[Dict[str, Any]]:
     """Retrieve registered models across all intelligence tiers from FloodModelRegistry."""
     return FloodModelRegistry.list_models()
+
+
+def is_within_national_bounds(lat: float, lon: float) -> bool:
+    """Validate whether coordinate lies within the India national extent [6.5-37.5°N, 68.0-97.5°E]."""
+    bounds = REGISTERED_ZONES["national_india"]["spatial_bounds"]
+    return (
+        bounds["min_lat"] <= lat <= bounds["max_lat"]
+        and bounds["min_lon"] <= lon <= bounds["max_lon"]
+    )
+
+
+@router.post(
+    "/screening/national",
+    response_model=NationalScreeningResponse,
+    summary="National Flood Risk Screening (Macro Scale)",
+    description=(
+        "Evaluates the 11 Core National ML features for macro flood susceptibility across India. "
+        "Strictly decoupled from Phase 6 physical hydraulic simulation. "
+        "Reports explicit MODEL_NOT_TRAINED status when model artifact is unverified/untrained; "
+        "never fabricates predictions or synthetic scores."
+    ),
+)
+async def screen_national_point(request: NationalScreeningRequest) -> NationalScreeningResponse:
+    # 1. Retrieve the national screening model from the registry
+    model = FloodModelRegistry.get_model(IntelligenceLevel.NATIONAL, "national_india")
+
+    # 2. Check national extent bounds
+    if not is_within_national_bounds(request.latitude, request.longitude):
+        return NationalScreeningResponse(
+            status=ScreeningStatus.OUTSIDE_COVERAGE.value,
+            is_ready=False,
+            model_id=model.model_id,
+            model_version=model.model_version,
+            resolved_zone="OUTSIDE_INDIA_EXTENT",
+            coordinates={"latitude": request.latitude, "longitude": request.longitude},
+            features_used=None,
+            feature_values=None,
+            susceptibility_probability=None,
+            susceptibility_grade=None,
+            calibration_status="UNCALIBRATED_MACRO_SCREENING",
+            provenance={"domain": "NATIONAL_INDIA", "error": "OUTSIDE_SPATIAL_EXTENT"},
+            message=(
+                f"Coordinates ({request.latitude}, {request.longitude}) fall outside the "
+                "supported India National Screening extent [6.5-37.5°N, 68.0-97.5°E]. "
+                "No synthetic spatial fallback is permitted."
+            ),
+        )
+
+    # 3. Extract 11 Core National features via Phase 2E pipeline
+    try:
+        extraction = feature_pipeline_service.extract_point_features(
+            latitude=request.latitude,
+            longitude=request.longitude,
+            timestamp=request.timestamp,
+            allow_benchmark_rainfall=request.allow_benchmark_rainfall,
+            include_candidate_target=False,
+        )
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"National feature pipeline extraction failed: {str(e)}",
+        )
+
+    tier = extraction.zone_tier
+    resolved_zone = extraction.zone_name
+    extracted_features = extraction.features
+
+    # Filter to exact 11 core national features in governed order
+    core_features: Dict[str, Optional[float]] = {}
+    for feat_name in IndiaFeaturePipelineService.CORE_NATIONAL_FEATURES:
+        val = extracted_features.get(feat_name)
+        core_features[feat_name] = float(val) if val is not None else None
+
+    # 4. Predict via registered national model
+    prediction_result = model.predict_risk(core_features)
+
+    # 5. Assemble response adhering to schema
+    status_val = (
+        ScreeningStatus.READY.value
+        if prediction_result.get("is_ready")
+        else ScreeningStatus.MODEL_NOT_TRAINED.value
+    )
+
+    return NationalScreeningResponse(
+        status=status_val,
+        is_ready=prediction_result.get("is_ready", False),
+        model_id=model.model_id,
+        model_version=model.model_version,
+        resolved_zone=resolved_zone,
+        coordinates={"latitude": request.latitude, "longitude": request.longitude},
+        features_used=IndiaFeaturePipelineService.CORE_NATIONAL_FEATURES,
+        feature_values=core_features,
+        susceptibility_probability=prediction_result.get("predicted_probability"),
+        susceptibility_grade=prediction_result.get("susceptibility_grade"),
+        calibration_status=prediction_result.get("calibration_status", "UNCALIBRATED_MACRO_SCREENING"),
+        provenance={
+            "tier": tier,
+            "pipeline_version": "1.0.0",
+            "model_status": prediction_result.get("model_status", model.status),
+            "feature_provenance": extraction.provenance,
+        },
+        message=prediction_result.get("message"),
+    )
+
+
+@router.post(
+    "/screening/national/batch",
+    response_model=NationalScreeningBatchResponse,
+    summary="Batch National Flood Risk Screening",
+    description="Bounded batch screening for up to 250 points across India.",
+)
+async def screen_national_batch(request: NationalScreeningBatchRequest) -> NationalScreeningBatchResponse:
+    if len(request.points) > 250:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Batch size {len(request.points)} exceeds maximum allowed limit of 250 points.",
+        )
+
+    model = FloodModelRegistry.get_model(IntelligenceLevel.NATIONAL, "national_india")
+    results: List[NationalScreeningResponse] = []
+
+    for pt in request.points:
+        single_req = NationalScreeningRequest(
+            latitude=pt.latitude,
+            longitude=pt.longitude,
+            timestamp=pt.timestamp,
+            allow_benchmark_rainfall=request.allow_benchmark_rainfall,
+        )
+        res = await screen_national_point(single_req)
+        results.append(res)
+
+    return NationalScreeningBatchResponse(
+        total_requested=len(request.points),
+        results=results,
+        model_id=model.model_id,
+        model_version=model.model_version,
+    )
