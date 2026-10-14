@@ -302,21 +302,83 @@ class IndiaSpatialService:
         cls,
         latitude: float,
         longitude: float,
-        rainfall_1h_mm: float = 0.0,
-        rainfall_3h_mm: float = 0.0,
-        rainfall_6h_mm: float = 0.0,
-        rainfall_24h_mm: float = 0.0,
-        rainfall_72h_mm: float = 0.0,
-        rainfall_anomaly_index: float = 1.0,
+        rainfall_1h_mm: Optional[float] = None,
+        rainfall_3h_mm: Optional[float] = None,
+        rainfall_6h_mm: Optional[float] = None,
+        rainfall_24h_mm: Optional[float] = None,
+        rainfall_72h_mm: Optional[float] = None,
+        rainfall_anomaly_index: Optional[float] = None,
         historical_flood_frequency_score: float = 0.5,
+        allow_benchmark_rainfall: bool = False,
     ) -> Optional[NationalDataContract]:
         """
         Build an authoritative NationalDataContract instance for a valid Indian coordinate.
         Returns None if the location is outside verified terrain coverage (Zero Fabrication).
+
+        Zero-Fabrication & Benchmark Isolation:
+        - Genuine measured zero (e.g. rainfall_24h_mm=0.0) is strictly preserved as a valid measurement.
+        - Missing or unavailable rainfall is represented explicitly as unavailable (None for
+          numerical fields, rainfall_available=False, rainfall_operational_status="OPERATIONAL_OBSERVATION_UNAVAILABLE",
+          rainfall_provenance="UNAVAILABLE"). Missing rainfall is NEVER silently converted to 0.0.
+        - Benchmark data cannot enter operational contracts by default. Benchmarks are only
+          populated when allow_benchmark_rainfall=True is explicitly passed in development/testing.
+        - Explicit benchmark mode marks rainfall_available=True, rainfall_operational_status="NON_OPERATIONAL_TEST_FIXTURE",
+          and rainfall_provenance="LITERATURE_DERIVED_BENCHMARK".
         """
         terrain = cls.get_terrain_features(latitude, longitude)
         if not terrain:
             return None
+
+        # Check whether any explicit rainfall parameter was supplied by caller (including 0.0)
+        explicit_fields = [
+            rainfall_1h_mm, rainfall_3h_mm, rainfall_6h_mm,
+            rainfall_24h_mm, rainfall_72h_mm, rainfall_anomaly_index
+        ]
+        has_explicit_rainfall = any(x is not None for x in explicit_fields)
+
+        if has_explicit_rainfall:
+            # Caller supplied explicit observation (measured values, which can legitimately be 0.0)
+            r1 = rainfall_1h_mm
+            r3 = rainfall_3h_mm
+            r6 = rainfall_6h_mm
+            r24 = rainfall_24h_mm
+            r72 = rainfall_72h_mm
+            ranom = rainfall_anomaly_index
+            rainfall_available = True
+            rainfall_operational_status = "OPERATIONAL_OBSERVATION_AVAILABLE"
+            rainfall_provenance = "AUTHENTIC_OBSERVATION"
+        elif allow_benchmark_rainfall:
+            # Explicit opt-in for benchmark test fixtures in development/testing mode
+            try:
+                from app.services.india_rainfall_service import IndiaRainfallService
+                rain_svc = IndiaRainfallService()
+                rain_data = rain_svc.populate_national_rainfall(latitude, longitude, allow_benchmark=True)
+                r1 = rain_data.get("rainfall_1h_mm")
+                r3 = rain_data.get("rainfall_3h_mm")
+                r6 = rain_data.get("rainfall_6h_mm")
+                r24 = rain_data.get("rainfall_24h_mm")
+                r72 = rain_data.get("rainfall_72h_mm")
+                ranom = rain_data.get("rainfall_anomaly_index")
+                rainfall_available = rain_data.get("rainfall_available", False)
+                rainfall_operational_status = rain_data.get("operational_claim", "NON_OPERATIONAL_TEST_FIXTURE")
+                rainfall_provenance = "LITERATURE_DERIVED_BENCHMARK"
+            except Exception:
+                r1, r3, r6, r24, r72, ranom = None, None, None, None, None, None
+                rainfall_available = False
+                rainfall_operational_status = "BENCHMARK_LOOKUP_FAILED"
+                rainfall_provenance = "UNAVAILABLE"
+        else:
+            # Operational mode without explicit rainfall: operational observation unavailable
+            # Zero Fabrication rule: missing rainfall must NOT be converted to 0.0!
+            r1 = None
+            r3 = None
+            r6 = None
+            r24 = None
+            r72 = None
+            ranom = None
+            rainfall_available = False
+            rainfall_operational_status = "OPERATIONAL_OBSERVATION_UNAVAILABLE"
+            rainfall_provenance = "UNAVAILABLE"
 
         return NationalDataContract(
             latitude=latitude,
@@ -324,14 +386,17 @@ class IndiaSpatialService:
             elevation_m=terrain["elevation_m"],
             slope_deg=terrain["slope_deg"],
             distance_to_river_m=terrain["distance_to_river_m"],
-            rainfall_1h_mm=rainfall_1h_mm,
-            rainfall_3h_mm=rainfall_3h_mm,
-            rainfall_6h_mm=rainfall_6h_mm,
-            rainfall_24h_mm=rainfall_24h_mm,
-            rainfall_72h_mm=rainfall_72h_mm,
-            rainfall_anomaly_index=rainfall_anomaly_index,
+            rainfall_1h_mm=r1,
+            rainfall_3h_mm=r3,
+            rainfall_6h_mm=r6,
+            rainfall_24h_mm=r24,
+            rainfall_72h_mm=r72,
+            rainfall_anomaly_index=ranom,
             historical_flood_frequency_score=historical_flood_frequency_score,
             landcover_class=terrain["landcover_class"],
+            rainfall_available=rainfall_available,
+            rainfall_operational_status=rainfall_operational_status,
+            rainfall_provenance=rainfall_provenance,
         )
 
     @classmethod
@@ -366,4 +431,39 @@ class IndiaSpatialService:
             basin_drainage_area_km2=drainage_area,
             population_density_per_km2=population_density_per_km2,
             critical_facilities_count=critical_facilities_count,
+        )
+
+    @classmethod
+    def build_deep_data_contract(
+        cls,
+        latitude: float,
+        longitude: float,
+        flow_accumulation_cells: Optional[int] = None,
+        drainage_proxy_score: Optional[float] = None,
+        built_up_fraction: Optional[float] = None,
+        distance_to_road_m: Optional[float] = None,
+        distance_to_waterway_m: Optional[float] = None,
+        tide_level_m: Optional[float] = None,
+        sar_delta_vv_db: Optional[float] = None,
+        modeled_depth_m: Optional[float] = None,
+        **regional_kwargs
+    ) -> Optional[DeepDataContract]:
+        """
+        Build an authoritative DeepDataContract extending regional features
+        with high-resolution hydrodynamic, urban drainage, and radar attributes.
+        """
+        reg_contract = cls.build_regional_data_contract(latitude, longitude, **regional_kwargs)
+        if not reg_contract:
+            return None
+
+        return DeepDataContract(
+            **reg_contract.model_dump(),
+            flow_accumulation_cells=flow_accumulation_cells,
+            drainage_proxy_score=drainage_proxy_score,
+            built_up_fraction=built_up_fraction,
+            distance_to_road_m=distance_to_road_m,
+            distance_to_waterway_m=distance_to_waterway_m,
+            tide_level_m=tide_level_m,
+            sar_delta_vv_db=sar_delta_vv_db,
+            modeled_depth_m=modeled_depth_m,
         )

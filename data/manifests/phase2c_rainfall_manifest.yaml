@@ -1,0 +1,183 @@
+manifest_version: 1.1.0
+phase: PHASE_2C_INDIA_RAINFALL_HYDROMETEOROLOGICAL_INGESTION
+created_at: '2026-10-14T09:45:00+00:00'
+zero_fabrication_enforced: true
+observation_forecast_separation: true
+live_authenticated_acquisition_status: PIPELINE_IMPLEMENTED_LIVE_ACQUISITION_NOT_VERIFIED
+audit_classification_summary:
+  raw_imerg_ingestion: PIPELINE_IMPLEMENTED_LIVE_ACQUISITION_NOT_VERIFIED
+  normalized_datasets: LITERATURE_DERIVED_BENCHMARK (NON_OPERATIONAL_TEST_FIXTURES)
+  operational_forecast: LIVE_QUERY_VERIFIED_OPERATIONAL
+note: >-
+  NASA Earthdata credentials were not configured in the local environment; consequently,
+  raw GES DISC HDF5 granules were not downloaded over the network and data/raw/rainfall/imerg/ is empty.
+  The 5 normalized Parquet datasets represent calibrated pilot benchmark storm hyetographs generated via
+  Gaussian curve modeling scaled to literature deluge totals. They are strictly NON-OPERATIONAL test fixtures.
+  Operational forecast ingestion via ECMWF IFS Open Data (Open-Meteo) was verified live over the network.
+datasets:
+- dataset_id: P2C-RAIN-GANGA_PATNA
+  dataset_name: IMERG V07B Ganga River Basin Historical Deluge Series
+  provider: NASA GES DISC / PMM (Target Schema)
+  source_type: Synthetic Hyetograph Calibrated to Literature Deluge Event
+  generation_method: SYNTHETIC_GAUSSIAN_HYETOGRAPH_SCALED_TO_LITERATURE_EVENT_TOTALS
+  source_authenticity: UNVERIFIED_NO_RAW_IMERG_GRANULES
+  operational_claim: EXCLUDED_FROM_OPERATIONAL_USE (NON_OPERATIONAL_TEST_FIXTURE)
+  version: V07B Half-Hourly Final Run (Target Schema)
+  acquisition_date: '2026-10-08'
+  license: NASA Open Data Policy (Target) / Internal Benchmark (Actual)
+  coverage: 'Ganga River Basin (25.6N, 85.15E, Cell: IMERG_010DEG_25.60N_85.20E)'
+  temporal_resolution: 30 minutes
+  spatial_resolution: 0.1 degree (~10 km)
+  native_units: mm/hr
+  canonical_units: mm accumulation
+  crs: EPSG:4326
+  raw_path: NONE (Directory data/raw/rainfall/imerg/ is empty; no HDF5 granules downloaded)
+  processed_path: data/processed/rainfall/normalized/ganga_patna_imerg_v07b_normalized.parquet
+  status: LITERATURE_DERIVED_BENCHMARK
+  live_raw_acquisition_status: PIPELINE_IMPLEMENTED_LIVE_ACQUISITION_NOT_VERIFIED
+  steps_count: 144
+  literature_peak_24h_mm: 184.6
+  literature_target_72h_mm: 298.4
+  peak_anomaly_index: 8.79
+  anchor_sequence_end_24h_mm: 16.3
+  anchor_anomaly_index: -0.45
+  provenance_note: >-
+    Pilot benchmark hyetograph modeled from July 2023 deluge literature.
+    Raw GES DISC HDF5 granules were NOT downloaded; unverified as authentic NASA observation.
+- dataset_id: P2C-RAIN-BRAHMAPUTRA_GUWAHATI
+  dataset_name: IMERG V07B Brahmaputra River Basin Historical Deluge Series
+  provider: NASA GES DISC / PMM (Target Schema)
+  source_type: Synthetic Hyetograph Calibrated to Literature Deluge Event
+  generation_method: SYNTHETIC_GAUSSIAN_HYETOGRAPH_SCALED_TO_LITERATURE_EVENT_TOTALS
+  source_authenticity: UNVERIFIED_NO_RAW_IMERG_GRANULES
+  operational_claim: EXCLUDED_FROM_OPERATIONAL_USE (NON_OPERATIONAL_TEST_FIXTURE)
+  version: V07B Half-Hourly Final Run (Target Schema)
+  acquisition_date: '2026-10-08'
+  license: NASA Open Data Policy (Target) / Internal Benchmark (Actual)
+  coverage: 'Brahmaputra River Basin (26.18N, 91.75E, Cell: IMERG_010DEG_26.20N_91.80E)'
+  temporal_resolution: 30 minutes
+  spatial_resolution: 0.1 degree (~10 km)
+  native_units: mm/hr
+  canonical_units: mm accumulation
+  crs: EPSG:4326
+  raw_path: NONE (Directory data/raw/rainfall/imerg/ is empty; no HDF5 granules downloaded)
+  processed_path: data/processed/rainfall/normalized/brahmaputra_guwahati_imerg_v07b_normalized.parquet
+  status: LITERATURE_DERIVED_BENCHMARK
+  live_raw_acquisition_status: PIPELINE_IMPLEMENTED_LIVE_ACQUISITION_NOT_VERIFIED
+  steps_count: 144
+  literature_peak_24h_mm: 274.0
+  literature_target_72h_mm: 482.0
+  peak_anomaly_index: 8.28
+  anchor_sequence_end_24h_mm: 26.34
+  anchor_anomaly_index: -0.41
+  provenance_note: >-
+    Pilot benchmark hyetograph modeled from June 2022 Assam deluge literature.
+    Raw GES DISC HDF5 granules were NOT downloaded; unverified as authentic NASA observation.
+- dataset_id: P2C-RAIN-GODAVARI_NASHIK
+  dataset_name: IMERG V07B Godavari River Basin Historical Deluge Series
+  provider: NASA GES DISC / PMM (Target Schema)
+  source_type: Synthetic Hyetograph Calibrated to Literature Deluge Event
+  generation_method: SYNTHETIC_GAUSSIAN_HYETOGRAPH_SCALED_TO_LITERATURE_EVENT_TOTALS
+  source_authenticity: UNVERIFIED_NO_RAW_IMERG_GRANULES
+  operational_claim: EXCLUDED_FROM_OPERATIONAL_USE (NON_OPERATIONAL_TEST_FIXTURE)
+  version: V07B Half-Hourly Final Run (Target Schema)
+  acquisition_date: '2026-10-08'
+  license: NASA Open Data Policy (Target) / Internal Benchmark (Actual)
+  coverage: 'Godavari River Basin (20.0N, 73.78E, Cell: IMERG_010DEG_20.00N_73.80E)'
+  temporal_resolution: 30 minutes
+  spatial_resolution: 0.1 degree (~10 km)
+  native_units: mm/hr
+  canonical_units: mm accumulation
+  crs: EPSG:4326
+  raw_path: NONE (Directory data/raw/rainfall/imerg/ is empty; no HDF5 granules downloaded)
+  processed_path: data/processed/rainfall/normalized/godavari_nashik_imerg_v07b_normalized.parquet
+  status: LITERATURE_DERIVED_BENCHMARK
+  live_raw_acquisition_status: PIPELINE_IMPLEMENTED_LIVE_ACQUISITION_NOT_VERIFIED
+  steps_count: 144
+  literature_peak_24h_mm: 158.0
+  literature_target_72h_mm: 246.0
+  peak_anomaly_index: 8.29
+  anchor_sequence_end_24h_mm: 13.45
+  anchor_anomaly_index: -0.52
+  provenance_note: >-
+    Pilot benchmark hyetograph modeled from July 2022 Godavari deluge literature.
+    Raw GES DISC HDF5 granules were NOT downloaded; unverified as authentic NASA observation.
+- dataset_id: P2C-RAIN-NARMADA_BHARUCH
+  dataset_name: IMERG V07B Narmada River Basin Historical Deluge Series
+  provider: NASA GES DISC / PMM (Target Schema)
+  source_type: Synthetic Hyetograph Calibrated to Literature Deluge Event
+  generation_method: SYNTHETIC_GAUSSIAN_HYETOGRAPH_SCALED_TO_LITERATURE_EVENT_TOTALS
+  source_authenticity: UNVERIFIED_NO_RAW_IMERG_GRANULES
+  operational_claim: EXCLUDED_FROM_OPERATIONAL_USE (NON_OPERATIONAL_TEST_FIXTURE)
+  version: V07B Half-Hourly Final Run (Target Schema)
+  acquisition_date: '2026-10-08'
+  license: NASA Open Data Policy (Target) / Internal Benchmark (Actual)
+  coverage: 'Narmada River Basin (21.71N, 73.0E, Cell: IMERG_010DEG_21.70N_73.00E)'
+  temporal_resolution: 30 minutes
+  spatial_resolution: 0.1 degree (~10 km)
+  native_units: mm/hr
+  canonical_units: mm accumulation
+  crs: EPSG:4326
+  raw_path: NONE (Directory data/raw/rainfall/imerg/ is empty; no HDF5 granules downloaded)
+  processed_path: data/processed/rainfall/normalized/narmada_bharuch_imerg_v07b_normalized.parquet
+  status: LITERATURE_DERIVED_BENCHMARK
+  live_raw_acquisition_status: PIPELINE_IMPLEMENTED_LIVE_ACQUISITION_NOT_VERIFIED
+  steps_count: 144
+  literature_peak_24h_mm: 214.0
+  literature_target_72h_mm: 332.0
+  peak_anomaly_index: 13.03
+  anchor_sequence_end_24h_mm: 18.13
+  anchor_anomaly_index: -0.02
+  provenance_note: >-
+    Pilot benchmark hyetograph modeled from September 2023 Narmada deluge literature.
+    Raw GES DISC HDF5 granules were NOT downloaded; unverified as authentic NASA observation.
+- dataset_id: P2C-RAIN-DEEP_MUMBAI_MITHI
+  dataset_name: IMERG V07B Mithi Coastal Catchment (Mumbai) Historical Deluge Series
+  provider: NASA GES DISC / PMM (Target Schema)
+  source_type: Synthetic Hyetograph Calibrated to Literature Deluge Event
+  generation_method: SYNTHETIC_GAUSSIAN_HYETOGRAPH_SCALED_TO_LITERATURE_EVENT_TOTALS
+  source_authenticity: UNVERIFIED_NO_RAW_IMERG_GRANULES
+  operational_claim: EXCLUDED_FROM_OPERATIONAL_USE (NON_OPERATIONAL_TEST_FIXTURE)
+  version: V07B Half-Hourly Final Run (Target Schema)
+  acquisition_date: '2026-10-08'
+  license: NASA Open Data Policy (Target) / Internal Benchmark (Actual)
+  coverage: 'Mithi Coastal Catchment (Mumbai) (19.076N, 72.8777E, Cell: IMERG_010DEG_19.10N_72.90E)'
+  temporal_resolution: 30 minutes
+  spatial_resolution: 0.1 degree (~10 km)
+  native_units: mm/hr
+  canonical_units: mm accumulation
+  crs: EPSG:4326
+  raw_path: NONE (Directory data/raw/rainfall/imerg/ is empty; no HDF5 granules downloaded)
+  processed_path: data/processed/rainfall/normalized/deep_mumbai_mithi_imerg_v07b_normalized.parquet
+  status: LITERATURE_DERIVED_BENCHMARK
+  live_raw_acquisition_status: PIPELINE_IMPLEMENTED_LIVE_ACQUISITION_NOT_VERIFIED
+  steps_count: 48
+  literature_peak_24h_mm: 322.0
+  literature_target_72h_mm: 415.0
+  peak_anomaly_index: 11.60
+  anchor_sequence_end_24h_mm: 415.01
+  anchor_anomaly_index: 15.32
+  provenance_note: >-
+    Pilot benchmark hyetograph modeled from August 2020 Mithi deluge literature.
+    Raw GES DISC HDF5 granules were NOT downloaded; unverified as authentic NASA observation.
+- dataset_id: P2C-FCST-ECMWF-001
+  dataset_name: ECMWF IFS Open Data Operational Weather Forecast
+  provider: European Centre for Medium-Range Weather Forecasts (via Open-Meteo API)
+  source_type: NWP Global Forecast Grid (JSON / REST API)
+  version: IFS Cycle 48r1 / 49r1
+  acquisition_date: '2026-10-14'
+  license: WMO Unified Data Policy (Free & Open)
+  coverage: Global Subcontinental India (Queried dynamically via Open-Meteo)
+  temporal_resolution: 1 hour (60 minutes)
+  spatial_resolution: 0.09 degree (~9 km)
+  native_units: mm
+  canonical_units: mm accumulation / mm/hr rate
+  crs: EPSG:4326
+  raw_path: data/processed/forecasts/
+  processed_path: app/providers/forecast.py
+  status: OPERATIONAL_FORECAST_INTEGRATED
+  live_operational_status: LIVE_QUERY_VERIFIED_OPERATIONAL
+  is_historical_observation: false
+  note: >-
+    Strictly labeled as OPERATIONAL_FORECAST. Never mixed with historical observations.
+    Live HTTP query verified operational over network (2026-10-14T09:40Z). Fail-safe HTTP 503 enforced.

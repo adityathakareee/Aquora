@@ -55,14 +55,20 @@ class NationalDataContract(BaseModel):
     elevation_m: float = Field(..., description="Copernicus 30m terrain elevation in meters")
     slope_deg: float = Field(..., ge=0.0, le=90.0, description="Terrain surface slope in degrees")
     distance_to_river_m: float = Field(..., ge=0.0, description="Distance to nearest major river channel in meters")
-    rainfall_1h_mm: float = Field(..., ge=0.0, description="1-hour accumulated precipitation in mm")
-    rainfall_3h_mm: float = Field(..., ge=0.0, description="3-hour accumulated precipitation in mm")
-    rainfall_6h_mm: float = Field(..., ge=0.0, description="6-hour accumulated precipitation in mm")
-    rainfall_24h_mm: float = Field(..., ge=0.0, description="24-hour accumulated precipitation in mm")
-    rainfall_72h_mm: float = Field(..., ge=0.0, description="72-hour accumulated precipitation in mm")
-    rainfall_anomaly_index: float = Field(..., description="Normalized rainfall deviation against 10-year climatological baseline")
+    rainfall_1h_mm: Optional[float] = Field(None, ge=0.0, description="1-hour accumulated precipitation in mm")
+    rainfall_3h_mm: Optional[float] = Field(None, ge=0.0, description="3-hour accumulated precipitation in mm")
+    rainfall_6h_mm: Optional[float] = Field(None, ge=0.0, description="6-hour accumulated precipitation in mm")
+    rainfall_24h_mm: Optional[float] = Field(None, ge=0.0, description="24-hour accumulated precipitation in mm")
+    rainfall_72h_mm: Optional[float] = Field(None, ge=0.0, description="72-hour accumulated precipitation in mm")
+    rainfall_anomaly_index: Optional[float] = Field(None, description="Normalized rainfall deviation against 10-year climatological baseline")
     historical_flood_frequency_score: float = Field(..., ge=0.0, le=1.0, description="Historical multi-decadal flood occurrence probability")
     landcover_class: int = Field(..., description="ESA WorldCover 2021 land cover classification code")
+
+    # Rainfall availability & provenance status
+    rainfall_available: bool = Field(True, description="Whether rainfall observations are available for this contract")
+    rainfall_operational_status: Optional[str] = Field(None, description="Operational availability status or reason why unavailable")
+    rainfall_provenance: Optional[str] = Field(None, description="Provenance classification of rainfall metrics (e.g. AUTHENTIC_OBSERVATION, OPERATIONAL_FORECAST, LITERATURE_DERIVED_BENCHMARK, UNAVAILABLE)")
+
 
 
 class RegionalDataContract(NationalDataContract):

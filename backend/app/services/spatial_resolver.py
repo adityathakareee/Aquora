@@ -15,7 +15,6 @@ INVARIANTS:
 from typing import Any, Dict, Optional
 import structlog
 
-from app.api.v1.intelligence import REGISTERED_ZONES
 from app.schemas.geospatial import BoundingBox
 
 logger = structlog.get_logger("aquora.spatial_resolver")
@@ -76,6 +75,8 @@ class SpatialZoneResolver:
         Resolve the complete intelligence zone descriptor.
         Raises UnsupportedZoneError if the zone is not in REGISTERED_ZONES.
         """
+        from app.api.v1.intelligence import REGISTERED_ZONES
+
         norm_id = cls.normalize_zone_id(zone_id)
 
         zone = REGISTERED_ZONES.get(norm_id)
