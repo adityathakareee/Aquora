@@ -18,6 +18,7 @@ from pydantic import BaseModel, Field, field_validator
 
 class ScreeningStatus(str, Enum):
     READY = "READY"
+    INSUFFICIENT_INPUT_DATA = "INSUFFICIENT_INPUT_DATA"
     MODEL_NOT_TRAINED = "MODEL_NOT_TRAINED"
     OUTSIDE_COVERAGE = "OUTSIDE_COVERAGE"
     FEATURE_ERROR = "FEATURE_ERROR"
@@ -51,6 +52,10 @@ class NationalScreeningResponse(BaseModel):
     susceptibility_probability: Optional[float] = Field(None, ge=0.0, le=1.0, description="Predicted macro susceptibility probability [0, 1]")
     susceptibility_grade: Optional[str] = Field(None, description="Susceptibility grade: LOW (<0.33), MEDIUM (0.33-0.66), HIGH (>=0.66)")
     calibration_status: str = Field("UNCALIBRATED_MACRO_SCREENING", description="Calibration disclaimer: macro screening susceptibility, not physical depth")
+    governance_status: str = Field("PROTOTYPE_ONLY", description="Model governance status: PROTOTYPE_ONLY")
+    operational_readiness: str = Field("NOT_FOR_PUBLIC_ALERTS", description="Operational readiness: NOT_FOR_PUBLIC_ALERTS")
+    physics_engine_primacy: str = Field("Phase 6 deterministic physics engine remains primary authority", description="Primary simulation authority disclaimer")
+    hydrorivers_reach_distance_m: Optional[float] = Field(None, description="Authentic HydroRIVERS reach centerline distance in meters")
     provenance: Dict[str, Any] = Field(default_factory=dict, description="Traceability provenance")
     message: Optional[str] = Field(None, description="Descriptive status or diagnostic message")
 

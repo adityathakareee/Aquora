@@ -167,7 +167,7 @@ class FloodProcessingService:
                 }
             else:
                 # 2B. Resolve Real NASA IMERG Observation Inputs
-                event_id = request.event_id or "E05"
+                event_id = request.event_id or "E02"
                 rain_path = project_root / "data" / "processed" / "phase7" / "rainfall" / f"{event_id}_rainfall_30m.tif"
                 if not rain_path.exists():
                     raise FileNotFoundError(f"REAL_DATA mode requires real NASA IMERG rainfall file for event {event_id} at {rain_path}, but file was not found")

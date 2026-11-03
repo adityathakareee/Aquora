@@ -1,0 +1,93 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2C_COPERNICUS_DEM_ACQUISITION
+timestamp_utc: '2026-10-16T18:16:37.337305+00:00'
+governance:
+  status: AUTHENTIC_RAW_DEM_ACQUIRED_AND_VALIDATED
+  source_type: OFFICIAL_SPACE_AGENCY_REGISTRY
+  provider: Copernicus Programme / European Space Agency (ESA) / AWS Open Data
+  zero_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  vertical_reference_datum: EGM96 Geoid (approximating Mean Sea Level)
+  product_version: Copernicus DEM GLO-30 (1 arc-second global 30m DSM)
+asset:
+  tile_id: Copernicus_DSM_COG_10_N19_00_E072_00
+  filename: Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+  legacy_alias: Copernicus_DSM_COG_10_N19_00_E072_00.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N19_00_E072_00_DEM/Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+  file_size_bytes: 13336459
+  sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  format: GTiff
+  crs: EPSG:4326
+  dimensions:
+    width: 3600
+    height: 3600
+    pixel_resolution_arcsec: 1.0
+    pixel_resolution_approx_m: 30.0
+  bounds_wgs84:
+    left: 71.99986111111112
+    bottom: 19.000138888888888
+    right: 72.99986111111112
+    top: 20.000138888888888
+  nodata_value: null
+elevation_summary:
+  total_pixels: 12960000
+  valid_pixels: 12960000
+  nodata_pixels: 0
+  min_elevation_m: -9.0846529006958
+  max_elevation_m: 666.7875366210938
+  mean_elevation_m: 12.215676307678223
+  std_elevation_m: 41.6701545715332
+catchment_coverage_verification:
+  covers_full_mithi_watershed: true
+  covers_headwaters_lakes: true
+  covers_mahim_outfall: true
+  sampled_landmarks:
+    Mahim_Causeway_Outfall:
+      lon: 72.84
+      lat: 19.04
+      row: 3456
+      col: 3024
+      elevation_m: 10.128515243530273
+      is_valid: true
+    Bandra_Kurla_Complex:
+      lon: 72.865
+      lat: 19.06
+      row: 3384
+      col: 3114
+      elevation_m: 1.5886961221694946
+      is_valid: true
+    CSMIA_Airport_Runway:
+      lon: 72.875
+      lat: 19.09
+      row: 3276
+      col: 3150
+      elevation_m: 6.427186965942383
+      is_valid: true
+    Powai_Lake:
+      lon: 72.905
+      lat: 19.125
+      row: 3150
+      col: 3258
+      elevation_m: 33.5
+      is_valid: true
+    Vihar_Lake:
+      lon: 72.9
+      lat: 19.14
+      row: 3096
+      col: 3240
+      elevation_m: 52.5
+      is_valid: true
+    Tulsi_Lake_Headwaters:
+      lon: 72.915
+      lat: 19.185
+      row: 2934
+      col: 3294
+      elevation_m: 130.2235565185547
+      is_valid: true
+    SGNP_Northern_Ridge:
+      lon: 72.91
+      lat: 19.19
+      row: 2916
+      col: 3276
+      elevation_m: 177.43231201171875
+      is_valid: true

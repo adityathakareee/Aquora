@@ -1,0 +1,234 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2F_HYDROLOGICAL_CONDITIONING_AND_DELINEATION_READINESS
+timestamp_utc: '2026-10-16T21:03:15.009660+00:00'
+governance:
+  status: DELINEATION_READINESS_AUDIT_COMPLETED
+  readiness_decision: EXPLORATORY_ONLY
+  historical_simulation_permitted: false
+  zero_culvert_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  synthetic_box_retired: true
+  working_dem_immutable: true
+preflight_audit:
+  raw_dem_path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\raw\phase7\dem\Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+  raw_dem_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  raw_dem_intact: true
+  working_dem_path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\processed\phase7\terrain\elevation_30m_study_extent.tif
+  working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  working_dem_intact: true
+  crs: EPSG:32643
+  dimensions:
+  - 536
+  - 746
+  resolution:
+  - 30.0
+  - 30.0
+  transform:
+  - 30.0
+  - 0.0
+  - 269460.0
+  - 0.0
+  - -30.0
+  - 2126640.0
+  - 0.0
+  - 0.0
+  - 1.0
+  nodata_val: -9999.0
+  vertical_reference: EGM96 geoid (Mean Sea Level)
+outlet_verification:
+  proposed_wgs84_coords:
+  - 72.84
+  - 19.04
+  projected_coords_utm43n:
+  - 272671.93359098653
+  - 2106651.7395216515
+  mapped_pixel:
+  - 666
+  - 107
+  elevation_msl_m: 9.95160961151123
+  neighborhood_7x7_elev_min: 8.495911598205566
+  neighborhood_7x7_elev_max: 13.698596954345703
+  neighborhood_7x7_elev_mean: 10.989354133605957
+  physical_feature_type: Elevated Mahim Causeway Road Deck / Bridge Approach Embankment
+  is_water_channel: false
+  true_creek_channel_reference:
+    mapped_pixel:
+    - 655
+    - 100
+    elevation_msl_m: 0.32227447628974915
+    feature: Mithi River / Mahim Creek intertidal water channel
+  bay_outfall_reference:
+    mapped_pixel:
+    - 635
+    - 84
+    elevation_msl_m: 0.0
+    feature: Mahim Bay tidal receiving-water outfall
+  flow_limitation_finding: "CRITICAL OUTLET MISMATCH: Coordinate (72.840\xB0E, 19.040\xB0\
+    N) maps to pixel (666, 107) with elevation +9.95m MSL on the Mahim Causeway road\
+    \ structure. In D8 routing, this elevated road embankment cell captures only 1\
+    \ pixel (0.0009 km2) and cannot serve as the river outlet. The actual river channel\
+    \ passes through Mahim Creek at elevations <= 0.32m MSL into Mahim Bay."
+hydraulic_structures_audit:
+  csmia_culvert_audit:
+    approximate_coords:
+    - 72.875
+    - 19.09
+    mapped_pixel:
+    - 483
+    - 232
+    runway_surface_elevation_msl_m: 6.435002326965332
+    upstream_marol_elevation_msl_m: 5.337845802307129
+    downstream_kalina_elevation_msl_m: 1.6395468711853027
+    adverse_topographic_barrier_m: 1.0971565246582031
+    evidence_tiers:
+      general_description: 'VERIFIED: Chitale Committee Report (2006, Chap 5, pp.
+        62-75) documents triple-barrel reinforced concrete box culvert (3 x 20m openings
+        = 60m width, bed invert level upstream +2.50m MSL, downstream +2.10m MSL).'
+      verified_structure_location: "VERIFIED APPROXIMATELY: Intersects CSMIA Runway\
+        \ 09/27 and 14/32 at approximately 19.090\xB0N, 72.875\xB0E."
+      georeferenced_centerline_geometry: 'MISSING / UNAVAILABLE: No georeferenced
+        CAD drawing, official municipal GIS shapefile, or DGPS survey alignment exists
+        in open government archives.'
+    governance_action: 'ZERO FABRICATION ENFORCED: Refusing to burn a guessed straight-line
+      centerline or artificial trench across the runway. The working DEM remains strictly
+      unconditioned.'
+  railway_highway_embankments:
+    structures_audited:
+    - Western Railway Bridge (Mahim/Bandra)
+    - Western Express Highway Kalanagar Bridge
+    - Central Railway Bridge (Sion/Kurla)
+    - Santacruz-Chembur Link Road (SCLR) Bridge
+    - Harbour Railway Line Bridge (Kurla)
+    opening_geometry_status: MISSING / UNVERIFIED
+    status_in_dsm: Continuous solid elevated embankments (+4m to +10m MSL)
+    governance_action: Preserved without unverified artificial breaching.
+  lake_outlets_and_reservoirs:
+    vihar_lake:
+      fsl_benchmark_msl_m: 52.42
+      dem_surface_elev_msl_m: 52.5
+      status: ACCURATELY_CAPTURED_IN_DEM
+    powai_lake:
+      fsl_benchmark_msl_m: 33.5
+      dem_surface_elev_msl_m: 33.5
+      status: ACCURATELY_CAPTURED_IN_DEM
+    tulsi_lake:
+      fsl_benchmark_msl_m: 130.0
+      dem_surface_elev_msl_m: 112.0
+      status: CAPTURED_IN_DEM
+conditioning_evaluation:
+  unconditioned_dem:
+    total_cells: 399856
+    true_sinks_detected: 12405
+    sink_percentage: 3.1023668520667442
+    flow_connectivity: DISCONNECTED (Urban DSM contains 12,405 local sinks; flows
+      terminate in < 8 steps)
+    delineated_catchment_causeway_km2: 0.0009
+    delineated_catchment_creek_km2: 0.0045
+    delineated_catchment_bay_km2: 0.0009
+  global_priority_flood_filling:
+    execution_time_seconds: 1.88
+    affected_cell_count: 81596
+    affected_percentage: 20.406346284662476
+    max_elevation_increase_m: 13.339818824768063
+    mean_elevation_increase_affected_m: 1.200099704686982
+    unphysical_pooling_artifacts:
+      powai_lake:
+        raw_elev_msl: 33.5
+        filled_elev_msl: 37.2649364562989
+        elevation_delta_m: 3.7649383544921875
+        finding: Powai Lake artificially raised +3.76m to overtop surrounding terrain.
+      airport_corridor:
+        raw_runway_elev_msl: 6.435002326965332
+        upstream_marol_fill_elev_msl: 6.7105576660156245
+        finding: Marol drainage pooled to +6.71m MSL to artificially overtop Runway
+          09/27.
+      kurla_bkc_basin:
+        raw_elev_msl: 1.0940550565719604
+        filled_elev_msl: 3.7227144821167273
+        elevation_delta_m: 2.628659425544767
+        finding: BKC/Kalina pooled by +2.63m (up to +3.72m MSL) behind railway/causeway
+          embankments.
+    exploratory_catchment_areas:
+      mahim_causeway_road_deck_km2: 0.3348
+      mahim_creek_channel_km2: 0.0045
+      mahim_bay_outfall_km2: 75.3651
+    reference_benchmark_comparison:
+      chitale_committee_stated_area_km2: 72.95
+      observed_exploratory_area_km2: 75.3651
+      difference_km2: 2.4150999999999954
+      percentage_difference: 3.310623714873194
+      evaluation: 'Exploratory catchment of 75.37 km2 is observed purely from filled
+        DSM routing. It captures the Mithi basin plus unconditioned coastal spillover
+        drains. CRITICAL GOVERNANCE INVARIANT: This area is an OBSERVED OUTPUT, NOT
+        A TARGET. It is explicitly NOT forced to 72.95 km2 and CANNOT be labeled authoritative.'
+  lake_preservation_evaluation:
+    vihar_lake_cells_protected: 3449
+    powai_lake_cells_protected: 444
+    lake_preservation_finding: Preserving documented lake water bodies at their surveyed
+      FSL avoids artificial drowning of Powai Lake (+3.76m). However, without culvert
+      breach at CSMIA, preserving natural depression behavior traps flow upstream,
+      confirming that authoritative delineation requires verified culvert geometry
+      rather than brute-force depression filling.
+  temporary_rasters_generated:
+    filled_raster_path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\processed\phase7\terrain\scratch\elevation_30m_exploratory_filled.tif
+    flowdir_raster_path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\processed\phase7\terrain\scratch\elevation_30m_exploratory_fdir.tif
+    source_working_dem_preserved: true
+independent_evaluation_sources:
+  sub_basin_breakdown_benchmark:
+    source: Chitale Committee Report (2006, Chapter 4-5)
+    vihar_lake_km2: 18.96
+    powai_lake_km2: 6.61
+    direct_river_reach_km2: 47.38
+    total_benchmark_km2: 72.95
+    independent_vector_geometry_available: false
+    status: AUTHORITATIVE_TABULAR_BENCHMARK_ONLY
+  validation_gap_statement: 'INDEPENDENT VALIDATION INCOMPLETE: No surveyed, open-access
+    GIS polygon boundary exists for the Mithi River watershed. The 72.95 km2 benchmark
+    serves as a tabular check on overall scale, but spatial boundary validation remains
+    incomplete until as-built municipal GIS datasets (BRIMSTOWAD / MMRDA) are released.'
+acceptance_criteria:
+  criterion_1_preflight_and_dem_immutability:
+    status: PASS
+    finding: Working DEM and raw DEM SHA-256 verified identical before and after.
+  criterion_2_outlet_and_drainage_route_verification:
+    status: BLOCKED
+    finding: "Proposed coordinate (72.840\xB0E, 19.040\xB0N) is on Mahim Causeway\
+      \ road deck (+9.95m MSL), capturing 1 cell (0.0009 km2). Delineation from this\
+      \ cell is blocked."
+  criterion_3_culvert_evidence_discipline:
+    status: BLOCKED
+    finding: CSMIA culvert lacks georeferenced CAD/GIS centerline. Trench burning
+      strictly refused under zero-fabrication invariant.
+  criterion_4_conditioning_methods_evaluated:
+    status: PASS
+    finding: Unconditioned (12,405 sinks), global priority-flood (81,464 affected
+      cells), and lake-preserved methods rigorously evaluated on temporary derived
+      rasters.
+  criterion_5_controlled_d8_evaluation:
+    status: PASS
+    finding: D8 workflow executed on temporary raster. Observed 75.37 km2 at Mahim
+      Bay outfall; explicitly classified as EXPLORATORY ONLY, not authoritative.
+  criterion_6_independent_evaluation:
+    status: PASS
+    finding: Independent tabular benchmarks documented; validation gap explicitly
+      stated.
+  criterion_7_tests_and_reproducibility:
+    status: PASS
+    finding: All procedures verified deterministic and automated in focused test suite.
+final_decision:
+  decision: EXPLORATORY_ONLY / BLOCKED FOR SIMULATION
+  reason: 'Delineation cannot be promoted to authoritative or used in historical flood
+    simulation because: (1) proposed pour point lands on an elevated road structure
+    (+9.95m MSL), (2) CSMIA runway culvert lacks georeferenced centerline vector,
+    forcing unphysical brute-force depression filling (+6.7m at airport, +3.7m in
+    BKC), and (3) no independent GIS boundary polygon exists for validation. Delineation
+    remains strictly EXPLORATORY ONLY.'
+  evidence_required_for_unblocking:
+  - Official georeferenced CAD / GIS vector alignment of CSMIA triple-box culvert
+    centerline with invert elevations.
+  - Surveyed bridge opening hydraulic cross-sections for Western and Central Railway
+    embankments.
+  - Georeferenced pour point located in the active Mahim Creek intertidal channel
+    (e.g. Row 655, Col 100 or Row 635, Col 84) rather than the Causeway road deck.
+  - Survey of India geodetic tidal tie sheet for Mumbai Port Chart Datum to EGM96
+    MSL reduction.

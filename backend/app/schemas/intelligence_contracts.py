@@ -55,6 +55,7 @@ class NationalDataContract(BaseModel):
     elevation_m: float = Field(..., description="Copernicus 30m terrain elevation in meters")
     slope_deg: float = Field(..., ge=0.0, le=90.0, description="Terrain surface slope in degrees")
     distance_to_river_m: float = Field(..., ge=0.0, description="Distance to nearest major river channel in meters")
+    hydrorivers_reach_distance_m: Optional[float] = Field(None, ge=0.0, description="Distance to nearest HydroRIVERS reach centerline in meters")
     rainfall_1h_mm: Optional[float] = Field(None, ge=0.0, description="1-hour accumulated precipitation in mm")
     rainfall_3h_mm: Optional[float] = Field(None, ge=0.0, description="3-hour accumulated precipitation in mm")
     rainfall_6h_mm: Optional[float] = Field(None, ge=0.0, description="6-hour accumulated precipitation in mm")

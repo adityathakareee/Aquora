@@ -1,0 +1,37 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_14_PILOT_RAINFALL_ACQUISITION_AND_LANDMARK_DELUGE_VERIFICATION
+timestamp_utc: '2026-10-19T17:08:35.796874+00:00'
+governance:
+  final_decision: PILOT_ACQUISITION_VALIDATED
+  pilot_acquisition_validated: true
+  supervised_training_permitted: false
+  national_trigger_modeling_permitted: false
+  zero_synthetic_rainfall_enforced: true
+  zero_missing_rainfall_imputation_enforced: true
+  summary: Pilot rainfall acquisition verified for 8 landmark disaster events across
+    India. Event E03 reproduced (221.78 mm IMERG vs 375.2 mm gauge vs 372.61 mm CHIRPS).
+    Event E02 temporal coverage evaluated (48 / 48 granules; 154.32 mm accumulation).
+    Supervised ML training remains strictly blocked.
+immutability_verification:
+  raw_copernicus_dsm_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_study_extent_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  raw_ifi_sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+  verified_unmodified: true
+pilot_events_count: 8
+pilot_match_statuses:
+  MATCHED_RAINFALL_COVERAGE: 8
+benchmark_revalidation:
+  event_e03: VALIDATED_BENCHMARK_DELUGE
+  event_e02: MATCHED_RAINFALL_COVERAGE
+candidate_sources_validated:
+- NASA_GPM_IMERG_FINAL_V07B_DAILY
+- NASA_GPM_IMERG_FINAL_V07B_HALF_HOURLY
+- CHIRPS_V2_DAILY
+safeguards:
+- Missing rainfall values remain strictly NULL (never zero-filled).
+- Never infer physical causation or calibrated thresholds from rainfall co-occurrence
+  alone.
+- Point ground gauge observations must never be combined with satellite areal grids
+  as identical quantities.
+- Supervised 30m ML training remains blocked until verified spatial flood and non-flood
+  labels exist.

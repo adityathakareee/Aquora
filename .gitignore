@@ -75,28 +75,42 @@ Thumbs.db
 
 # --- Data Repository & Geospatial Datasets ---
 # Exclude raw & processed satellite / raster binaries by default
-data/raw/*
+data/raw/
+data/processed/
+data/packages/
+data/external/
+backend/data/processed/
+artifacts/
+!data/manifests/
+!data/manifests/*
+!data/README.md
 !data/raw/README.md
-!data/raw/facilities/
-data/processed/*
 !data/processed/README.md
-!data/processed/phase7/dataset/
-!data/processed/phase7/terrain/
-!data/processed/phase7/terrain/*
-backend/data/processed/*
-!backend/data/processed/README.md
 
 # Heavy Satellite & Geospatial Binaries
-*.geotiff
+*.tif
 *.tiff
+*.geotiff
 *.nc
+*.nc4
 *.hdf5
 *.HDF5
+*.h5
 *.gpkg
 *.shp
 *.dbf
+*.shx
+*.prj
+*.cpg
+*.qpj
 *.zip
 *.tar.gz
+*.parquet
+*.feather
+*.csv.gz
+
+# QA Screenshots
+artifacts/browser_qa/screenshots/
 
 # --- Local Development Scratch & Logs ---
 *.log

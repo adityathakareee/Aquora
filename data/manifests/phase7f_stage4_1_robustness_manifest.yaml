@@ -1,0 +1,87 @@
+manifest_metadata:
+  manifest_id: "phase7f_stage4_1_robustness_manifest"
+  version: "1.0.0"
+  phase: "PHASE_7F_STAGE_4_1"
+  timestamp_utc: "2026-11-02T12:25:00Z"
+  author: "Antigravity Agentic Scientific System"
+  benchmark_event: "DFO_3382_MAHANADI_2008"
+  administrative_event_id: "UEI-IMD-FL-2008-0095"
+  geographic_domain: "Mahanadi River Basin, Odisha, India"
+  decision: "ROBUSTNESS_AUDIT_COMPLETE"
+  governance_classification: "PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS"
+  primary_operational_authority: "engines/flood/solver.py (Phase 6 2D Hydrodynamic Physics Engine)"
+
+safeguard_declarations:
+  dfo2507_quarantine: "STRICTLY_ENFORCED_ZERO_ACCESS"
+  phase7e_artifacts_immutable: "PRESERVED_UNCHANGED"
+  phase7e_feature_schema_preserved: "PRESERVED_UNCHANGED (ml/aquora_ml_feature_schema_v1.json)"
+  rainfall_fabrication: "ZERO_FABRICATION_PRESERVED (100% missing/unobserved)"
+  phase6_physics_authority: "PRESERVED_PRIMARY_FLOOD_AUTHORITY"
+  stage3_datasets_immutable: "PRESERVED_UNCHANGED"
+  stage4_baseline_preserved: "PRESERVED_UNCHANGED (original experiment retained)"
+
+audit_inputs:
+  master_dataset:
+    path: "data/processed/phase7/datasets/dfo3382_native_resolution_dataset.parquet"
+    sha256: "ba0f4df5681add4acead2b91489a61be77e8a3897d7d1bdedbd5be6f448db81f"
+    total_samples: 173950
+  hydrobasins_geojson:
+    path: "data/processed/phase7/boundaries/mahanadi_hydrobasins/mahanadi_hydrobasins_lev08.geojson"
+    sha256: "db838bcae41a049195b0cbfe9c193e1b7643f8863c5a623910c2fdbb33534958"
+  spatial_splits_json:
+    path: "data/processed/phase7/experiments/dfo3382_spatial_splits.json"
+    sha256: "f54dc939539f49143037230fd3a5601e16f89cba1d8f9470ce8a52a5f9db9b4f"
+
+audit_outputs:
+  audit_script:
+    path: "scripts/run_phase7f_stage4_1_robustness_audit.py"
+    sha256: "a4974772af8a535ae06bff28e59bf4781b95e3afbfccba0629233119024140c0"
+    size_bytes: 34286
+  robustness_metrics_json:
+    path: "data/processed/phase7/experiments/dfo3382_robustness_metrics.json"
+    sha256: "44872db7992c4063e7138b0ca8659b8654eb627dcfb7d801d05ca7c8f2d193e7"
+    size_bytes: 21070
+  feature_ablation_csv:
+    path: "data/processed/phase7/experiments/dfo3382_feature_ablation.csv"
+    sha256: "c807f51d2b9ff12163cc8f18df2c4001c9cd617f0556a1141ad066b42901f7a8"
+    size_bytes: 1257
+  spatial_independence_audit_json:
+    path: "data/processed/phase7/experiments/dfo3382_spatial_independence_audit.json"
+    sha256: "e953dba36d0872dd5021e100364624d80d911fed47329120b110b079191b14a1"
+    size_bytes: 2958
+
+key_audit_findings:
+  land_water_dry_fraction_mechanism:
+    xgb_importance_full: 0.2108
+    full_model_test_pr_auc: 0.2514
+    ablation_test_pr_auc: 0.0665
+    relative_pr_auc_drop_percent: -73.55
+    mechanism: "Partially encodes optical label quality/riparian edge eligibility (66.8% of basin flood labels occur in mixed-water margin with dry_fraction < 0.70)."
+    high_quality_test_subset_pr_auc: 0.0192
+    high_quality_prevalence: 0.0157
+
+  aspect_feature_interpretation_correction:
+    aspect_mean_cos_formula: "mean(cos(aspect_deg * pi / 180.0)); measures Northness (+1=North, -1=South); monsoonal atmospheric inflow claim REFUTED."
+    aspect_mean_sin_formula: "mean(sin(aspect_deg * pi / 180.0)); measures Eastness (+1=East, -1=West)."
+    aspect_circular_var_formula: "1.0 - sqrt(mean_cos^2 + mean_sin^2); Mardia's circular variance measuring directional dispersion; valley/chaotic plain claim REFUTED."
+    aspect_flat_fraction_formula: "flat_subcells / total_valid_subcells; proportion of planar sub-cells (slope < 0.001°)."
+    aspect_ablation_test_pr_auc: 0.2392
+    aspect_ablation_test_f1: 0.2939
+    finding: "Aspect features provide negligible incremental value (F1 rises from 0.2898 to 0.2939 when removed)."
+
+  elevation_dominance_and_causality:
+    elevation_only_baseline_pr_auc: 0.1981
+    elevation_only_baseline_recall: 0.8859
+    without_elevation_pr_auc: 0.1658
+    without_elevation_and_dry_fraction_pr_auc: 0.0539
+    without_elevation_and_dry_fraction_roc_auc: 0.4768
+    finding: "Without elevation and riparian dry fraction, remaining terrain/hydrography features lack autonomous predictive skill in the delta (ROC-AUC 0.4768)."
+
+  spatial_independence_and_buffers:
+    subbasin_id_overlap: 0
+    train_to_test_min_distance_km: 24.04
+    val_to_test_min_distance_km: 0.0
+    test_cells_within_5km_of_val_pct: 12.83
+    test_buffered_5km_pr_auc: 0.2368
+    test_buffered_10km_pr_auc: 0.2345
+    finding: "TRAIN-TEST spatial separation is preserved by the 24 km central VAL corridor buffer. Adjacency between VAL and TEST produces mild boundary autocorrelation (-5.8% PR-AUC drop with 5 km buffer)."

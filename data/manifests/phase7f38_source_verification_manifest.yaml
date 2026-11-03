@@ -1,0 +1,290 @@
+manifest_version: 1.1.0-aux-final
+phase: PHASE_7F_3_8_HYDROGRAPHY_AND_MASK_SOURCE_VERIFICATION
+created_at_utc: '2026-11-01T04:15:00.000000+00:00'
+updated_at_utc: '2026-11-01T04:25:00.000000+00:00'
+event_id: DFO_3382
+basin_name: Mahanadi Basin / Odisha Delta
+study_region_bounds_wgs84: [84.0, 19.0, 88.0, 22.0]
+preflight_status: AUX_PACKAGE_READY_FOR_APPROVAL
+operational_status: PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS
+
+authoritative_source_registry:
+
+  # 1. HYDROGRAPHIC BASINS
+  hydrobasins_asia_v1c:
+    provider: USGS / World Wildlife Fund (WWF) / McGill University
+    product_name: HydroBASINS Standard Product - Asia (hybas_as_lev01-12_v1c)
+    version: 1.0c
+    source_url: https://data.hydrosheds.org/file/HydroBASINS/standard/hybas_as_lev01-12_v1c.zip
+    http_head_verified: true
+    http_status: 200
+    content_length_bytes: 376386706
+    size_mb_decimal: 376.39
+    size_mib_binary: 358.95
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    access_conditions: Open Access, Direct HTTP download, No authentication required
+    geographic_coverage: Continental Asia (encompasses full Mahanadi Basin, PFAF_ID 4527)
+    native_crs: EPSG:4326 (WGS 84)
+    resolution_scale: Derived from 15 arc-sec (~500m) conditioned SRTM elevation
+    suitability_for_dfo3382: High. Level 7 and Level 8 sub-basins isolate the delta distributaries below Naraj Barrage bifurcation.
+    staging_strategy: Mandatory if authoritative watershed boundary is required. Acquire continental archive, extract Mahanadi sub-basins (Levels 5, 7, 8), and purge continental excess to conserve storage.
+    distinction_from_cwc: Topographically delineated watershed boundaries derived from SRTM; differs from administrative water resources boundaries published by CWC.
+
+  cwc_india_wris_basin:
+    provider: Central Water Commission (CWC) / Ministry of Jal Shakti, Government of India
+    product_name: India-WRIS Basin and Sub-basin Geoportal Layers
+    version: National Water Informatics Centre (NWIC) 2020-2022
+    catalog_url: https://indiawris.gov.in/wris/
+    http_head_verified: true
+    http_status: 200 (Portal web page)
+    content_length_bytes: 8834 (HTML wrapper)
+    size_mb_decimal: Variable (Web-GIS service)
+    license: Government of India National Data Sharing and Accessibility Policy (NDSAP)
+    access_conditions: RESTRICTED_NON_PROGRAMMATIC (Web-GIS visualization available; raw bulk shapefile download requires Indian citizen mobile OTP login / NWIC data request)
+    geographic_coverage: National India (Mahanadi Basin Code 04)
+    native_crs: EPSG:4326
+    resolution_scale: 1:250,000 / 1:50,000 national mapping standard
+    suitability_for_dfo3382: Administrative benchmark reference only. Not programmatic for automated acquisition.
+
+  # 2. RIVER NETWORKS
+  hydrorivers_asia_v10:
+    provider: World Wildlife Fund (WWF) / McGill University
+    product_name: HydroRIVERS v1.0 Asia (Shapefile package)
+    version: 1.0
+    source_url: https://data.hydrosheds.org/file/hydrorivers/HydroRIVERS_v10_as_shp.zip
+    http_head_verified: true
+    http_status: 200
+    content_length_bytes: 90510995
+    size_mb_decimal: 90.51
+    size_mib_binary: 86.32
+    alternative_gdb_url: https://data.hydrosheds.org/file/hydrorivers/HydroRIVERS_v10_as.gdb.zip
+    alternative_gdb_size_bytes: 102543400
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    access_conditions: Open Access, Direct HTTP download, No authentication required
+    geographic_coverage: Continental Asia (includes Mahanadi river network)
+    native_crs: EPSG:4326
+    resolution_scale: Stream reaches with upstream drainage area >= 10 km2 or discharge >= 0.1 m3/s
+    suitability_for_dfo3382: High for primary fluvial distributaries (Mahanadi, Kathajodi, Birupa, Daya, Bhargavi, Devi).
+    scientific_limitations: Dendritic D8 single-flow routing cannot represent loops, deltaic bifurcations, or minor irrigation canals (Puri Main Canal, Kendrapara Canal). Requires canal supplementation during hydro-conditioning.
+    stream_burning_parameter_status: EXPERIMENTAL_ONLY (Universal stream-burning depths are NOT approved operational parameters; must be empirically validated).
+
+  # 3. LAND COVER
+  esa_worldcover_10m_2021_n18e084:
+    provider: European Space Agency (ESA) / VITO Remote Sensing
+    product_name: ESA WorldCover 10m 2021 v200
+    version: 2.0.0
+    tile_id: N18E084
+    source_url: https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N18E084_Map.tif
+    http_head_verified: true
+    http_status: 200
+    content_length_bytes: 54269282
+    size_mb_decimal: 54.27
+    size_mib_binary: 51.76
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    access_conditions: Open Access, AWS Public Bucket (eu-central-1), Direct HTTP download
+    geographic_coverage: 18.0°N to 21.0°N, 84.0°E to 87.0°E (100% of Core Mahanadi Delta)
+    native_crs: EPSG:4326
+    resolution_scale: 10 meters (0.00008333 deg)
+    suitability_for_dfo3382: Essential for Core Delta baseline land-cover classification.
+    temporal_qualification: Calendar year 2021 (13-year decadal gap from Sept 2008 event; urban sprawl in Bhubaneswar/Cuttack and coastal prawn aquaculture require caution).
+
+  esa_worldcover_10m_2021_n21e084:
+    provider: European Space Agency (ESA) / VITO Remote Sensing
+    product_name: ESA WorldCover 10m 2021 v200
+    version: 2.0.0
+    tile_id: N21E084
+    source_url: https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N21E084_Map.tif
+    http_head_verified: true
+    http_status: 200
+    content_length_bytes: 127991194
+    size_mb_decimal: 127.99
+    size_mib_binary: 122.06
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    access_conditions: Open Access, AWS Public Bucket (eu-central-1), Direct HTTP download
+    geographic_coverage: 21.0°N to 24.0°N, 84.0°E to 87.0°E (Covers northern Extended Delta: Jajpur, Baitarani, Bhadrak)
+    native_crs: EPSG:4326
+    resolution_scale: 10 meters
+    suitability_for_dfo3382: Required ONLY if land-cover analysis is extended beyond the Core Delta to include the northern Extended Delta tier.
+
+  # 4. SURFACE WATER MASKS
+  jrc_gsw_occurrence_80e_20n:
+    provider: European Commission Joint Research Centre (JRC)
+    product_name: JRC Global Surface Water v1.4 - Occurrence Layer
+    version: 1.4 (1984-2021)
+    tile_id: 80E_20N
+    source_url: https://storage.googleapis.com/global-surface-water/downloads/occurrence/occurrence_80E_20N.tif
+    http_head_verified: true
+    http_status: 200
+    content_length_bytes: 27240640
+    size_mb_decimal: 27.24
+    size_mib_binary: 25.98
+    license: Open Access (European Commission reuse policy under Decision 2011/833/EU)
+    access_conditions: Open Access, Google Cloud Storage public endpoint, Direct HTTP download
+    geographic_coverage: 10.0°N to 20.0°N, 80.0°E to 90.0°E (Southern Delta: Puri, Chilika, Devi estuary)
+    native_crs: EPSG:4326
+    resolution_scale: 30 meters (0.00025 deg, 40000 x 40000 cells)
+    scientific_interpretation: Long-term aggregate water frequency indicator (1984-2021). Useful for permanent water baseline masking (occurrence >= 80%). CANNOT reconstruct exact episodic flood extent of September 2008.
+
+  jrc_gsw_occurrence_80e_30n:
+    provider: European Commission Joint Research Centre (JRC)
+    product_name: JRC Global Surface Water v1.4 - Occurrence Layer
+    version: 1.4 (1984-2021)
+    tile_id: 80E_30N
+    source_url: https://storage.googleapis.com/global-surface-water/downloads/occurrence/occurrence_80E_30N.tif
+    http_head_verified: true
+    http_status: 200
+    content_length_bytes: 82179606
+    size_mb_decimal: 82.18
+    size_mib_binary: 78.37
+    license: Open Access (European Commission reuse policy)
+    access_conditions: Open Access, Direct HTTP download
+    geographic_coverage: 20.0°N to 30.0°N, 80.0°E to 90.0°E (Northern Delta: Cuttack, Kendrapara, Jajpur, Bhadrak)
+    native_crs: EPSG:4326
+    resolution_scale: 30 meters (40000 x 40000 cells)
+    scientific_interpretation: Long-term aggregate water frequency indicator. Completes full delta coverage when paired with 80E_20N.
+
+  jrc_gsw_seasonality_80e_20n:
+    provider: European Commission Joint Research Centre (JRC)
+    product_name: JRC Global Surface Water v1.4 - Seasonality Layer
+    version: 1.4 (1984-2021)
+    tile_id: 80E_20N
+    source_url: https://storage.googleapis.com/global-surface-water/downloads/seasonality/seasonality_80E_20N.tif
+    http_head_verified: true
+    http_status: 200
+    content_length_bytes: 13975950
+    size_mb_decimal: 13.98
+    size_mib_binary: 13.33
+    license: Open Access (European Commission reuse policy)
+    access_conditions: Open Access, Direct HTTP download
+    geographic_coverage: 10.0°N to 20.0°N, 80.0°E to 90.0°E
+    native_crs: EPSG:4326
+    resolution_scale: 30 meters
+    scientific_interpretation: Multi-annual average water duration (0-12 months/year). Useful for identifying recurring monsoonal waterlogging; CANNOT be used to infer September 2008 flood peak.
+
+  jrc_gsw_seasonality_80e_30n:
+    provider: European Commission Joint Research Centre (JRC)
+    product_name: JRC Global Surface Water v1.4 - Seasonality Layer
+    version: 1.4 (1984-2021)
+    tile_id: 80E_30N
+    source_url: https://storage.googleapis.com/global-surface-water/downloads/seasonality/seasonality_80E_30N.tif
+    http_head_verified: true
+    http_status: 200
+    content_length_bytes: 29238608
+    size_mb_decimal: 29.24
+    size_mib_binary: 27.88
+    license: Open Access (European Commission reuse policy)
+    access_conditions: Open Access, Direct HTTP download
+    geographic_coverage: 20.0°N to 30.0°N, 80.0°E to 90.0°E
+    native_crs: EPSG:4326
+    resolution_scale: 30 meters
+    scientific_interpretation: Multi-annual average water duration (0-12 months/year).
+
+  # 5. COASTAL WETLANDS & MANGROVES
+  gmw_v3_2008_gtiff:
+    provider: Aberystwyth University / soloEO / Wetlands International / JAXA / UNEP-WCMC
+    product_name: Global Mangrove Watch (1996 - 2020) Version 3.0 - 2008 Epoch
+    version: 3.0 (Zenodo DOI 10.5281/zenodo.6894273)
+    source_url: https://zenodo.org/api/records/6894273/files/gmw_v3_2008_gtiff.zip/content
+    http_head_verified: true
+    http_status: 200
+    content_length_bytes: 66664471
+    size_mb_decimal: 66.66
+    size_mib_binary: 63.58
+    vector_alternative_url: https://zenodo.org/api/records/6894273/files/gmw_v3_2008_vec.zip/content
+    vector_alternative_bytes: 191295721
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    access_conditions: Open Access, Direct HTTP download from Zenodo repository
+    geographic_coverage: Global coastal mangrove zones (includes Bhitarkanika National Park & Mahanadi Estuary)
+    native_crs: EPSG:4326
+    resolution_scale: ~25 meters
+    suitability_for_dfo3382: Superior. Contemporaneous 2008 epoch coinciding exactly with the September 2008 event.
+    coastal_qualification: Mangrove canopy reference layer; cannot serve as a complete tidal flat or shoreline mask.
+
+candidate_auxiliary_packages:
+
+  # PACKAGE AUX-MIN: Minimal Package
+  package_aux_min:
+    package_name: Minimal Auxiliary Hydrography and Persistent-Water Package (Package AUX-MIN)
+    role: Core baseline stream burning and permanent water masking for Core Delta only
+    total_files: 4
+    total_download_size_bytes: 254200523
+    total_download_size_mb_decimal: 254.20
+    total_download_size_mib_binary: 242.42
+    essential_components:
+    - name: HydroRIVERS Asia v1.0 (Shapefile)
+      bytes: 90510995
+      mb_decimal: 90.51
+      role: Mandatory stream burning into Copernicus DSM
+    - name: ESA WorldCover 10m 2021 N18E084
+      bytes: 54269282
+      mb_decimal: 54.27
+      role: Mandatory Core Delta baseline land-cover
+    - name: JRC GSW Occurrence 80E_20N
+      bytes: 27240640
+      mb_decimal: 27.24
+      role: Mandatory Southern Delta permanent water baseline
+    - name: JRC GSW Occurrence 80E_30N
+      bytes: 82179606
+      mb_decimal: 82.18
+      role: Mandatory Northern Delta permanent water baseline
+    scope_restriction: Restricts analysis strictly to the Core Delta (19N-21N). Does NOT include watershed boundaries or 2008 mangrove baseline.
+
+  # PACKAGE AUX-EXT: Comprehensive Extended Package
+  package_aux_ext:
+    package_name: Comprehensive Auxiliary Hydrography, Basin, and Coastal Package (Package AUX-EXT)
+    role: Complete hydrologic conditioning, watershed boundary delineation, seasonal waterlogging discrimination, and 2008 mangrove baseline across both Core and Extended Delta
+    total_files: 9
+    total_download_size_bytes: 868457452
+    total_download_size_mb_decimal: 868.46
+    total_download_size_mib_binary: 828.23
+    components:
+    - name: HydroRIVERS Asia v1.0 (Shapefile)
+      bytes: 90510995
+      mb_decimal: 90.51
+      classification: ESSENTIAL (Stream burning)
+    - name: HydroBASINS Asia v1c (Archive)
+      bytes: 376386706
+      mb_decimal: 376.39
+      classification: ESSENTIAL_FOR_WATERSHED_DELINEATION (Replaces invalid bbox with Level 7/8 sub-basins)
+    - name: ESA WorldCover 10m 2021 N18E084
+      bytes: 54269282
+      mb_decimal: 54.27
+      classification: ESSENTIAL (Core Delta Land Cover)
+    - name: ESA WorldCover 10m 2021 N21E084
+      bytes: 127991194
+      mb_decimal: 127.99
+      classification: OPTIONAL_EXTENDED (Extended Delta Northern Tier 21N-22N)
+    - name: JRC GSW Occurrence 80E_20N
+      bytes: 27240640
+      mb_decimal: 27.24
+      classification: ESSENTIAL (Southern Delta Permanent Water)
+    - name: JRC GSW Occurrence 80E_30N
+      bytes: 82179606
+      mb_decimal: 82.18
+      classification: ESSENTIAL (Northern Delta Permanent Water)
+    - name: JRC GSW Seasonality 80E_20N
+      bytes: 13975950
+      mb_decimal: 13.98
+      classification: RECOMMENDED (Southern Delta Seasonal Inundation Duration)
+    - name: JRC GSW Seasonality 80E_30N
+      bytes: 29238608
+      mb_decimal: 29.24
+      classification: RECOMMENDED (Northern Delta Seasonal Inundation Duration)
+    - name: GMW v3.0 2008 GeoTIFF
+      bytes: 66664471
+      mb_decimal: 66.66
+      classification: RECOMMENDED (Authentic 2008 Mangrove Baseline)
+
+unresolved_scientific_questions:
+- question_1: Will HydroRIVERS D8 single-flow dendritic reaches sufficiently capture anabranching distributaries below Naraj Barrage, or will supplemental canal centerlines be mandatory?
+- question_2: What empirical stream-burning depth (e.g. 1.5m vs 3.0m) avoids over-excavating alluvial delta flats while overcoming DSM canopy damming in Bhitarkanika?
+- question_3: How will dynamic tidal flats and seasonal aquaculture ponds along Chilika Lagoon be validated without concurrent SAR ground-truth?
+
+governance_invariants:
+  read_only_audit_maintained: true
+  data_downloaded: false
+  nine_dem_tiles_unmodified: true
+  terrain_derivatives_generated: false
+  ml_models_trained: false
+  dfo2507_quarantine_preserved: true
+  phase6_supremacy_preserved: true

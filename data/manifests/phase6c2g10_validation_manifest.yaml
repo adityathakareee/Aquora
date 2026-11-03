@@ -1,0 +1,38 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_10_GROUND_TRUTH_VALIDATION_AND_FEASIBILITY
+timestamp_utc: '2026-10-19T14:58:36.275280+00:00'
+governance:
+  final_decision: EVENT_LEVEL_ANALYSIS_FEASIBLE
+  event_level_national_analysis_permitted: true
+  pixel_level_supervised_training_permitted: false
+  zero_synthetic_labels_enforced: true
+  zero_district_to_pixel_broadcasting_enforced: true
+  summary: Authoritative national flood event records (6,876 events) from IFI support
+    event-level national analysis, district hazard frequency baselines, and historical
+    storm validation. However, pixel-level supervised training for 30m spatial flood
+    susceptibility remains strictly blocked due to lack of 30m inundation polygons
+    and verified non-flood negative samples.
+dem_immutability:
+  raw_copernicus_dsm_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_study_extent_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  verified_unmodified: true
+verified_datasets:
+  india_flood_inventory:
+    file: data\raw\phase7\ground_truth\india_flood_inventory_v3.csv
+    sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+    records: 6876
+    coordinates_status: 100% NaN (District/State level only)
+  dfo_masterlist:
+    file: data\raw\phase7\ground_truth\dfo_masterlist_20190418.zip
+    sha256: 976f0904c603ba31e8aa62f6d1b55cec4c153be783495593ed247d01629ffe09
+    features: 4029
+    temporal_cutoff: 2010-08-10 (No 2017/2019 data)
+target_event_validation:
+  event_e03_july_2019: VERIFIED_EVENT_MATCH_IFI (UEI-IMD-FL-2019-0090, UEI-IMD-FL-2019-0091)
+  event_e02_august_2017: VERIFIED_EVENT_MATCH_IFI (UEI-IMD-FL-2017-0088, UEI-IMD-FL-2017-0089)
+safeguards:
+- District-level labels must never be broadcast to 30m raster grid cells.
+- Absence of disaster report must never be treated as verified dry ground.
+- Consecutive single-day entries from the same storm must never be split across train/test
+  folds.
+- Zero models trained in this phase.

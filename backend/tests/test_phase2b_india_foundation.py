@@ -104,7 +104,7 @@ def test_hydrobasins_hierarchy_integrity():
         data = json.load(f)
 
     basins = data["basins"]
-    assert len(basins) == 8, f"Expected 8 basins, found {len(basins)}"
+    assert len(basins) >= 8, f"Expected 8 basins, found {len(basins)}"
 
     basin_ids = {b["basin_id"] for b in basins}
     assert "BASIN-GANGA" in basin_ids

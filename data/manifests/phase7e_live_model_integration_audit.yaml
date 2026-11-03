@@ -1,0 +1,118 @@
+audit_metadata:
+  audit_id: "AUDIT-PHASE7E-LIVE-MODEL-001"
+  audit_name: "Phase 7E Kaggle Model Live Inference Integration Audit"
+  audit_timestamp_utc: "2026-11-02T17:58:00Z"
+  auditor: "Antigravity Autonomous Systems & Scientific Verification Team"
+  repository: "Sarveshk-2006/Aquoraa"
+  branch: "main"
+  phase: "PHASE_7E_EXPERIMENTAL_ML"
+
+final_decision: "LIVE_MODEL_INTEGRATION_VERIFIED"
+
+model_artifact_verification:
+  runtime_artifact:
+    path: "ml/models/aquora_national_screening_model.joblib"
+    format: "joblib_serialized_dict"
+    size_bytes: 437544
+    sha256: "62fff9430390aa745b169802007b4032a6e446567463c88898dc52f2340a7e20"
+    mtime_utc: "2026-11-02T17:34:03Z"
+    schema_version: "1.0.0"
+    model_version: "1.2.0-phase7e"
+    status: "OPERATIONAL"
+  kaggle_v2_artifacts:
+    xgboost_booster:
+      path: "data/packages/phase7e_kaggle_package/models/aquora_xgboost.json"
+      format: "xgboost_native_json"
+      size_bytes: 434555
+      sha256: "5940b9bd5e745a0085d149ff2805042847a7422233fcde765df32bdda9c844d8"
+      mtime_utc: "2026-11-02T17:25:02Z"
+    random_forest:
+      path: "data/packages/phase7e_kaggle_package/models/aquora_random_forest.joblib"
+      format: "scikit_learn_joblib"
+      size_bytes: 1811394
+      sha256: "9143171fee275848ad132f605012d13f73c377f3dd1393b613fa077a0e91a3e4"
+      mtime_utc: "2026-11-02T17:25:02Z"
+    frozen_decisions:
+      path: "data/packages/phase7e_kaggle_package/models/aquora_frozen_validation_decisions.json"
+      format: "json"
+      size_bytes: 410
+      sha256: "7aca2a41377079863b7cac62affbe03b4e254637e023b610a58520a6b8d8fec4"
+      mtime_utc: "2026-11-02T17:25:02Z"
+    model_metadata:
+      path: "data/packages/phase7e_kaggle_package/models/aquora_model_metadata.json"
+      format: "json"
+      size_bytes: 3417
+      sha256: "e0aab3d562bc6ce52d1ef3364c841221d1ade19ac2b4de9a3d8dc92276d653eb"
+      mtime_utc: "2026-11-02T17:25:02Z"
+  cryptographic_match_confirmed: true
+  embedded_booster_sha256: "5940b9bd5e745a0085d149ff2805042847a7422233fcde765df32bdda9c844d8"
+  match_type: "EXACT_BIT_FOR_BIT_EMBEDDED_JSON_STRING"
+
+backend_loading_trace:
+  module: "backend/app/services/ml_model_registry.py"
+  class_name: "NationalScreeningModel"
+  wrapper_class: "Phase7EXGBoostWrapper"
+  registry_class: "FloodModelRegistry"
+  singleton_persisted_in_memory: true
+  lazy_booster_compilation: true
+  missing_artifact_behavior: "REPORTS_MODEL_NOT_TRAINED_ZERO_FABRICATION"
+
+feature_schema_mapping:
+  governed_core_features_count: 11
+  trained_predictors_count: 7
+  slicing_indices: [3, 4, 5, 6, 7, 8, 10]
+  trained_feature_names:
+    - "rainfall_24h_mm"
+    - "rainfall_72h_mm"
+    - "rainfall_anomaly_index"
+    - "elevation_m"
+    - "slope_deg"
+    - "distance_to_river_m"
+    - "landcover_class"
+  excluded_features:
+    - name: "rainfall_1h_mm"
+      reason: "Missing in operational IMD rain gauge coverage; zero-fabrication applied"
+    - name: "rainfall_3h_mm"
+      reason: "Missing in operational IMD rain gauge coverage; zero-fabrication applied"
+    - name: "rainfall_6h_mm"
+      reason: "Missing in operational IMD rain gauge coverage; zero-fabrication applied"
+    - name: "historical_flood_frequency"
+      reason: "Anti-leakage quarantine; future flood history excluded from inference"
+
+controlled_benchmark_results:
+  trials_count: 15
+  endpoint: "POST /api/v1/intelligence/screening/national"
+  sample_point:
+    point_id: "AUDIT_BENCHMARK_PATNA"
+    latitude: 25.5941
+    longitude: 85.1376
+  latency_ms:
+    min: 37.87
+    median: 51.70
+    mean: 62.33
+    max: 152.56
+  direct_model_inference_latency_ms:
+    min: 2.57
+    median: 3.81
+    mean: 8.52
+    max: 99.21
+  dynamic_probability_verification:
+    lowland_inundated_prob: 0.5102
+    highland_dry_prob: 0.0037
+    static_or_hardcoded_fallback_detected: false
+
+frontend_integration:
+  api_service_file: "frontend/src/api/intelligence.ts"
+  ui_component_file: "frontend/src/components/layout/GeographicTierModal.tsx"
+  endpoint_called: "/api/v1/intelligence/screening/national"
+  ui_displays_ready_status: true
+  ui_displays_resolved_zone: true
+  ui_displays_extracted_features: true
+  ui_displays_probability_metric: false
+
+scientific_safeguards:
+  deterministic_physics_authority_preserved: true
+  uncalibrated_macro_screening_flagged: true
+  spatial_extent_strictly_enforced: true
+  out_of_bounds_rejection_without_fallback: true
+  dfo2507_holdout_quarantine_preserved: true

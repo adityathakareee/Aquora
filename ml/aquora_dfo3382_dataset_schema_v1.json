@@ -1,0 +1,127 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_name": "aquora_dfo3382_dataset_schema_v1",
+  "schema_version": "1.0.0",
+  "created_at": "2026-11-02T05:30:00Z",
+  "governance": {
+    "status": "ACCEPTED_EXPERIMENTAL_DATASET_SCHEMA",
+    "benchmark_event": "DFO_3382_MAHANADI_2008",
+    "administrative_event_id": "UEI-IMD-FL-2008-0095",
+    "spatial_crs": "EPSG:4326",
+    "native_grid_resolution_deg": 0.002245788210298804,
+    "nominal_ground_resolution_m": 250.0,
+    "model_compatibility": "NOT_COMPATIBLE_WITH_PHASE7E_MODEL",
+    "authoritative_physics_engine": "engines/flood/solver.py",
+    "holdout_quarantine_status": "DFO2507_QUARANTINED_ZERO_ACCESS",
+    "description": "Authoritative native-resolution schema for DFO 3382 Mahanadi flood dataset, aggregating 30m Copernicus DEM and HydroRIVERS/HydroBASINS features into native ~250m DFO cells while preserving genuine missingness of rainfall."
+  },
+  "dataset_summary": {
+    "total_rows": 1090194,
+    "total_features": 78,
+    "natural_flood_prevalence_pct": 2.2919,
+    "verified_flood_samples": 24986,
+    "verified_dry_samples": 1065208,
+    "mahanadi_basin_samples": 254883,
+    "delta_corridor_samples": 55757
+  },
+  "feature_groups": {
+    "identifiers_and_coordinates": [
+      {"name": "dfo_cell_id", "type": "string", "description": "Unique cell identifier (DFO3382_R{row}_C{col})"},
+      {"name": "event_id", "type": "string", "value": "DFO_3382"},
+      {"name": "administrative_event_id", "type": "string", "value": "UEI-IMD-FL-2008-0095"},
+      {"name": "basin_name", "type": "string", "value": "Mahanadi"},
+      {"name": "state", "type": "string", "value": "Odisha"},
+      {"name": "grid_row", "type": "int32", "description": "DFO observation window row index"},
+      {"name": "grid_col", "type": "int32", "description": "DFO observation window column index"},
+      {"name": "longitude", "type": "float64", "units": "degrees East (WGS84)"},
+      {"name": "latitude", "type": "float64", "units": "degrees North (WGS84)"},
+      {"name": "lon_min", "type": "float64", "units": "degrees East"},
+      {"name": "lon_max", "type": "float64", "units": "degrees East"},
+      {"name": "lat_min", "type": "float64", "units": "degrees North"},
+      {"name": "lat_max", "type": "float64", "units": "degrees North"},
+      {"name": "pixel_area_m2", "type": "float64", "units": "square meters (accounting for latitude)"}
+    ],
+    "ground_truth_and_labels": [
+      {"name": "gfd_flooded_raw", "type": "float32", "units": "binary (0.0 or 1.0)", "description": "Raw MODIS GFD flooded band"},
+      {"name": "gfd_duration", "type": "float32", "units": "days", "description": "Flood duration within observation composite"},
+      {"name": "gfd_clear_views", "type": "float32", "units": "count", "description": "Clear view observation count"},
+      {"name": "gfd_clear_perc", "type": "float32", "units": "fraction [0.0, 1.0]", "description": "Clear observation percentage (quality threshold >= 0.70)"},
+      {"name": "gfd_jrc_perm_water", "type": "float32", "units": "binary (0.0 or 1.0)", "description": "JRC Global Surface Water permanent water mask"},
+      {"name": "flood_label", "type": "int8", "values": [0, 1], "description": "Clean target label (1=verified episodic flood, 0=verified dry)"},
+      {"name": "label_category", "type": "string", "values": ["VERIFIED_EPISODIC_FLOOD", "VERIFIED_DRY"]},
+      {"name": "label_quality", "type": "string", "values": ["HIGH_QUALITY", "MEDIUM_QUALITY", "MIXED_WATER_MARGIN"]},
+      {"name": "in_mahanadi_basin", "type": "bool", "description": "True if cell intersects HydroBASINS Mahanadi Basin boundary"},
+      {"name": "in_delta_corridor", "type": "bool", "description": "True if cell intersects the 7 core delta sub-basins downstream of Naraj"}
+    ],
+    "terrain_30m_aggregates": [
+      {"name": "elevation_mean_m", "type": "float32", "units": "meters", "aggregation": "mean"},
+      {"name": "elevation_median_m", "type": "float32", "units": "meters", "aggregation": "median"},
+      {"name": "elevation_min_m", "type": "float32", "units": "meters", "aggregation": "minimum"},
+      {"name": "elevation_max_m", "type": "float32", "units": "meters", "aggregation": "maximum"},
+      {"name": "elevation_std_m", "type": "float32", "units": "meters", "aggregation": "standard_deviation"},
+      {"name": "slope_mean_deg", "type": "float32", "units": "degrees", "aggregation": "mean"},
+      {"name": "slope_median_deg", "type": "float32", "units": "degrees", "aggregation": "median"},
+      {"name": "slope_max_deg", "type": "float32", "units": "degrees", "aggregation": "maximum"},
+      {"name": "aspect_mean_cos", "type": "float32", "units": "dimensionless [-1.0, 1.0]", "aggregation": "circular_mean_cos"},
+      {"name": "aspect_mean_sin", "type": "float32", "units": "dimensionless [-1.0, 1.0]", "aggregation": "circular_mean_sin"},
+      {"name": "aspect_mean_deg", "type": "float32", "units": "degrees [0, 360)", "aggregation": "circular_mean_degrees"},
+      {"name": "aspect_circular_var", "type": "float32", "units": "dimensionless [0.0, 1.0]", "aggregation": "circular_variance"},
+      {"name": "aspect_flat_fraction", "type": "float32", "units": "fraction [0.0, 1.0]", "aggregation": "proportion"},
+      {"name": "plan_curvature_mean", "type": "float32", "units": "100/m", "aggregation": "mean"},
+      {"name": "plan_curvature_std", "type": "float32", "units": "100/m", "aggregation": "standard_deviation"},
+      {"name": "profile_curvature_mean", "type": "float32", "units": "100/m", "aggregation": "mean"},
+      {"name": "profile_curvature_std", "type": "float32", "units": "100/m", "aggregation": "standard_deviation"},
+      {"name": "twi_mean", "type": "float32", "units": "dimensionless", "aggregation": "mean"},
+      {"name": "twi_median", "type": "float32", "units": "dimensionless", "aggregation": "median"},
+      {"name": "twi_min", "type": "float32", "units": "dimensionless", "aggregation": "minimum"},
+      {"name": "twi_max", "type": "float32", "units": "dimensionless", "aggregation": "maximum"},
+      {"name": "flow_accum_mean", "type": "float32", "units": "cells count", "aggregation": "mean"},
+      {"name": "flow_accum_max", "type": "float32", "units": "cells count", "aggregation": "maximum"},
+      {"name": "flow_accum_log10_mean", "type": "float32", "units": "log10(cells + 1)", "aggregation": "mean"},
+      {"name": "flow_accum_log10_max", "type": "float32", "units": "log10(cells + 1)", "aggregation": "maximum"}
+    ],
+    "hydrographic_30m_aggregates": [
+      {"name": "dist_to_river_mean_m", "type": "float32", "units": "meters", "aggregation": "mean"},
+      {"name": "dist_to_river_min_m", "type": "float32", "units": "meters", "aggregation": "minimum"},
+      {"name": "dist_to_distributary_mean_m", "type": "float32", "units": "meters", "aggregation": "mean"},
+      {"name": "dist_to_distributary_min_m", "type": "float32", "units": "meters", "aggregation": "minimum"},
+      {"name": "strahler_order_max", "type": "int8", "units": "order (0..7)", "aggregation": "maximum"},
+      {"name": "strahler_order_rep", "type": "int8", "units": "order (0..7)", "aggregation": "median_nonzero"},
+      {"name": "upstream_catchment_area_max_km2", "type": "float32", "units": "km2", "aggregation": "maximum"},
+      {"name": "upstream_catchment_area_mean_km2", "type": "float32", "units": "km2", "aggregation": "mean"},
+      {"name": "subbasin_id_lev08", "type": "int64", "units": "HYBAS_ID", "aggregation": "mode"},
+      {"name": "subbasin_area_km2", "type": "float32", "units": "km2", "aggregation": "lookup"}
+    ],
+    "land_cover_and_coverage": [
+      {"name": "land_water_dry_fraction", "type": "float32", "units": "fraction [0.0, 1.0]", "aggregation": "proportion"},
+      {"name": "land_water_ocean_fraction", "type": "float32", "units": "fraction [0.0, 1.0]", "aggregation": "proportion"},
+      {"name": "land_water_lake_fraction", "type": "float32", "units": "fraction [0.0, 1.0]", "aggregation": "proportion"},
+      {"name": "land_water_river_fraction", "type": "float32", "units": "fraction [0.0, 1.0]", "aggregation": "proportion"},
+      {"name": "valid_30m_pixel_count", "type": "int16", "units": "count", "description": "Count of valid 30m pixels overlapping DFO cell"},
+      {"name": "total_30m_pixel_count", "type": "int16", "units": "count", "description": "Total 30m pixel grid cells inside DFO bounding box"},
+      {"name": "terrain_coverage_fraction", "type": "float32", "units": "fraction [0.0, 1.0]", "description": "Valid 30m cells divided by total cells"}
+    ],
+    "phase7e_baseline_comparison": [
+      {"name": "phase7e_elevation_m", "type": "float32", "units": "meters", "status": "AVAILABLE"},
+      {"name": "phase7e_slope_deg", "type": "float32", "units": "degrees", "status": "AVAILABLE"},
+      {"name": "phase7e_drainage_proxy_score", "type": "float32", "units": "score [0.0, 1.0]", "status": "AVAILABLE"},
+      {"name": "phase7e_rainfall_accum_6h_mm", "type": "float32", "units": "mm", "status": "UNAVAILABLE", "value": null},
+      {"name": "phase7e_rainfall_accum_24h_mm", "type": "float32", "units": "mm", "status": "UNAVAILABLE", "value": null},
+      {"name": "phase7e_rainfall_accum_72h_mm", "type": "float32", "units": "mm", "status": "UNAVAILABLE", "value": null},
+      {"name": "phase7e_temporal_window_hours", "type": "float32", "units": "hours", "status": "AVAILABLE", "value": 168.0},
+      {"name": "phase7e_model_compatible", "type": "bool", "status": "INCOMPATIBLE", "value": false},
+      {"name": "phase7e_incompatibility_reason", "type": "string", "value": "RAINFALL_ACCUMULATION_UNAVAILABLE"}
+    ],
+    "missingness_indicators": [
+      {"name": "rainfall_missing_indicator", "type": "int8", "value": 1, "description": "1 = rainfall unobserved locally; imputation prohibited"},
+      {"name": "elevation_missing_indicator", "type": "int8", "description": "1 = elevation missing / out of DEM coverage"},
+      {"name": "hydro_missing_indicator", "type": "int8", "description": "1 = hydrography missing / out of domain"}
+    ]
+  },
+  "governance_safeguards": {
+    "zero_rainfall_fabrication": "No temporal disaggregation or synthetic rainfall filling is permitted.",
+    "zero_label_upsampling": "DFO labels must remain at native ~250m resolution; never upsampled to 30m.",
+    "model_isolation": "Do NOT feed unvalidated or missing-rainfall samples into the existing Phase 7E ML model.",
+    "dfo2507_quarantine": "DFO 2507 remains quarantined as an already-inspected holdout with zero access."
+  }
+}

@@ -314,8 +314,33 @@ class CalibrationService:
             "provider_mode": provider_mode,
             "feature_schema": self.feature_schema,
             "feature_count": len(EXPECTED_FEATURES),
-            "prediction_summary": summary,
-            "provenance": provenance,
             "sample_scores": [float(x) for x in probs[:10]],
             "raw_scores": probs,
         }
+
+    def predict_single(self, features: Dict[str, Any]) -> Optional[float]:
+        """
+        Execute read-only inference on a single coordinate feature dictionary.
+        Maps available features to EXPECTED_FEATURES; fills missing features with np.nan.
+        Returns predicted probability as float, or None if prediction fails.
+        """
+        try:
+            row_dict = {}
+            for col in EXPECTED_FEATURES:
+                val = features.get(col)
+                if val is None:
+                    row_dict[col] = np.nan
+                else:
+                    try:
+                        row_dict[col] = float(val)
+                    except (ValueError, TypeError):
+                        row_dict[col] = np.nan
+            df = pd.DataFrame([row_dict], columns=EXPECTED_FEATURES)
+            model = self.model
+            if model is None:
+                return None
+            probs = model.predict_proba(df)[:, 1]
+            return float(probs[0])
+        except Exception as e:
+            logger.warning("Single-point calibration prediction failed", error=str(e))
+            return None

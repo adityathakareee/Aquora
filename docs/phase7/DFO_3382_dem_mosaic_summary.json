@@ -1,0 +1,311 @@
+{
+  "event_id": "DFO_3382",
+  "phase": "PHASE_7F_STAGE_2",
+  "status": "DEM_MOSAIC_VERIFIED",
+  "timestamp_utc": "2026-11-01T04:41:22.055231+00:00",
+  "mosaic_vrt": "data/processed/phase7/terrain/mahanadi_dem_mosaic_30m.vrt",
+  "total_source_tiles": 9,
+  "source_product": "Copernicus DEM GLO-30 (Digital Surface Model)",
+  "spatial_crs": "EPSG:4326 (WGS 84)",
+  "bounds_wgs84": [
+    83.99986111111112,
+    19.000138888888888,
+    87.99986111111112,
+    22.000138888888888
+  ],
+  "resolution_deg": [
+    0.0002777777777777778,
+    0.0002777777777777778
+  ],
+  "dimensions": [
+    14400,
+    10800
+  ],
+  "total_pixels": 155520000,
+  "nodata_value": -999999.0,
+  "source_tiles": [
+    {
+      "filename": "Copernicus_DSM_COG_10_N19_00_E084_00_DEM.tif",
+      "path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E084_00_DEM.tif",
+      "shape": [
+        3600,
+        3600
+      ],
+      "crs": "EPSG:4326",
+      "res": [
+        0.0002777777777777778,
+        0.0002777777777777778
+      ],
+      "bounds": [
+        83.99986111111112,
+        19.000138888888888,
+        84.99986111111112,
+        20.000138888888888
+      ],
+      "nodata": null,
+      "dtype": "float32",
+      "driver": "GTiff",
+      "crs_wkt": "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]"
+    },
+    {
+      "filename": "Copernicus_DSM_COG_10_N19_00_E085_00_DEM.tif",
+      "path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E085_00_DEM.tif",
+      "shape": [
+        3600,
+        3600
+      ],
+      "crs": "EPSG:4326",
+      "res": [
+        0.0002777777777777778,
+        0.0002777777777777778
+      ],
+      "bounds": [
+        84.99986111111112,
+        19.000138888888888,
+        85.99986111111112,
+        20.000138888888888
+      ],
+      "nodata": null,
+      "dtype": "float32",
+      "driver": "GTiff",
+      "crs_wkt": "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]"
+    },
+    {
+      "filename": "Copernicus_DSM_COG_10_N19_00_E086_00_DEM.tif",
+      "path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E086_00_DEM.tif",
+      "shape": [
+        3600,
+        3600
+      ],
+      "crs": "EPSG:4326",
+      "res": [
+        0.0002777777777777778,
+        0.0002777777777777778
+      ],
+      "bounds": [
+        85.99986111111112,
+        19.000138888888888,
+        86.99986111111112,
+        20.000138888888888
+      ],
+      "nodata": null,
+      "dtype": "float32",
+      "driver": "GTiff",
+      "crs_wkt": "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]"
+    },
+    {
+      "filename": "Copernicus_DSM_COG_10_N20_00_E084_00_DEM.tif",
+      "path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E084_00_DEM.tif",
+      "shape": [
+        3600,
+        3600
+      ],
+      "crs": "EPSG:4326",
+      "res": [
+        0.0002777777777777778,
+        0.0002777777777777778
+      ],
+      "bounds": [
+        83.99986111111112,
+        20.000138888888888,
+        84.99986111111112,
+        21.000138888888888
+      ],
+      "nodata": null,
+      "dtype": "float32",
+      "driver": "GTiff",
+      "crs_wkt": "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]"
+    },
+    {
+      "filename": "Copernicus_DSM_COG_10_N20_00_E085_00_DEM.tif",
+      "path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E085_00_DEM.tif",
+      "shape": [
+        3600,
+        3600
+      ],
+      "crs": "EPSG:4326",
+      "res": [
+        0.0002777777777777778,
+        0.0002777777777777778
+      ],
+      "bounds": [
+        84.99986111111112,
+        20.000138888888888,
+        85.99986111111112,
+        21.000138888888888
+      ],
+      "nodata": null,
+      "dtype": "float32",
+      "driver": "GTiff",
+      "crs_wkt": "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]"
+    },
+    {
+      "filename": "Copernicus_DSM_COG_10_N20_00_E086_00_DEM.tif",
+      "path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E086_00_DEM.tif",
+      "shape": [
+        3600,
+        3600
+      ],
+      "crs": "EPSG:4326",
+      "res": [
+        0.0002777777777777778,
+        0.0002777777777777778
+      ],
+      "bounds": [
+        85.99986111111112,
+        20.000138888888888,
+        86.99986111111112,
+        21.000138888888888
+      ],
+      "nodata": null,
+      "dtype": "float32",
+      "driver": "GTiff",
+      "crs_wkt": "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]"
+    },
+    {
+      "filename": "Copernicus_DSM_COG_10_N20_00_E087_00_DEM.tif",
+      "path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E087_00_DEM.tif",
+      "shape": [
+        3600,
+        3600
+      ],
+      "crs": "EPSG:4326",
+      "res": [
+        0.0002777777777777778,
+        0.0002777777777777778
+      ],
+      "bounds": [
+        86.99986111111112,
+        20.000138888888888,
+        87.99986111111112,
+        21.000138888888888
+      ],
+      "nodata": null,
+      "dtype": "float32",
+      "driver": "GTiff",
+      "crs_wkt": "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]"
+    },
+    {
+      "filename": "Copernicus_DSM_COG_10_N21_00_E085_00_DEM.tif",
+      "path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E085_00_DEM.tif",
+      "shape": [
+        3600,
+        3600
+      ],
+      "crs": "EPSG:4326",
+      "res": [
+        0.0002777777777777778,
+        0.0002777777777777778
+      ],
+      "bounds": [
+        84.99986111111112,
+        21.000138888888888,
+        85.99986111111112,
+        22.000138888888888
+      ],
+      "nodata": null,
+      "dtype": "float32",
+      "driver": "GTiff",
+      "crs_wkt": "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]"
+    },
+    {
+      "filename": "Copernicus_DSM_COG_10_N21_00_E086_00_DEM.tif",
+      "path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E086_00_DEM.tif",
+      "shape": [
+        3600,
+        3600
+      ],
+      "crs": "EPSG:4326",
+      "res": [
+        0.0002777777777777778,
+        0.0002777777777777778
+      ],
+      "bounds": [
+        85.99986111111112,
+        21.000138888888888,
+        86.99986111111112,
+        22.000138888888888
+      ],
+      "nodata": null,
+      "dtype": "float32",
+      "driver": "GTiff",
+      "crs_wkt": "GEOGCS[\"WGS 84\",DATUM[\"WGS_1984\",SPHEROID[\"WGS 84\",6378137,298.257223563,AUTHORITY[\"EPSG\",\"7030\"]],AUTHORITY[\"EPSG\",\"6326\"]],PRIMEM[\"Greenwich\",0,AUTHORITY[\"EPSG\",\"8901\"]],UNIT[\"degree\",0.0174532925199433,AUTHORITY[\"EPSG\",\"9122\"]],AXIS[\"Latitude\",NORTH],AXIS[\"Longitude\",EAST],AUTHORITY[\"EPSG\",\"4326\"]]"
+    }
+  ],
+  "seam_audit": [
+    {
+      "seam_name": "N20E085 to N20E086 (Longitude 86.0\u00b0E, Cuttack/Kendrapara Delta Corridor)",
+      "window": [
+        7198,
+        5400,
+        4,
+        4
+      ],
+      "min_elev_m": 17.64,
+      "max_elev_m": 18.03,
+      "mean_elev_m": 17.84,
+      "max_adjacent_step_m": 0.38,
+      "status": "SEAM_CONTINUOUS_VERIFIED"
+    },
+    {
+      "seam_name": "N19E085 to N19E086 (Longitude 86.0\u00b0E, Puri/Devi Mouth Corridor)",
+      "window": [
+        7198,
+        9000,
+        4,
+        4
+      ],
+      "min_elev_m": 0.0,
+      "max_elev_m": 0.0,
+      "mean_elev_m": 0.0,
+      "max_adjacent_step_m": 0.0,
+      "status": "SEAM_CONTINUOUS_VERIFIED"
+    },
+    {
+      "seam_name": "N20E085 to N19E085 (Latitude 20.0\u00b0N, Naraj/Bhubaneswar Corridor)",
+      "window": [
+        5400,
+        7198,
+        4,
+        4
+      ],
+      "min_elev_m": 22.83,
+      "max_elev_m": 28.72,
+      "mean_elev_m": 25.77,
+      "max_adjacent_step_m": 2.14,
+      "status": "SEAM_CONTINUOUS_VERIFIED"
+    },
+    {
+      "seam_name": "N21E085 to N20E085 (Latitude 21.0\u00b0N, Jajpur/Baitarani Margin)",
+      "window": [
+        5400,
+        3598,
+        4,
+        4
+      ],
+      "min_elev_m": 156.83,
+      "max_elev_m": 173.16,
+      "mean_elev_m": 164.05,
+      "max_adjacent_step_m": 5.81,
+      "status": "SEAM_CONTINUOUS_VERIFIED"
+    },
+    {
+      "seam_name": "N20E086 to N20E087 (Longitude 87.0\u00b0E, Bhitarkanika Marine Margin)",
+      "window": [
+        10798,
+        5400,
+        4,
+        4
+      ],
+      "min_elev_m": 0.0,
+      "max_elev_m": 0.0,
+      "mean_elev_m": 0.0,
+      "max_adjacent_step_m": 0.0,
+      "status": "SEAM_CONTINUOUS_VERIFIED"
+    }
+  ],
+  "dsm_characteristics": {
+    "surface_model_note": "Copernicus GLO-30 reflects top-of-canopy and man-made structure elevations. It is NOT a bare-earth DTM.",
+    "hydrodynamic_implication": "Linear structures (embankments, canal dikes, elevated highways) act as hydraulic barriers; natural drainage paths may require hydro-conditioning."
+  }
+}

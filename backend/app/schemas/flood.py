@@ -43,7 +43,7 @@ class FloodSimulationRequestSchema(BaseModel):
         description="Provider execution mode ('REAL_DATA' for real Mithi DEM & IMERG rainfall, 'TEST' for unit test fixtures)"
     )
     event_id: str | None = Field(
-        default="E05",
+        default="E02",
         description="Historical flood event identifier for REAL_DATA mode ('E01' to 'E07')"
     )
     study_area_id: str | None = Field(default="mithi_urban_catchment", description="Optional study area ID")

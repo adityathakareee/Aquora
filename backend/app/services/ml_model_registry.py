@@ -78,6 +78,47 @@ DEFAULT_SCREENING_ARTIFACT = PROJECT_ROOT / "ml" / "models" / "aquora_national_s
 DEFAULT_REGIONAL_ARTIFACT = PROJECT_ROOT / "ml" / "models" / "aquora_regional_basin_model.joblib"
 
 
+class Phase7EXGBoostWrapper:
+    """
+    Adapter enabling Phase 7E Kaggle-trained XGBoost model (trained on the 7 non-leaking predictors)
+    to execute seamlessly on the governed 11 Core National feature matrix.
+    """
+    def __init__(self, bst_json_str: str, feature_indices: List[int], threshold: float = 0.01):
+        self.bst_json_str = bst_json_str
+        self.feature_indices = feature_indices
+        self.threshold = threshold
+        self.feature_names = [
+            "rainfall_24h_mm",
+            "rainfall_72h_mm",
+            "rainfall_anomaly_index",
+            "elevation_m",
+            "slope_deg",
+            "distance_to_river_m",
+            "landcover_class",
+        ]
+        self._bst = None
+
+    @property
+    def bst(self):
+        if self._bst is None:
+            import xgboost as xgb
+            self._bst = xgb.Booster()
+            self._bst.load_model(bytearray(self.bst_json_str, "utf-8"))
+        return self._bst
+
+    def predict_proba(self, X: np.ndarray) -> np.ndarray:
+        import xgboost as xgb
+        X_sub = np.asarray(X, dtype=np.float32)[:, self.feature_indices]
+        dmat = xgb.DMatrix(X_sub, feature_names=self.feature_names)
+        p1 = self.bst.predict(dmat)
+        p0 = 1.0 - p1
+        return np.column_stack([p0, p1])
+
+    def predict(self, X: np.ndarray) -> np.ndarray:
+        probs = self.predict_proba(X)[:, 1]
+        return (probs >= self.threshold).astype(int)
+
+
 class NationalScreeningModel:
     """
     AQUORA National Flood Risk Screening Model (Level 1).
@@ -108,6 +149,22 @@ class NationalScreeningModel:
         "distance_to_river_m",
         "historical_flood_frequency",
         "landcover_class",
+    ]
+
+    TRAINED_PREDICTORS: List[str] = [
+        "rainfall_24h_mm",
+        "rainfall_72h_mm",
+        "rainfall_anomaly_index",
+        "elevation_m",
+        "slope_deg",
+        "distance_to_river_m",
+        "landcover_class",
+    ]
+
+    GEOMORPHIC_ANCHORS: List[str] = [
+        "elevation_m",
+        "slope_deg",
+        "distance_to_river_m",
     ]
 
     def __init__(self, artifact_path: Optional[Path] = None):
@@ -154,6 +211,7 @@ class NationalScreeningModel:
         """
         Execute risk prediction on the provided 11-feature dictionary.
         Returns not-ready status if model is not trained.
+        Strictly enforces the Input-Validity Policy across the 7 trained predictors.
         """
         if not self.is_ready:
             if not features:
@@ -169,6 +227,9 @@ class NationalScreeningModel:
                 "predicted_probability": None,
                 "susceptibility_grade": None,
                 "calibration_status": "UNCALIBRATED_MACRO_SCREENING",
+                "governance_status": "PROTOTYPE_ONLY",
+                "operational_readiness": "NOT_FOR_PUBLIC_ALERTS",
+                "physics_engine_primacy": "Phase 6 deterministic physics engine remains primary authority",
                 "message": (
                     "National Screening Model is not trained. "
                     "Authentic nationwide labeled datasets remain uningested. "
@@ -176,10 +237,106 @@ class NationalScreeningModel:
                 ),
             }
 
-        # Validate feature presence
+        # Validate feature presence in dictionary
         missing_features = [k for k in self.FEATURE_NAMES if k not in features]
         if missing_features:
             raise ValueError(f"Features dictionary missing required core national predictors: {missing_features}")
+
+        # Evaluate available vs missing predictors among the 7 trained features
+        available_predictors = []
+        for feat in self.TRAINED_PREDICTORS:
+            v = features.get(feat)
+            if v is not None and not (isinstance(v, float) and np.isnan(v)):
+                available_predictors.append(feat)
+        missing_predictors = [k for k in self.TRAINED_PREDICTORS if k not in available_predictors]
+
+        # Policy Gate 1: Zero available predictors
+        # If zero predictors are measured, XGBoost default branch yields uninformative base prior (0.0130).
+        # We strictly suppress inference to prevent false-low predictions.
+        if len(available_predictors) == 0:
+            return {
+                "model_id": self.model_id,
+                "intelligence_level": self.intelligence_level.value,
+                "model_status": "INSUFFICIENT_INPUT_DATA",
+                "is_ready": False,
+                "predicted_probability": None,
+                "susceptibility_grade": None,
+                "calibration_status": "UNCALIBRATED_MACRO_SCREENING",
+                "governance_status": "PROTOTYPE_ONLY",
+                "operational_readiness": "NOT_FOR_PUBLIC_ALERTS",
+                "physics_engine_primacy": "Phase 6 deterministic physics engine remains primary authority",
+                "features_evaluated": self.FEATURE_NAMES,
+                "available_predictors": [],
+                "missing_predictors": self.TRAINED_PREDICTORS,
+                "input_validity": "NO_PREDICTORS_AVAILABLE",
+                "message": (
+                    "Zero trained model predictors are available for this location. "
+                    "Inference is suppressed under input-validity policy to prevent uninformative base predictions."
+                ),
+                "metadata": self._metadata,
+            }
+
+        # Policy Gate 2: Essential geomorphic anchors check
+        # In Phase 7E training (0.00% missingness), terrain predictors (distance_to_river, elevation, slope)
+        # account for >65% of tree split gains. Without basic terrain, the point has no physical spatial grounding.
+        has_geomorphic_anchor = any(
+            features.get(k) is not None and not (isinstance(features.get(k), float) and np.isnan(features.get(k)))
+            for k in self.GEOMORPHIC_ANCHORS
+        )
+        if not has_geomorphic_anchor:
+            return {
+                "model_id": self.model_id,
+                "intelligence_level": self.intelligence_level.value,
+                "model_status": "INSUFFICIENT_INPUT_DATA",
+                "is_ready": False,
+                "predicted_probability": None,
+                "susceptibility_grade": None,
+                "calibration_status": "UNCALIBRATED_MACRO_SCREENING",
+                "governance_status": "PROTOTYPE_ONLY",
+                "operational_readiness": "NOT_FOR_PUBLIC_ALERTS",
+                "physics_engine_primacy": "Phase 6 deterministic physics engine remains primary authority",
+                "features_evaluated": self.FEATURE_NAMES,
+                "available_predictors": available_predictors,
+                "missing_predictors": missing_predictors,
+                "input_validity": "MISSING_GEOMORPHIC_ANCHORS",
+                "message": (
+                    "Essential geomorphic terrain predictors (elevation, slope, distance to river) "
+                    "are unindexed for this coordinate tile. Meaningful spatial screening cannot be evaluated."
+                ),
+                "metadata": self._metadata,
+            }
+
+        # Policy Gate 3: Complete Input Requirement under Strict Missing-Feature Governance Policy
+        # Phase 7E training dataset contained strictly 0.00% missing values across all 7 trained predictors.
+        # Diagnostic validation experiments (see docs/PHASE_7E_PARTIAL_INPUT_VALIDATION_REPORT.md) demonstrated
+        # that unobserved rainfall causes a >5x inflation in mean predicted probability (from 5.8% to 29.2%)
+        # and an 80.8% false positive rate on dry validation points due to XGBoost default-branch deluge traversal.
+        # Therefore, partial-feature inference with missing rainfall is scientifically indefensible.
+        # Complete feature availability across all 7 trained predictors is strictly required for inference.
+        if len(missing_predictors) > 0:
+            return {
+                "model_id": self.model_id,
+                "intelligence_level": self.intelligence_level.value,
+                "model_status": "INSUFFICIENT_INPUT_DATA",
+                "is_ready": False,
+                "predicted_probability": None,
+                "susceptibility_grade": None,
+                "calibration_status": "UNCALIBRATED_MACRO_SCREENING",
+                "governance_status": "PROTOTYPE_ONLY",
+                "operational_readiness": "NOT_FOR_PUBLIC_ALERTS",
+                "physics_engine_primacy": "Phase 6 deterministic physics engine remains primary authority",
+                "features_evaluated": self.FEATURE_NAMES,
+                "available_predictors": available_predictors,
+                "missing_predictors": missing_predictors,
+                "input_validity": "MISSING_REQUIRED_PREDICTORS",
+                "message": (
+                    f"Operational screening requires all 7 trained predictors. Missing: {missing_predictors}. "
+                    "Phase 7E training data contained 0.00% missing values; diagnostic validation proved that partial-input "
+                    "default branching produces severe false-positive probability distortions. "
+                    "Inference is suppressed under strict feature governance."
+                ),
+                "metadata": self._metadata,
+            }
 
         # Construct input array in exact feature order (handling missing values natively)
         row_vals = []
@@ -203,6 +360,22 @@ class NationalScreeningModel:
         else:
             grade = "HIGH"
 
+        # Determine whether meteorology was observed, benchmark, or unobserved
+        has_meteorology = any(
+            features.get(k) is not None and not (isinstance(features.get(k), float) and np.isnan(features.get(k)))
+            for k in ["rainfall_24h_mm", "rainfall_72h_mm", "rainfall_anomaly_index"]
+        )
+        validity_level = "COMPLETE_INPUT" if has_meteorology else "PARTIAL_GEOMORPHIC_ONLY"
+        msg = (
+            "Evaluated on complete geomorphic terrain, landcover, and precipitation scenario features."
+            if has_meteorology
+            else (
+                "Evaluated on authentic geomorphic terrain and landcover features. "
+                "Operational real-time precipitation gauges are unobserved at this cell; "
+                "meteorological features remain null under zero-fabrication rules."
+            )
+        )
+
         return {
             "model_id": self.model_id,
             "intelligence_level": self.intelligence_level.value,
@@ -211,7 +384,14 @@ class NationalScreeningModel:
             "predicted_probability": round(prob, 4),
             "susceptibility_grade": grade,
             "calibration_status": "UNCALIBRATED_MACRO_SCREENING",
+            "governance_status": "PROTOTYPE_ONLY",
+            "operational_readiness": "NOT_FOR_PUBLIC_ALERTS",
+            "physics_engine_primacy": "Phase 6 deterministic physics engine remains primary authority",
             "features_evaluated": self.FEATURE_NAMES,
+            "available_predictors": available_predictors,
+            "missing_predictors": missing_predictors,
+            "input_validity": validity_level,
+            "message": msg,
             "metadata": self._metadata,
         }
 

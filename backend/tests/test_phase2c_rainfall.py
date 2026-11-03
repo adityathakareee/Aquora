@@ -383,12 +383,13 @@ async def test_forecast_observation_strict_separation(monkeypatch):
     assert obs["is_benchmark"] is True
 
     # Deterministic mock for operational forecast
+    now_dt = datetime.now(timezone.utc)
     async def mock_fetch_raw(self, latitude: float, longitude: float, forecast_days: int = 1):
         return {
             "latitude": round(latitude, 4),
             "longitude": round(longitude, 4),
             "hourly": {
-                "time": [f"2026-10-14T{h:02d}:00" for h in range(24)],
+                "time": [(now_dt + timedelta(hours=h)).strftime("%Y-%m-%dT%H:00") for h in range(24)],
                 "precipitation": [0.5 for _ in range(24)],
             },
         }
@@ -878,12 +879,13 @@ async def test_ecmwf_forecast_unit_deterministic_mock(monkeypatch):
     """
     service = IndiaRainfallService()
 
+    now_dt = datetime.now(timezone.utc)
     async def mock_fetch_raw(self, latitude: float, longitude: float, forecast_days: int = 1):
         return {
             "latitude": round(latitude, 4),
             "longitude": round(longitude, 4),
             "hourly": {
-                "time": [f"2026-10-14T{h:02d}:00" for h in range(24)],
+                "time": [(now_dt + timedelta(hours=h)).strftime("%Y-%m-%dT%H:00") for h in range(24)],
                 "precipitation": [round(float(h) * 0.2, 2) for h in range(24)],
             },
         }

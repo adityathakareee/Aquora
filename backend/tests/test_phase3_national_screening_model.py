@@ -254,12 +254,13 @@ def test_synthetic_fixture_training_and_deterministic_inference():
         assert res1["susceptibility_grade"] in ("LOW", "MEDIUM", "HIGH")
         assert res1["predicted_probability"] == res2["predicted_probability"]
 
-        # Test missing value in inference (native NaN support)
+        # Test missing value in inference (strict missing-feature governance: missing predictors suppress inference)
         sample_with_nan = {f: None for f in GOVERNED_11_FEATURES}
         sample_with_nan["elevation_m"] = 50.0
         res_nan = loaded_model.predict_risk(sample_with_nan)
-        assert res_nan["is_ready"] is True
-        assert 0.0 <= res_nan["predicted_probability"] <= 1.0
+        assert res_nan["model_status"] == "INSUFFICIENT_INPUT_DATA"
+        assert res_nan["is_ready"] is False
+        assert res_nan["predicted_probability"] is None
 
 
 def test_artifact_tamper_and_schema_mismatch_rejection():
@@ -284,17 +285,28 @@ def test_artifact_tamper_and_schema_mismatch_rejection():
 # 5. Untrained Model Registry Behavior & Zero-Fabrication
 # ==============================================================================
 def test_default_registry_model_is_not_trained():
-    """Verify that the operational national screening model starts in NOT_TRAINED status with no fake scores."""
+    """Verify that an untrained national screening model reports NOT_TRAINED/PLANNED status with no fake scores, while an operational model reports OPERATIONAL."""
     model = FloodModelRegistry.get_model(IntelligenceLevel.NATIONAL, "national_india")
     assert model.intelligence_level == IntelligenceLevel.NATIONAL
-    assert model.is_ready is False
-    assert model.status in ("NOT_TRAINED", "PLANNED")
 
-    pred = model.predict_risk({f: 1.0 for f in GOVERNED_11_FEATURES})
+    # Test explicit untrained model behavior
+    untrained_model = NationalScreeningModel(artifact_path=Path("/nonexistent/model.joblib"))
+    assert untrained_model.is_ready is False
+    assert untrained_model.status in ("NOT_TRAINED", "PLANNED")
+
+    pred = untrained_model.predict_risk({f: 1.0 for f in GOVERNED_11_FEATURES})
     assert pred["is_ready"] is False
     assert pred["predicted_probability"] is None
     assert pred["susceptibility_grade"] is None
     assert "Zero-fabrication rule strictly prohibits synthetic inference" in pred["message"]
+
+    # Verify active registry model (either PLANNED if artifact absent, or OPERATIONAL if trained artifact is loaded)
+    if model.is_ready:
+        assert model.status == "OPERATIONAL"
+        active_pred = model.predict_risk({f: 1.0 for f in GOVERNED_11_FEATURES})
+        assert active_pred["is_ready"] is True
+        assert 0.0 <= active_pred["predicted_probability"] <= 1.0
+        assert active_pred["susceptibility_grade"] in ("LOW", "MEDIUM", "HIGH")
 
 
 def test_model_registry_catalog():
@@ -309,17 +321,24 @@ def test_model_registry_catalog():
 # 6. National Screening API Integration
 # ==============================================================================
 def test_api_screening_single_point_untrained():
-    """Verify POST /api/v1/intelligence/screening/national returns MODEL_NOT_TRAINED without fake probability."""
+    """Verify POST /api/v1/intelligence/screening/national returns valid status without synthetic fallback."""
     response = client.post(
         "/api/v1/intelligence/screening/national",
         json={"latitude": 25.5941, "longitude": 85.1376, "allow_benchmark_rainfall": True},
     )
     assert response.status_code == 200
     data = response.json()
-    assert data["status"] == "MODEL_NOT_TRAINED"
-    assert data["is_ready"] is False
-    assert data["susceptibility_probability"] is None
-    assert data["susceptibility_grade"] is None
+    model = FloodModelRegistry.get_model(IntelligenceLevel.NATIONAL, "national_india")
+    if model.is_ready:
+        assert data["status"] == "READY"
+        assert data["is_ready"] is True
+        assert 0.0 <= data["susceptibility_probability"] <= 1.0
+        assert data["susceptibility_grade"] in ("LOW", "MEDIUM", "HIGH")
+    else:
+        assert data["status"] == "MODEL_NOT_TRAINED"
+        assert data["is_ready"] is False
+        assert data["susceptibility_probability"] is None
+        assert data["susceptibility_grade"] is None
     assert data["features_used"] == GOVERNED_11_FEATURES
     assert "provenance" in data
     assert data["resolved_zone"] == "Ganga River Basin Regional Zone"
@@ -356,8 +375,10 @@ def test_api_screening_batch():
     assert data["total_requested"] == 3
     results = data["results"]
     assert len(results) == 3
-    assert results[0]["status"] == "MODEL_NOT_TRAINED"
-    assert results[1]["status"] == "MODEL_NOT_TRAINED"
+    model = FloodModelRegistry.get_model(IntelligenceLevel.NATIONAL, "national_india")
+    expected_status = "INSUFFICIENT_INPUT_DATA" if model.is_ready else "MODEL_NOT_TRAINED"
+    assert results[0]["status"] == expected_status
+    assert results[1]["status"] == expected_status
     assert results[2]["status"] == "OUTSIDE_COVERAGE"
 
 

@@ -69,7 +69,9 @@ VERIFIED_DOMAINS: Dict[str, Dict[str, Any]] = {
         "bbox": (85.05, 25.55, 85.25, 25.70),
         "elevation_file": PROC_DEM / "ganga_patna_elevation_30m.tif",
         "slope_file": PROC_TERRAIN / "ganga_patna_slope_30m.tif",
-        "distance_file": PROC_TERRAIN / "ganga_patna_distance_to_river_30m.tif",
+        "distance_file": PROC_TERRAIN / "ganga_patna_jrc_water_distance_30m.tif",
+        "jrc_water_distance_file": PROC_TERRAIN / "ganga_patna_jrc_water_distance_30m.tif",
+        "hydrorivers_file": PROC_TERRAIN / "ganga_patna_distance_to_river_30m.tif",
         "landcover_file": PROC_LANDCOVER / "ganga_patna_landcover_30m.tif",
         "built_up_file": PROC_LANDCOVER / "ganga_patna_built_up_fraction_30m.tif",
         "has_separate_dist": True,
@@ -83,6 +85,8 @@ VERIFIED_DOMAINS: Dict[str, Dict[str, Any]] = {
         "elevation_file": PROC_DEM / "brahmaputra_guwahati_elevation_30m.tif",
         "slope_file": PROC_TERRAIN / "brahmaputra_guwahati_slope_30m.tif",
         "distance_file": PROC_TERRAIN / "brahmaputra_guwahati_distance_to_river_30m.tif",
+        "jrc_water_distance_file": None,
+        "hydrorivers_file": PROC_TERRAIN / "brahmaputra_guwahati_distance_to_river_30m.tif",
         "landcover_file": PROC_LANDCOVER / "brahmaputra_guwahati_landcover_30m.tif",
         "built_up_file": PROC_LANDCOVER / "brahmaputra_guwahati_built_up_fraction_30m.tif",
         "has_separate_dist": True,
@@ -96,6 +100,8 @@ VERIFIED_DOMAINS: Dict[str, Dict[str, Any]] = {
         "elevation_file": PROC_DEM / "godavari_nashik_elevation_30m.tif",
         "slope_file": PROC_TERRAIN / "godavari_nashik_slope_30m.tif",
         "distance_file": PROC_TERRAIN / "godavari_nashik_distance_to_river_30m.tif",
+        "jrc_water_distance_file": None,
+        "hydrorivers_file": PROC_TERRAIN / "godavari_nashik_distance_to_river_30m.tif",
         "landcover_file": PROC_LANDCOVER / "godavari_nashik_landcover_30m.tif",
         "built_up_file": PROC_LANDCOVER / "godavari_nashik_built_up_fraction_30m.tif",
         "has_separate_dist": True,
@@ -109,8 +115,55 @@ VERIFIED_DOMAINS: Dict[str, Dict[str, Any]] = {
         "elevation_file": PROC_DEM / "narmada_bharuch_elevation_30m.tif",
         "slope_file": PROC_TERRAIN / "narmada_bharuch_slope_30m.tif",
         "distance_file": PROC_TERRAIN / "narmada_bharuch_distance_to_river_30m.tif",
+        "jrc_water_distance_file": None,
+        "hydrorivers_file": PROC_TERRAIN / "narmada_bharuch_distance_to_river_30m.tif",
         "landcover_file": PROC_LANDCOVER / "narmada_bharuch_landcover_30m.tif",
         "built_up_file": PROC_LANDCOVER / "narmada_bharuch_built_up_fraction_30m.tif",
+        "has_separate_dist": True,
+    },
+    "krishna_vijayawada": {
+        "domain_id": "krishna_vijayawada",
+        "name": "Vijayawada Krishna River Corridor",
+        "basin_id": "BASIN-KRISHNA",
+        "state_code": "IN-AP",
+        "bbox": (80.55, 16.43, 80.75, 16.58),
+        "elevation_file": PROC_DEM / "krishna_vijayawada_elevation_30m.tif",
+        "slope_file": PROC_TERRAIN / "krishna_vijayawada_slope_30m.tif",
+        "distance_file": PROC_TERRAIN / "krishna_vijayawada_jrc_water_distance_30m.tif",
+        "jrc_water_distance_file": PROC_TERRAIN / "krishna_vijayawada_jrc_water_distance_30m.tif",
+        "hydrorivers_file": PROC_TERRAIN / "krishna_vijayawada_distance_to_river_30m.tif",
+        "landcover_file": PROC_LANDCOVER / "krishna_vijayawada_landcover_30m.tif",
+        "built_up_file": PROC_LANDCOVER / "krishna_vijayawada_built_up_fraction_30m.tif",
+        "has_separate_dist": True,
+    },
+    "godavari_nagpur": {
+        "domain_id": "godavari_nagpur",
+        "name": "Nagpur Godavari Corridor",
+        "basin_id": "BASIN-GODAVARI",
+        "state_code": "IN-MH",
+        "bbox": (79.00, 21.05, 79.20, 21.22),
+        "elevation_file": PROC_DEM / "godavari_nagpur_elevation_30m.tif",
+        "slope_file": PROC_TERRAIN / "godavari_nagpur_slope_30m.tif",
+        "distance_file": PROC_TERRAIN / "godavari_nagpur_distance_to_river_30m.tif",
+        "jrc_water_distance_file": None,
+        "hydrorivers_file": PROC_TERRAIN / "godavari_nagpur_distance_to_river_30m.tif",
+        "landcover_file": PROC_LANDCOVER / "godavari_nagpur_landcover_30m.tif",
+        "built_up_file": PROC_LANDCOVER / "godavari_nagpur_built_up_fraction_30m.tif",
+        "has_separate_dist": True,
+    },
+    "sabarmati_ahmedabad": {
+        "domain_id": "sabarmati_ahmedabad",
+        "name": "Ahmedabad Sabarmati Corridor",
+        "basin_id": "BASIN-SABARMATI",
+        "state_code": "IN-GJ",
+        "bbox": (72.48, 22.95, 72.68, 23.10),
+        "elevation_file": PROC_DEM / "sabarmati_ahmedabad_elevation_30m.tif",
+        "slope_file": PROC_TERRAIN / "sabarmati_ahmedabad_slope_30m.tif",
+        "distance_file": PROC_TERRAIN / "sabarmati_ahmedabad_distance_to_river_30m.tif",
+        "jrc_water_distance_file": None,
+        "hydrorivers_file": PROC_TERRAIN / "sabarmati_ahmedabad_distance_to_river_30m.tif",
+        "landcover_file": PROC_LANDCOVER / "sabarmati_ahmedabad_landcover_30m.tif",
+        "built_up_file": PROC_LANDCOVER / "sabarmati_ahmedabad_built_up_fraction_30m.tif",
         "has_separate_dist": True,
     },
 }
@@ -198,14 +251,27 @@ class IndiaSpatialService:
     @classmethod
     def get_river_basin(cls, latitude: float, longitude: float) -> Optional[Dict[str, Any]]:
         """
-        Identify the HydroBASINS river basin containing the coordinate.
+        Identify the HydroBASINS river basin containing the coordinate using
+        authentic HydroBASINS Level 04 polygon containment with Shapely STRtree indexing.
+        Never uses approximate rectangular bounding boxes.
         """
-        basins = cls._load_basins_hierarchy().get("basins", [])
-        for b in basins:
-            bounds = b["bounds"]
-            if bounds["min_lon"] <= longitude <= bounds["max_lon"] and bounds["min_lat"] <= latitude <= bounds["max_lat"]:
-                return b
-        return None
+        from app.services.hydrobasins_service import HydrobasinsService
+        svc = HydrobasinsService()
+        return svc.resolve_basin(latitude, longitude)
+
+    @classmethod
+    def get_river_network_distance(
+        cls,
+        latitude: float,
+        longitude: float,
+        min_strahler: int = 4,
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Calculate geodetic distance in meters to nearest HydroRIVERS reach (Strahler >= min_strahler).
+        """
+        from app.services.hydrobasins_service import HydrobasinsService
+        svc = HydrobasinsService()
+        return svc.get_river_network_distance(latitude, longitude, min_strahler=min_strahler)
 
     @classmethod
     def find_verified_domain(cls, latitude: float, longitude: float) -> Optional[str]:
@@ -259,6 +325,7 @@ class IndiaSpatialService:
                 slope_val = float(np.clip(slope_val, 0.0, 90.0))
 
             # Distance to River
+            dist_val = None
             if dinfo.get("has_separate_dist") and dinfo.get("distance_file") and dinfo["distance_file"].exists():
                 with rasterio.open(dinfo["distance_file"]) as src:
                     dist_val = float(src.read(1, window=((row, row + 1), (col, col + 1)))[0, 0])
@@ -266,6 +333,20 @@ class IndiaSpatialService:
             else:
                 # Default for Mumbai pilot from Mithi river channel approximation
                 dist_val = float(abs((latitude - 19.076) * 111320.0 + (longitude - 72.877) * 111320.0 * 0.94))
+
+            # Authentic HydroRIVERS Reach Distance
+            hydrorivers_val = None
+            if dinfo.get("hydrorivers_file") and dinfo["hydrorivers_file"].exists():
+                with rasterio.open(dinfo["hydrorivers_file"]) as src:
+                    hydrorivers_val = float(src.read(1, window=((row, row + 1), (col, col + 1)))[0, 0])
+                    hydrorivers_val = max(0.0, hydrorivers_val)
+
+            # Authentic JRC permanent surface water distance
+            jrc_dist_val = None
+            if dinfo.get("jrc_water_distance_file") and dinfo["jrc_water_distance_file"].exists():
+                with rasterio.open(dinfo["jrc_water_distance_file"]) as src:
+                    jrc_dist_val = float(src.read(1, window=((row, row + 1), (col, col + 1)))[0, 0])
+                    jrc_dist_val = max(0.0, jrc_dist_val)
 
             # Land cover
             if dinfo.get("landcover_file") and dinfo["landcover_file"].exists():
@@ -288,7 +369,9 @@ class IndiaSpatialService:
                 "domain_id": domain_id,
                 "elevation_m": round(elev_val, 2),
                 "slope_deg": round(slope_val, 2),
-                "distance_to_river_m": round(dist_val, 1),
+                "distance_to_river_m": round(dist_val, 1) if dist_val is not None else None,
+                "hydrorivers_reach_distance_m": round(hydrorivers_val, 1) if hydrorivers_val is not None else None,
+                "jrc_water_distance_m": round(jrc_dist_val, 1) if jrc_dist_val is not None else None,
                 "landcover_class": lc_val,
                 "built_up_fraction": round(bu_val, 3),
             }
@@ -386,6 +469,7 @@ class IndiaSpatialService:
             elevation_m=terrain["elevation_m"],
             slope_deg=terrain["slope_deg"],
             distance_to_river_m=terrain["distance_to_river_m"],
+            hydrorivers_reach_distance_m=terrain.get("hydrorivers_reach_distance_m"),
             rainfall_1h_mm=r1,
             rainfall_3h_mm=r3,
             rainfall_6h_mm=r6,

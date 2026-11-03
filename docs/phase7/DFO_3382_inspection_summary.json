@@ -1,0 +1,126 @@
+{
+  "event_id": "DFO_3382",
+  "basin": "Mahanadi Basin / Odisha Delta",
+  "source_url": "https://storage.googleapis.com/download/storage/v1/b/gfd_v1_4/o/DFO_3382_From_20080922_to_20080929.zip?alt=media",
+  "archive_filename": "DFO_3382_From_20080922_to_20080929.zip",
+  "retrieval_timestamp": "2026-10-31T13:16:27.104567+00:00",
+  "zip_size_bytes": 39644622,
+  "zip_sha256": "252da1463fe41efd4e92da6727dec3976d967836e6d644c4a126f33f24aef2a4",
+  "archive_integrity": "PASSED (testzip OK, 0 corrupt blocks)",
+  "archive_members": [
+    {
+      "filename": "DFO_3382_From_20080922_to_20080929.tif",
+      "file_size_bytes": 39529059,
+      "compress_size_bytes": 39529059,
+      "crc32": "1db5fb1d"
+    },
+    {
+      "filename": "README_GFD.pdf",
+      "file_size_bytes": 101051,
+      "compress_size_bytes": 101051,
+      "crc32": "269690d3"
+    },
+    {
+      "filename": "LICENSE.txt",
+      "file_size_bytes": 13319,
+      "compress_size_bytes": 13319,
+      "crc32": "3deccc7a"
+    },
+    {
+      "filename": "DFO_3382_properties.json",
+      "file_size_bytes": 693,
+      "compress_size_bytes": 693,
+      "crc32": "404d4110"
+    }
+  ],
+  "extracted_files": [
+    {
+      "filename": "DFO_3382_From_20080922_to_20080929.tif",
+      "path": "data/raw/phase7/ground_truth/gfd/DFO_3382/DFO_3382_From_20080922_to_20080929.tif",
+      "size_bytes": 39529059,
+      "sha256": "4c8c8f6e3927d71f3e7db3f6762c91c22b8de2bffa633b47f34df73d70c663de"
+    },
+    {
+      "filename": "DFO_3382_properties.json",
+      "path": "data/raw/phase7/ground_truth/gfd/DFO_3382/DFO_3382_properties.json",
+      "size_bytes": 693,
+      "sha256": "3f5471b3020f2abb5e41d9249f02ea2ccf91ba4129d91b9c8061f63b3ec43dca"
+    },
+    {
+      "filename": "LICENSE.txt",
+      "path": "data/raw/phase7/ground_truth/gfd/DFO_3382/LICENSE.txt",
+      "size_bytes": 13319,
+      "sha256": "c2ca2f08eac60f04f65403daa6997e9a3bf254a18ba2f75a4500e23329fa4f4b"
+    },
+    {
+      "filename": "README_GFD.pdf",
+      "path": "data/raw/phase7/ground_truth/gfd/DFO_3382/README_GFD.pdf",
+      "size_bytes": 101051,
+      "sha256": "d87f838b260a3d7164449dc0b7408c7ffb317ccab3f5897ad186bcea09bb3fd9"
+    }
+  ],
+  "raster_metadata": {
+    "file": "DFO_3382_From_20080922_to_20080929.tif",
+    "crs": "EPSG:4326",
+    "width": 8326,
+    "height": 10413,
+    "total_cells": 86698638,
+    "pixel_resolution_deg": [
+      0.002245788210298804,
+      0.002245788210298804
+    ],
+    "approx_resolution_m": 250.001,
+    "spatial_resolution_note": "Nominal approximately 250 m spatial resolution in geographic coordinates (EPSG:4326); ground spacing varies with latitude (~234.9 m easting at 20 deg N).",
+    "bounds": [
+      72.49853500486599,
+      8.073608616024199,
+      91.19696764381382,
+      31.459001249865644
+    ],
+    "band_count": 5,
+    "band_descriptions": [
+      "flooded",
+      "duration",
+      "clear_views",
+      "clear_perc",
+      "jrc_perm_water"
+    ],
+    "dtypes": [
+      "float32",
+      "float32",
+      "float32",
+      "float32",
+      "float32"
+    ],
+    "nodata_values": [
+      null,
+      null,
+      null,
+      null,
+      null
+    ]
+  },
+  "cell_counts": {
+    "total_cells": 86698638,
+    "valid_observed_cells": 27371220,
+    "valid_percentage": 31.570530554355418,
+    "nan_cells": 59327418,
+    "raw_flooded_cells": 464781,
+    "raw_non_flooded_cells": 26906439,
+    "permanent_water_cells": 239958,
+    "cloud_excluded_cells": 339,
+    "cloud_excluded_pct_of_valid": 0.0012385271830046961,
+    "cloud_excluded_denominator": 27371220,
+    "verified_episodic_flood_cells": 339963,
+    "verified_dry_cells": 26790960,
+    "cloud_or_perm_excluded_cells": 240297,
+    "raw_flood_prevalence_pct": 1.6980646094693623,
+    "verified_flood_prevalence_pct": 1.253046201192639
+  },
+  "temporal_assessment": {
+    "administrative_period": "2008-09-15 to 2008-09-28",
+    "gfd_observation_period": "2008-09-22 to 2008-09-29",
+    "temporal_overlap_days": 7,
+    "flood_phase_compatibility": "Archive overlaps administrative event period (7 days); precise flood-stage timing remains provisional unless supported by independent temporal evidence."
+  }
+}

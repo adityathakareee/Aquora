@@ -1,0 +1,242 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_1_CONSISTENCY_AND_EVIDENCE_RECONCILIATION_AUDIT
+timestamp_utc: '2026-10-17T08:58:57.306119+00:00'
+governance:
+  status: RECONCILIATION_AUDIT_COMPLETED
+  final_decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  historical_simulation_permitted: false
+  zero_culvert_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  synthetic_box_retired: true
+  working_dem_immutable: true
+outlet_area_reconciliation:
+  discrepancy_resolved: true
+  unconditioned_dem_evaluation:
+    mapped_pixel:
+    - 666
+    - 107
+    contributing_cells: 1
+    contributing_area_km2: 0.0009
+    status: REPRODUCED (Cell is an elevated summit on raw DSM; captures only itself)
+  scratch_filled_dem_evaluation:
+    mapped_pixel:
+    - 666
+    - 107
+    contributing_cells: 372
+    contributing_area_km2: 0.3348
+    status: REPRODUCED (Cell captures local filled embankment depressions)
+  mahim_bay_outfall_comparison:
+    mapped_pixel:
+    - 635
+    - 84
+    raw_contributing_cells: 1
+    raw_contributing_area_km2: 0.0009
+    filled_contributing_cells: 83739
+    filled_contributing_area_km2: 75.3651
+    status: REPRODUCED (Captures full exploratory Mithi basin in filled surface)
+  resolution_summary: 'ROOT CAUSE IDENTIFIED: The reported 1 cell (0.0009 km2) and
+    372 cells (0.3348 km2) arise from two DIFFERENT, mathematically valid raster surfaces:
+    (1) On the UNCONDITIONED raw DEM, cell (666, 107) is an isolated topographic peak
+    (+9.95m MSL) on the Mahim Causeway road deck with zero incoming flow paths, capturing
+    exactly 1 cell (itself). (2) On the PRIORITY-FLOOD CONDITIONED scratch DEM, local
+    depressions immediately south of the Causeway embankment are filled, forming a
+    local 372-cell sub-catchment (0.3348 km2) that drains to (666, 107) before spilling
+    west into the bay. (3) The main Mithi River watershed (83,739 cells = 75.3651
+    km2) bypasses (666, 107) entirely on both surfaces, discharging into Mahim Bay
+    at (635, 84). The contradiction arose because the narrative conflated raw DEM
+    metrics with filled scratch DEM metrics without explicitly distinguishing the
+    surface.'
+flow_direction_termination_audit:
+  raster_dimensions:
+  - 746
+  - 536
+  total_cells: 399856
+  valid_downstream_cells:
+    count: 398786
+    percentage: 99.73240366531951
+    encoding: Integer values 0 through 7 (D8 steepest descent)
+  termination_categories:
+    boundary_exits:
+      count: 1070
+      percentage_of_total: 0.26759633468048494
+      percentage_of_perimeter: 41.796875
+      location: Strictly confined to raster perimeter cells (row 0, row 745, col 0,
+        col 535)
+      interpretation: VERIFIED BOUNDARY EXITS (Flow exits the study domain; tagged
+        as -1 in GeoTIFF metadata)
+    internal_sinks:
+      count: 0
+      interpretation: ZERO INTERNAL SINKS (Priority-flood completely eliminated all
+        internal sinks)
+    unresolved_flats:
+      count: 0
+      interpretation: ZERO UNRESOLVED FLATS (Epsilon gradient resolved all flat regions)
+    missing_terrain_nodata_cells:
+      count: 0
+      interpretation: ZERO MISSING DATA CELLS (Working DEM has 100% valid coverage)
+  critical_finding: 'AUDIT VERIFIED: fdir = -1 occurs EXCLUSIVELY on the raster perimeter
+    (1,070 out of 2,560 boundary cells). There are strictly ZERO internal sinks, ZERO
+    unresolved flats, and ZERO missing terrain nodata cells within the study domain.'
+epsilon_gradient_audit:
+  mathematical_rule: filled_elevation = max(z_spillway + epsilon, raw_elevation)
+  epsilon_parameter_value: 0.0001
+  epsilon_type: CONSTANT_PER_CELL_INCREMENT (not distance-weighted by cell spacing)
+  diagonal_vs_orthogonal_treatment:
+    priority_flood_fill: Epsilon (1e-4 m) is added uniformly to all unvisited neighbors
+      regardless of step direction. Effective numerical gradient along orthogonal
+      paths is 1e-4 / 30m = 3.33e-6 m/m; along diagonal paths it is 1e-4 / 42.43m
+      = 2.36e-6 m/m.
+    d8_flow_direction: 'Steepest descent drop calculation strictly normalizes elevation
+      difference by true Euclidean distance: drop = (z_center - z_neighbor) / (30.0
+      * sqrt(2)) for diagonals, and / 30.0 for orthogonals.'
+  lake_and_coastline_handling:
+    coastline_and_borders: Initialized as seed perimeter in priority queue at true
+      raw elevation (0.0m MSL).
+    natural_lakes: 'UNCONSTRAINED ARTIFACT: In global Priority-Flood, Powai Lake is
+      treated as an ordinary sink. Its water level is raised from 33.50m to 37.26m
+      MSL (+3.76m unphysical filling). While numerically monotonic, this is physically
+      invalid without culvert enforcement.'
+  path_reproduction_verification:
+    start_pixel:
+    - 402
+    - 270
+    start_feature: Mithi River Marol / Saki Naka channel entrance
+    start_filled_elevation_m: 15.66805648803711
+    end_pixel:
+    - 635
+    - 84
+    end_feature: Mahim Bay tidal receiving water outfall
+    end_filled_elevation_m: 0.00839999970048666
+    path_length_steps: 351
+    target_reached: true
+    strictly_monotonic_descent: true
+    reproducibility_status: EXACT REPRODUCTION (351 steps, monotonic descent verified)
+measurement_reconciliation_table:
+  total_metrics_evaluated: 10
+  reproduced_count: 10
+  contradicted_count: 0
+  table:
+  - metric: Working DEM SHA-256
+    phase_6c2f_value: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+    phase_6c2g_value: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+    phase_6c2g1_reproduced: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+    status: REPRODUCED (Exact Match)
+  - metric: Raw DEM SHA-256
+    phase_6c2f_value: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+    phase_6c2g_value: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+    phase_6c2g1_reproduced: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+    status: REPRODUCED (Exact Match)
+  - metric: DEM Dimensions & CRS
+    phase_6c2f_value: 536 x 746, EPSG:32643
+    phase_6c2g_value: 536 x 746, EPSG:32643
+    phase_6c2g1_reproduced: 536 x 746, EPSG:32643
+    status: REPRODUCED (Exact Match)
+  - metric: Proposed Causeway Outlet Pixel & Elev
+    phase_6c2f_value: (666, 107), 9.95m MSL
+    phase_6c2g_value: (666, 107), 9.95m MSL
+    phase_6c2g1_reproduced: (666, 107), 9.95m MSL
+    status: REPRODUCED (Elevated road-deck obstacle)
+  - metric: Proposed Causeway Catchment (Unconditioned)
+    phase_6c2f_value: 1 cell (0.0009 km2)
+    phase_6c2g_value: 1 cell (narrative note)
+    phase_6c2g1_reproduced: 1 cell (0.0009 km2)
+    status: REPRODUCED (Raw DEM)
+  - metric: Proposed Causeway Catchment (Filled Scratch)
+    phase_6c2f_value: 372 cells (0.3348 km2)
+    phase_6c2g_value: 372 cells (0.3348 km2)
+    phase_6c2g1_reproduced: 372 cells (0.3348 km2)
+    status: REPRODUCED (Filled DEM, local road drainage)
+  - metric: Mahim Bay Outfall Catchment (Filled Scratch)
+    phase_6c2f_value: 83,739 cells (75.3651 km2)
+    phase_6c2g_value: 83,739 cells (75.3651 km2)
+    phase_6c2g1_reproduced: 83,739 cells (75.3651 km2)
+    status: REPRODUCED (Exact Match across both manifests)
+  - metric: True Sinks in Raw DEM
+    phase_6c2f_value: 12,405 cells (3.10%)
+    phase_6c2g_value: 12,405 cells (referenced)
+    phase_6c2g1_reproduced: 12,405 cells (3.10%)
+    status: REPRODUCED (Exact Match)
+  - metric: Boundary Unrouted Exits (fdir = -1)
+    phase_6c2f_value: 1,070 cells
+    phase_6c2g_value: 1,070 cells
+    phase_6c2g1_reproduced: 1,070 cells
+    status: REPRODUCED (100% on perimeter, 0 internal)
+  - metric: Powai Lake Unphysical Filling Artifact
+    phase_6c2f_value: +3.76m (33.5m -> 37.26m)
+    phase_6c2g_value: +3.76m (33.5m -> 37.26m)
+    phase_6c2g1_reproduced: +3.76m (33.50m -> 37.26m)
+    status: REPRODUCED (Exact delta = 3.7649m)
+source_provenance_strengthening:
+  sources_audited_count: 4
+  downgraded_claims_count: 3
+  sources:
+  - claim_id: SRC-01-MITHI-CHANNEL-OSM
+    claimed_fact: Mithi River centerline geometry and Mahim Causeway outfall alignment
+    original_classification: APPROXIMATE SPATIAL EVIDENCE
+    reassessed_classification: APPROXIMATE SPATIAL EVIDENCE
+    stable_identifier_or_url: https://www.openstreetmap.org/relation/8157778
+    publisher: OpenStreetMap Foundation
+    date: 2024-06
+    physical_inspection_finding: Vector inspected via Overpass API extract; lacks
+      surveyed channel bathymetry.
+    datum_context: WGS84 Horizontal only; zero vertical bathymetric data.
+    simulation_readiness: UNSUITABLE FOR 1D/2D HYDRODYNAMICS (requires surveyed bathymetry).
+  - claim_id: SRC-02-CSMIA-CULVERT-SPECS
+    claimed_fact: Triple-barrel box culvert (3 x 20m, invert +2.50m / +2.10m MSL)
+      under CSMIA runway
+    original_classification: VERIFIED PRIMARY SOURCE (Tabular Specs) / NOT AVAILABLE
+      (Vector)
+    reassessed_classification: SECONDARY ENGINEERING COMPILATION / UNVERIFIED PRIMARY
+      DOCUMENT
+    stable_identifier_or_url: 'Chitale Committee Report (2006, Chap 5, pp. 62-75)
+      as cited in Zope et al. (2015, DOI: 10.1016/j.jhydrol.2015.03.028)'
+    publisher: Government of Maharashtra (original) / Elsevier (peer-reviewed citation)
+    date: March 2006 / 2015
+    physical_inspection_finding: 'DOWNGRADED: The 2006 inquiry report PDF is not archived
+      in the local repository. Specs are verified through peer-reviewed literature
+      citations. Georeferenced as-built CAD alignment remains NOT AVAILABLE.'
+    datum_context: GTS / Mumbai MSL (not tied to EGM96).
+    simulation_readiness: BLOCKED (Trench burning strictly prohibited without surveyed
+      CAD vector).
+  - claim_id: SRC-03-CHITALE-7295-BENCHMARK
+    claimed_fact: 'Mithi watershed area is 72.95 km2 (Vihar: 18.96, Powai: 6.61, Direct
+      reach: 47.38 km2)'
+    original_classification: VERIFIED PRIMARY SOURCE (Tabular Benchmark) / NOT AVAILABLE
+      (Vector)
+    reassessed_classification: SECONDARY LITERATURE BENCHMARK (CONSISTENTLY REPORTED
+      ACROSS HYDROLOGICAL LITERATURE)
+    stable_identifier_or_url: Chitale Committee (2006) via CWPRS Technical Report
+      4321 & Zope et al. (2015)
+    publisher: Government of Maharashtra / CWPRS / IIT Bombay
+    date: 2006 / 2015
+    physical_inspection_finding: 'DOWNGRADED: Primary 2006 commission volume is not
+      locally archived. The 72.95 km2 figure is an authoritative planning benchmark,
+      but does not provide an open-access GIS boundary polygon.'
+    datum_context: Surface Area Benchmark (km2).
+    simulation_readiness: TABULAR REFERENCE ONLY (Catchment delineation must NOT be
+      forced to match 72.95 km2).
+  - claim_id: SRC-04-TIDAL-DATUM-REDUCTION
+    claimed_fact: 'Mumbai Port Chart Datum to MSL reduction: z_MSL = z_CD - 2.51m'
+    original_classification: VERIFIED PRIMARY SOURCE (CD to MSL formula)
+    reassessed_classification: PORT AUTHORITY SPECIFICATION / UNVERIFIED LOCAL GEODETIC
+      TIE SHEET TO EGM96
+    stable_identifier_or_url: Mumbai Port Authority Hydrographic Specifications (https://mumbaiport.gov.in/)
+    publisher: Mumbai Port Authority (MbPA), Ministry of Ports, Shipping and Waterways
+    date: '2024'
+    physical_inspection_finding: 'STRENGTHENED & SEPARATED: The +2.51m CD-to-local-MSL
+      offset is an official hydrographic specification. HOWEVER, local Mumbai MSL
+      is NOT directly equivalent to the global EGM96 geoid. Local tie sheet from Survey
+      of India (Apollo Bandar BM 846A to EGM96) is missing.'
+    datum_context: Mumbai Port Chart Datum (CD) vs Mumbai GTS MSL vs EGM96 Geoid.
+    simulation_readiness: BLOCKED FOR HISTORICAL FLOOD SIMULATION (Injecting 4.59m
+      CD or 2.08m MSL without EGM96 tie sheet causes artificial inundation).
+reconciliation_summary:
+  outlet_contradiction_status: RESOLVED (Raw DEM = 1 cell; Filled DEM = 372 cells;
+    Bay mouth = 83,739 cells)
+  termination_semantics_status: VERIFIED (1,070 boundary exits on perimeter; 0 internal
+    sinks; 0 flats; 0 nodata)
+  monotonic_path_reproduced: VERIFIED (351 steps from Marol to Mahim Bay mouth, strictly
+    monotonic)
+  source_provenance_status: DOWNGRADED TO ACCURATE SECONDARY STANDARDS (Zero fabricated
+    authority)
+  final_governance_decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"

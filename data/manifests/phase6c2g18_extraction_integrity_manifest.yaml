@@ -1,0 +1,43 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_18_EXTRACTION_INTEGRITY_VERIFICATION
+timestamp_utc: '2026-10-27T18:13:24.798479+00:00'
+governance:
+  final_decision: EXTRACTION_INTEGRITY_VALIDATED
+  checkpoint_provenance_verified: true
+  suspicious_record_repaired: true
+  e02_and_e03_temporal_windows_reproduced: true
+  inventory_reconciliation_complete: true
+  supervised_training_permitted: false
+  national_trigger_modeling_permitted: false
+  zero_synthetic_rainfall_enforced: true
+  zero_missing_rainfall_imputation_enforced: true
+  summary: Phase 6C.2G.18 conducted an exhaustive checkpoint provenance audit, independently
+    verified the 1981-06-01 CHIRPS extraction (0.0 mm at row=800, col=5125 with verified
+    5x5 coastal neighborhood caveats), audited all 10 other retained extractions against
+    verified SHA-256 hashes, produced a full row-level reconciliation of all 6,876
+    IFI disaster records explaining the 24-to-11 reduction and 17 unextracted records,
+    and reproduced E02 and E03 temporal window arithmetic.
+immutability_verification:
+  raw_copernicus_dsm_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  raw_ifi_sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+  verified_unmodified: true
+reconciled_inventory_counts:
+  NOT_ACQUIRED: 6507
+  UNAVAILABLE_ERA: 321
+  DATE_UNCERTAIN: 20
+  DATE_ACQUIRED_UNEXTRACTED_LOCATION: 17
+  MATCHED_RAINFALL_COVERAGE: 11
+local_source_archive_counts:
+  chirps_daily_files: 23
+  imerg_daily_files: 13
+  imerg_hhr_granules: 96
+safeguards:
+- Missing rainfall values remain strictly NULL (never zero-filled).
+- A manually injected checkpoint entry can never satisfy the verified extraction state.
+- Never infer physical flood causation or flood extent from rainfall co-occurrence
+  alone.
+- Administrative proxy centroids are documented as proxies, never actual flood inundation
+  points.
+- Supervised 30m ML training remains blocked until verified spatial flood and non-flood
+  labels exist.

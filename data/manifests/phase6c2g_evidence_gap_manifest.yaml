@@ -1,0 +1,355 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_EVIDENCE_ACQUISITION_AND_OUTLET_VALIDATION
+timestamp_utc: '2026-10-16T21:10:20.778460+00:00'
+governance:
+  status: EVIDENCE_GAP_AUDIT_COMPLETED
+  final_decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  historical_simulation_permitted: false
+  zero_culvert_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  synthetic_box_retired: true
+  working_dem_immutable: true
+dem_audit:
+  raw_dem_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  raw_dem_verified: true
+  working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  working_dem_verified: true
+  crs: EPSG:32643
+  dimensions:
+  - 536
+  - 746
+  resolution:
+  - 30.0
+  - 30.0
+  bounds:
+    left: 269460.0
+    bottom: 2104260.0
+    right: 285540.0
+    top: 2126640.0
+  nodata: -9999.0
+authoritative_evidence_catalog:
+  category_1_channel_and_outlet_geometry:
+    title: OpenStreetMap Waterway Network & Copernicus DSM Topographic Transect
+    publisher: OpenStreetMap Foundation / European Space Agency
+    date: 2024 / 2021
+    identifier_or_url: https://www.openstreetmap.org/ / https://spacedata.copernicus.eu/
+    extracted_statement: OpenStreetMap vector layer represents the Mithi River centerline
+      as a polyline terminating under the Mahim Causeway bridge into Mahim Bay. Copernicus
+      DSM captures the water surface at 0.0m - 0.32m MSL adjacent to a +9.95m MSL
+      road-deck embankment.
+    geographic_coverage: Mahim Creek to Vihar Lake (Mumbai, India)
+    vertical_datum: EGM96 Geoid (DSM) / Not applicable (OSM 2D polyline)
+    verification_status: APPROXIMATE SPATIAL EVIDENCE
+    spatial_limitations: OSM polyline has ~10-20m horizontal uncertainty and zero
+      bathymetric profile. Copernicus DSM lacks sub-grid channel bathymetry and blends
+      road deck with water surface.
+  category_2_csmia_airport_culvert:
+    title: Report of the Fact-Finding Committee on Mumbai Floods of 26th July 2005
+      (Chitale Committee)
+    publisher: Government of Maharashtra
+    date: March 2006
+    identifier_or_url: Official GoM Inquiry Report, Chapter 5 ('Mithi River and Its
+      Catchment'), pp. 62-75
+    extracted_statement: The Mithi River crosses under CSMIA Runway 09/27 and Runway
+      14/32 via a triple-barrel reinforced concrete box culvert (3 spans of 20m each,
+      total width 60m). The upstream bed invert is designed at +2.50m MSL and downstream
+      at +2.10m MSL.
+    geographic_coverage: "CSMIA Runway Crossing (~19.090\xB0N, 72.875\xB0E)"
+    vertical_datum: Great Trigonometrical Survey (GTS) / Mumbai MSL
+    verification_status: VERIFIED PRIMARY SOURCE (Tabular Specs) / NOT AVAILABLE (Georeferenced
+      Vector)
+    spatial_limitations: Engineering dimensions and inverts are authoritative in text,
+      but no georeferenced CAD drawing, as-built GIS polyline, or surveyed headwall
+      coordinate exists in open public records. Burning a guessed trench violates
+      the zero-fabrication invariant.
+  category_3_railway_and_highway_crossings:
+    title: MMRDA Mithi River Development Plan & Central/Western Railway Bridge Inventory
+    publisher: Mumbai Metropolitan Region Development Authority / Ministry of Railways
+    date: 2006-2015
+    identifier_or_url: MMRDA Engineering Reports & OpenStreetMap Infrastructure Tags
+    extracted_statement: 'Multiple bridges cross the lower Mithi: Western Railway
+      bridge (Mahim/Bandra), Western Express Highway Kalanagar bridge, Central Railway
+      bridge (Sion/Kurla), Santacruz-Chembur Link Road bridge. All restrict channel
+      width and present elevated ballast/roadway embankments (+4m to +10m MSL) in
+      surface DSM.'
+    geographic_coverage: Lower Mithi River Corridor (Mahim to Kurla)
+    vertical_datum: Local MSL
+    verification_status: APPROXIMATE SPATIAL EVIDENCE (Locations) / NOT AVAILABLE
+      (Surveyed Inverts)
+    spatial_limitations: Bridge opening cross-sectional areas and bed pier inverts
+      are not published in open GIS format. In unconditioned DSM, they act as solid
+      artificial dams across the river reach.
+  category_4_chitale_catchment_benchmark:
+    title: Report of the Fact-Finding Committee on Mumbai Floods of 26th July 2005
+    publisher: Government of Maharashtra
+    date: March 2006
+    identifier_or_url: Official GoM Inquiry Report, Chapter 4 ('Lakes and Reservoirs')
+      & Chapter 5, p. 64
+    extracted_statement: Total catchment area of the Mithi River basin is 72.95 sq
+      km, comprising Vihar Lake catchment (18.96 sq km), Powai Lake catchment (6.61
+      sq km), and direct river catchment downstream of the lakes (47.38 sq km).
+    geographic_coverage: Mithi River Watershed (Mumbai suburban district)
+    vertical_datum: Not applicable (Surface Area Benchmark)
+    verification_status: VERIFIED PRIMARY SOURCE (Tabular Benchmark) / NOT AVAILABLE
+      (GIS Vector Boundary)
+    spatial_limitations: Authoritative as a planning and hydrological benchmark. However,
+      no authoritative GIS boundary shapefile was published with the report. Boundaries
+      were delineated on 1:50,000 Survey of India toposheets.
+  category_5_vertical_datum_reduction:
+    title: Mumbai Port Trust Hydrographic Parameters & Survey of India Geodetic Datum
+      Specifications
+    publisher: Mumbai Port Authority (MbPA) / Survey of India
+    date: 2020 / 2024
+    identifier_or_url: https://mumbaiport.gov.in/ (Navigation & Hydrographic Details)
+    extracted_statement: 'Mean Sea Level (MSL) at Mumbai is officially established
+      at +2.51 meters above Mumbai Port Chart Datum (CD). Highest High Water is +5.39m
+      CD; Mean High Water Spring is +4.42m CD; Mean Low Water Spring is +0.76m CD.
+      Reduction formula: z_MSL = z_CD - 2.51m.'
+    geographic_coverage: Mumbai Harbour, Mahim Bay, and Coastal Mumbai
+    vertical_datum: Mumbai Port Chart Datum (CD) / Great Trigonometrical Survey (GTS)
+      MSL
+    verification_status: VERIFIED PRIMARY SOURCE (CD to MSL formula) / APPROXIMATE
+      (Local MSL to EGM96 Geoid)
+    spatial_limitations: "The offset z_MSL = z_CD - 2.51m is verified for local tide\
+      \ gauge datum. However, local MSL relates to the Copernicus DEM EGM96 geoid\
+      \ with a regional geoid undulation uncertainty of \xB10.3m to \xB10.5m. Injecting\
+      \ unreduced +4.59m CD directly into DEM submerges BKC under artificial seawater."
+candidate_outlets_audit:
+  candidate_count: 6
+  candidates:
+  - id: A_ORIGINAL_PROPOSED
+    label: Original Proposed Mahim Causeway Coordinate
+    mapped_pixel:
+    - 666
+    - 107
+    projected_coords_utm43n:
+    - 272671.93359098653
+    - 2106651.7395216515
+    geodetic_coords_wgs84:
+    - 72.84
+    - 19.04
+    elevation_msl_m: 9.95160961151123
+    local_3x3_min_m: 9.693333625793457
+    local_3x3_max_m: 11.706945419311523
+    local_3x3_mean_m: 10.461551666259766
+    feature_context: Proposed coordinate from Phase 6C.2A/E audit
+    is_elevated_infrastructure: true
+    is_active_water_cell: false
+    hydrological_verdict: REJECTED_INFRASTRUCTURE (Lands on elevated +9.95m MSL road
+      deck; drains 1 cell)
+  - id: B_CREEK_CHANNEL_BRIDGE
+    label: Mahim Causeway Bridge Intertidal Creek Channel
+    mapped_pixel:
+    - 655
+    - 100
+    projected_coords_utm43n:
+    - 272475.0
+    - 2106975.0
+    geodetic_coords_wgs84:
+    - 72.83809
+    - 19.0429
+    elevation_msl_m: 0.32227447628974915
+    local_3x3_min_m: 0.0
+    local_3x3_max_m: 6.134548664093018
+    local_3x3_mean_m: 1.4019641876220703
+    feature_context: Active Mithi River / Mahim Creek intertidal water channel at
+      bridge opening
+    is_elevated_infrastructure: false
+    is_active_water_cell: true
+    hydrological_verdict: CANDIDATE_CHANNEL (True intertidal water channel at bridge,
+      elev +0.32m MSL; lacks surveyed sub-grid bathymetry)
+  - id: C_MAHIM_BAY_MOUTH
+    label: Mahim Bay Receiving Water Mouth
+    mapped_pixel:
+    - 635
+    - 84
+    projected_coords_utm43n:
+    - 271995.0
+    - 2107575.0
+    geodetic_coords_wgs84:
+    - 72.83346
+    - 19.04826
+    elevation_msl_m: 0.0
+    local_3x3_min_m: 0.0
+    local_3x3_max_m: 0.0
+    local_3x3_mean_m: 0.0
+    feature_context: Mahim Bay open tidal receiving water outfall cell (downstream
+      of bridge)
+    is_elevated_infrastructure: false
+    is_active_water_cell: true
+    hydrological_verdict: CANDIDATE_BAY_MOUTH (Tidal receiving water, elev 0.00m MSL;
+      captures full exploratory basin in filled DSM)
+  - id: D_CREEK_UPSTREAM_DHARAVI
+    label: Upstream Dharavi Mangrove Reach
+    mapped_pixel:
+    - 650
+    - 120
+    projected_coords_utm43n:
+    - 273075.0
+    - 2107125.0
+    geodetic_coords_wgs84:
+    - 72.84377
+    - 19.04432
+    elevation_msl_m: 5.65151834487915
+    local_3x3_min_m: 4.922072410583496
+    local_3x3_max_m: 8.826045036315918
+    local_3x3_mean_m: 6.87359619140625
+    feature_context: Tidal creek reach upstream of Mahim Causeway and Western Railway
+      bridge
+    is_elevated_infrastructure: true
+    is_active_water_cell: false
+    hydrological_verdict: REJECTED_UPSTREAM (Upstream of bridges; DSM surface elevated
+      to +5.65m by mangrove canopy/shanties)
+  - id: E_MAHIM_BAY_INTERTIDAL
+    label: Mahim Bay Intertidal Sandflat
+    mapped_pixel:
+    - 666
+    - 98
+    projected_coords_utm43n:
+    - 272415.0
+    - 2106645.0
+    geodetic_coords_wgs84:
+    - 72.83756
+    - 19.03991
+    elevation_msl_m: 0.0
+    local_3x3_min_m: 0.0
+    local_3x3_max_m: 0.8287572860717773
+    local_3x3_mean_m: 0.092084139585495
+    feature_context: Intertidal sandflat directly west of the Mahim Causeway road
+      embankment
+    is_elevated_infrastructure: false
+    is_active_water_cell: true
+    hydrological_verdict: CANDIDATE_INTERTIDAL_SANDFLAT (Bay tidal flat west of causeway,
+      elev 0.00m MSL; offset from channel thalweg)
+  - id: F_OPEN_ARABIAN_SEA_MARGIN
+    label: Western Raster Boundary (Arabian Sea)
+    mapped_pixel:
+    - 662
+    - 0
+    projected_coords_utm43n:
+    - 269475.0
+    - 2106765.0
+    geodetic_coords_wgs84:
+    - 72.80963
+    - 19.04067
+    elevation_msl_m: 0.0
+    local_3x3_min_m: 0.0
+    local_3x3_max_m: 0.0
+    local_3x3_mean_m: 0.0
+    feature_context: Open sea margin on the western boundary of the study domain
+    is_elevated_infrastructure: false
+    is_active_water_cell: true
+    hydrological_verdict: REJECTED_RASTER_EDGE (Boundary exit cell, not a hydrological
+      river outlet)
+  spatial_resolution_uncertainty: At 30m resolution, a single DEM pixel encompasses
+    both water channel and bridge abutments. Without surveyed cross-sections, selecting
+    any single pixel as the authoritative pour point is premature and hydrologically
+    unverified.
+conditioning_reproducibility_review:
+  scratch_rasters_verified: true
+  reproduced_metrics:
+    mahim_bay_cells: 83739
+    mahim_bay_area_km2: 75.3651
+    mahim_causeway_road_cells: 372
+    mahim_causeway_road_area_km2: 0.3348
+    exact_match_with_phase6c2f_manifest: true
+  monotonicity_evaluation:
+    flow_path_monotonic: true
+    path_length_steps: 351
+    finding: Epsilon-gradient priority flood guarantees monotonic downhill descent
+      to spillways.
+  lake_preservation_audit:
+    vihar_raw_m: 52.5
+    vihar_filled_m: 52.5010986328125
+    powai_raw_m: 33.5
+    powai_filled_m: 37.26493835449219
+    powai_unphysical_delta_m: 3.7649383544921875
+    finding: 'CONFIRMED REPRODUCIBLE ARTIFACT: Global priority flood modifies Powai
+      Lake by +3.76m (raising water level to 37.26m MSL). This confirms that unconstrained
+      depression filling violates natural lake reservoir behavior.'
+  edge_and_nodata_handling:
+    boundary_exit_cells: 1070
+    internal_unrouted_cells: 0
+    nodata_contamination: false
+evidence_gap_register:
+  total_gaps_identified: 5
+  blocking_delineation_gaps: 3
+  blocking_outlet_gaps: 1
+  gaps:
+  - gap_id: GAP-01-OUTLET-GEOMETRY
+    category: River Outfall & Channel Bathymetry
+    required_evidence: Surveyed intertidal channel opening centerline and bed bathymetry
+      under Mahim Causeway bridge
+    inspected_evidence: OpenStreetMap 2D waterway polyline; Copernicus 30m DSM surface
+    provenance_quality: APPROXIMATE SPATIAL EVIDENCE
+    uncertainty_horizontal_m: 20.0
+    uncertainty_vertical_m: 2.5
+    blocks_outlet_validation: true
+    blocks_watershed_delineation: true
+    concrete_next_action: Acquire MCGM / MMRDA hydraulic cross-section survey for
+      Mahim Causeway outfall channel
+  - gap_id: GAP-02-CSMIA-CULVERT
+    category: Runway Box Culvert Crossing
+    required_evidence: Georeferenced CAD as-built drawing or DGPS surveyed centerline
+      with bed inverts (+2.50m / +2.10m MSL)
+    inspected_evidence: Chitale Committee Report (2006, Chap 5) tabular specifications
+    provenance_quality: VERIFIED PRIMARY SOURCE (Tabular) / NOT AVAILABLE (GIS Vector)
+    uncertainty_horizontal_m: 50.0
+    uncertainty_vertical_m: 0.5
+    blocks_outlet_validation: false
+    blocks_watershed_delineation: true
+    concrete_next_action: Request official MIAL / AAI as-built CAD alignment for Runway
+      09/27 culvert crossing
+  - gap_id: GAP-03-RAILWAY-BRIDGES
+    category: Railway & Highway Embankment Openings
+    required_evidence: Surveyed bridge opening widths and bed inverts for Western
+      and Central Railway lines
+    inspected_evidence: Satellite imagery and OSM infrastructure bridge tags
+    provenance_quality: APPROXIMATE SPATIAL EVIDENCE
+    uncertainty_horizontal_m: 15.0
+    uncertainty_vertical_m: 2.0
+    blocks_outlet_validation: false
+    blocks_watershed_delineation: false
+    concrete_next_action: Extract bridge inspection register cross-sections from Central/Western
+      Railway engineering archives
+  - gap_id: GAP-04-WATERSHED-BOUNDARY-GIS
+    category: Authoritative Catchment Boundary Vector
+    required_evidence: Official municipal GIS polygon shapefile of Mithi River catchment
+    inspected_evidence: Chitale Committee Report 72.95 km2 tabular benchmark; MCGM
+      BRIMSTOWAD master plan text
+    provenance_quality: VERIFIED PRIMARY SOURCE (Tabular Benchmark) / NOT AVAILABLE
+      (GIS Vector)
+    uncertainty_horizontal_m: 100.0
+    uncertainty_vertical_m: 0.0
+    blocks_outlet_validation: false
+    blocks_watershed_delineation: true
+    concrete_next_action: Obtain municipal BRIMSTOWAD GIS watershed boundary layer
+      from MCGM Disaster Management Cell
+  - gap_id: GAP-05-VERTICAL-DATUM-TIE
+    category: Chart Datum to EGM96 Geoid Reduction
+    required_evidence: Survey of India geodetic tie sheet linking Apollo Bandar Benchmark
+      846A (MSL/CD) to EGM96 Geoid
+    inspected_evidence: Mumbai Port Authority tidal parameters (z_MSL = z_CD - 2.51m)
+    provenance_quality: VERIFIED PRIMARY SOURCE (CD to MSL) / APPROXIMATE (Local MSL
+      to EGM96)
+    uncertainty_horizontal_m: 5.0
+    uncertainty_vertical_m: 0.4
+    blocks_outlet_validation: false
+    blocks_watershed_delineation: false
+    concrete_next_action: Obtain Survey of India Geodetic Branch leveling tie sheet
+      for BM 846A to EGM96
+decision_rationale:
+  chosen_decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  justification: 'Authoritative watershed delineation and pour-point finalization
+    remain strictly BLOCKED because: (1) The proposed Mahim Causeway coordinate is
+    verified to land on an elevated road deck (+9.95m MSL). (2) Candidate channel
+    cell (Row 655, Col 100) lacks surveyed cross-sectional bathymetry to separate
+    water from bridge infrastructure at 30m resolution. (3) CSMIA airport culvert
+    lacks georeferenced CAD/GIS centerline geometry, preventing physical connectivity
+    without unphysical depression filling (+6.71m at Marol, +3.76m at Powai Lake).
+    (4) No surveyed municipal GIS boundary polygon exists for independent validation.'
+  unblocking_requirements:
+  - Official georeferenced CAD as-built drawing of CSMIA Runway 09/27 box culvert
+    with bed inverts.
+  - Municipal surveyed cross-sections of the Mahim Causeway bridge outfall opening.
+  - MCGM BRIMSTOWAD master plan digital GIS watershed boundary shapefile.

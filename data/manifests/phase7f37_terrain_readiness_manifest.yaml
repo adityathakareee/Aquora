@@ -1,0 +1,108 @@
+manifest_version: 1.0.0
+phase: PHASE_7F_3_7_TERRAIN_READINESS_AUDIT
+created_at_utc: '2026-10-31T14:50:00.000000+00:00'
+event_id: DFO_3382
+basin_name: Mahanadi Basin / Odisha Delta
+study_region_bounds: [84.0, 19.0, 88.0, 22.0]
+readiness_decision: PARTIAL_READINESS
+operational_status: PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS
+
+dem_inventory_status:
+  status: FULLY_ACQUIRED_AND_VERIFIED
+  package_id: CORRECTED_PACKAGE_B
+  total_tiles: 9
+  total_size_bytes: 285733588
+  total_size_mb: 272.50
+  target_directory: data/raw/phase7/dem/mahanadi_dfo3382
+  tiles:
+  - N19E084
+  - N19E085
+  - N19E086
+  - N20E084
+  - N20E085
+  - N20E086
+  - N20E087
+  - N21E085
+  - N21E086
+  metric_buffer_coverage:
+    core_delta_5125m_buffer: 100.00% (14391.41 / 14391.41 km2)
+    extended_delta_5125m_buffer: 97.94% (16983.83 / 17341.42 km2)
+  dsm_type: Digital Surface Model (GLO-30 X-band TanDEM-X)
+
+drainage_and_basin_data_inventory:
+  local_status: DEFICIENT_MISSING_MAHANADI_HYDROGRAPHY
+  hydrobasins_india_geojson:
+    path: data/processed/boundaries/hydrobasins_india.geojson
+    mahanadi_feature_present: true (Feature 6: BASIN-MAHANADI)
+    geometry_type: Polygon (5-point rectangular bounding box [80.4, 19.3, 86.9, 23.6])
+    authoritative_watershed_status: INVALID_SIMPLIFIED_BBOX (Not a true watershed ridgeline boundary)
+  hydrorivers_local:
+    path: data/processed/hydrography/
+    existing_basins: [Brahmaputra, Ganga, Godavari, Narmada]
+    mahanadi_river_vector_present: false (MISSING LOCALLY)
+  merit_hydro_local:
+    present: false (MISSING LOCALLY)
+  india_wris_cwc_local:
+    present: false (MISSING LOCALLY)
+  external_sources_identified:
+    cwc_india_wris:
+      source: Central Water Commission / Ministry of Jal Shakti, Government of India
+      layer: Mahanadi Basin (Code 04) & Delta Sub-basins (Naraj, Daya, Bhargavi, Devi, Kushabhadra)
+      format: Shapefile / GeoJSON
+      status: EXTERNAL_AUTHORITATIVE_SOURCE (Not downloaded)
+    hydrosheds_hydrobasins_lev07_08:
+      source: USGS / WWF / McGill University (Asia extract v1c)
+      layer: Pfafstetter Level 7/8 sub-catchments below Naraj Barrage
+      status: EXTERNAL_AUTHORITATIVE_SOURCE (Not downloaded)
+    hydrorivers_asia:
+      source: HydroSHEDS Project (HydroRIVERS v1.0 Asia)
+      layer: Mahanadi mainstem and distributary network with Strahler order and upstream drainage area
+      status: EXTERNAL_AUTHORITATIVE_SOURCE (Not downloaded)
+
+landcover_and_water_masking_inventory:
+  local_status: DEFICIENT_MISSING_DELTA_WORLDCOVER_AND_STANDALONE_JRC
+  jrc_global_surface_water:
+    standalone_30m_rasters_local: false (MISSING LOCALLY)
+    embedded_gfd_proxy: true (Band 5 jrc_perm inside DFO 3382 GeoTIFF at ~250m nominal resolution)
+    temporal_coverage: 1984-2021 historical permanence
+    suitability: PROVISIONAL_PROXY_ONLY (Cannot be assumed to resolve dynamic coastal, tidal, or estuarine interfaces)
+  esa_worldcover_10m:
+    local_tiles_present:
+    - tile_id: N18E072 (Mumbai / Mithi)
+    - tile_id: N21E087 (Balasore / WB border: 21N-24N, 87E-90E; touches only extreme NE coastal margin)
+    - tile_id: N24E084 (Bihar / Kosi)
+    - tile_id: N27E093 (Assam / Brahmaputra)
+    mahanadi_delta_tile: ESA_WorldCover_10m_2021_v200_N18E084_Map.tif (MISSING LOCALLY)
+    temporal_suitability: 2020-2021 baseline vs September 2008 event (Decadal urban sprawl and aquaculture shift)
+  coastal_and_tidal_risk_factors:
+    zero_elevation_ocean_pixels: Ocean is 0.0m in DSM, not NaN NoData. Requires explicit land/water masking.
+    macrotidal_fluctuations: Bay of Bengal tidal range of 3-4m causes intertidal mudflat submergence/exposure.
+    mangrove_canopy_flooding: Bhitarkanika mangrove stands experience tidal pulses and high canopy radar reflectance.
+    shifting_estuarine_sandbars: Devi and Dhamra river mouths undergo dynamic post-monsoon sandbar migration.
+
+dsm_structural_limitations:
+  sensor: TanDEM-X X-band (3.1 cm) radar interferometry
+  reflective_surface: First-return surface (vegetation canopy and artificial structures)
+  bare_earth_dtm: FALSE
+  vegetation_damming_risk: Dense coastal mangroves (Bhitarkanika) and riparian tree belts elevate elevations by 5-20m, creating artificial barriers across drainage paths.
+  urban_structural_bias: Settlement structures in Cuttack and Bhubaneswar elevate elevations by 3-15m.
+  mitigation_requirements:
+  - Stream burning using authoritative river centerlines.
+  - Breach depression / selective sink filling algorithms.
+  - Vegetation canopy bias evaluation (FABDEM / MERIT DEM comparison).
+
+proposed_terrain_workflow:
+  stage_1: Multi-source land/water composite mask preparation (Ocean, Tidal Mudflat, Permanent Water, Terrestrial).
+  stage_2: Virtual mosaic (VRT) assembly across 9 tiles with zero-modification to raw COGs.
+  stage_3: Stream burning and hydrologic conditioning using authoritative river vectors.
+  stage_4: Derivation of 30m terrain features (Slope, Aspect, Curvature, Flow Accumulation, TWI, HAND).
+  stage_5: Spatial aggregation and grid alignment to DFO 3382 250m observation cells.
+  execution_status: PROPOSED_WORKFLOW_ONLY (Execution strictly deferred until data acquisition is authorized).
+
+governance_status:
+  read_only_audit: COMPLETED
+  raster_data_downloaded: false
+  terrain_derivatives_generated: false
+  ml_models_trained: false
+  dfo2507_quarantine_preserved: true
+  phase6_supremacy_preserved: true

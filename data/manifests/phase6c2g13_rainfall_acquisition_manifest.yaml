@@ -1,0 +1,40 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_13_NATIONAL_RAINFALL_ACQUISITION_AND_EVENT_MATCHING
+timestamp_utc: '2026-10-19T16:20:06.098720+00:00'
+governance:
+  final_decision: PARTIAL_ACQUISITION_READY
+  pilot_plan_established: true
+  supervised_training_permitted: false
+  national_trigger_modeling_permitted: false
+  zero_synthetic_rainfall_enforced: true
+  zero_missing_rainfall_imputation_enforced: true
+  summary: Rainfall comparison for Event E03 is verified as 100% reproducible (221.78
+    mm from 48 granules), while Event E02 is audited and downgraded to PARTIAL_TEMPORAL_COVERAGE
+    (0.215 mm trailing granule). An auditable event-match inventory for all 6,876
+    IFI records classifies 2 MATCHED, 2 PARTIAL, 37 DATE_UNCERTAIN, and 6,835 NOT_ACQUIRED.
+    A prioritized 8-event pilot acquisition plan is ready.
+immutability_verification:
+  raw_copernicus_dsm_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_study_extent_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  raw_ifi_sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+  verified_unmodified: true
+event_match_summary:
+  NOT_ACQUIRED: 6835
+  DATE_UNCERTAIN: 37
+  MATCHED: 2
+  PARTIAL_TEMPORAL_COVERAGE: 2
+benchmark_revalidation:
+  event_e03: VALIDATED_BENCHMARK_DELUGE
+  event_e02: DOWNGRADED_TO_PARTIAL_TEMPORAL_COVERAGE
+candidate_sources_evaluated:
+- NASA_GPM_IMERG_FINAL_V07B
+- IMD_GRIDDED_DAILY_RAINFALL
+- CHIRPS_V2_DAILY
+- ERA5_LAND_HOURLY
+pilot_events_count: 8
+safeguards:
+- Missing rainfall for 6,874 records must strictly remain NULL (never zero-filled).
+- Never infer physical causation or calibrated thresholds from event co-occurrence
+  alone.
+- Local E02 asset covers only 30 minutes of trailing rain; 24h peak sequence is unacquired.
+- Zero supervised ML models trained in this phase.

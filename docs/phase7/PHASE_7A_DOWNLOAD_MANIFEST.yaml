@@ -32,9 +32,12 @@ download_entries:
     format: "GeoTIFF"
     access_url: "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N19_00_E072_00_DEM/Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif"
     auth_required: false
-    estimated_size_mb: 25.4
-    status: "SPECIFIED_PENDING_PHASE_7B"
-    notes: "Master 30m spatial reference DEM for Mithi catchment D8 surface routing."
+    estimated_size_mb: 12.72
+    actual_size_bytes: 13336459
+    sha256: "b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd"
+    status: "DOWNLOADED_AND_VERIFIED"
+    acquisition_date: "2026-10-16T18:16:37Z"
+    notes: "Authentic Copernicus DEM GLO-30 tile acquired from AWS Open Data and verified in Phase 6C.2c."
 
   - id: "DL-LC-001"
     category: "land_cover"

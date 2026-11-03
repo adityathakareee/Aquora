@@ -1,0 +1,49 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_7_EVIDENCE_AUDIT_AND_VALIDATION
+timestamp_utc: '2026-10-17T10:28:16.640963+00:00'
+governance:
+  final_governance_decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  historical_simulation_permitted: false
+  zero_culvert_fabrication_enforced: true
+  zero_label_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  data_integrity_policy: Strict source verification; arithmetic or summaries cannot
+    verify primary sources
+dem_immutability_audit:
+  raw_copernicus_dsm:
+    path: data\raw\phase7\dem\Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+    sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+    verified: true
+  working_study_extent_dem:
+    path: data\processed\phase7\terrain\elevation_30m_study_extent.tif
+    sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+    verified: true
+evidence_audit_summary:
+  audit_file: data\raw\phase7\evidence\phase6c2g7_evidence_audit.json
+  sha256: ffb89c00a99b5b1db8570c15eb1bde98da0cd1a864ed20d7d9fe480b3f2a3220
+  claims_audited: 11
+  status_breakdown:
+    NOT_ACQUIRED: 1
+    UNVERIFIED: 9
+    BIBLIOGRAPHICALLY_VERIFIED: 1
+  downgrades_applied: 3
+  verified_primary_sources_count: 0
+rainfall_sar_validation_summary:
+  alignment_file: data\processed\phase7\validation\phase6c2g7_rainfall_sar_alignment.json
+  sha256: 8ce2da03bee91c9396407ebe78f241838602ce9285b6411af1751c58888ab88e
+  imerg_granules_count: 48
+  imerg_total_rainfall_mm: 221.78
+  sar_primary_scenes_count: 2
+  sar_overpass_utc: '2019-07-02T01:02:58Z'
+  sar_overpass_ist: '2019-07-02T06:32:58+05:30'
+  coincident_imerg_granule: 3B-HHR.MS.MRG.3IMERG.20190702-S010000-E012959.0060.V07B.HDF5
+  preceding_rainfall_percentage: 92.1
+  tide_peak_lag_hours: 5.32
+scientific_and_governance_invariants:
+- SAR backscatter anomaly != confirmed flood inundation
+- IMERG 30-minute interval average != instantaneous rainfall rate
+- Missing satellite observation != zero rainfall or dry ground
+- CrossRef work metadata != full-text technical modeling claim verification
+- Arithmetic calculation != primary source document possession
+- Unsuccessful URL request != verified port navigation parameter
+- Technical data-readiness != scientific flood-validation readiness

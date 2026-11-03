@@ -1,0 +1,34 @@
+manifest_version: '1.0'
+phase: PHASE_6C_2G_19_STAGED_NATIONAL_RAINFALL_ACQUISITION
+generated_timestamp_utc: '2026-10-27T18:48:55.643670+00:00'
+governance:
+  decision: STAGED_ACQUISITION_VALIDATED
+  zero_synthetic_rainfall: true
+  zero_supervised_models: true
+  immutable_foundational_assets: true
+core_assets:
+  copernicus_dsm:
+    path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\raw\phase7\dem\Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+    sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_dem:
+    path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\processed\phase7\terrain\elevation_30m_study_extent.tif
+    sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  raw_ifi_v3:
+    path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\raw\phase7\ground_truth\india_flood_inventory_v3.csv
+    sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+phase19_deliverables:
+  acquisition_script:
+    path: scripts/acquire_phase6c2g19_staged_rainfall.py
+    sha256: ff200f44c1f1651f5301551969fcf4f9f923d494fbe8642dce04921114867887
+  validation_script:
+    path: scripts/validate_phase6c2g19_staged_rainfall.py
+    sha256: 56c830aaa766d33d673e8d01dea244f2c7c4f688c65eb7827c6acb172322becf
+  checkpoint_json:
+    path: data/processed/phase7/rainfall/phase6c2g19_acquisition_checkpoint.json
+    sha256: 5bda181999caa526217dc7169a21e15be4743daa8182a98c06bd546509e229fb
+  inventory_csv:
+    path: data/processed/phase7/rainfall/phase6c2g19_acquisition_inventory.csv
+    sha256: bf2445dc909065ee8cf5a41118adaa56d8a3da9da0173be39438ff785e8e6571
+  quality_assessment_json:
+    path: data/processed/phase7/rainfall/phase6c2g19_quality_assessment.json
+    sha256: 74bf268dcdc3271f4033ef116f0addf854f399db9162a8ad7183a8a300bda7a1

@@ -58,6 +58,9 @@ class SpatialZoneResolver:
         "godavari_basin": "regional_godavari_basin",
         "narmada": "regional_narmada_basin",
         "narmada_basin": "regional_narmada_basin",
+        "mahanadi": "regional_mahanadi_basin",
+        "mahanadi_basin": "regional_mahanadi_basin",
+        "basin-mahanadi": "regional_mahanadi_basin",
     }
 
     @classmethod
@@ -150,3 +153,18 @@ class SpatialZoneResolver:
             f"Zone '{zone.get('zone_id')}' does not have capability '{capability_key}' "
             f"(Status: {cap_val or 'NOT_AVAILABLE'}). Operation aborted without fabrication."
         )
+
+    @classmethod
+    def resolve_basin_polygon(
+        cls,
+        latitude: float,
+        longitude: float,
+        crs: str = "EPSG:4326",
+    ) -> Optional[Dict[str, Any]]:
+        """
+        Resolve authentic HydroBASINS Level 04 watershed polygon containment.
+        Guarantees exact polygon containment, deterministic boundary tie-breaking,
+        and returns None for unsupported or oceanic points (never falls back to rectangular bounds).
+        """
+        from app.services.hydrobasins_service import HydrobasinsService
+        return HydrobasinsService().resolve_basin(latitude, longitude, crs=crs)

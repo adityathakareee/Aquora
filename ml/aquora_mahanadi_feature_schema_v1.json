@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_name": "aquora_mahanadi_feature_schema_v1",
+  "schema_version": "1.0.0",
+  "created_at": "2026-11-01T04:55:00Z",
+  "governance": {
+    "status": "PROPOSED_REGIONAL_BENCHMARK_SCHEMA",
+    "benchmark_event": "DFO_3382_MAHANADI_2008",
+    "parent_schema": "ml/aquora_ml_feature_schema_v1.json",
+    "phase7e_model_compatibility": "FULLY_COMPATIBLE",
+    "authoritative_physics_engine": "engines/flood/solver.py",
+    "description": "Standardized feature contract for DFO 3382 Mahanadi regional validation, mapping legacy Phase 7E model features to new high-resolution terrain and hydrographic predictors while explicitly declaring rainfall availability status."
+  },
+  "active_phase7e_model_features": {
+    "description": "The exact seven features utilized in Phase 7E Kaggle package and baseline model inference.",
+    "features": [
+      {
+        "name": "elevation_m",
+        "type": "float32",
+        "units": "meters above sea level (EGM2008 geoid)",
+        "source_layer": "data/processed/phase7/terrain/mahanadi_dem_mosaic_30m.vrt",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "slope_deg",
+        "type": "float32",
+        "units": "degrees (0.0 to 90.0)",
+        "source_layer": "data/processed/phase7/terrain/mahanadi_slope_deg_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "drainage_proxy_score",
+        "type": "float32",
+        "units": "dimensionless score [0.0, 1.0]",
+        "source_formula": "1.0 / (1.0 + distance_to_river_m / 1000.0)",
+        "source_layer": "data/processed/phase7/hydrography/mahanadi_distance_to_river_m_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "rainfall_accum_6h_mm",
+        "type": "float32",
+        "units": "millimeters",
+        "source_layer": null,
+        "resolution_m": null,
+        "status": "NOT_AVAILABLE_LOCALLY",
+        "missing_indicator": true,
+        "imputation_policy": "NO_FABRICATION_ALLOWED"
+      },
+      {
+        "name": "rainfall_accum_24h_mm",
+        "type": "float32",
+        "units": "millimeters",
+        "source_layer": null,
+        "resolution_m": null,
+        "status": "NOT_AVAILABLE_LOCALLY",
+        "missing_indicator": true,
+        "imputation_policy": "NO_FABRICATION_ALLOWED"
+      },
+      {
+        "name": "rainfall_accum_72h_mm",
+        "type": "float32",
+        "units": "millimeters",
+        "source_layer": null,
+        "resolution_m": null,
+        "status": "NOT_AVAILABLE_LOCALLY",
+        "missing_indicator": true,
+        "imputation_policy": "NO_FABRICATION_ALLOWED"
+      },
+      {
+        "name": "temporal_window_hours",
+        "type": "float32",
+        "units": "hours",
+        "nominal_event_value": 168.0,
+        "status": "VERIFIED_AVAILABLE"
+      }
+    ]
+  },
+  "experimental_terrain_features": {
+    "description": "High-resolution 30m terrain derivatives computed from validated Copernicus DEM mosaic.",
+    "features": [
+      {
+        "name": "aspect_deg",
+        "type": "float32",
+        "units": "degrees azimuth (0 - 360 clockwise from North; -1 for flat)",
+        "source_layer": "data/processed/phase7/terrain/mahanadi_aspect_deg_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "plan_curvature",
+        "type": "float32",
+        "units": "100 / m",
+        "source_layer": "data/processed/phase7/terrain/mahanadi_plan_curvature_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "profile_curvature",
+        "type": "float32",
+        "units": "100 / m",
+        "source_layer": "data/processed/phase7/terrain/mahanadi_profile_curvature_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "flow_direction_d8",
+        "type": "uint8",
+        "units": "D8 direction bitmask (1, 2, 4, 8, 16, 32, 64, 128; 0=pit/sink)",
+        "source_layer": "data/processed/phase7/terrain/mahanadi_flow_direction_d8_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "flow_accumulation_cells",
+        "type": "uint32",
+        "units": "upstream cells count",
+        "source_layer": "data/processed/phase7/terrain/mahanadi_flow_accumulation_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "topographic_wetness_index",
+        "type": "float32",
+        "units": "dimensionless ln(a / tan(beta))",
+        "source_layer": "data/processed/phase7/terrain/mahanadi_twi_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "height_above_nearest_drainage_m",
+        "type": "float32",
+        "units": "meters",
+        "source_layer": null,
+        "status": "BLOCKED_EXPERIMENTAL_PENDING_SURVEYED_HYDRO_CONDITIONING",
+        "blockage_reason": "Copernicus GLO-30 DSM lacks bridge and culvert hydro-enforcement. D8 routing traps water behind road/rail embankments in flat delta plain, producing unphysical drainage heights. Universal stream burning (2-5m trenches) is scientifically prohibited."
+      }
+    ]
+  },
+  "hydrographic_features": {
+    "description": "Geospatial vector and raster hydrographic features derived from HydroRIVERS Asia and HydroBASINS Level 8.",
+    "features": [
+      {
+        "name": "distance_to_river_m",
+        "type": "float32",
+        "units": "meters",
+        "source_layer": "data/processed/phase7/hydrography/mahanadi_distance_to_river_m_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "strahler_stream_order",
+        "type": "uint8",
+        "units": "Strahler order (1 to 7; 0=non-river)",
+        "source_layer": "data/processed/phase7/hydrography/mahanadi_strahler_order_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "distance_to_distributary_m",
+        "type": "float32",
+        "units": "meters to major delta branches (Mahanadi, Kathajodi, Kuakhai, Daya, Bhargavi, Devi, Luna, Chitratpala)",
+        "source_layer": "data/processed/phase7/hydrography/mahanadi_distance_to_distributary_m_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "subbasin_id_lev08",
+        "type": "float64",
+        "units": "HydroBASINS Level 8 HYBAS_ID",
+        "source_layer": "data/processed/phase7/hydrography/mahanadi_subbasin_id_lev08_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      },
+      {
+        "name": "upstream_catchment_area_km2",
+        "type": "float32",
+        "units": "square kilometers",
+        "source_layer": "data/processed/phase7/hydrography/mahanadi_upstream_catchment_area_km2_30m.tif",
+        "resolution_m": 30.0,
+        "status": "VERIFIED_AVAILABLE"
+      }
+    ]
+  },
+  "rainfall_readiness_matrix": {
+    "description": "Audit of rainfall predictor availability for DFO 3382 (September 2008).",
+    "features": [
+      {
+        "feature_name": "rainfall_1h_mm",
+        "status": "NOT_AVAILABLE_LOCALLY",
+        "missing_flag": true,
+        "temporal_resolution": "1-hour",
+        "justification": "Requires GPM IMERG Early/Late or TRMM 3B42 retrospective acquisition."
+      },
+      {
+        "feature_name": "rainfall_3h_mm",
+        "status": "NOT_AVAILABLE_LOCALLY",
+        "missing_flag": true,
+        "temporal_resolution": "3-hour",
+        "justification": "Requires TRMM 3B42 retrospective 3-hour product for September 2008."
+      },
+      {
+        "feature_name": "rainfall_6h_mm",
+        "status": "NOT_AVAILABLE_LOCALLY",
+        "missing_flag": true,
+        "temporal_resolution": "6-hour",
+        "justification": "Phase 7E active feature. Unpopulated for DFO 3382; synthetic fabrication prohibited."
+      },
+      {
+        "feature_name": "rainfall_24h_mm",
+        "status": "NOT_AVAILABLE_LOCALLY",
+        "missing_flag": true,
+        "temporal_resolution": "24-hour daily",
+        "justification": "Phase 7E active feature. Unpopulated for DFO 3382; requires authorized gridded precipitation."
+      },
+      {
+        "feature_name": "rainfall_72h_mm",
+        "status": "NOT_AVAILABLE_LOCALLY",
+        "missing_flag": true,
+        "temporal_resolution": "72-hour antecedent",
+        "justification": "Phase 7E active feature. Unpopulated for DFO 3382; requires authorized gridded precipitation."
+      },
+      {
+        "feature_name": "rainfall_anomaly_index",
+        "status": "NOT_AVAILABLE_LOCALLY",
+        "missing_flag": true,
+        "temporal_resolution": "Climatological anomaly",
+        "justification": "Requires 30-year IMERG/IMD climatology baseline for September."
+      }
+    ]
+  },
+  "feature_lineage_and_cross_mappings": [
+    {
+      "model_feature": "elevation_m",
+      "mapped_experimental_layer": "mahanadi_dem_mosaic_30m.vrt",
+      "transformation": "Direct extraction",
+      "operational_status": "READY"
+    },
+    {
+      "model_feature": "slope_deg",
+      "mapped_experimental_layer": "mahanadi_slope_deg_30m.tif",
+      "transformation": "Direct extraction (projected metric gradients)",
+      "operational_status": "READY"
+    },
+    {
+      "model_feature": "drainage_proxy_score",
+      "mapped_experimental_layer": "mahanadi_distance_to_river_m_30m.tif",
+      "transformation": "1.0 / (1.0 + distance_to_river_m / 1000.0)",
+      "operational_status": "READY"
+    },
+    {
+      "model_feature": "rainfall_accum_6h_mm",
+      "mapped_experimental_layer": null,
+      "transformation": "Explicit NaN / Missing indicator",
+      "operational_status": "BLOCKED_PENDING_SEPARATE_RAINFALL_ACQUISITION"
+    },
+    {
+      "model_feature": "rainfall_accum_24h_mm",
+      "mapped_experimental_layer": null,
+      "transformation": "Explicit NaN / Missing indicator",
+      "operational_status": "BLOCKED_PENDING_SEPARATE_RAINFALL_ACQUISITION"
+    },
+    {
+      "model_feature": "rainfall_accum_72h_mm",
+      "mapped_experimental_layer": null,
+      "transformation": "Explicit NaN / Missing indicator",
+      "operational_status": "BLOCKED_PENDING_SEPARATE_RAINFALL_ACQUISITION"
+    },
+    {
+      "model_feature": "temporal_window_hours",
+      "mapped_experimental_layer": null,
+      "transformation": "Constant 168.0 hours",
+      "operational_status": "READY"
+    }
+  ],
+  "governance_rules": {
+    "model_ingestion_lock": "Do not feed unvalidated, provisional, or missing rainfall features into Phase 7E baseline models without authorized complete data acquisition.",
+    "imputation_prohibition": "No temporal disaggregation of daily rainfall into hourly rainfall is permitted. Missing values must remain explicitly missing.",
+    "hydrodynamic_supremacy": "Phase 6 hydrodynamic engine (engines/flood/solver.py) remains the sole authoritative physics model. ML models function strictly as rapid screening surrogates."
+  }
+}

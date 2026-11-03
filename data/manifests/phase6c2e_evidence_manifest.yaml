@@ -1,0 +1,220 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2E_EVIDENCE_AUDIT
+timestamp_utc: '2026-10-16T20:52:49.067347+00:00'
+governance:
+  status: GEOGRAPHIC_EVIDENCE_AUDIT_COMPLETED
+  zero_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  zero_culvert_fabrication_enforced: true
+  synthetic_box_retired: true
+  historical_simulation_permitted: false
+working_dem_audit:
+  dem_exists: true
+  crs: EPSG:32643
+  dimensions:
+  - 536
+  - 746
+  bounds:
+    left: 269460.0
+    bottom: 2104260.0
+    right: 285540.0
+    top: 2126640.0
+  densified_boundary_test:
+    total_points_evaluated: 400
+    points_inside_bounds: 400
+    zero_clipping_confirmed: true
+    min_projected_x: 269485.77896162024
+    max_projected_x: 285538.23420967255
+    min_projected_y: 2104286.5356578627
+    max_projected_y: 2126619.263345822
+    grid_left_margin_m: 25.77896162023535
+    grid_right_margin_m: 1.7657903274521232
+    grid_bottom_margin_m: 26.535657862666994
+    grid_top_margin_m: 20.736654177773744
+  valid_data_percentage: 100.0
+  resolution:
+  - 30.0
+  - 30.0
+catchment_boundary_sources:
+  MCGM_BRIMSTOWAD_GIS:
+    organization: Brihanmumbai Municipal Corporation (BMC / MCGM)
+    title: Brihanmumbai Storm Water Disposal System (BRIMSTOWAD) Master Plan
+    year: 1993, updated 2006-2015
+    source_url: https://portal.mcgm.gov.in/
+    geometry_type: Municipal Stormwater Drainage Network & Planning Zones
+    gis_vector_available: false
+    access_conditions: Internal Restricted Municipal Records
+    stated_area_km2: 72.5
+    readiness_status: UNAVAILABLE_RESTRICTED
+    audit_evaluation: High administrative relevance, but underlying GIS vector layers
+      are closed/restricted.
+  MMRDA_DRAINAGE_STUDY:
+    organization: Mumbai Metropolitan Region Development Authority (MMRDA)
+    title: Mithi River Development and Protection Authority Master Plan
+    year: 2006-2012
+    source_url: https://mmrda.maharashtra.gov.in/
+    geometry_type: Regional Infrastructure Master Plan
+    gis_vector_available: false
+    access_conditions: Published PDF Reports and Engineering Maps
+    stated_area_km2: 73.1
+    readiness_status: UNAVAILABLE_NO_VECTOR
+    audit_evaluation: Engineering tables and maps published in PDF format; downloadable
+      shapefiles not released.
+  CHITALE_COMMITTEE_REPORT_2006:
+    organization: Government of Maharashtra (Fact-Finding Committee on Mumbai Floods)
+    title: Report of the Fact-Finding Committee on Mumbai Floods of 26th July 2005
+    year: March 2006
+    source_url: https://maharashtra.gov.in/
+    geometry_type: Authoritative Inquiry Commission Hydrological Survey
+    gis_vector_available: false
+    access_conditions: Official Government PDF Report (Public Archive)
+    stated_area_km2: 72.95
+    sub_basin_breakdown_km2:
+      vihar_lake: 18.96
+      powai_lake: 6.61
+      direct_river_reach: 47.38
+    readiness_status: AUTHORITATIVE_TABULAR_BENCHMARK
+    audit_evaluation: The primary municipal and engineering reference benchmark for
+      Mithi catchment area; lacks digital GIS polygon geometry.
+  HYDROSHEDS_HYDROBASINS_L12:
+    organization: World Wildlife Fund (WWF) / USGS
+    title: HydroBASINS Asia Level 12 Global Catchment Dataset
+    year: '2013'
+    source_url: https://www.hydrosheds.org/products/hydrobasins
+    geometry_type: Automated D8 Global Macro-Watershed Delineation (90m SRTM)
+    gis_vector_available: true
+    access_conditions: Creative Commons Attribution 4.0 International
+    stated_area_km2: -40.0
+    readiness_status: REJECTED_HYDROLOGICALLY_INVALID
+    audit_evaluation: Automated coarse coastal delineation improperly aggregates Mithi
+      with western coastal drains (Khar/Bandra) and eastern Thane Creek streams. Unusable
+      for urban modeling.
+  IIT_BOMBAY_ZOPE_ET_AL:
+    organization: Indian Institute of Technology Bombay (Department of Civil Engineering)
+    title: Hydrodynamic simulation of Mithi River, Mumbai, India (Journal of Hydrology
+      / Natural Hazards)
+    year: 2015-2016
+    source_url: https://doi.org/10.1016/j.jhydrol.2015.03.028
+    geometry_type: DGPS Field-Surveyed & Hydro-Conditioned DEM Catchment Boundary
+    gis_vector_available: false
+    access_conditions: Published Academic Literature (Research Data Privately Held)
+    stated_area_km2: -0.5
+    readiness_status: PEER_REVIEWED_BENCHMARK
+    audit_evaluation: "Validates Chitale Committee benchmark (~72.5 km\xB2) through\
+      \ high-resolution hydrodynamic modeling; shapefiles not openly archived."
+  EXISTING_REPOSITORY_HYDROBASINS_MITHI:
+    organization: AQUORA Legacy Repository Asset
+    title: 'hydrobasins_india.geojson (Feature: BASIN-MITHI)'
+    year: '2026'
+    source_url: data/processed/boundaries/hydrobasins_india.geojson
+    geometry_type: Synthetic 4-Corner Bounding Box
+    gis_vector_available: true
+    coordinates:
+    - - 72.82
+      - 19.03
+    - - 72.82
+      - 19.16
+    - - 72.93
+      - 19.16
+    - - 72.93
+      - 19.03
+    - - 72.82
+      - 19.03
+    stated_area_in_properties: 72.95
+    actual_measured_polygon_area_km2: 166.57
+    readiness_status: RETIRED_SYNTHETIC_RECTANGLE
+    audit_evaluation: "CRITICAL FLAW: Metadata property claims 72.95 km\xB2, but actual\
+      \ polygon geometry is an arbitrary rectangular box of 166.57 km\xB2 (+128.3%\
+      \ error). Permanently retired from physical simulation."
+hydraulic_connectivity_evidence:
+  channel_centerline:
+    feature: Mithi River Main Channel Centerline (~17.8 km)
+    classification: PARTIALLY_VERIFIED
+    source: OpenStreetMap waterway network cross-referenced with satellite imagery
+    horizontal_location_accuracy: 10-20 meters
+    surveyed_cross_sections_available: false
+    invert_elevations_available: false
+    readiness: Adequate for 2D terrain alignment; inadequate for 1D riverbed hydraulic
+      friction without cross-sections.
+  csmia_runway_culvert:
+    feature: "CSMIA Airport Runway 09/27 & 14/32 Box Culvert Crossing (~19.090\xB0\
+      N, 72.875\xB0E)"
+    classification: DOCUMENTED_ENGINEERING_DESIGN (GIS Vector Missing)
+    source: Chitale Committee Report (2006, Chap 5) & MMRDA Mithi Widening Documentation
+    physical_specifications: Triple-barrel reinforced concrete box culvert (~60m total
+      opening width, bed invert ~+2.5m MSL)
+    digital_cad_vector_available: false
+    status_in_dem: Appears as a solid +6.4m to +10.0m MSL obstacle in raw surface
+      DSM
+    readiness: Culvert burning prohibited in Phase 6C.2D/E; requires precise centerline
+      breach in future conditioning phase.
+  railway_highway_embankments:
+    feature: Western/Central Railway and Highway Embankment Bridges
+    classification: UNVERIFIED
+    source: OpenStreetMap bridge tags and Google Earth satellite imagery
+    key_structures:
+    - Western Railway Bridge (Mahim/Bandra)
+    - Western Express Highway Kalanagar Bridge
+    - Central Railway Bridge (Sion/Kurla)
+    - Santacruz-Chembur Link Road (SCLR) Bridge
+    - Harbour Railway Line Bridge (Kurla)
+    hydraulic_openings_surveyed: false
+    readiness: Structures act as artificial continuous dams in raw DSM; bridge openings
+      not yet burned.
+  lake_spillways_and_outlets:
+    feature: Powai, Vihar, and Tulsi Lake Spillways and Overflow Weirs
+    classification: PARTIALLY_VERIFIED
+    source: BMC Hydraulic Engineer Department Records & Chitale Report Chap 4
+    levels_msl:
+      powai_lake_fsl: 33.50 m MSL
+      vihar_lake_fsl: 52.42 m MSL
+      tulsi_lake_fsl: 130.00 m MSL
+    dynamic_operating_rules_available: false
+    readiness: Static lake crests match DEM surfaces; dynamic spillway discharge curves
+      missing.
+  downstream_river_outlet:
+    feature: Mahim Causeway River Outfall into Mahim Bay (Arabian Sea)
+    classification: VERIFIED (Physical Domain) / UNVERIFIED (Tidal Stage)
+    coordinates:
+    - 72.84
+    - 19.04
+    status_in_dem: Row 666, Col 107 in elevation_30m_study_extent.tif (3.2 km buffer
+      to western margin)
+    receiving_water_coverage: Entire Mahim Bay tidal inlet captured in working DEM
+    dynamic_marine_boundary_available: false
+    readiness: Spatial outfall domain is verified; dynamic water surface elevation
+      boundary is missing.
+tide_and_datum_inventory:
+  local_tide_files_present: false
+  local_tide_directory: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\raw\phase7\tide
+  raw_tide_files_count: 0
+  historical_station_reference:
+    primary_station: Apollo Bandar (Mumbai Port Trust / Survey of India 846A)
+    latitude: 18.925
+    longitude: 72.833
+    secondary_station: Prongs Reef Light / Mahim Bay
+    reported_event_high_tide:
+      event_id: E03
+      date: '2019-07-02'
+      time_ist: 11:52:00+05:30
+      time_utc: 06:22:00Z
+      reported_level_m_cd: 4.59
+      vertical_datum: Mumbai Port Chart Datum (CD / approximate LAT)
+      source_provenance: BMC Disaster Management Bulletins & Press Reports
+  vertical_datum_reduction:
+    dem_vertical_datum: EGM96 Geoid (Mean Sea Level)
+    tide_vertical_datum: Mumbai Port Chart Datum (CD)
+    datum_offset_formula: z_MSL = z_CD - 2.51 m
+    calculated_water_surface_msl: +2.08 m MSL (for 4.59 m CD)
+    geodetic_verification_status: UNVERIFIED_LOCALLY (Official Survey of India tie
+      sheet missing)
+    inundation_hazard_risk: 'CRITICAL: Injecting raw 4.59 m into EGM96 DEM submerges
+      BKC and Dharavi (elev 1.5-3.5m) under meters of artificial seawater.'
+  readiness_status: BLOCKED_PENDING_CONTINUOUS_SERIES_AND_DATUM_TIE
+readiness_summary:
+  catchment_polygon_ready: false
+  culvert_enforcement_ready: false
+  tidal_boundary_ready: false
+  working_dem_ready: true
+  recommendation: Perform D8 hydro-conditioning and watershed delineation with verified
+    culvert breach in Phase 6C.2F.

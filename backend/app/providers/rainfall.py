@@ -172,6 +172,10 @@ class IMERGRainfallProvider(BaseRainfallProvider):
         with rasterio.open(file_path) as ds:
             rain_array = ds.read(1).astype(np.float32)
             transform = ds.transform
+            tags = ds.tags()
+            valid_mask = rain_array != ds.nodata if ds.nodata is not None else np.ones_like(rain_array, dtype=bool)
+            valid_data = rain_array[valid_mask]
+
             meta = {
                 "event_id": event_id,
                 "source_file": file_path,
@@ -179,10 +183,80 @@ class IMERGRainfallProvider(BaseRainfallProvider):
                 "width": ds.width,
                 "height": ds.height,
                 "resolution": (abs(transform.a), abs(transform.e)),
-                "units": "mm/hr",
-                "mean_intensity_mm_hr": float(np.mean(rain_array)),
-                "max_intensity_mm_hr": float(np.max(rain_array)),
+                "units": tags.get("units", "mm/hr"),
+                "mean_intensity_mm_hr": float(np.mean(valid_data)) if len(valid_data) > 0 else 0.0,
+                "max_intensity_mm_hr": float(np.max(valid_data)) if len(valid_data) > 0 else 0.0,
+                "min_intensity_mm_hr": float(np.min(valid_data)) if len(valid_data) > 0 else 0.0,
                 "is_synthetic": False,
+                "is_resampled_convenience_layer": tags.get("is_resampled_convenience_layer", "true") == "true",
+                "is_genuine_30m_resolution": False,
+                "native_spatial_resolution": tags.get("native_spatial_resolution", "0.1 degree (~10 km)"),
+                "resampling_method": tags.get("resampling_method", "bilinear"),
+                "temporal_window_utc": tags.get("temporal_window_utc", "2017-08-29T23:30:00Z to 2017-08-29T23:59:59Z"),
+                "temporal_window_ist": tags.get("temporal_window_ist", "2017-08-30T05:00:00+05:30 to 2017-08-30T05:30:00+05:30"),
+                "event_phase": tags.get("event_phase", "POST_EVENT_TRAILING_DISSIPATION"),
+                "quantity_type": tags.get("quantity_type", "instantaneous_rate"),
+                "nodata_value": float(ds.nodata) if ds.nodata is not None else None,
+                "scientific_limitation": tags.get("scientific_limitation", "Resampled convenience layer only. NOT genuine 30 m resolution."),
+                "tags": tags,
+                "provenance": {
+                    "provider": self.provider_id,
+                    "event_id": event_id,
+                    "file_path": file_path,
+                }
+            }
+            return rain_array, meta
+
+    def load_native_event_rainfall(
+        self,
+        event_id: str = "E02",
+        custom_path: str | None = None
+    ) -> tuple[Any, dict]:
+        """
+        Load authentic native-resolution (~0.1 degree) NASA IMERG event rainfall raster.
+        Preserves true satellite observation resolution without spatial resampling.
+        """
+        import os
+        import numpy as np
+        import rasterio
+
+        file_path = custom_path
+        if not file_path or not os.path.exists(file_path):
+            project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+            file_path = os.path.join(project_root, "data", "processed", "phase7", "rainfall", f"{event_id}_rainfall_native_0.1deg.tif")
+
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"Native IMERG rainfall raster for event '{event_id}' not found at {file_path}")
+
+        with rasterio.open(file_path) as ds:
+            rain_array = ds.read(1).astype(np.float32)
+            transform = ds.transform
+            tags = ds.tags()
+            valid_mask = rain_array != ds.nodata if ds.nodata is not None else np.ones_like(rain_array, dtype=bool)
+            valid_data = rain_array[valid_mask]
+
+            meta = {
+                "event_id": event_id,
+                "source_file": file_path,
+                "crs": str(ds.crs) if ds.crs else "EPSG:4326",
+                "width": ds.width,
+                "height": ds.height,
+                "resolution": (abs(transform.a), abs(transform.e)),
+                "units": tags.get("units", "mm/hr"),
+                "mean_intensity_mm_hr": float(np.mean(valid_data)) if len(valid_data) > 0 else 0.0,
+                "max_intensity_mm_hr": float(np.max(valid_data)) if len(valid_data) > 0 else 0.0,
+                "min_intensity_mm_hr": float(np.min(valid_data)) if len(valid_data) > 0 else 0.0,
+                "is_synthetic": False,
+                "is_native_resolution": True,
+                "is_resampled": False,
+                "spatial_resolution": tags.get("native_spatial_resolution", "0.1 degree (~10 km)"),
+                "temporal_window_utc": tags.get("temporal_window_utc", "2017-08-29T23:30:00Z to 2017-08-29T23:59:59Z"),
+                "temporal_window_ist": tags.get("temporal_window_ist", "2017-08-30T05:00:00+05:30 to 2017-08-30T05:30:00+05:30"),
+                "event_phase": tags.get("event_phase", "POST_EVENT_TRAILING_DISSIPATION"),
+                "quantity_type": tags.get("quantity_type", "instantaneous_rate"),
+                "nodata_value": float(ds.nodata) if ds.nodata is not None else None,
+                "scientific_limitation": tags.get("scientific_limitation", "Single half-hour interval. NOT coincident with main 29 Aug IST cloudburst. NOT a 24-hr total. NOT a flood label."),
+                "tags": tags,
                 "provenance": {
                     "provider": self.provider_id,
                     "event_id": event_id,

@@ -1,0 +1,139 @@
+manifest_version: 1.1.0
+phase: PHASE_7D_CORRECTION_PACKAGE
+package_name: aquora-phase7-real-flood-dataset
+created_at_utc: '2026-10-28T14:44:38.566971+00:00'
+governance_status: EXPERIMENTAL_EVALUATION_ONLY
+package_assets:
+  binary_parquet:
+    path: phase7c_multievent_binary_dataset.parquet
+    bytes: 2742428
+    sha256: f31591cf39cd4c542d842128c6782d5206dd7b52449928e674d340acfed4d2f7
+  binary_csv:
+    path: phase7c_multievent_binary_dataset.csv
+    bytes: 42479340
+    sha256: 754724649d8e856093d21986fcce0e383b21bacf922c333f9b64dcdea2fb27cb
+  master_parquet:
+    path: phase7c_multievent_dataset.parquet
+    bytes: 2766983
+    sha256: a3ed9802640551c54566a117fdf9c7c0a187a68cb7d78405bde3f3772b85e4e3
+  master_csv:
+    path: phase7c_multievent_dataset.csv
+    bytes: 42869635
+    sha256: e2e26d03ccd590bb21caa2de95a812e934f646a13118f7c2a449e54c0d3dc4b0
+  feature_schema:
+    path: aquora_ml_feature_schema_v1.json
+    bytes: 1558
+    sha256: 47ffdeedc73ee602f6ea1349347323b5ee3d58180fdc3b20261b94b9afee5911
+dataset_structure:
+  binary_dataset_rows: 207205
+  master_dataset_rows: 209116
+  columns_count: 24
+  label_column: flood_label
+  event_id_column: event_id
+  split_column: split
+  supervised_labels:
+  - 0
+  - 1
+  excluded_controls:
+  - -1
+split_summary:
+  train:
+    events:
+    - DFO_4499
+    - DFO_2935
+    regions:
+    - Lower Ganga Basin (West Bengal)
+    - Upper Godavari Basin (Maharashtra)
+    binary_samples: 5700
+    flood_samples: 2850
+    dry_samples: 2850
+    permanent_water_controls: 600
+    class_balance: 50.0% / 50.0% balanced training subset
+  validation:
+    events:
+    - DFO_3372
+    regions:
+    - Upper Brahmaputra Basin (Assam)
+    binary_samples: 5000
+    flood_samples: 2500
+    dry_samples: 2500
+    permanent_water_controls: 500
+    class_balance: 50.0% / 50.0% balanced validation subset
+  test:
+    events:
+    - DFO_2507
+    regions:
+    - North Bihar / Kosi Basin (Bihar)
+    binary_samples: 196505
+    flood_samples: 11435
+    dry_samples: 185070
+    permanent_water_controls: 811
+    class_balance: NATURAL_POPULATION (5.819% flood prevalence; zero artificial rebalancing)
+governed_features:
+  schema_name: aquora_ml_feature_schema_v1
+  core_11_features:
+  - rainfall_1h_mm
+  - rainfall_3h_mm
+  - rainfall_6h_mm
+  - rainfall_24h_mm
+  - rainfall_72h_mm
+  - rainfall_anomaly_index
+  - elevation_m
+  - slope_deg
+  - distance_to_river_m
+  - historical_flood_frequency
+  - landcover_class
+  model_training_features_10:
+  - rainfall_1h_mm
+  - rainfall_3h_mm
+  - rainfall_6h_mm
+  - rainfall_24h_mm
+  - rainfall_72h_mm
+  - rainfall_anomaly_index
+  - elevation_m
+  - slope_deg
+  - distance_to_river_m
+  - landcover_class
+  feature_leakage_and_semantics_audit:
+    historical_flood_frequency:
+      source: GFD 2000-2018 national catalog
+      audit_finding: EXCLUDED_FROM_MODEL_TRAINING
+      rationale: Future data leakage (computed from 2000-2018 catalog, encompassing
+        events up to 14 years after DFO 2507) and zero intra-basin spatial variance
+        (basin event proxy).
+    rainfall_anomaly_index:
+      source: Derived from rainfall_72h_mm and fixed baseline parameters
+      audit_finding: COLLINEAR_WITH_RAINFALL_72H
+      rationale: Exact linear affine transformation within each event footprint (r
+        = 1.0000). Provides zero independent variance but introduces no future leakage.
+    distance_to_river_m:
+      source: GFD Band 5 (JRC Global Surface Water permanent water mask)
+      audit_finding: SEMANTIC_CLARIFICATION_REQUIRED
+      rationale: Represents Euclidean metric distance to perennial open water bodies
+        (lakes, reservoirs, major river channels), not an explicit vector river network.
+        Retained for schema compliance.
+    landcover_class:
+      source: ESA WorldCover 2021 (10m)
+      audit_finding: TEMPORAL_MISMATCH_DOCUMENTED
+      rationale: 2021 baseline introduces a 4-to-17 year temporal gap relative to
+        historical disaster events (2004, 2006, 2008, 2017).
+    unobserved_subdaily_rainfall:
+      features:
+      - rainfall_1h_mm
+      - rainfall_3h_mm
+      - rainfall_6h_mm
+      treatment: PRESERVED_AS_EXPLICIT_NAN
+      policy: Zero synthetic filling or imputation; native tree routing required
+scientific_limitations:
+- 'Natural Test Class Imbalance: Held-out test set preserves the unskewed natural
+  population (5.82% flood prevalence, 185,070 dry vs 11,435 flood). Precision and
+  PR-AUC reflect real-world false alarm vulnerability.'
+- 'Cross-Basin Generalization Gap: Absolute elevation does not generalize across distinct
+  river basins without relative hydrologic normalization (e.g. HAND); the model underperforms
+  simple inverted elevation ranking within the test basin.'
+- 'Temporal Mismatch: Land cover is derived from ESA WorldCover 2021 (10m), carrying
+  temporal offsets for historical events.'
+- 'Sub-daily Rainfall Absence: Daily CHIRPS product cannot resolve 1h, 3h, or 6h flash
+  storm peaks; features are strictly missing (NaN).'
+- 'Governance Status: EXPERIMENTAL_EVALUATION_ONLY. Not calibrated or approved for
+  civil defense, flood forecasting, or evacuation planning.'

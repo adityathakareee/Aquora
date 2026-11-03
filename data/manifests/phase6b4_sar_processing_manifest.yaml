@@ -1,0 +1,91 @@
+manifest_version: 1.1.0
+phase: PHASE_6B_4_1_SAR_PROCESSING_AUDIT
+created_at: '2026-10-15T20:22:23.034055+00:00'
+governance:
+  status: VALIDATED_PROCESSED_EVIDENCE
+  label_classification: CANDIDATE_SAR_FLOOD_EVIDENCE
+  ground_truth_claim: false
+  zero_ml_training_enforced: true
+  zero_label_fabrication_enforced: true
+event_target:
+  event_id: E03
+  title: Mumbai 1-2 July 2019 Monsoon Cloudburst Deluge
+  study_area: Mumbai Mithi River Catchment
+  master_crs: EPSG:32643
+  grid_dimensions: 392x476
+  grid_resolution_m: 30.0
+sar_source_granules:
+  pre_event:
+    granule_name: S1A_IW_GRDH_1SDV_20190608T010256_20190608T010321_027581_031CCA_FBE2
+    acquisition_ist: 2019-06-08 06:32:56 IST
+    sha256: 9417b355264aa21c03804c357db43513aea414a33ee16bfa4163a5d99c130c45
+    cal_factor_grid_min: 609.697998046875
+    cal_factor_grid_max: 616.3261108398438
+    cal_factor_grid_mean: 612.979736328125
+    mean_vv_db: -7.101254940032959
+    max_vv_db: 24.261924743652344
+    mean_vh_db: -14.37852954864502
+  co_event:
+    granule_name: S1A_IW_GRDH_1SDV_20190702T010258_20190702T010323_027931_03274B_DDDA
+    acquisition_ist: 2019-07-02 06:32:58 IST
+    sha256: aa2410d86bce108cffc850d03506c37967c9d899d933eaaf085ec726cf9207e7
+    cal_factor_grid_min: 609.7468872070312
+    cal_factor_grid_max: 616.3776245117188
+    cal_factor_grid_mean: 613.030029296875
+    mean_vv_db: -5.545729637145996
+    max_vv_db: 29.92813491821289
+    mean_vh_db: -13.090387344360352
+processing_parameters:
+  calibration_formula: sigma0_linear(x, y) = (DN(x, y) / A_sigma(x, y))^2; sigma0_dB
+    = 10 * log10(sigma0_linear)
+  calibration_lookup_method: Degree-2 spatial polynomial interpolation of ESA calibration
+    vector factors A_sigma across the 30m grid
+  georeferencing_method: Dense GCP-based non-linear transformation via GDAL/rasterio
+    reproject(gcps=gcps) to EPSG:32643 master 30m grid
+  resampling_method: bilinear
+  orbit_geometry:
+    platform: Sentinel-1A
+    track: 34
+    frame: 528
+    pass_direction: DESCENDING
+    subswath: IW2
+    flight_heading_deg: 192.5
+    look_azimuth_deg: 282.5
+    nominal_incidence_angle_deg: 37.4
+  seasonal_moisture_offset_median_db: 1.7727527618408203
+  thresholds:
+    strong_flood_drop_delta_vv_db: -5.0
+    moderate_flood_drop_delta_vv_db: -3.0
+    urban_double_bounce_increase_db: 4.5
+    urban_baseline_min_vv_db: -6.0
+    permanent_water_pre_vv_db: -16.0
+    permanent_water_pre_vh_db: -23.0
+quality_and_cell_statistics:
+  unclassified_dry_cells: 169860
+  candidate_flood_strong_drop_cells: 2735
+  candidate_flood_moderate_drop_cells: 4524
+  candidate_flood_urban_double_bounce_cells: 8654
+  excluded_permanent_water_cells: 819
+  excluded_shadow_layover_cells: 0
+  nodata_cells: 0
+  total_cells: 186592
+generated_products:
+  pre_event_backscatter: data\processed\phase6b4\sar\E03_PRE_20190608_backscatter_30m.tif
+  co_event_backscatter: data\processed\phase6b4\sar\E03_CO_20190702_backscatter_30m.tif
+  delta_backscatter: data\processed\phase6b4\sar\E03_delta_backscatter_30m.tif
+  quality_masks: data\processed\phase6b4\sar\E03_quality_masks_30m.tif
+  candidate_flood_evidence: data\processed\phase6b4\sar\E03_candidate_sar_flood_evidence_30m.tif
+scientific_limitations:
+- 'Observational Evidence Only: Outputs reflect empirical microwave backscatter anomalies,
+  NOT verified municipal ground truth.'
+- 'Pixel-Wise Calibration: Applied continuous 2D polynomial surface of ESA calibration
+  vectors; eliminates single-scalar approximation tilt.'
+- 'Seasonal Monsoon Onset: Background soil wetting (+1.78 dB median shift) offset
+  partially dampens acute flood drop.'
+- 'Urban Double-Bounce Provisional Status: Filtered to acute increases (> +4.5 dB
+  on urban baseline) to avoid confounding with normal seasonal soil wetting.'
+- 'Topographical Shadow/Layover: Evaluated from DEM geometry; zero cells occurred
+  because maximum DEM slope is 52.27 deg facing West, below the 52.6 deg grazing threshold.'
+- 'Geometric Correction Scope: Georeferenced using 210 ESA SAFE GCPs with GDAL native
+  GCP transformer. Rigorous backward Range-Doppler Terrain Correction via external
+  ESA SNAP runtime was not executed.'

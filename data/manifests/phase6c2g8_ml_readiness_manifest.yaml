@@ -1,0 +1,61 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_8_ML_DATASET_READINESS_AND_TRAINING_DATA_DESIGN
+timestamp_utc: '2026-10-19T13:58:15.063296+00:00'
+governance:
+  final_ml_readiness_decision: BLOCKED_FOR_SUPERVISED_TRAINING
+  exploratory_dataset_export_permitted: true
+  supervised_model_training_permitted: false
+  zero_label_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  data_integrity_policy: Unobserved labels (-1) remain excluded from training. SAR
+    anomalies are candidate features, NOT ground-truth labels.
+dem_immutability_audit:
+  raw_copernicus_dsm:
+    path: data\raw\phase7\dem\Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+    sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+    verified: true
+  working_study_extent_dem:
+    path: data\processed\phase7\terrain\elevation_30m_study_extent.tif
+    sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+    verified: true
+asset_inventory_summary:
+  inventory_file: data\processed\phase7\ml\phase6c2g8_asset_inventory.json
+  sha256: 7502eb5e8218765e1c052a58c9762d63ea0986469509b4afd8e25114b9d2b859
+  imerg_granules_validated: 48
+  sar_safe_archives_validated: 2
+  terrain_rasters_validated: 6
+training_dataset_spec_summary:
+  spec_file: data\processed\phase7\ml\phase6c2g8_training_dataset_spec.json
+  sha256: 88b3bb4e3399fdc503d83bc99782aadd115718432f5315907f09441a48313afe
+  governed_target: TARGET-1-NATIONAL-REGIONAL-FLOOD-SUSCEPTIBILITY
+  core_national_predictors_count: 11
+  forbidden_columns_count: 11
+  splitting_strategy: GroupKFold by basin_id + Leave-One-Event-Out
+label_readiness_summary:
+  readiness_file: data\processed\phase7\ml\phase6c2g8_label_readiness.json
+  sha256: de373a3b83cd503545181036d88d494771910cac8cea5f48c3bf42ffb038d1d7
+  authentic_supervised_samples: 0
+  unobserved_pilot_rows: 10
+  supervised_readiness_verdict: BLOCKED_FOR_SUPERVISED_TRAINING
+future_kaggle_workflow_design:
+  export_formats:
+  - Parquet (with Arrow dictionary encoding and null bitmask)
+  - CSV (RFC 4180 with companion data dictionary JSON)
+  dataset_versioning_slug: aquora-flood-ml-national-mumbai-v1
+  recommended_baseline_models:
+  - LightGBM (native NaN handling)
+  - XGBoost (default split routing)
+  evaluation_metrics:
+  - PR-AUC (Primary, robust to severe class imbalance)
+  - Brier Score (Probability calibration)
+  - F1-Score at governed operational thresholds
+  model_card_and_calibration_gate: Platt scaling / Isotonic regression required before
+    model scores may be called probabilities
+non_negotiable_invariants:
+- India -> State -> District -> Basin/Sub-basin -> City -> Catchment -> Deep Intelligence
+  Zone
+- Mumbai/Mithi remains the ONLY Deep Intelligence Zone
+- Phase 6 deterministic physics solver remains primary authority; ML remains secondary
+  screening
+- 'Zero label fabrication: unobserved != dry, SAR anomaly != flood truth'
+- Zero DEM modification, zero model training in this phase

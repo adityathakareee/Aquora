@@ -1,0 +1,139 @@
+manifest_metadata:
+  manifest_id: "phase7f_stage3_dataset_manifest"
+  version: "1.0.0"
+  phase: "PHASE_7F_STAGE_3"
+  timestamp_utc: "2026-11-02T05:30:00Z"
+  author: "Antigravity Agentic Scientific System"
+  benchmark_event: "DFO_3382_MAHANADI_2008"
+  administrative_event_id: "UEI-IMD-FL-2008-0095"
+  geographic_domain: "Mahanadi River Basin and Odisha Coastal Corridor, India"
+  decision: "DATASET_ASSEMBLY_COMPLETE"
+
+grid_definition:
+  native_crs: "EPSG:4326"
+  pixel_spacing_deg: 0.002245788210298804
+  nominal_resolution_m: 250.0
+  spatial_extent:
+    longitude_min: 84.0000
+    longitude_max: 88.0000
+    latitude_min: 19.0000
+    latitude_max: 22.0000
+  observation_window:
+    rows: 1336
+    cols: 1781
+    total_window_cells: 2379416
+
+input_sources:
+  gfd_ground_truth:
+    path: "data/raw/phase7/ground_truth/gfd/DFO_3382/DFO_3382_From_20080922_to_20080929.tif"
+    archive_zip: "data/raw/phase7/ground_truth/gfd/DFO_3382/DFO_3382_From_20080922_to_20080929.zip"
+    archive_size_bytes: 39644622
+    archive_sha256: "252da1463fe41efd4e92da6727dec3976d967836e6d644c4a126f33f24aef2a4"
+    geotiff_size_bytes: 39529059
+    event_began: "2008-09-22"
+    event_ended: "2008-09-29"
+    composite_period: "8-day composite"
+  dem_mosaic:
+    path: "data/processed/phase7/terrain/mahanadi_dem_mosaic_30m.vrt"
+    size_bytes: 4886
+    resolution_deg: 0.000277777777778
+    source: "Copernicus DEM GLO-30 (9 COG tiles)"
+  land_water_mask:
+    path: "data/processed/phase7/terrain/mahanadi_land_water_mask_30m.tif"
+    size_bytes: 1800993
+  terrain_derivatives:
+    slope: "data/processed/phase7/terrain/mahanadi_slope_deg_30m.tif"
+    aspect: "data/processed/phase7/terrain/mahanadi_aspect_deg_30m.tif"
+    plan_curvature: "data/processed/phase7/terrain/mahanadi_plan_curvature_30m.tif"
+    profile_curvature: "data/processed/phase7/terrain/mahanadi_profile_curvature_30m.tif"
+    flow_direction_d8: "data/processed/phase7/terrain/mahanadi_flow_direction_d8_30m.tif"
+    flow_accumulation: "data/processed/phase7/terrain/mahanadi_flow_accumulation_30m.tif"
+    twi: "data/processed/phase7/terrain/mahanadi_twi_30m.tif"
+  hydrography:
+    hydrorivers_geojson: "data/processed/phase7/hydrography/mahanadi_hydrorivers.geojson"
+    hydrobasins_lev08_geojson: "data/processed/phase7/boundaries/mahanadi_hydrobasins/mahanadi_hydrobasins_lev08.geojson"
+    delta_subbasins_geojson: "data/processed/phase7/boundaries/mahanadi_hydrobasins/mahanadi_delta_lev08_subbasins.geojson"
+    strahler_order_raster: "data/processed/phase7/hydrography/mahanadi_strahler_order_30m.tif"
+    dist_to_river_raster: "data/processed/phase7/hydrography/mahanadi_distance_to_river_m_30m.tif"
+    dist_to_distributary_raster: "data/processed/phase7/hydrography/mahanadi_distance_to_distributary_m_30m.tif"
+    subbasin_id_raster: "data/processed/phase7/hydrography/mahanadi_subbasin_id_lev08_30m.tif"
+    upstream_area_raster: "data/processed/phase7/hydrography/mahanadi_upstream_catchment_area_km2_30m.tif"
+
+dataset_outputs:
+  authoritative_master_parquet:
+    path: "data/processed/phase7/datasets/dfo3382_native_resolution_dataset.parquet"
+    size_bytes: 120355669
+    sha256: "ba0f4df5681add4acead2b91489a61be77e8a3897d7d1bdedbd5be6f448db81f"
+    row_count: 1090194
+    column_count: 78
+    compression: "snappy"
+    class_distribution:
+      verified_dry_cells: 1065208
+      verified_flood_cells: 24986
+      natural_prevalence_percent: 2.2919
+  mahanadi_basin_csv:
+    path: "data/processed/phase7/datasets/dfo3382_native_resolution_dataset.csv"
+    size_bytes: 156524131
+    sha256: "d68a2af07adade834ad0a7569827d15e61caea31206326d03c2c0c7ff6e1d20e"
+    row_count: 254883
+    column_count: 78
+    filter: "in_mahanadi_basin == True"
+    class_distribution:
+      verified_dry_cells: 250233
+      verified_flood_cells: 4650
+      natural_prevalence_percent: 1.8244
+  diagnostic_balanced_sample:
+    path: "data/processed/phase7/datasets/dfo3382_diagnostic_balanced_sample.parquet"
+    size_bytes: 8137447
+    sha256: "ace0142a1ab847ef4662e0ff1821092f25bb60149002db2385917e0ca89dbe56"
+    row_count: 49972
+    sampling_ratio: "1:1 balanced"
+    verified_flood_cells: 24986
+    sampled_dry_cells: 24986
+  feature_availability_matrix:
+    path: "data/processed/phase7/datasets/dfo3382_feature_availability.csv"
+    size_bytes: 3814
+    sha256: "154598cdf8df5246a494a6febcb4f82afe41769456945980907dff59ea6fd1f9"
+    feature_count: 29
+  label_quality_summary:
+    path: "data/processed/phase7/datasets/dfo3382_label_quality_summary.json"
+    size_bytes: 2721
+    sha256: "670deb3b393b3400343d8ed053f422c635cb7d72dd4ba4dc24d6c490a83a1635"
+  dataset_schema:
+    path: "ml/aquora_dfo3382_dataset_schema_v1.json"
+    size_bytes: 10567
+    sha256: "2133b798a77881abe653edfa471ce2d65e7ed3b360f0c74090b55ad10e82b16a"
+  technical_report:
+    path: "docs/phase7/PHASE_7F_STAGE3_DFO3382_DATASET_REPORT.md"
+    size_bytes: 20839
+    sha256: "0c85a8fb1cba47ac13f117e0a4a502ef2f960ebcb6c867156e8a4923a3a875c5"
+
+observation_and_label_accounting:
+  total_window_cells: 2379416
+  ocean_or_off_domain_cells: 1260737
+  valid_observed_cells: 1118679
+  raw_flooded_band_cells: 44031
+  permanent_water_excluded_cells: 28485
+  raw_flooded_on_permanent_water_excluded: 19045
+  insufficient_clear_views_excluded: 0
+  eligible_labeled_cells: 1090194
+  label_quality_breakdown:
+    high_quality_cells: 777437
+    medium_quality_cells: 50392
+    mixed_water_margin_cells: 262365
+
+phase7e_model_compatibility:
+  compatible: false
+  incompatibility_status: "NOT_COMPATIBLE_WITH_PHASE7E_MODEL"
+  incompatibility_reason: "RAINFALL_ACCUMULATION_UNAVAILABLE"
+  missing_features:
+    - "rainfall_accum_6h_mm"
+    - "rainfall_accum_24h_mm"
+    - "rainfall_accum_72h_mm"
+  imputation_guardrail: "Strictly unpopulated (100% NaN). Zero synthetic rainfall fabrication permitted."
+
+governance_and_compliance:
+  primary_flood_authority: "engines/flood/solver.py (Phase 6 2D Hydrodynamic Physics Engine)"
+  model_status: "EXPERIMENTAL_ONLY / PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS"
+  phase7e_artifacts: "Preserved completely unchanged"
+  dfo2507_holdout_status: "QUARANTINED_ALREADY_INSPECTED_HOLDOUT_ZERO_ACCESS"

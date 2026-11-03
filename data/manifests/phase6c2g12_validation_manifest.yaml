@@ -1,0 +1,58 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_12_EVENT_GROUPING_VALIDATION_AND_RAINFALL_READINESS
+timestamp_utc: '2026-10-19T16:11:17.547985+00:00'
+governance:
+  final_decision: GROUPING_VALIDATED_FOR_DESCRIPTIVE_USE
+  provisional_grouping_validated: true
+  supervised_training_permitted: false
+  national_rainfall_analysis_status: BLOCKED_PENDING_NATIONAL_RAINFALL_ACQUISITION
+  zero_synthetic_labels_enforced: true
+  zero_missing_rainfall_imputation_enforced: true
+  summary: Phase 6C.2G.11 provisional event grouping (6,484 groups from 6,876 IFI
+    records) is mathematically verified and validated for descriptive analysis. However,
+    it represents an analytical convenience grouping rather than a verified meteorological
+    storm boundary. Rainfall comparison is valid exclusively for benchmark deluges
+    E02 and E03. National rainfall-trigger baseline modeling is blocked until authentic
+    rainfall is acquired for evaluated national events.
+immutability_verification:
+  raw_copernicus_dsm_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_study_extent_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  raw_ifi_sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+  verified_unmodified: true
+grouping_reconciliation:
+  total_source_records: 6876
+  unique_source_ueis: 6876
+  provisional_storm_groups: 6484
+  unique_derived_storm_ids: 6484
+  constituent_record_sum: 6876
+  merged_records_count: 392
+  formula_verified: 6484 groups + 392 merged = 6876 records
+  is_reconciled: true
+grouping_sensitivity:
+  zero_merging_raw_baseline: 6876
+  stricter_same_day_duplicates_only: 6803
+  baseline_phase6c2g11_provisional_groups: 6484
+  looser_state_and_district_overlap: 6109
+  analytical_insight: The baseline provisional grouping (6,484 groups) lies between
+    strict deduplication (6803) and regional watershed clustering (6109). It represents
+    an analytical convenience grouping based on exact district string continuity,
+    rather than a physical atmospheric storm boundary.
+date_audit_summary:
+  total_records: 6876
+  fully_validated_chronological_records: 6839
+  missing_date_records_count: 20
+  inverted_source_date_records_count: 17
+  total_date_compromised_records: 37
+  date_compromised_percentage: 0.54
+rainfall_readiness:
+  event_e03_reproducible: FULLY_REPRODUCIBLE_FROM_LOCAL_FILES
+  event_e02_reproducible: FULLY_REPRODUCIBLE_FROM_LOCAL_FILES
+  unacquired_national_events_count: 6874
+safeguards:
+- Provisional storm_ids must be documented as analytical convenience groupings, not
+  verified meteorological boundaries.
+- The 37 date-compromised records (20 missing, 17 inverted) must be excluded from
+  strict time-series models.
+- Missing rainfall for national events must never be zero-filled or synthetically
+  imputed.
+- Zero supervised ML models trained in this phase.

@@ -1,0 +1,47 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_11_NATIONAL_HISTORICAL_EVENT_ANALYSIS
+timestamp_utc: '2026-10-19T16:01:17.724595+00:00'
+governance:
+  final_decision: EVENT_ANALYSIS_READY
+  descriptive_analysis_ready: true
+  supervised_training_permitted: false
+  zero_synthetic_labels_enforced: true
+  zero_missing_rainfall_imputation_enforced: true
+  summary: National historical flood-event descriptive analysis is fully established
+    from the 6,876 IFI records, aggregating 6,484 unique meteorological storm events
+    across India. Rainfall comparison is valid exclusively for benchmark deluge events
+    E02 and E03. Supervised ML training at the 30m grid scale remains strictly prohibited.
+dem_immutability:
+  raw_copernicus_dsm_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_study_extent_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  verified_unmodified: true
+source_dataset:
+  file: data\raw\phase7\ground_truth\india_flood_inventory_v3.csv
+  sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+  records_count: 6876
+derived_artifacts:
+  derived_records_parquet:
+    file: data\processed\phase7\events\national_historical_flood_records_derived.parquet
+    records: 6876
+    sha256: 5335416aae63c322764b33b99335a41a65b92dda1add3da4150eecd01ea535ff
+  grouped_storms_parquet:
+    file: data\processed\phase7\events\national_storm_events_grouped.parquet
+    storms: 6484
+    sha256: 6dda5ed34df5a3b319a34712ec4b9f0010f06c0bcfef54b548591aa1702f737a
+  annual_summary: data\processed\phase7\events\annual_flood_frequency.csv
+  state_summary: data\processed\phase7\events\state_flood_summary.csv
+  district_summary: data\processed\phase7\events\top_districts_flood_frequency.csv
+  mumbai_history: data\processed\phase7\events\mumbai_flood_history.csv
+  data_quality_report: data\processed\phase7\events\phase6c2g11_data_quality_report.json
+  rainfall_assessment: data\processed\phase7\events\phase6c2g11_rainfall_comparison_assessment.json
+key_findings:
+  raw_records: 6876
+  grouped_storms: 6484
+  consecutive_slices_merged: 392
+  mumbai_records: 182
+  rainfall_comparison_scope: BENCHMARK_EVENTS_E02_AND_E03_ONLY
+safeguards:
+- Never assign district-level disaster records to individual 30-metre raster cells.
+- Never treat missing rainfall data as zero precipitation.
+- Never assert rainfall correlation constitutes hydraulic causation.
+- Never upload to Kaggle or train supervised ML models in this phase.

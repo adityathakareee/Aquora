@@ -1,0 +1,200 @@
+manifest_id: MANIFEST-AQUORA-FINAL-DATA-INTEGRATION-2026-V1
+schema_version: "1.0.0"
+generated_at: "2026-11-03T16:45:00Z"
+author: "AQUORA Core Hydrology & Data Engineering Team"
+description: "Authoritative machine-readable manifest recording authentic geospatial, terrain, hydrographic, and ML assets integrated into AQUORA 2.0."
+
+governance_invariants:
+  zero_fabrication: true
+  physics_engine_primacy: true
+  deep_zone_exclusivity: "deep_mumbai_mithi"
+  dfo2507_quarantine_status: "STRICTLY_QUARANTINED_UNTOUCHED"
+  frozen_classification_threshold: 0.50
+  uncalibrated_terminology_enforced: true
+
+national_screening_model:
+  artifact_path: "ml/models/aquora_national_screening_model.joblib"
+  sha256: "62fff9430390aa745b169802007b4032a6e446567463c88898dc52f2340a7e20"
+  model_id: "aquora_national_screening_xgboost_v1"
+  model_version: "1.2.0-phase7e"
+  schema_version: "1.0.0"
+  training_framework: "XGBoost 2.0.3"
+  training_missingness_rate: 0.0000
+  feature_count_total: 11
+  trained_predictors_count: 7
+  feature_order_core_national:
+    - rainfall_1h_mm
+    - rainfall_3h_mm
+    - rainfall_6h_mm
+    - rainfall_24h_mm
+    - rainfall_72h_mm
+    - rainfall_anomaly_index
+    - elevation_m
+    - slope_deg
+    - distance_to_river_m
+    - historical_flood_frequency
+    - landcover_class
+  trained_predictor_indices: [3, 4, 5, 6, 7, 8, 10]
+  policy_gates:
+    gate_1_zero_predictors: "INSUFFICIENT_INPUT_DATA"
+    gate_2_missing_geomorphic_anchors: "INSUFFICIENT_INPUT_DATA"
+    gate_3_missing_rainfall_meteorology: "INSUFFICIENT_INPUT_DATA"
+
+hydrography:
+  hydrobasins:
+    level: 4
+    source: "HydroSHEDS / WWF (Lehner & Grill 2013)"
+    raw_shapefile_path: "data/raw/phase7/hydrography/hydrobasins/extracted/hybas_as_lev04_v1c.shp"
+    india_polygon_count: 72
+    spatial_index: "Shapely STRtree"
+    crs: "EPSG:4326"
+    geojson_exports:
+      full_fidelity: "data/processed/boundaries/hydrobasins_india_lev04.geojson"
+      web_simplified: "data/processed/boundaries/hydrobasins_india_lev04_web.geojson"
+  hydrorivers:
+    source: "HydroSHEDS / WWF v1.0"
+    raw_shapefile_path: "data/raw/phase7/hydrography/hydrorivers/extracted/HydroRIVERS_v10_as_shp/HydroRIVERS_v10_as.shp"
+    strahler_filter: "ORD_STRA >= 4"
+    india_reaches_count: 69882
+    distance_transform_algorithm: "Padded Anisotropic Euclidean Distance Transform (scipy.ndimage.distance_transform_edt)"
+
+physical_terrain_rasters:
+  grid_resolution_m: 30.0
+  vertical_datum: "EGM2008"
+  horizontal_crs: "EPSG:4326"
+  slope_algorithm: "Horn (1981) 3x3 finite difference"
+  domains:
+    mumbai_mithi:
+      domain_id: "mumbai_mithi"
+      basin_id: "BASIN-MITHI"
+      elevation_raster: "data/processed/phase7/terrain/elevation_30m.tif"
+      slope_raster: "data/processed/phase7/terrain/slope_30m.tif"
+      landcover_raster: "data/processed/phase7/landcover/landcover_class_30m.tif"
+      built_up_raster: "data/processed/phase7/landcover/built_up_fraction_30m.tif"
+    ganga_patna:
+      domain_id: "ganga_patna"
+      basin_id: "BASIN-GANGA"
+      elevation_raster: "data/processed/dem/ganga_patna_elevation_30m.tif"
+      slope_raster: "data/processed/terrain/ganga_patna_slope_30m.tif"
+      distance_river_raster: "data/processed/terrain/ganga_patna_distance_to_river_30m.tif"
+      landcover_raster: "data/processed/landcover/ganga_patna_landcover_30m.tif"
+      built_up_raster: "data/processed/landcover/ganga_patna_built_up_fraction_30m.tif"
+    brahmaputra_guwahati:
+      domain_id: "brahmaputra_guwahati"
+      basin_id: "BASIN-BRAHMAPUTRA"
+      elevation_raster: "data/processed/dem/brahmaputra_guwahati_elevation_30m.tif"
+      slope_raster: "data/processed/terrain/brahmaputra_guwahati_slope_30m.tif"
+      distance_river_raster: "data/processed/terrain/brahmaputra_guwahati_distance_to_river_30m.tif"
+      landcover_raster: "data/processed/landcover/brahmaputra_guwahati_landcover_30m.tif"
+      built_up_raster: "data/processed/landcover/brahmaputra_guwahati_built_up_fraction_30m.tif"
+    godavari_nashik:
+      domain_id: "godavari_nashik"
+      basin_id: "BASIN-GODAVARI"
+      elevation_raster: "data/processed/dem/godavari_nashik_elevation_30m.tif"
+      slope_raster: "data/processed/terrain/godavari_nashik_slope_30m.tif"
+      distance_river_raster: "data/processed/terrain/godavari_nashik_distance_to_river_30m.tif"
+      landcover_raster: "data/processed/landcover/godavari_nashik_landcover_30m.tif"
+      built_up_raster: "data/processed/landcover/godavari_nashik_built_up_fraction_30m.tif"
+    narmada_bharuch:
+      domain_id: "narmada_bharuch"
+      basin_id: "BASIN-NARMADA"
+      elevation_raster: "data/processed/dem/narmada_bharuch_elevation_30m.tif"
+      slope_raster: "data/processed/terrain/narmada_bharuch_slope_30m.tif"
+      distance_river_raster: "data/processed/terrain/narmada_bharuch_distance_to_river_30m.tif"
+      landcover_raster: "data/processed/landcover/narmada_bharuch_landcover_30m.tif"
+      built_up_raster: "data/processed/landcover/narmada_bharuch_built_up_fraction_30m.tif"
+    krishna_vijayawada:
+      domain_id: "krishna_vijayawada"
+      basin_id: "BASIN-KRISHNA"
+      elevation_raster: "data/processed/dem/krishna_vijayawada_elevation_30m.tif"
+      slope_raster: "data/processed/terrain/krishna_vijayawada_slope_30m.tif"
+      distance_river_raster: "data/processed/terrain/krishna_vijayawada_distance_to_river_30m.tif"
+      landcover_raster: "data/processed/landcover/krishna_vijayawada_landcover_30m.tif"
+      built_up_raster: "data/processed/landcover/krishna_vijayawada_built_up_fraction_30m.tif"
+    godavari_nagpur:
+      domain_id: "godavari_nagpur"
+      basin_id: "BASIN-GODAVARI"
+      elevation_raster: "data/processed/dem/godavari_nagpur_elevation_30m.tif"
+      slope_raster: "data/processed/terrain/godavari_nagpur_slope_30m.tif"
+      distance_river_raster: "data/processed/terrain/godavari_nagpur_distance_to_river_30m.tif"
+      landcover_raster: "data/processed/landcover/godavari_nagpur_landcover_30m.tif"
+      built_up_raster: "data/processed/landcover/godavari_nagpur_built_up_fraction_30m.tif"
+    sabarmati_ahmedabad:
+      domain_id: "sabarmati_ahmedabad"
+      basin_id: "BASIN-SABARMATI"
+      elevation_raster: "data/processed/dem/sabarmati_ahmedabad_elevation_30m.tif"
+      slope_raster: "data/processed/terrain/sabarmati_ahmedabad_slope_30m.tif"
+      distance_river_raster: "data/processed/terrain/sabarmati_ahmedabad_distance_to_river_30m.tif"
+      landcover_raster: "data/processed/landcover/sabarmati_ahmedabad_landcover_30m.tif"
+      built_up_raster: "data/processed/landcover/sabarmati_ahmedabad_built_up_fraction_30m.tif"
+
+priority_cities_audit:
+  - city: "Patna"
+    latitude: 25.5941
+    longitude: 85.1376
+    state: "Bihar"
+    resolved_basin: "BASIN-GANGA"
+    hybas_id: 4040026210
+    operational_screening: "INSUFFICIENT_INPUT_DATA"
+    benchmark_screening: "READY"
+    benchmark_score: 0.0477
+    susceptibility_grade: "LOW MODEL SCORE"
+  - city: "Guwahati"
+    latitude: 26.1445
+    longitude: 91.7362
+    state: "Assam"
+    resolved_basin: "BASIN-BRAHMAPUTRA"
+    hybas_id: 4040025980
+    operational_screening: "INSUFFICIENT_INPUT_DATA"
+    benchmark_screening: "READY"
+    benchmark_score: 0.0330
+    susceptibility_grade: "LOW MODEL SCORE"
+  - city: "Mumbai"
+    latitude: 19.0760
+    longitude: 72.8777
+    state: "Maharashtra"
+    resolved_basin: "BASIN-MITHI"
+    hybas_id: 4040029530
+    is_deep_intelligence_zone: true
+    operational_screening: "INSUFFICIENT_INPUT_DATA"
+    benchmark_screening: "READY"
+    benchmark_score: 0.5304
+    susceptibility_grade: "MEDIUM MODEL SCORE"
+  - city: "Vijayawada"
+    latitude: 16.5062
+    longitude: 80.6480
+    state: "Andhra Pradesh"
+    resolved_basin: "BASIN-KRISHNA"
+    hybas_id: 4040029520
+    operational_screening: "INSUFFICIENT_INPUT_DATA"
+    benchmark_screening: "READY"
+    benchmark_score: 0.0423
+    susceptibility_grade: "LOW MODEL SCORE"
+  - city: "Nagpur"
+    latitude: 21.1458
+    longitude: 79.0882
+    state: "Maharashtra"
+    resolved_basin: "BASIN-GODAVARI"
+    hybas_id: 4040028740
+    operational_screening: "INSUFFICIENT_INPUT_DATA"
+    benchmark_screening: "READY"
+    benchmark_score: 0.0098
+    susceptibility_grade: "LOW MODEL SCORE"
+  - city: "Ahmedabad"
+    latitude: 23.0225
+    longitude: 72.5714
+    state: "Gujarat"
+    resolved_basin: "BASIN-SABARMATI"
+    hybas_id: 4040026410
+    operational_screening: "INSUFFICIENT_INPUT_DATA"
+    benchmark_screening: "READY"
+    benchmark_score: 0.3047
+    susceptibility_grade: "LOW MODEL SCORE"
+
+quarantined_holdouts:
+  - dataset_id: "DFO_2507"
+    source: "Dartmouth Flood Observatory / Global Flood Database"
+    quarantine_policy: "STRICT_BLIND_HOLDOUT"
+    access_permitted: false
+    status: "UNTOUCHED"
+

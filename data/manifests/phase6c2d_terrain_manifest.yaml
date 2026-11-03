@@ -1,0 +1,162 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2D_TERRAIN_PREPARATION
+timestamp_utc: '2026-10-16T18:49:23.973091+00:00'
+governance:
+  status: VALIDATED_WORKING_DEM_PREPARED
+  source_type: AUTHENTIC_SPACE_AGENCY_DERIVATION
+  zero_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  zero_culvert_fabrication_enforced: true
+  zero_channel_burning_enforced: true
+  vertical_reference_datum: EGM96 Geoid (approximating Mean Sea Level)
+  hydrological_status: UNCONDITIONED_WORKING_TERRAIN_DOMAIN
+input_asset:
+  path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\raw\phase7\dem\Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N19_00_E072_00_DEM/Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+  sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  crs: EPSG:4326
+  tile_id: Copernicus_DSM_COG_10_N19_00_E072_00
+output_asset:
+  path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\processed\phase7\terrain\elevation_30m_study_extent.tif
+  sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  crs: EPSG:32643
+  resolution_m:
+  - 30.0
+  - 30.0
+  dimensions:
+    width: 536
+    height: 746
+    total_pixels: 399856
+  bounds_utm43n:
+    left: 269460.0
+    right: 285540.0
+    bottom: 2104260.0
+    top: 2126640.0
+  analysis_envelope_wgs84:
+    west: 72.81
+    east: 72.96
+    south: 19.02
+    north: 19.22
+  resampling_method: bilinear
+  nodata_value: -9999.0
+elevation_summary:
+  total_cells: 399856
+  valid_cells: 399856
+  nodata_cells: 0
+  valid_fraction: 1.0
+  min_elevation_m: -7.78631591796875
+  max_elevation_m: 488.1535949707031
+  mean_elevation_m: 35.791385650634766
+  std_elevation_m: 60.143638610839844
+spatial_validation:
+  coverage_verified: true
+  gaps_detected: false
+  artificial_flattening_detected: false
+  landmark_fidelity:
+    Mahim_Bay_Receiving_Water:
+      lon: 72.835
+      lat: 19.035
+      utm_x: 272138.6868169607
+      utm_y: 2106104.6699758205
+      grid_row: 684
+      grid_col: 89
+      source_elevation_m: 0.0
+      derived_elevation_m: 0.0
+      difference_m: 0.0
+    Mahim_Causeway_Outfall:
+      lon: 72.84
+      lat: 19.04
+      utm_x: 272671.93359098653
+      utm_y: 2106651.7395216515
+      grid_row: 666
+      grid_col: 107
+      source_elevation_m: 10.128515243530273
+      derived_elevation_m: 9.95160961151123
+      difference_m: 0.17690563201904297
+    Bandra_Kurla_Complex:
+      lon: 72.865
+      lat: 19.06
+      utm_x: 275330.95876525017
+      utm_y: 2108833.726355593
+      grid_row: 593
+      grid_col: 195
+      source_elevation_m: 1.5886961221694946
+      derived_elevation_m: 1.983384370803833
+      difference_m: 0.3946882486343384
+    CSMIA_Airport_Runway:
+      lon: 72.875
+      lat: 19.09
+      utm_x: 276423.93063601316
+      utm_y: 2112142.2096350803
+      grid_row: 483
+      grid_col: 232
+      source_elevation_m: 6.427186965942383
+      derived_elevation_m: 6.435002326965332
+      difference_m: 0.007815361022949219
+    Powai_Lake_Reservoir:
+      lon: 72.905
+      lat: 19.125
+      utm_x: 279627.81878101814
+      utm_y: 2115978.929183613
+      grid_row: 355
+      grid_col: 338
+      source_elevation_m: 33.5
+      derived_elevation_m: 33.5
+      difference_m: 0.0
+    Vihar_Lake_Reservoir:
+      lon: 72.9
+      lat: 19.14
+      utm_x: 279121.64263497654
+      utm_y: 2117645.8647838826
+      grid_row: 299
+      grid_col: 322
+      source_elevation_m: 52.5
+      derived_elevation_m: 52.5
+      difference_m: 0.0
+    Tulsi_Lake_Headwaters:
+      lon: 72.915
+      lat: 19.185
+      utm_x: 280759.4325305298
+      utm_y: 2122608.800868979
+      grid_row: 134
+      grid_col: 376
+      source_elevation_m: 130.2235565185547
+      derived_elevation_m: 129.72552490234375
+      difference_m: 0.4980316162109375
+    SGNP_Northern_Ridge:
+      lon: 72.91
+      lat: 19.19
+      utm_x: 280240.13109489117
+      utm_y: 2123168.6415446852
+      grid_row: 115
+      grid_col: 359
+      source_elevation_m: 177.43231201171875
+      derived_elevation_m: 176.1858673095703
+      difference_m: 1.2464447021484375
+    Upstream_Northern_Slope:
+      lon: 72.885
+      lat: 19.21
+      utm_x: 277637.37956272264
+      utm_y: 2125414.5684560584
+      grid_row: 40
+      grid_col: 272
+      source_elevation_m: 102.73390197753906
+      derived_elevation_m: 102.23961639404297
+      difference_m: 0.49428558349609375
+    Southern_Marine_Approach:
+      lon: 72.825
+      lat: 19.025
+      utm_x: 271072.0995627101
+      utm_y: 2105010.5680269175
+      grid_row: 720
+      grid_col: 53
+      source_elevation_m: 0.0
+      derived_elevation_m: 0.0
+      difference_m: 0.0
+hydrological_evidence_status:
+  catchment_polygon: UNVERIFIED (Authoritative vector missing; synthetic box retired)
+  river_centerline_connectivity: UNVERIFIED (Requires hydrographic centerline)
+  airport_runway_culvert: MISSING_EVIDENCE (Culvert burning prohibited in this phase)
+  railway_embankments: UNVERIFIED (Elevated structures present in surface DSM)
+  lake_outfalls: UNVERIFIED (Overflow structures unconditioned)
+  tidal_receiving_water: UNVERIFIED (Datum tie and dynamic stage missing)

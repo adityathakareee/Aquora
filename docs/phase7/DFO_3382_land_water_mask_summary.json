@@ -1,0 +1,86 @@
+{
+  "event_id": "DFO_3382",
+  "phase": "PHASE_7F_STAGE_2",
+  "status": "LAND_WATER_CLASSIFICATION_COMPLETE",
+  "timestamp_utc": "2026-11-01T04:44:15.017229+00:00",
+  "elapsed_seconds": 35.1,
+  "output_raster": "data/processed/phase7/terrain/mahanadi_land_water_mask_30m.tif",
+  "dimensions": [
+    14400,
+    10800
+  ],
+  "total_pixels": 155520000,
+  "crs": "EPSG:4326",
+  "bounds_wgs84": [
+    83.99986111111112,
+    19.000138888888888,
+    87.99986111111112,
+    22.000138888888888
+  ],
+  "class_summary": [
+    {
+      "class_id": 1,
+      "class_name": "Open ocean",
+      "pixel_count": 28879290,
+      "percentage": 18.57,
+      "estimated_area_km2": 25865.2
+    },
+    {
+      "class_id": 2,
+      "class_name": "Permanent inland water",
+      "pixel_count": 31293805,
+      "percentage": 20.122,
+      "estimated_area_km2": 28027.7
+    },
+    {
+      "class_id": 3,
+      "class_name": "River channels",
+      "pixel_count": 72159,
+      "percentage": 0.046,
+      "estimated_area_km2": 64.6
+    },
+    {
+      "class_id": 4,
+      "class_name": "Seasonal water",
+      "pixel_count": 1050999,
+      "percentage": 0.676,
+      "estimated_area_km2": 941.3
+    },
+    {
+      "class_id": 5,
+      "class_name": "Intertidal or tidal flats",
+      "pixel_count": 1294835,
+      "percentage": 0.833,
+      "estimated_area_km2": 1159.7
+    },
+    {
+      "class_id": 6,
+      "class_name": "Mangrove",
+      "pixel_count": 278078,
+      "percentage": 0.179,
+      "estimated_area_km2": 249.1
+    },
+    {
+      "class_id": 7,
+      "class_name": "Terrestrial land",
+      "pixel_count": 73717064,
+      "percentage": 47.4,
+      "estimated_area_km2": 66023.3
+    },
+    {
+      "class_id": 8,
+      "class_name": "Uncertain or unclassified",
+      "pixel_count": 18933770,
+      "percentage": 12.174,
+      "estimated_area_km2": 16957.7
+    }
+  ],
+  "scientific_invariants_preserved": {
+    "ocean_not_equated_with_zero_elevation": true,
+    "permanent_water_not_equated_with_river_channels": true,
+    "mangroves_not_classified_as_permanent_water": true,
+    "zero_september_2008_flood_labels_inferred_from_jrc": true,
+    "worldcover_2021_not_used_as_2008": true,
+    "uncertainty_preserved_in_class_8": true
+  }
+}

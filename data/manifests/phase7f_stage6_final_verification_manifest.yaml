@@ -1,0 +1,72 @@
+schema_version: "aquora_phase7f_stage6_final_verification_manifest_v1"
+phase: "Phase 7F Stage 6 — Final System Verification & Project Closure"
+created_at_utc: "2026-11-02T15:05:00Z"
+verification_status: "FINAL_VERIFICATION_COMPLETE_WITH_LIMITATIONS"
+author: "Antigravity Engineering Agent"
+workspace_root: "c:/Users/thaka/OneDrive/Desktop/Hackathon/AQUORA/Aquoraa"
+
+governance_and_authority:
+  primary_operational_flood_authority: "Phase 6 Deterministic Hydrodynamic Physical Flow Solver (Copernicus DEM 30m + D8 Routing + Drainage Coupling)"
+  ml_status: "PROTOTYPE_ONLY"
+  calibration_status: "NOT_CALIBRATED"
+  alert_eligibility: "NOT_FOR_PUBLIC_ALERTS"
+  quarantined_holdout_policy:
+    dfo_2507_status: "ALREADY_INSPECTED_HOLDOUT_ZERO_ACCESS"
+    dfo_2507_access_count: 0
+    dfo_2507_leakage_detected: false
+  missing_data_policy:
+    zero_fabrication_enforced: true
+    unacquired_rainfall_preservation: "100% NaN preserved, zero synthetic imputation"
+  geographic_hierarchy_policy:
+    hierarchy: "India (Country) -> State -> Basin/Sub-basin -> City -> Catchment -> Deep Zone"
+    operational_deep_zones: ["mumbai_mithi_deep"]
+    unsupported_zone_behavior: "OUTSIDE_DEEP_ZONE_COVERAGE (point_in_zone: false, zero silent fallback)"
+
+test_execution_audit:
+  consolidated_suite_total: 190
+  consolidated_passed: 185
+  consolidated_skipped: 5
+  consolidated_failed: 0
+  skip_rationale: "All 5 skipped tests are exclusively caused by transient 503 Overloaded responses from third-party public Open-Meteo ECMWF API."
+  frontend_typecheck: "PASSED (npx tsc cleanly exited code 0)"
+  frontend_production_bundle: "PASSED (npx vite build generated production bundle in 15.42s)"
+  suite_breakdown:
+    test_phase7f_stage3_dataset.py: 10
+    test_phase7f_stage4_experiments.py: 8
+    test_phase7f_stage4_1_robustness.py: 9
+    test_phase7f_stage5_integration.py: 10
+    test_consolidation2_e2e_integration.py: 8
+    test_phase3_national_screening_model.py: 9
+    test_phase4_regional_intelligence.py: 26
+    test_phase5_deep_intelligence.py: 22  # (2 skipped on live Open-Meteo 503)
+    test_flood_engine.py: 11
+    test_drainage_engine.py: 17
+    test_terrain_engine.py: 16
+    test_phase6_real_data.py: 4
+    test_phase6a_imerg_validation.py: 13
+    test_phase6b_open_meteo_forecast.py: 10  # (1 skipped on live Open-Meteo 503)
+    test_phase7e_kaggle_package.py: 8
+    test_phase9_step9_end_to_end.py: 5  # (2 skipped on live Open-Meteo 503)
+
+scientific_review_and_limitations:
+  dfo_3382_role: "Regional Experimental Dataset Assembly & Diagnostic Exploration (NOT an operational forecasting zone)"
+  subbasin_count: 27
+  spatial_splits:
+    train_count: 15
+    val_count: 6
+    test_count: 6
+    leakage_safeguards: "Enforced zero subbasin overlap"
+  ablation_findings:
+    riparian_coupling: "66.8% of positive flood observations lie within permanent water body margins (dry_fraction < 0.70)"
+    terrestrial_performance: "PR-AUC drops from 0.0463 to 0.0192 on clean dry cells away from permanent water (baseline prevalence: 0.0157)"
+    scientific_conclusion: "Model predictions represent optical edge detection rather than hydrologically generalizable overland flow routing"
+
+verified_component_hashes:
+  backend_main_py: "5e380cc4e6465012ddac19235cb299c057fd51879d9ce087ded4bbc3de6374be"
+  backend_intelligence_py: "6cc765edee03240158e807f6c9a52ad882913daf72447ca47ce9d2077903c07a"
+  backend_spatial_resolver_py: "cf2da762171f56fbc49e1472ec2201549e8fdfc6d960444b624cf10947bb155c"
+  backend_regional_intelligence_service_py: "7ea533fc2a338ea1d65e9fcca47e2b56cce61027286c41e681cd3d5df57e409f"
+  frontend_flood_map_feature: "edfc967ce0ffeabdefcd442ec12de4a44ed75be98a0bf3b8384bb042d89f6388"
+  frontend_overview_feature: "c2c90641a49ea895e2b4199fdb9325adf02cb7c243ffaca21b217acd7e05d4da"
+  dfo3382_spatial_splits_json: "f54dc939539f49143037230fd3a5601e16f89cba1d8f9470ce8a52a5f9db9b4f"
+  phase7f_stage5_integration_manifest: "83cc6e527449bd6237fdb0357dc610de7429b5b573481bda75322fefa60b39b9"

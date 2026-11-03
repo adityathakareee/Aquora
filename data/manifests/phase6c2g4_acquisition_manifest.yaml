@@ -1,0 +1,104 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_4_PRIMARY_SOURCE_RETRIEVAL_AND_EVIDENCE_VERIFICATION
+timestamp_utc: '2026-10-17T09:58:52.893923+00:00'
+governance:
+  status: PRIMARY_SOURCE_VERIFICATION_COMPLETED
+  watershed_status: EXPLORATORY_ONLY
+  final_governance_decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  historical_simulation_permitted: false
+  zero_culvert_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  working_dem_immutable: true
+  human_authorization_enforced: true
+dem_immutability_audit:
+  raw_dem_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  expected_raw_dem_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  expected_working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  immutability_verified: true
+retrieval_and_verification_summary:
+  primary_sources_retrieved_and_inspected:
+  - source: Government of Maharashtra Chitale Committee Report (March 2006)
+    finding: Verified 72.95 sq km catchment benchmark and sub-basin breakdown on page
+      64 (Vihar 18.96, Powai 6.61, Direct 47.38). Confirmed absence of digital GIS
+      vectors.
+  - source: Mumbai Port Authority Official Hydrographic Datum (mumbaiport.gov.in)
+    finding: Verified official specification that Mean Sea Level is +2.51 m above
+      Chart Datum. Confirmed absence of continuous July 2019 hourly series in open
+      feeds.
+  - source: 'Natural Hazards Peer-Reviewed Literature (Zope et al. 2015, DOI: 10.1007/s11069-014-1356-4)'
+    finding: Verified bibliographic identity, corrected prior secondary DOI errors,
+      confirmed 70.57 sq km area, verified absence of open supplementary GIS repositories.
+  sources_located_but_restricted:
+  - MCGM BRIMSTOWAD Master Plan GIS shapefiles (internal municipal SWD archives)
+  - MMRDA Mithi River Development Authority surveyed bathymetric cross-sections (restricted
+    DPR files)
+  - MIAL / AAI CSMIA Runway 09/27 box culvert as-built CAD drawings (restricted airport
+    engineering archives)
+  - Central & Western Railway bridge inspection cross-sections (restricted railway
+    maintenance records)
+  - Survey of India Apollo Bandar BM 846A geodetic tie sheet to EGM96 geoid (restricted
+    national geodetic survey records)
+  data_requests_requiring_human_authorization:
+  - 'REQ-DRAFT-01: MCGM Chief Engineer (SWD) for BRIMSTOWAD GIS shapefiles'
+  - 'REQ-DRAFT-02: MIAL Head of Civil Engineering for CSMIA culvert as-built CAD drawings'
+  - 'REQ-DRAFT-03: Survey of India Director (G&RB) for Apollo Bandar 846A continuous
+    tide record & EGM96 tie sheet'
+  next_minimum_evidence_required_to_unblock: '1. Official signed MCGM BRIMSTOWAD GIS
+    watershed boundary polygon shapefile.
+
+    2. MIAL/AAI surveyed CAD centerline and invert elevations for CSMIA runway crossing
+    culvert.
+
+    3. Continuous 24h tidal stage observations for 1-2 July 2019 with verified EGM96
+    geoid tie.'
+acquisition_evidence_package:
+  package_directory: data/raw/phase7/evidence
+  entries_count: 5
+  entries:
+  - evidence_id: EVID-01-CHITALE-2006-BENCHMARK
+    local_path: data/raw/phase7/evidence/chitale_committee_2006_benchmark_record.json
+    file_size_bytes: 3012
+    sha256: b515d24fdb376d5ee75ed2880c0a3d154c3e481fb8f6b8df8e73449295a703c2
+    verification_status: VERIFIED_STATISTIC_ONLY
+    document_summary: Report of the Fact-Finding Committee on Mumbai Floods of 26th
+      July 2005
+  - evidence_id: EVID-02-ZOPE-ET-AL-2015-LITERATURE
+    local_path: data/raw/phase7/evidence/zope_et_al_2015_hydrodynamic_literature_record.json
+    file_size_bytes: 3709
+    sha256: 0f2a90bc8b2ececa1225b5871d481ca3dc5f04c0a9bcff66e0bc70dbc0a3e2f4
+    verification_status: VERIFIED_LITERATURE_METADATA
+    document_summary: 'Impacts of urbanization on flooding of a coastal urban catchment:
+      a case study of Mumbai City, India'
+  - evidence_id: EVID-03-MUNICIPAL-ENGINEERING-INVESTIGATION
+    local_path: data/raw/phase7/evidence/municipal_engineering_datasets_investigation.json
+    file_size_bytes: 5373
+    sha256: c81446634d245f3146ea1ce2ad1070e091cae9e9ad6525ae7040d4c47a37a25c
+    verification_status: INVESTIGATION_COMPLETED_RESTRICTED_HOLDINGS_IDENTIFIED
+    document_summary: Authoritative municipal and engineering datasets for the Mithi
+      River watershed
+  - evidence_id: EVID-04-MUMBAI-PORT-TIDAL-DATUM
+    local_path: data/raw/phase7/evidence/mumbai_port_authority_tidal_datum_record.json
+    file_size_bytes: 3964
+    sha256: a85e38304a3431050973861f07ae6daac42bfa0756116b98fa881ba2aaa5620f
+    verification_status: PARTIALLY_VERIFIED (Official Datum Relationship Verified;
+      Continuous Series & EGM96 Tie Unavailable)
+    document_summary: Apollo Bandar / Mumbai Harbour Tide Station
+  - evidence_id: EVID-05-FORMAL-DATA-REQUEST-DRAFTS
+    local_path: data/raw/phase7/evidence/formal_data_request_letters.json
+    file_size_bytes: 3410
+    sha256: bd853cd1dc5bcc211f3d0a1ccea9252a382e8b09cb94aa3c03d6f0e420547382
+    verification_status: PARTIALLY_VERIFIED
+    document_summary: Formal Data Request Drafts
+go_no_go_decision:
+  decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  justification: 'Primary-source retrieval rigorously verified the published benchmarks
+    and bibliographic identities: (1) The Chitale Committee 2006 report verifies the
+    72.95 sq km tabular breakdown (p. 64) but provides no GIS polygon. (2) Zope et
+    al. (2015, DOI: 10.1007/s11069-014-1356-4) reports 70.57 sq km but hosts no open
+    geospatial data. (3) Mumbai Port Authority confirms MSL = CD + 2.51 m, but continuous
+    1-2 July 2019 water levels and the EGM96 geodetic tie remain unavailable. (4)
+    Essential engineering datasets (MIAL culvert as-built CAD, MCGM drainage shapefiles)
+    are restricted municipal records requiring human authorization. In strict compliance
+    with Master Engineering Instructions, fabricating culverts or forcing delineation
+    without genuine primary geometry is forbidden.'

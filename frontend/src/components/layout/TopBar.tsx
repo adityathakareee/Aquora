@@ -22,7 +22,7 @@ const WaveMark: React.FC = () => (
 export const TopBar: React.FC<TopBarProps> = ({ onOpenMobileMenu }) => {
   const { data: readiness } = useReadinessQuery();
   const { setActiveTab, navigateToLanding } = useAppStore();
-  const { displayName, activeIntelligenceLevel } = useLocationStore();
+  const { displayName, activeIntelligenceLevel, setTierModalOpen } = useLocationStore();
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const isConnected = readiness?.status === 'ok' || readiness?.status === 'degraded';
 
@@ -93,8 +93,13 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenMobileMenu }) => {
 
       {/* ── Center: location + time ─────────────────────── */}
       <div className="hidden md:flex items-center gap-4 text-[12px]">
-        <div className="flex items-center gap-2">
-          <span className="flex items-center gap-1.5 font-semibold text-slate-700">
+        <button
+          id="btn-geo-tier-modal"
+          onClick={() => setTierModalOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-slate-200/90 hover:border-teal-500/50 hover:bg-teal-50/40 transition-all cursor-pointer group shadow-2xs"
+          title="Click to view and switch Geographic Hierarchy & Intelligence Tiers (National / Regional / Deep)"
+        >
+          <span className="flex items-center gap-1.5 font-semibold text-slate-700 group-hover:text-teal-800">
             <MapPin className="w-3.5 h-3.5 text-[#008080]" />
             {displayName}
           </span>
@@ -109,7 +114,9 @@ export const TopBar: React.FC<TopBarProps> = ({ onOpenMobileMenu }) => {
           >
             {activeIntelligenceLevel} ZONE
           </span>
-        </div>
+          <ChevronDown className="w-3 h-3 text-slate-400 group-hover:text-teal-600 transition-transform group-hover:translate-y-0.5" />
+        </button>
+
         <span className="w-px h-3.5 bg-slate-200" />
         <span className="flex items-center gap-1.5 font-medium text-slate-500">
           <Clock className="w-3.5 h-3.5 text-slate-400" />

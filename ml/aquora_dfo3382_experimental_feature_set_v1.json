@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_name": "aquora_dfo3382_experimental_feature_set_v1",
+  "version": "1.0.0",
+  "created_at": "2026-11-02T09:28:54Z",
+  "governance": {
+    "status": "EXPERIMENTAL_FEATURE_SET",
+    "study_event": "DFO_3382_MAHANADI_2008",
+    "target_resolution": "Native DFO ~250m",
+    "primary_operational_authority": "engines/flood/solver.py",
+    "phase7e_model_status": "PRESERVED_UNCHANGED"
+  },
+  "retained_features_count": 13,
+  "retained_features": [
+    {
+      "name": "elevation_mean_m",
+      "rationale": "Primary gravitational potential; floodwaters accumulate in topographic minima."
+    },
+    {
+      "name": "slope_mean_deg",
+      "rationale": "Hydraulic gradient driving runoff velocity; flat delta terrain (< 1.5\u00b0) impedes rapid drainage."
+    },
+    {
+      "name": "twi_mean",
+      "rationale": "Steady-state Topographic Wetness Index ln(a/tan(beta)) indicating natural zones of water convergence."
+    },
+    {
+      "name": "aspect_mean_cos",
+      "rationale": "North-South directional orientation of hillslopes relative to monsoonal atmospheric inflow."
+    },
+    {
+      "name": "aspect_mean_sin",
+      "rationale": "East-West directional orientation of terrain facets."
+    },
+    {
+      "name": "aspect_circular_var",
+      "rationale": "Directional dispersion of topography [0=collinear, 1=isotropic flat/chaotic plain]."
+    },
+    {
+      "name": "aspect_flat_fraction",
+      "rationale": "Proportion of completely flat sub-pixel cells (aspect = -1) characteristic of fluvial floodplains."
+    },
+    {
+      "name": "plan_curvature_mean",
+      "rationale": "Transverse flow convergence (+) into natural depressions versus divergent convex ridges (-)."
+    },
+    {
+      "name": "flow_accum_log10_max",
+      "rationale": "Order-of-magnitude upstream contributing cells capturing regional drainage concentration."
+    },
+    {
+      "name": "dist_to_river_mean_m",
+      "rationale": "Euclidean proximity to natural HydroRIVERS stream network."
+    },
+    {
+      "name": "dist_to_distributary_min_m",
+      "rationale": "Euclidean distance to active delta distributary branches downstream of Naraj bifurcation."
+    },
+    {
+      "name": "strahler_order_max",
+      "rationale": "Stream hierarchy distinguishing headwater tributaries from trunk carrying discharge."
+    },
+    {
+      "name": "land_water_dry_fraction",
+      "rationale": "Proportion of dry terrestrial land within DFO cell; accounts for sub-pixel riparian boundaries."
+    }
+  ],
+  "excluded_features_count": 22,
+  "excluded_features_register": [
+    {
+      "name": "rainfall_accum_6h_mm",
+      "exclusion_reason": "UNAVAILABLE: No retrospective 6-hour rainfall observed locally for DFO 3382."
+    },
+    {
+      "name": "rainfall_accum_24h_mm",
+      "exclusion_reason": "UNAVAILABLE: No retrospective daily precipitation observed locally for DFO 3382."
+    },
+    {
+      "name": "rainfall_accum_72h_mm",
+      "exclusion_reason": "UNAVAILABLE: No retrospective antecedent rainfall observed locally for DFO 3382."
+    },
+    {
+      "name": "elevation_std_m",
+      "exclusion_reason": "HIGH_MULTICOLLINEARITY: r = 0.958 with slope_mean_deg; redundant sub-pixel slope proxy."
+    },
+    {
+      "name": "elevation_min_m",
+      "exclusion_reason": "EXTREME_COLLINEARITY: r = 0.999 with elevation_mean_m."
+    },
+    {
+      "name": "elevation_max_m",
+      "exclusion_reason": "EXTREME_COLLINEARITY: r = 0.999 with elevation_mean_m."
+    },
+    {
+      "name": "elevation_median_m",
+      "exclusion_reason": "EXTREME_COLLINEARITY: r = 0.999 with elevation_mean_m."
+    },
+    {
+      "name": "profile_curvature_mean",
+      "exclusion_reason": "HIGH_MULTICOLLINEARITY: r = -0.969 with elevation_mean_m in regional mosaic."
+    },
+    {
+      "name": "flow_accum_log10_mean",
+      "exclusion_reason": "REDUNDANCY: Collinear with flow_accum_log10_max; peak flow accumulation is more physically diagnostic."
+    },
+    {
+      "name": "dist_to_river_min_m",
+      "exclusion_reason": "REDUNDANCY: Collinear with dist_to_river_mean_m."
+    },
+    {
+      "name": "strahler_order_rep",
+      "exclusion_reason": "REDUNDANCY: Collinear with strahler_order_max."
+    },
+    {
+      "name": "historical_flood_frequency",
+      "exclusion_reason": "LEAKAGE_RISK: Encodes historical labels across multiple years; violates single-event independence."
+    },
+    {
+      "name": "dfo_cell_id",
+      "exclusion_reason": "IDENTIFIER: Non-predictive spatial hash."
+    },
+    {
+      "name": "grid_row",
+      "exclusion_reason": "COORDINATE_LEAKAGE: Artificial spatial grid coordinate."
+    },
+    {
+      "name": "grid_col",
+      "exclusion_reason": "COORDINATE_LEAKAGE: Artificial spatial grid coordinate."
+    },
+    {
+      "name": "latitude",
+      "exclusion_reason": "COORDINATE_MEMORIZATION: Would induce spatial memorization rather than physical feature learning."
+    },
+    {
+      "name": "longitude",
+      "exclusion_reason": "COORDINATE_MEMORIZATION: Would induce spatial memorization rather than physical feature learning."
+    },
+    {
+      "name": "gfd_flooded_raw",
+      "exclusion_reason": "TARGET_LEAKAGE: Direct raw sensor observation used to construct label."
+    },
+    {
+      "name": "gfd_duration",
+      "exclusion_reason": "TARGET_LEAKAGE: Encodes flood duration."
+    },
+    {
+      "name": "gfd_clear_views",
+      "exclusion_reason": "QUALITY_METRIC: Used strictly for observation filtering, not hazard prediction."
+    },
+    {
+      "name": "gfd_clear_perc",
+      "exclusion_reason": "QUALITY_METRIC: Optical view fraction used for quality filtering."
+    },
+    {
+      "name": "gfd_jrc_perm_water",
+      "exclusion_reason": "TARGET_LEAKAGE: Permanent water mask used for ground truth exclusion."
+    }
+  ]
+}

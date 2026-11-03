@@ -1,0 +1,86 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_6_EVIDENCE_STATUS_CORRECTION_AND_ACQUISITION_REQUEST_READINESS
+timestamp_utc: '2026-10-17T10:09:46.220691+00:00'
+governance:
+  status: EVIDENCE_SEMANTICS_CORRECTED_ACQUISITION_PACKAGE_READY
+  watershed_status: EXPLORATORY_ONLY
+  final_governance_decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  historical_simulation_permitted: false
+  zero_culvert_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  working_dem_immutable: true
+  human_authorization_enforced: true
+dem_immutability_audit:
+  raw_dem_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  expected_raw_dem_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  expected_working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  immutability_verified: true
+evidence_status_semantic_rules:
+  allowed_statuses:
+  - VERIFIED_PRIMARY_SOURCE
+  - PARTIALLY_VERIFIED
+  - NOT_ACQUIRED
+  - ACCESS_NOT_ESTABLISHED
+  - CUSTODIAN_CONFIRMED_RESTRICTED
+  - UNVERIFIED
+  - NOT_FOUND_IN_SEARCH
+  - BIBLIOGRAPHICALLY_VERIFIED
+  restriction_confirmation_rule: Failed URLs or empty search results MUST NOT be labeled
+    CUSTODIAN_CONFIRMED_RESTRICTED. Access restrictions without custodian written
+    response must remain ACCESS_NOT_ESTABLISHED.
+  crossref_limitation_rule: Crossref bibliographic metadata proves publication identity
+    only, NOT article technical findings.
+  arithmetic_rule: Mathematical sum checks (18.96 + 6.61 + 47.38 = 72.95) are arithmetic
+    checks only, NOT source verification.
+  local_possession_rule: Missing local source files must be labeled NOT_ACQUIRED.
+acquisition_evidence_package:
+  package_directory: data/raw/phase7/evidence
+  entries_count: 9
+  entries:
+  - local_path: data/raw/phase7/evidence/chitale_committee_2006_benchmark_record.json
+    file_size_bytes: 3012
+    sha256: b515d24fdb376d5ee75ed2880c0a3d154c3e481fb8f6b8df8e73449295a703c2
+    filename: chitale_committee_2006_benchmark_record.json
+  - local_path: data/raw/phase7/evidence/zope_et_al_2015_hydrodynamic_literature_record.json
+    file_size_bytes: 3709
+    sha256: 0f2a90bc8b2ececa1225b5871d481ca3dc5f04c0a9bcff66e0bc70dbc0a3e2f4
+    filename: zope_et_al_2015_hydrodynamic_literature_record.json
+  - local_path: data/raw/phase7/evidence/municipal_engineering_datasets_investigation.json
+    file_size_bytes: 5373
+    sha256: c81446634d245f3146ea1ce2ad1070e091cae9e9ad6525ae7040d4c47a37a25c
+    filename: municipal_engineering_datasets_investigation.json
+  - local_path: data/raw/phase7/evidence/mumbai_port_authority_tidal_datum_record.json
+    file_size_bytes: 3964
+    sha256: a85e38304a3431050973861f07ae6daac42bfa0756116b98fa881ba2aaa5620f
+    filename: mumbai_port_authority_tidal_datum_record.json
+  - local_path: data/raw/phase7/evidence/formal_data_request_letters.json
+    file_size_bytes: 3410
+    sha256: bd853cd1dc5bcc211f3d0a1ccea9252a382e8b09cb94aa3c03d6f0e420547382
+    filename: formal_data_request_letters.json
+  - local_path: data/raw/phase7/evidence/prioritized_dataset_acquisition_plan.json
+    file_size_bytes: 6115
+    sha256: 65276a4dcc64473728d9429601f5242f66225006c1356f16f4df57111f63d9e8
+    filename: prioritized_dataset_acquisition_plan.json
+  - local_path: data/raw/phase7/evidence/phase6c2g6_evidence_register.json
+    file_size_bytes: 13772
+    sha256: 114a79c5c4fec94efe08f552ced285e8bb46b11f329a323d0eb2f8165359dfe6
+    filename: phase6c2g6_evidence_register.json
+  - local_path: data/raw/phase7/evidence/phase6c2g6_acquisition_request_package.json
+    file_size_bytes: 8241
+    sha256: 66b31f2f86a3fcbd8e1bfd25703173b6fae6f5a0e7255905e228d6a1c1a79dd7
+    filename: phase6c2g6_acquisition_request_package.json
+  - local_path: data/raw/phase7/evidence/phase6c2g6_parallel_work_plan.json
+    file_size_bytes: 3143
+    sha256: 014329bbd79769cf07a715995a884278a98a4f91da2fd6b57affc10326c94adc
+    filename: phase6c2g6_parallel_work_plan.json
+go_no_go_decision:
+  decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  justification: 'Authoritative watershed delineation and coastal flood simulation
+    remain STRICTLY BLOCKED because: (1) No authoritative digital GIS watershed boundary
+    polygon is available on disk or in open public records. (2) CSMIA runway culvert
+    as-built CAD drawings and invert survey coordinates are unretrieved (NOT_ACQUIRED,
+    ACCESS_NOT_ESTABLISHED). (3) Marine continuous water levels for Event E03 and
+    the Survey of India EGM96 geodetic tie sheet are missing (NOT_ACQUIRED). In accordance
+    with Master Governance rules, synthesizing data, guessing culverts, or forcing
+    benchmarks is prohibited.'

@@ -10,9 +10,12 @@ import { AlertCenterFeature } from '@/features/alerts';
 import { GroundTruthFeature } from '@/features/ground-truth';
 import { SimulatorFeature } from '@/features/simulator';
 import { useAppStore } from '@/store/useAppStore';
+import { useLocationStore } from '@/store/useLocationStore';
+import { GeographicTierModal } from './GeographicTierModal';
 
 export const AppShell: React.FC = () => {
   const { activeTab } = useAppStore();
+  const { isTierModalOpen, setTierModalOpen } = useLocationStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const mainRef = React.useRef<HTMLElement>(null);
 
@@ -49,6 +52,12 @@ export const AppShell: React.FC = () => {
           </div>
         </main>
       </div>
+
+      {/* Global Geographic Hierarchy & Tier Selector Modal */}
+      <GeographicTierModal
+        isOpen={isTierModalOpen}
+        onClose={() => setTierModalOpen(false)}
+      />
     </div>
   );
 };

@@ -1,0 +1,263 @@
+manifest_version: 1.0.0-aux-ext-acquired
+phase: PHASE_7F_3_8_AUX_EXT_ACQUISITION
+created_at_utc: '2026-11-01T04:32:00.000000+00:00'
+event_id: DFO_3382
+basin_name: Mahanadi Basin / Odisha Delta
+target_study_domain_wgs84: [84.0, 19.0, 88.0, 22.0]
+acquisition_status: AUX_EXT_ACQUISITION_COMPLETE
+operational_status: PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS
+
+acquisition_summary:
+  total_files_acquired: 9
+  total_bytes_downloaded: 868457452
+  total_size_mb_decimal: 868.46
+  total_size_mib_binary: 828.23
+  all_sha256_verified: true
+  all_zip_crc_verified: true
+  zero_corrupt_files: true
+
+acquired_assets:
+
+  # 1. HydroRIVERS Asia
+  hydrorivers_asia_v10:
+    provider: World Wildlife Fund (WWF) / McGill University
+    product: HydroRIVERS v1.0 Asia (Shapefile package)
+    source_url: https://data.hydrosheds.org/file/hydrorivers/HydroRIVERS_v10_as_shp.zip
+    filename: HydroRIVERS_v10_as_shp.zip
+    local_path: data/raw/phase7/hydrography/hydrorivers/HydroRIVERS_v10_as_shp.zip
+    extracted_dir: data/raw/phase7/hydrography/hydrorivers/extracted
+    byte_size: 90510995
+    sha256: 29780b0a75f90024f22e7e2029e5e3045f7325cda0528db65c5cc4c864b98525
+    http_status: 200
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    uncompressed_files: 7
+    uncompressed_bytes: 378833273
+    crs: EPSG:4326
+
+  # 2. HydroBASINS Asia
+  hydrobasins_asia_v1c:
+    provider: USGS / World Wildlife Fund (WWF) / McGill University
+    product: HydroBASINS Standard Product - Asia (hybas_as_lev01-12_v1c)
+    source_url: https://data.hydrosheds.org/file/HydroBASINS/standard/hybas_as_lev01-12_v1c.zip
+    filename: hybas_as_lev01-12_v1c.zip
+    local_path: data/raw/phase7/hydrography/hydrobasins/hybas_as_lev01-12_v1c.zip
+    extracted_dir: data/raw/phase7/hydrography/hydrobasins/extracted
+    byte_size: 376386706
+    sha256: 5f2a9c384829b59a22b2857c79bc294602aaa29c8794abd1e7bd7cf01057cc4a
+    http_status: 200
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    uncompressed_files: 85
+    uncompressed_bytes: 1007569731
+    crs: EPSG:4326
+
+  # 3. ESA WorldCover 10m 2021 N18E084 (Core Delta)
+  worldcover_2021_n18e084:
+    provider: European Space Agency (ESA) / VITO Remote Sensing
+    product: ESA WorldCover 10m 2021 v200
+    source_url: https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N18E084_Map.tif
+    filename: ESA_WorldCover_10m_2021_v200_N18E084_Map.tif
+    local_path: data/raw/phase7/landcover/worldcover/ESA_WorldCover_10m_2021_v200_N18E084_Map.tif
+    byte_size: 54269282
+    sha256: 43a88a24791410e97c68b06be427b2d59a5fbcf73eeb7c7ed224c516fbc7b815
+    http_status: 200
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    crs: EPSG:4326
+    dimensions: [36000, 36000]
+    resolution_deg: [0.00008333333333333333, 0.00008333333333333333]
+    bounds_wgs84: [84.0, 18.0, 87.0, 21.0]
+    nodata: 0.0
+
+  # 4. ESA WorldCover 10m 2021 N21E084 (Extended Delta Northern Tier)
+  worldcover_2021_n21e084:
+    provider: European Space Agency (ESA) / VITO Remote Sensing
+    product: ESA WorldCover 10m 2021 v200
+    source_url: https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N21E084_Map.tif
+    filename: ESA_WorldCover_10m_2021_v200_N21E084_Map.tif
+    local_path: data/raw/phase7/landcover/worldcover/ESA_WorldCover_10m_2021_v200_N21E084_Map.tif
+    byte_size: 127991194
+    sha256: aca090736006257bb9ecdbac7a1a03597d38bf0ed56504ac9499ec003e84fbbe
+    http_status: 200
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    crs: EPSG:4326
+    dimensions: [36000, 36000]
+    resolution_deg: [0.00008333333333333333, 0.00008333333333333333]
+    bounds_wgs84: [84.0, 21.0, 87.0, 24.0]
+    nodata: 0.0
+
+  # 5. JRC GSW Occurrence 80E_20N (Southern Delta)
+  jrc_gsw_occurrence_80e_20n:
+    provider: European Commission Joint Research Centre (JRC)
+    product: JRC Global Surface Water v1.4 Occurrence
+    source_url: https://storage.googleapis.com/global-surface-water/downloads/occurrence/occurrence_80E_20N.tif
+    filename: occurrence_80E_20N.tif
+    local_path: data/raw/phase7/water/jrc_gsw/occurrence_80E_20N.tif
+    byte_size: 27240640
+    sha256: fe25556c99088309a9cd604171e51c530ddc27b6271e7bed491637b6977d5c2f
+    http_status: 200
+    license: European Commission Open Access (Decision 2011/833/EU)
+    crs: EPSG:4326
+    dimensions: [40000, 40000]
+    resolution_deg: [0.00025, 0.00025]
+    bounds_wgs84: [80.0, 10.0, 90.0, 20.0]
+
+  # 6. JRC GSW Occurrence 80E_30N (Northern Delta)
+  jrc_gsw_occurrence_80e_30n:
+    provider: European Commission Joint Research Centre (JRC)
+    product: JRC Global Surface Water v1.4 Occurrence
+    source_url: https://storage.googleapis.com/global-surface-water/downloads/occurrence/occurrence_80E_30N.tif
+    filename: occurrence_80E_30N.tif
+    local_path: data/raw/phase7/water/jrc_gsw/occurrence_80E_30N.tif
+    byte_size: 82179606
+    sha256: 58079fe1d50d120d3a3ccb87fbea71745536fbaa89736c62f5ca827b270d718b
+    http_status: 200
+    license: European Commission Open Access (Decision 2011/833/EU)
+    crs: EPSG:4326
+    dimensions: [40000, 40000]
+    resolution_deg: [0.00025, 0.00025]
+    bounds_wgs84: [80.0, 20.0, 90.0, 30.0]
+
+  # 7. JRC GSW Seasonality 80E_20N (Southern Delta)
+  jrc_gsw_seasonality_80e_20n:
+    provider: European Commission Joint Research Centre (JRC)
+    product: JRC Global Surface Water v1.4 Seasonality
+    source_url: https://storage.googleapis.com/global-surface-water/downloads/seasonality/seasonality_80E_20N.tif
+    filename: seasonality_80E_20N.tif
+    local_path: data/raw/phase7/water/jrc_gsw/seasonality_80E_20N.tif
+    byte_size: 13975950
+    sha256: b7f31fde6f633f10efc080f450441dd1d3de26f1f31807a28950535f72587fab
+    http_status: 200
+    license: European Commission Open Access (Decision 2011/833/EU)
+    crs: EPSG:4326
+    dimensions: [40000, 40000]
+    resolution_deg: [0.00025, 0.00025]
+    bounds_wgs84: [80.0, 10.0, 90.0, 20.0]
+
+  # 8. JRC GSW Seasonality 80E_30N (Northern Delta)
+  jrc_gsw_seasonality_80e_30n:
+    provider: European Commission Joint Research Centre (JRC)
+    product: JRC Global Surface Water v1.4 Seasonality
+    source_url: https://storage.googleapis.com/global-surface-water/downloads/seasonality/seasonality_80E_30N.tif
+    filename: seasonality_80E_30N.tif
+    local_path: data/raw/phase7/water/jrc_gsw/seasonality_80E_30N.tif
+    byte_size: 29238608
+    sha256: 32e7070b1cf3ae7b7d2aa4258fc880440ca8b78d40b05380aa268e895ced2d8b
+    http_status: 200
+    license: European Commission Open Access (Decision 2011/833/EU)
+    crs: EPSG:4326
+    dimensions: [40000, 40000]
+    resolution_deg: [0.00025, 0.00025]
+    bounds_wgs84: [80.0, 20.0, 90.0, 30.0]
+
+  # 9. Global Mangrove Watch v3.0 2008 Epoch
+  gmw_v3_2008_gtiff:
+    provider: Aberystwyth University / soloEO / Wetlands International / JAXA / UNEP-WCMC
+    product: Global Mangrove Watch (1996 - 2020) Version 3.0 Dataset - 2008 Epoch
+    source_url: https://zenodo.org/api/records/6894273/files/gmw_v3_2008_gtiff.zip/content
+    filename: gmw_v3_2008_gtiff.zip
+    local_path: data/raw/phase7/coastal/global_mangrove_watch/gmw_v3_2008_gtiff.zip
+    extracted_dir: data/raw/phase7/coastal/global_mangrove_watch/extracted/gmw_v3_2008
+    byte_size: 66664471
+    sha256: bf73e12e50c085a1bf6093d99b5b76abf85fc6c0c5925ac302bc555db114d635
+    http_status: 200
+    license: Creative Commons Attribution 4.0 International (CC BY 4.0)
+    uncompressed_files: 1521
+    uncompressed_bytes: 324434998
+    crs: EPSG:4326
+
+regional_extracts_generated:
+  mahanadi_basin_hydrorivers:
+    path: data/processed/phase7/hydrography/mahanadi_hydrorivers.geojson
+    features_count: 28792
+    total_length_km: 99784.6
+    strahler_orders_present: [1, 2, 3, 4, 5, 6, 7]
+    max_upstream_area_km2: 135524.5
+
+  mahanadi_delta_hydrorivers:
+    path: data/processed/phase7/hydrography/mahanadi_delta_hydrorivers.geojson
+    features_count: 7883
+    total_length_km: 25584.2
+    geographic_extent: [84.0, 19.0, 88.0, 22.0]
+
+  mahanadi_hydrobasins_lev05:
+    path: data/processed/phase7/boundaries/mahanadi_hydrobasins/mahanadi_hydrobasins_lev05.geojson
+    main_bas_id: 4050027100
+    sub_units_count: 9
+    combined_area_km2: 135524.8
+    pfaf_id_range: [45321, 45329]
+
+  mahanadi_hydrobasins_lev07:
+    path: data/processed/phase7/boundaries/mahanadi_hydrobasins/mahanadi_hydrobasins_lev07.geojson
+    main_bas_id: 4070027100
+    sub_units_count: 81
+    combined_area_km2: 135525.0
+
+  mahanadi_hydrobasins_lev08:
+    path: data/processed/phase7/boundaries/mahanadi_hydrobasins/mahanadi_hydrobasins_lev08.geojson
+    main_bas_id: 4080027100
+    sub_units_count: 189
+    combined_area_km2: 135524.8
+
+  mahanadi_delta_lev08_subbasins:
+    path: data/processed/phase7/boundaries/mahanadi_hydrobasins/mahanadi_delta_lev08_subbasins.geojson
+    description: Seven isolated sub-basins covering the coastal delta reach downstream of Naraj Barrage
+    units_count: 7
+    combined_area_km2: 3712.2
+    units:
+    - hybas_id: 4080027100
+      pfaf_id: 45321011
+      sub_area_km2: 52.3
+      up_area_km2: 135526.1
+    - hybas_id: 4081039630
+      pfaf_id: 45321012
+      sub_area_km2: 467.0
+      up_area_km2: 467.0
+    - hybas_id: 4081039610
+      pfaf_id: 45321013
+      sub_area_km2: 1081.9
+      up_area_km2: 135007.2
+    - hybas_id: 4081037140
+      pfaf_id: 45321015
+      sub_area_km2: 214.0
+      up_area_km2: 132985.1
+    - hybas_id: 4081037070
+      pfaf_id: 45321014
+      sub_area_km2: 939.8
+      up_area_km2: 939.8
+    - hybas_id: 4081038340
+      pfaf_id: 45321017
+      sub_area_km2: 485.4
+      up_area_km2: 132299.5
+    - hybas_id: 4081038350
+      pfaf_id: 45321016
+      sub_area_km2: 471.8
+      up_area_km2: 471.8
+
+coastal_mangrove_tiles_odisha:
+  tile_n20e086:
+    path: data/raw/phase7/coastal/global_mangrove_watch/extracted/gmw_v3_2008/GMW_N20E086_2008_v3.tif
+    dimensions: [4500, 4500]
+    mangrove_pixels: 4080
+    mangrove_area_km2: 2.5
+    region: Mahanadi River Mouth / Kendrapara Coastal Margin
+  tile_n21e086:
+    path: data/raw/phase7/coastal/global_mangrove_watch/extracted/gmw_v3_2008/GMW_N21E086_2008_v3.tif
+    dimensions: [4500, 4500]
+    mangrove_pixels: 239497
+    mangrove_area_km2: 146.56
+    region: Bhitarkanika National Park / Dhamra Estuary
+  tile_n21e087:
+    path: data/raw/phase7/coastal/global_mangrove_watch/extracted/gmw_v3_2008/GMW_N21E087_2008_v3.tif
+    dimensions: [4500, 4500]
+    mangrove_pixels: 20268
+    mangrove_area_km2: 12.4
+    region: Subarnarekha Estuary / Balasore Coastal Margin
+
+governance_invariants_preserved:
+  zero_unauthorized_downloads: true
+  nine_dem_tiles_unmodified: true
+  zero_synthetic_flood_labels_generated: true
+  dfo2507_holdout_quarantine_preserved: true
+  phase7e_kaggle_artifacts_unmodified: true
+  zero_ml_models_trained: true
+  phase6_hydrodynamic_physics_supremacy_preserved: true
+  zero_git_commits_or_pushes: true

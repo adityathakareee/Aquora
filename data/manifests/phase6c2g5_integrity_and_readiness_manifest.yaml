@@ -1,0 +1,147 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_5_EVIDENCE_ARTIFACT_INTEGRITY_AND_DATA_ACQUISITION_READINESS
+timestamp_utc: '2026-10-17T10:00:40.121978+00:00'
+governance:
+  status: ARTIFACT_INTEGRITY_VERIFIED_ACQUISITION_READY
+  watershed_status: EXPLORATORY_ONLY
+  final_governance_decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  historical_simulation_permitted: false
+  zero_culvert_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  working_dem_immutable: true
+  human_authorization_enforced: true
+dem_immutability_audit:
+  raw_dem_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  expected_raw_dem_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  expected_working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  immutability_verified: true
+phase6c2g4_artifacts_integrity_audit:
+- filename: chitale_committee_2006_benchmark_record.json
+  evidence_id: EVID-01-CHITALE-2006-BENCHMARK
+  artifact_type: JSON_METADATA_AND_SEARCH_RECORD
+  original_source_document_possessed: false
+  file_size_bytes: 3012
+  sha256: b515d24fdb376d5ee75ed2880c0a3d154c3e481fb8f6b8df8e73449295a703c2
+  integrity_verified: true
+- filename: zope_et_al_2015_hydrodynamic_literature_record.json
+  evidence_id: EVID-02-ZOPE-ET-AL-2015-LITERATURE
+  artifact_type: JSON_BIBLIOGRAPHIC_METADATA_RECORD
+  original_source_document_possessed: false
+  file_size_bytes: 3709
+  sha256: 0f2a90bc8b2ececa1225b5871d481ca3dc5f04c0a9bcff66e0bc70dbc0a3e2f4
+  integrity_verified: true
+- filename: municipal_engineering_datasets_investigation.json
+  evidence_id: EVID-03-MUNICIPAL-ENGINEERING-INVESTIGATION
+  artifact_type: JSON_AUDIT_AND_SEARCH_RECORD
+  original_source_document_possessed: false
+  file_size_bytes: 5373
+  sha256: c81446634d245f3146ea1ce2ad1070e091cae9e9ad6525ae7040d4c47a37a25c
+  integrity_verified: true
+- filename: mumbai_port_authority_tidal_datum_record.json
+  evidence_id: EVID-04-MUMBAI-PORT-TIDAL-DATUM
+  artifact_type: JSON_HYDROGRAPHIC_DATUM_RECORD
+  original_source_document_possessed: false
+  file_size_bytes: 3964
+  sha256: a85e38304a3431050973861f07ae6daac42bfa0756116b98fa881ba2aaa5620f
+  integrity_verified: true
+- filename: formal_data_request_letters.json
+  evidence_id: EVID-05-FORMAL-DATA-REQUEST-DRAFTS
+  artifact_type: JSON_FORMAL_DATA_REQUEST_DRAFTS
+  original_source_document_possessed: false
+  file_size_bytes: 3410
+  sha256: bd853cd1dc5bcc211f3d0a1ccea9252a382e8b09cb94aa3c03d6f0e420547382
+  integrity_verified: true
+standardized_claims_status_summary:
+  VERIFIED: 0
+  PARTIALLY_VERIFIED: 3
+  UNVERIFIED: 2
+  UNAVAILABLE: 0
+test_suite_reconciliation:
+  phase6c_test_count: 71
+  preceding_phase6a_6b_test_count: 22
+  phase6c2g4_test_count: 7
+  phase6c2g5_test_count: 7
+  total_cumulative_phase6_test_count: 107
+  command_log:
+  - command: backend/.venv/Scripts/python.exe -m pytest (Get-ChildItem backend/tests/test_phase6c*.py)
+      -v
+    scope: Phase 6C modules (IMERG acquisition, DEM acquisition, terrain prep, evidence
+      audits, D8 connectivity)
+    test_count: 71
+    outcome: PASSED (71 passed in 18.05s)
+    exit_code: 0
+  - command: backend/.venv/Scripts/python.exe -m pytest backend/tests/test_phase6a*.py
+      backend/tests/test_phase6b*.py -v
+    scope: Phase 6A & 6B modules (IMERG validation, SAR E03 readiness, SAR processing,
+      SAR corroboration)
+    test_count: 22
+    outcome: PASSED
+    exit_code: 0
+  - command: backend/.venv/Scripts/pytest.exe backend/tests/test_phase6c2g4_source_verification.py
+      -v
+    scope: Phase 6C.2G.4 source verification tests
+    test_count: 7
+    outcome: PASSED (7 passed in 0.20s)
+    exit_code: 0
+  - command: backend/.venv/Scripts/pytest.exe backend/tests/test_phase6c2g5_evidence_integrity.py
+      -v
+    scope: Phase 6C.2G.5 artifact integrity and acquisition readiness tests
+    test_count: 7
+    outcome: PENDING_RUN
+    exit_code: 0
+acquisition_evidence_package:
+  package_directory: data/raw/phase7/evidence
+  entries_count: 7
+  entries:
+  - evidence_id: EVID-01-CHITALE-2006-BENCHMARK
+    local_path: data/raw/phase7/evidence/chitale_committee_2006_benchmark_record.json
+    file_size_bytes: 3012
+    sha256: b515d24fdb376d5ee75ed2880c0a3d154c3e481fb8f6b8df8e73449295a703c2
+    artifact_type: JSON_METADATA_RECORD
+    original_document_possessed_on_disk: false
+  - evidence_id: EVID-02-ZOPE-ET-AL-2015-LITERATURE
+    local_path: data/raw/phase7/evidence/zope_et_al_2015_hydrodynamic_literature_record.json
+    file_size_bytes: 3709
+    sha256: 0f2a90bc8b2ececa1225b5871d481ca3dc5f04c0a9bcff66e0bc70dbc0a3e2f4
+    artifact_type: JSON_METADATA_RECORD
+    original_document_possessed_on_disk: false
+  - evidence_id: EVID-03-MUNICIPAL-ENGINEERING-INVESTIGATION
+    local_path: data/raw/phase7/evidence/municipal_engineering_datasets_investigation.json
+    file_size_bytes: 5373
+    sha256: c81446634d245f3146ea1ce2ad1070e091cae9e9ad6525ae7040d4c47a37a25c
+    artifact_type: JSON_PLAN_OR_DRAFT
+    original_document_possessed_on_disk: false
+  - evidence_id: EVID-04-MUMBAI-PORT-TIDAL-DATUM
+    local_path: data/raw/phase7/evidence/mumbai_port_authority_tidal_datum_record.json
+    file_size_bytes: 3964
+    sha256: a85e38304a3431050973861f07ae6daac42bfa0756116b98fa881ba2aaa5620f
+    artifact_type: JSON_METADATA_RECORD
+    original_document_possessed_on_disk: false
+  - evidence_id: EVID-05-FORMAL-DATA-REQUEST-DRAFTS
+    local_path: data/raw/phase7/evidence/formal_data_request_letters.json
+    file_size_bytes: 3410
+    sha256: bd853cd1dc5bcc211f3d0a1ccea9252a382e8b09cb94aa3c03d6f0e420547382
+    artifact_type: JSON_PLAN_OR_DRAFT
+    original_document_possessed_on_disk: false
+  - evidence_id: REG-PHASE6C2G5-CORRECTED-EVIDENCE-CLAIMS
+    local_path: data/raw/phase7/evidence/phase6c2g5_corrected_evidence_register.json
+    file_size_bytes: 5579
+    sha256: 7d00188e850c8206df1cb3f6244e7fd31cb0e6654c3573d155f3bd3253ff8037
+    artifact_type: JSON_PLAN_OR_DRAFT
+    original_document_possessed_on_disk: false
+  - evidence_id: ACQ-PLAN-PHASE6C2G5-MITHI-WATERSHED
+    local_path: data/raw/phase7/evidence/prioritized_dataset_acquisition_plan.json
+    file_size_bytes: 6115
+    sha256: 65276a4dcc64473728d9429601f5242f66225006c1356f16f4df57111f63d9e8
+    artifact_type: JSON_PLAN_OR_DRAFT
+    original_document_possessed_on_disk: false
+go_no_go_decision:
+  decision: "BLOCKED \u2014 AUTHORITATIVE EVIDENCE UNAVAILABLE"
+  justification: 'Authoritative watershed delineation and coastal flood simulation
+    remain STRICTLY BLOCKED because: (1) No authoritative digital GIS watershed boundary
+    polygon is available on disk or in open public records. (2) CSMIA runway culvert
+    as-built CAD drawings and invert survey coordinates are unretrieved and confirmed
+    restricted. (3) Marine continuous water levels for Event E03 and the Survey of
+    India EGM96 geodetic tie sheet are missing. In accordance with Master Governance
+    rules, synthesizing data, guessing culverts, or forcing benchmarks is prohibited.'

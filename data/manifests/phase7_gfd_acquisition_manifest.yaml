@@ -1,0 +1,109 @@
+manifest_version: 1.0.0
+phase: PHASE_7_REAL_FLOOD_DATASET_BUILD
+created_at_utc: '2026-10-28T11:53:17.053035+00:00'
+primary_source:
+  name: Global Flood Database (GFD v1.4)
+  citation: 'Tellman et al., Nature 2021 (DOI: 10.1038/s41586-021-03695-w)'
+  gcs_bucket: gs://gfd_v1_4
+  gee_collection: GLOBAL_FLOOD_DB/MODIS_EVENTS/V1
+  license: Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0)
+  spatial_resolution: 250 meters
+  sensor: NASA Terra and Aqua MODIS Surface Reflectance
+  permanent_water_mask_source: JRC Global Surface Water (30m, Pekel et al. 2016)
+complementary_sar_investigation:
+  source: ESA Copernicus Sentinel-1 C-SAR GRD IW
+  spatial_resolution: 10 meters
+  temporal_revisit_days: 6 to 12 days
+  applicable_window: October 2014 to present
+  role_in_aquora: High-resolution micro-scale urban flood corroboration (e.g. Mumbai
+    E02-E07); complementary to GFD macro coverage.
+  known_limitations:
+  - Radar shadow and geometric layover in dense high-rise urban areas.
+  - Corner reflection artifacts from steel/concrete building faces.
+  - Wind-induced surface capillary waves causing false positive roughening.
+  - Revisit gap of 6-12 days may miss rapid flash-flood recession peaks.
+acquired_events:
+- dfo_id: 4499
+  region: Lower Ganga Basin (West Bengal / Hooghly / Howrah)
+  ifi_correlation: UEI-IMD-FL-2017-0122
+  began: '2017-07-27'
+  ended: '2017-08-10'
+  local_zip_path: data/raw/phase7/ground_truth/gfd/DFO_4499/DFO_4499_From_20170727_to_20170810.zip
+  local_tif_path: data/raw/phase7/ground_truth/gfd/DFO_4499/DFO_4499_From_20170727_to_20170810.tif
+  zip_sha256: 588ef0dd8f45f8e3e86ab57dd5ad08a3d8659b6b9f91bf4220ee1f8606b87573
+  tif_sha256: 9fab987aa7cb9becaf607c0960799b1e72b217ddd9bb7940e08e902349c1f4eb
+  license: Creative Commons Attribution-NonCommercial 4.0 International Public License
+  raster_metadata:
+    crs: EPSG:4326
+    bounds:
+    - 83.88243544287062
+    - 20.295188056470288
+    - 91.19696764381382
+    - 24.863121276218056
+    width: 3257
+    height: 2034
+    bands_count: 5
+    band_descriptions:
+    - flooded
+    - duration
+    - clear_views
+    - clear_perc
+    - jrc_perm_water
+    dtypes:
+    - float32
+    - float32
+    - float32
+    - float32
+    - float32
+    transform:
+    - 0.002245788210298804
+    - 0.0
+    - 83.88243544287062
+    - 0.0
+    - -0.002245788210298804
+    - 24.863121276218056
+    pixel_resolution_deg:
+    - 0.0
+    - 24.863121276218056
+    approx_resolution_m: 250.0
+  cell_counts:
+    total_cells: 6624738
+    valid_observed_cells: 3239389
+    unmapped_nan_cells: 3385349
+    raw_flooded_cells: 80164
+    permanent_water_cells: 72887
+    verified_episodic_flood_cells: 67267
+    verified_dry_cells: 3099235
+    cloud_or_perm_excluded_cells: 72887
+  properties:
+    dfo_centroid_y: 22.906125
+    dfo_main_cause: Monsoonal Rain
+    gfd_country_name: '[''BANGLADESH'', ''INDIA'']'
+    dfo_centroid_x: 88.084765
+    glide_index: ''
+    slope_threshold: 5
+    dfo_severity: 1
+    threshold_b1b2: 0.7
+    dfo_displaced: 47000
+    id: 4499
+    cc: IND, BGD
+    began: '2017-07-27'
+    dfo_validation_type: News
+    composite_type: 3Day
+    dfo_country: India
+    countries: India, Bangladesh
+    dfo_other_country: ''
+    dfo_dead: 39
+    gfd_country_code: '[''BG'', ''IN'']'
+    ended: '2017-08-10'
+    threshold_type: standard
+    threshold_b7: 675
+scientific_label_semantics:
+  flood_label_1: 'Verified episodic flood: flooded==1.0 AND jrc_perm_water==0.0 AND
+    clear_perc >= 0.70'
+  flood_label_0: 'Verified non-flood dry ground: flooded==0.0 AND jrc_perm_water==0.0
+    AND clear_perc >= 0.70'
+  flood_label_minus_1: 'Unknown / Excluded: jrc_perm_water==1.0 (permanent river/ocean),
+    clear_perc < 0.70 (cloud obscured), or unmapped outside footprint (NaN)'
+  no_synthetic_data_rule: Unobserved pixels strictly remain -1 (Unknown). Zero artificial
+    zero-filling.

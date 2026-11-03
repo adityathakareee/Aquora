@@ -15,11 +15,11 @@ from app.providers.rainfall import IMERGRainfallProvider
 
 @pytest.mark.asyncio
 async def test_real_data_mode_selects_local_dem_and_imerg():
-    """Verify REAL_DATA mode loads real Copernicus DEM and real IMERG E05 rainfall."""
+    """Verify REAL_DATA mode loads real Copernicus DEM and real IMERG E02 rainfall."""
     service = FloodProcessingService()
     req = FloodSimulationRequestSchema(
         provider_mode="REAL_DATA",
-        event_id="E05",
+        event_id="E02",
         horizon_minutes=30,
         timestep_minutes=10
     )
@@ -30,7 +30,7 @@ async def test_real_data_mode_selects_local_dem_and_imerg():
     assert "EPSG" in str(res.provenance["dem_crs"])
     assert res.provenance["dem_dimensions"] == [476, 392]
     assert "elevation_30m.tif" in res.provenance["dem_source"]
-    assert "E05_rainfall_30m.tif" in res.provenance["rainfall_source"]
+    assert "E02_rainfall_30m.tif" in res.provenance["rainfall_source"]
     assert res.provenance["is_synthetic_fallback"] is False
 
 

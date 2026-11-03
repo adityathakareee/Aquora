@@ -1,0 +1,48 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_17_STORAGE_AWARE_NATIONAL_PRECIPITATION_INGESTION
+timestamp_utc: '2026-10-19T18:07:02.631410+00:00'
+governance:
+  final_decision: STORAGE_STRATEGY_VALIDATED
+  preflight_audit_passed: true
+  storage_strategy_operational: true
+  mode_a_full_file_validated: true
+  mode_b_storage_constrained_validated: true
+  safety_reserve_active: true
+  checkpointing_active: true
+  supervised_training_permitted: false
+  national_trigger_modeling_permitted: false
+  zero_synthetic_rainfall_enforced: true
+  zero_missing_rainfall_imputation_enforced: true
+  summary: Phase 6C.2G.17 operationalized the storage-aware precipitation ingestion
+    strategy, demonstrating both Mode A (full-file retention) and Mode B (storage-constrained
+    processing with temporary cleanup and reproducibility tracking), enforcing a 10
+    GB disk safety reserve, reconciling the 24 Phase 16 records, reproducing E03 and
+    E02 preflight metrics, and classifying all 6,876 IFI disaster records.
+immutability_verification:
+  raw_copernicus_dsm_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  raw_ifi_sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+  verified_unmodified: true
+storage_metrics:
+  free_decimal_gb: 64.65
+  free_binary_gib: 60.21
+  min_reserve_gb: 10.0
+  retained_chirps_daily_files: 22
+  retained_imerg_daily_files: 13
+  mode_b_dates_processed: 2
+national_inventory_summary:
+  total_records: 6876
+  match_status_counts:
+    NOT_ACQUIRED: 6507
+    UNAVAILABLE_ERA: 321
+    DATE_UNCERTAIN: 20
+    DATE_ACQUIRED_UNEXTRACTED_LOCATION: 17
+    MATCHED_RAINFALL_COVERAGE: 11
+safeguards:
+- Missing rainfall values remain strictly NULL (never zero-filled).
+- Never infer physical causation or calibrated thresholds from rainfall co-occurrence
+  alone.
+- Point ground gauge observations must never be combined with satellite areal grids
+  as identical quantities.
+- Supervised 30m ML training remains blocked until verified spatial flood and non-flood
+  labels exist.

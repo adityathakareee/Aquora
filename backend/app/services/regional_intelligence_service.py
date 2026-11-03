@@ -222,35 +222,51 @@ class RegionalIntelligenceService:
     def get_basin_summary(cls, basin_id: str) -> Optional[BasinSummaryResponse]:
         """
         Retrieve structured metadata and capabilities for a specific Indian river basin.
+        First checks authentic HydroBASINS Level 04 service, then legacy hierarchy.
         Returns None if basin_id is unknown.
         """
-        basins = IndiaSpatialService._load_basins_hierarchy().get("basins", [])
-        matched = None
-        for b in basins:
-            if b.get("basin_id", "").upper() == basin_id.upper():
-                matched = b
-                break
+        from app.services.hydrobasins_service import HydrobasinsService
+        matched = HydrobasinsService().get_basin_by_id(basin_id)
+
+        if not matched:
+            basins = IndiaSpatialService._load_basins_hierarchy().get("basins", [])
+            for b in basins:
+                if b.get("basin_id", "").upper() == basin_id.upper():
+                    matched = b
+                    break
 
         if not matched:
             return None
 
         # Determine capabilities
+        is_mahanadi = matched.get("basin_id") in ["BASIN-MAHANADI", "BASIN-MAHANADI-UPPER", "BASIN-MAHANADI-LOWER"]
         is_active = matched.get("basin_id") in [
             "BASIN-GANGA",
             "BASIN-BRAHMAPUTRA",
             "BASIN-GODAVARI",
+            "BASIN-KRISHNA",
             "BASIN-NARMADA",
+            "BASIN-SABARMATI",
+            "BASIN-MAHANADI",
             "BASIN-MITHI",
+            "BASIN-WEST_COAST",
         ]
 
         capabilities = {
             "national_screening": "AVAILABLE",
             "regional_intelligence": "AVAILABLE" if is_active else "PLANNED",
-            "deep_intelligence": "AVAILABLE" if matched.get("basin_id") == "BASIN-MITHI" else "NOT_AVAILABLE",
+            "deep_intelligence": "AVAILABLE" if matched.get("basin_id") in ["BASIN-MITHI", "CATCH-MITHI-01"] else "NOT_AVAILABLE",
             "high_resolution_dem": is_active,
             "hydrography_channels": is_active,
-            "physical_flood_solver": matched.get("basin_id") == "BASIN-MITHI",
+            "physical_flood_solver": matched.get("basin_id") in ["BASIN-MITHI", "CATCH-MITHI-01"],
+            "experimental_research_layers": is_mahanadi,
         }
+
+        gov_note = (
+            "Phase 7F DFO 3382 regional research study. PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS. Physics engine primary authority."
+            if is_mahanadi
+            else "HydroSHEDS / HydroBASINS v1.c canonical boundary. Copernicus GLO-30 DEM reference."
+        )
 
         return BasinSummaryResponse(
             basin_id=matched["basin_id"],
@@ -263,5 +279,5 @@ class RegionalIntelligenceService:
             bounds=matched.get("bounds", {"min_lon": 0.0, "min_lat": 0.0, "max_lon": 0.0, "max_lat": 0.0}),
             operational_status="ACTIVE" if is_active else "PLANNED",
             capabilities=capabilities,
-            governance_note="HydroSHEDS / HydroBASINS v1.c canonical boundary. Copernicus GLO-30 DEM reference.",
+            governance_note=gov_note,
         )

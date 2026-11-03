@@ -1,0 +1,406 @@
+{
+  "event_id": "DFO_3382",
+  "phase": "PHASE_7F_3_8_STAGE_1_ACQUISITION",
+  "status": "AUX_EXT_ACQUISITION_COMPLETE",
+  "timestamp_utc": "2026-11-01T04:29:51.719881+00:00",
+  "total_files_acquired": 9,
+  "total_bytes_downloaded": 868457452,
+  "total_size_mb_decimal": 868.46,
+  "total_size_mib_binary": 828.23,
+  "total_elapsed_seconds": 1.7,
+  "acquired_datasets": [
+    {
+      "dataset_id": "hydrorivers_asia_v10",
+      "filename": "HydroRIVERS_v10_as_shp.zip",
+      "local_path": "data/raw/phase7/hydrography/hydrorivers/HydroRIVERS_v10_as_shp.zip",
+      "url": "https://data.hydrosheds.org/file/hydrorivers/HydroRIVERS_v10_as_shp.zip",
+      "byte_size": 90510995,
+      "sha256": "29780b0a75f90024f22e7e2029e5e3045f7325cda0528db65c5cc4c864b98525",
+      "http_status": 200,
+      "status_message": "CACHED_ALREADY_DOWNLOADED",
+      "is_zip": true,
+      "extracted_dir": "data/raw/phase7/hydrography/hydrorivers/extracted",
+      "uncompressed_files": 7,
+      "uncompressed_bytes": 378833273
+    },
+    {
+      "dataset_id": "hydrobasins_asia_v1c",
+      "filename": "hybas_as_lev01-12_v1c.zip",
+      "local_path": "data/raw/phase7/hydrography/hydrobasins/hybas_as_lev01-12_v1c.zip",
+      "url": "https://data.hydrosheds.org/file/HydroBASINS/standard/hybas_as_lev01-12_v1c.zip",
+      "byte_size": 376386706,
+      "sha256": "5f2a9c384829b59a22b2857c79bc294602aaa29c8794abd1e7bd7cf01057cc4a",
+      "http_status": 200,
+      "status_message": "CACHED_ALREADY_DOWNLOADED",
+      "is_zip": true,
+      "extracted_dir": "data/raw/phase7/hydrography/hydrobasins/extracted",
+      "uncompressed_files": 85,
+      "uncompressed_bytes": 1007569731
+    },
+    {
+      "dataset_id": "worldcover_2021_n18e084",
+      "filename": "ESA_WorldCover_10m_2021_v200_N18E084_Map.tif",
+      "local_path": "data/raw/phase7/landcover/worldcover/ESA_WorldCover_10m_2021_v200_N18E084_Map.tif",
+      "url": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N18E084_Map.tif",
+      "byte_size": 54269282,
+      "sha256": "43a88a24791410e97c68b06be427b2d59a5fbcf73eeb7c7ed224c516fbc7b815",
+      "http_status": 200,
+      "status_message": "CACHED_ALREADY_DOWNLOADED",
+      "is_zip": false,
+      "raster_metadata": {
+        "driver": "GTiff",
+        "crs": "EPSG:4326",
+        "width": 36000,
+        "height": 36000,
+        "total_pixels": 1296000000,
+        "bands": 1,
+        "data_types": [
+          "uint8"
+        ],
+        "nodata_values": [
+          0.0
+        ],
+        "resolution": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "bounds": [
+          84.0,
+          18.0,
+          87.0,
+          21.0
+        ]
+      }
+    },
+    {
+      "dataset_id": "worldcover_2021_n21e084",
+      "filename": "ESA_WorldCover_10m_2021_v200_N21E084_Map.tif",
+      "local_path": "data/raw/phase7/landcover/worldcover/ESA_WorldCover_10m_2021_v200_N21E084_Map.tif",
+      "url": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N21E084_Map.tif",
+      "byte_size": 127991194,
+      "sha256": "aca090736006257bb9ecdbac7a1a03597d38bf0ed56504ac9499ec003e84fbbe",
+      "http_status": 200,
+      "status_message": "CACHED_ALREADY_DOWNLOADED",
+      "is_zip": false,
+      "raster_metadata": {
+        "driver": "GTiff",
+        "crs": "EPSG:4326",
+        "width": 36000,
+        "height": 36000,
+        "total_pixels": 1296000000,
+        "bands": 1,
+        "data_types": [
+          "uint8"
+        ],
+        "nodata_values": [
+          0.0
+        ],
+        "resolution": [
+          8.333333333333333e-05,
+          8.333333333333333e-05
+        ],
+        "bounds": [
+          84.0,
+          21.0,
+          87.0,
+          24.0
+        ]
+      }
+    },
+    {
+      "dataset_id": "jrc_gsw_occurrence_80e_20n",
+      "filename": "occurrence_80E_20N.tif",
+      "local_path": "data/raw/phase7/water/jrc_gsw/occurrence_80E_20N.tif",
+      "url": "https://storage.googleapis.com/global-surface-water/downloads/occurrence/occurrence_80E_20N.tif",
+      "byte_size": 27240640,
+      "sha256": "fe25556c99088309a9cd604171e51c530ddc27b6271e7bed491637b6977d5c2f",
+      "http_status": 200,
+      "status_message": "CACHED_ALREADY_DOWNLOADED",
+      "is_zip": false,
+      "raster_metadata": {
+        "driver": "GTiff",
+        "crs": "EPSG:4326",
+        "width": 40000,
+        "height": 40000,
+        "total_pixels": 1600000000,
+        "bands": 1,
+        "data_types": [
+          "uint8"
+        ],
+        "nodata_values": [
+          null
+        ],
+        "resolution": [
+          0.00025,
+          0.00025
+        ],
+        "bounds": [
+          80.0,
+          10.0,
+          90.0,
+          20.0
+        ]
+      }
+    },
+    {
+      "dataset_id": "jrc_gsw_occurrence_80e_30n",
+      "filename": "occurrence_80E_30N.tif",
+      "local_path": "data/raw/phase7/water/jrc_gsw/occurrence_80E_30N.tif",
+      "url": "https://storage.googleapis.com/global-surface-water/downloads/occurrence/occurrence_80E_30N.tif",
+      "byte_size": 82179606,
+      "sha256": "58079fe1d50d120d3a3ccb87fbea71745536fbaa89736c62f5ca827b270d718b",
+      "http_status": 200,
+      "status_message": "CACHED_ALREADY_DOWNLOADED",
+      "is_zip": false,
+      "raster_metadata": {
+        "driver": "GTiff",
+        "crs": "EPSG:4326",
+        "width": 40000,
+        "height": 40000,
+        "total_pixels": 1600000000,
+        "bands": 1,
+        "data_types": [
+          "uint8"
+        ],
+        "nodata_values": [
+          null
+        ],
+        "resolution": [
+          0.00025,
+          0.00025
+        ],
+        "bounds": [
+          80.0,
+          20.0,
+          90.0,
+          30.0
+        ]
+      }
+    },
+    {
+      "dataset_id": "jrc_gsw_seasonality_80e_20n",
+      "filename": "seasonality_80E_20N.tif",
+      "local_path": "data/raw/phase7/water/jrc_gsw/seasonality_80E_20N.tif",
+      "url": "https://storage.googleapis.com/global-surface-water/downloads/seasonality/seasonality_80E_20N.tif",
+      "byte_size": 13975950,
+      "sha256": "b7f31fde6f633f10efc080f450441dd1d3de26f1f31807a28950535f72587fab",
+      "http_status": 200,
+      "status_message": "CACHED_ALREADY_DOWNLOADED",
+      "is_zip": false,
+      "raster_metadata": {
+        "driver": "GTiff",
+        "crs": "EPSG:4326",
+        "width": 40000,
+        "height": 40000,
+        "total_pixels": 1600000000,
+        "bands": 1,
+        "data_types": [
+          "uint8"
+        ],
+        "nodata_values": [
+          null
+        ],
+        "resolution": [
+          0.00025,
+          0.00025
+        ],
+        "bounds": [
+          80.0,
+          10.0,
+          90.0,
+          20.0
+        ]
+      }
+    },
+    {
+      "dataset_id": "jrc_gsw_seasonality_80e_30n",
+      "filename": "seasonality_80E_30N.tif",
+      "local_path": "data/raw/phase7/water/jrc_gsw/seasonality_80E_30N.tif",
+      "url": "https://storage.googleapis.com/global-surface-water/downloads/seasonality/seasonality_80E_30N.tif",
+      "byte_size": 29238608,
+      "sha256": "32e7070b1cf3ae7b7d2aa4258fc880440ca8b78d40b05380aa268e895ced2d8b",
+      "http_status": 200,
+      "status_message": "CACHED_ALREADY_DOWNLOADED",
+      "is_zip": false,
+      "raster_metadata": {
+        "driver": "GTiff",
+        "crs": "EPSG:4326",
+        "width": 40000,
+        "height": 40000,
+        "total_pixels": 1600000000,
+        "bands": 1,
+        "data_types": [
+          "uint8"
+        ],
+        "nodata_values": [
+          null
+        ],
+        "resolution": [
+          0.00025,
+          0.00025
+        ],
+        "bounds": [
+          80.0,
+          20.0,
+          90.0,
+          30.0
+        ]
+      }
+    },
+    {
+      "dataset_id": "gmw_v3_2008_gtiff",
+      "filename": "gmw_v3_2008_gtiff.zip",
+      "local_path": "data/raw/phase7/coastal/global_mangrove_watch/gmw_v3_2008_gtiff.zip",
+      "url": "https://zenodo.org/api/records/6894273/files/gmw_v3_2008_gtiff.zip/content",
+      "byte_size": 66664471,
+      "sha256": "bf73e12e50c085a1bf6093d99b5b76abf85fc6c0c5925ac302bc555db114d635",
+      "http_status": 200,
+      "status_message": "CACHED_ALREADY_DOWNLOADED",
+      "is_zip": true,
+      "extracted_dir": "data/raw/phase7/coastal/global_mangrove_watch/extracted",
+      "uncompressed_files": 1521,
+      "uncompressed_bytes": 324434998
+    }
+  ],
+  "regional_extractions": {
+    "hydrorivers_basin_reaches": 28792,
+    "hydrorivers_basin_km": 99784.6,
+    "hydrorivers_delta_reaches": 7883,
+    "hydrorivers_delta_km": 25584.2,
+    "hydrobasins_lev05_main_bas": 4050027100,
+    "hydrobasins_lev05_sub_units": 9,
+    "hydrobasins_lev05_area_km2": 135524.8,
+    "hydrobasins_lev07_main_bas": 4070027100,
+    "hydrobasins_lev07_subbasins": 81,
+    "hydrobasins_lev07_area_km2": 135525.0,
+    "hydrobasins_lev08_main_bas": 4080027100,
+    "hydrobasins_lev08_subbasins": 189,
+    "hydrobasins_lev08_area_km2": 135524.8,
+    "hydrobasins_lev08_delta_units": 7,
+    "hydrobasins_lev08_delta_area_km2": 3712.2,
+    "hydrobasins_lev08_delta_subbasins_detail": [
+      {
+        "hybas_id": 4080027100,
+        "pfaf_id": 45321011,
+        "sub_area_km2": 52.3,
+        "up_area_km2": 135526.1
+      },
+      {
+        "hybas_id": 4081039630,
+        "pfaf_id": 45321012,
+        "sub_area_km2": 467.0,
+        "up_area_km2": 467.0
+      },
+      {
+        "hybas_id": 4081039610,
+        "pfaf_id": 45321013,
+        "sub_area_km2": 1081.9,
+        "up_area_km2": 135007.2
+      },
+      {
+        "hybas_id": 4081037140,
+        "pfaf_id": 45321015,
+        "sub_area_km2": 214.0,
+        "up_area_km2": 132985.1
+      },
+      {
+        "hybas_id": 4081037070,
+        "pfaf_id": 45321014,
+        "sub_area_km2": 939.8,
+        "up_area_km2": 939.8
+      },
+      {
+        "hybas_id": 4081038340,
+        "pfaf_id": 45321017,
+        "sub_area_km2": 485.4,
+        "up_area_km2": 132299.5
+      },
+      {
+        "hybas_id": 4081038350,
+        "pfaf_id": 45321016,
+        "sub_area_km2": 471.8,
+        "up_area_km2": 471.8
+      }
+    ]
+  },
+  "coastal_mangroves_gmw2008": {
+    "GMW_N20E086_2008_v3.tif": {
+      "driver": "GTiff",
+      "crs": "EPSG:4326",
+      "width": 4500,
+      "height": 4500,
+      "total_pixels": 20250000,
+      "bands": 1,
+      "data_types": [
+        "uint8"
+      ],
+      "nodata_values": [
+        0.0
+      ],
+      "resolution": [
+        0.000222222222222,
+        0.000222222222222
+      ],
+      "bounds": [
+        86.0,
+        19.000000000001,
+        86.999999999999,
+        20.0
+      ],
+      "mangrove_pixel_count": 4080,
+      "mangrove_area_km2": 2.5
+    },
+    "GMW_N21E086_2008_v3.tif": {
+      "driver": "GTiff",
+      "crs": "EPSG:4326",
+      "width": 4500,
+      "height": 4500,
+      "total_pixels": 20250000,
+      "bands": 1,
+      "data_types": [
+        "uint8"
+      ],
+      "nodata_values": [
+        0.0
+      ],
+      "resolution": [
+        0.000222222222222,
+        0.000222222222222
+      ],
+      "bounds": [
+        86.0,
+        20.000000000001,
+        86.999999999999,
+        21.0
+      ],
+      "mangrove_pixel_count": 239497,
+      "mangrove_area_km2": 146.56
+    },
+    "GMW_N21E087_2008_v3.tif": {
+      "driver": "GTiff",
+      "crs": "EPSG:4326",
+      "width": 4500,
+      "height": 4500,
+      "total_pixels": 20250000,
+      "bands": 1,
+      "data_types": [
+        "uint8"
+      ],
+      "nodata_values": [
+        0.0
+      ],
+      "resolution": [
+        0.000222222222222,
+        0.000222222222222
+      ],
+      "bounds": [
+        87.0,
+        20.000000000001,
+        87.999999999999,
+        21.0
+      ],
+      "mangrove_pixel_count": 20268,
+      "mangrove_area_km2": 12.4
+    }
+  }
+}

@@ -1,0 +1,121 @@
+manifest_version: "1.0.0"
+phase: "PHASE_6B_E03_SENTINEL1_ACQUISITION_READINESS"
+created_at: "2026-10-15T23:10:00Z"
+last_validated_at: "2026-10-15T19:04:00Z"
+governance:
+  status: "DOWNLOADED_AND_VALIDATED"
+  zero_fabrication_enforced: true
+  zero_label_fabrication_enforced: true
+  credential_security_policy: "Environment variables only (.env / EARTHDATA_TOKEN). Zero hardcoded secrets."
+
+event_target:
+  event_id: "E03"
+  title: "Mumbai 1-2 July 2019 Monsoon Cloudburst Deluge"
+  event_dates: "2019-07-01 to 2019-07-02"
+  geographic_domain:
+    name: "Mumbai Mithi River Basin & Metropolitan Region"
+    bounding_box_wgs84:
+      min_lat: 18.99033
+      max_lat: 19.12057
+      min_lon: 72.84064
+      max_lon: 72.95071
+    projected_crs: "EPSG:32643"
+  hydrological_evidence:
+    24h_rainfall_total_mm: 375.2  # IMD Santacruz observatory (highest July 24-hr record in 14 years)
+    core_cloudburst_window: "2019-07-01T23:30:00+05:30 to 2019-07-02T05:30:00+05:30 (>200 mm in 6 hr)"
+    peak_inundation_window: "2019-07-02T01:00:00+05:30 to 2019-07-02T09:00:00+05:30"
+    mithi_river_status: "Breached banks at Kranti Nagar, Kurla; ~1,000 residents evacuated pre-dawn"
+    infrastructure_impacts: "Malad reservoir wall collapse at 01:30 IST (>25 fatalities); rail tracks submerged 1.5m at Sion/Kurla"
+    tidal_constraint: "High tide of 4.59m at 11:52 IST on 2 July 2019 blocked gravity storm outfalls"
+
+authoritative_catalog_evidence:
+  provider: "Alaska Satellite Facility (ASF) DAAC / Copernicus Data Space Ecosystem"
+  platform: "Sentinel-1A"
+  instrument: "C-SAR (5.405 GHz)"
+  track_relative_orbit: 34
+  frame_number: 528
+  pass_direction: "DESCENDING"
+  beam_mode: "IW (Interferometric Wide Swath)"
+  polarizations: ["VV", "VH"]
+  product_level: "L1 GRD_HD (Ground Range Detected High-Resolution, 10m spacing)"
+  mumbai_subswath: "IW2 (Incidence angle ~36.5 to 38.2 degrees over Mithi)"
+
+  primary_pair_candidates:
+    pre_event_baseline:
+      granule_name: "S1A_IW_GRDH_1SDV_20190608T010256_20190608T010321_027581_031CCA_FBE2"
+      start_time_utc: "2019-06-08T01:02:56Z"
+      stop_time_utc: "2019-06-08T01:03:21Z"
+      start_time_ist: "2019-06-08T06:32:56+05:30"
+      stop_time_ist: "2019-06-08T06:33:21+05:30"
+      absolute_orbit: 27581
+      exact_size_bytes: 925313923  # ~882.45 MB
+      provider_md5: "b5dfcdfdabe7065522b60ec697541d92"
+      verified_sha256: "9417b355264aa21c03804c357db43513aea414a33ee16bfa4163a5d99c130c45"
+      download_status: "DOWNLOADED_AND_VALIDATED"
+      spatial_coverage_verified: true
+      download_url: "https://datapool.asf.alaska.edu/GRD_HD/SA/S1A_IW_GRDH_1SDV_20190608T010256_20190608T010321_027581_031CCA_FBE2.zip"
+      temporal_role: "PRE_EVENT_DRY_BASELINE"
+      surface_condition_notes: "Acquired prior to monsoon onset (25 June). Dry pre-monsoon baseline. Note 24-day gap (scheduled 20 June pass omitted by ESA)."
+
+    co_event_crisis:
+      granule_name: "S1A_IW_GRDH_1SDV_20190702T010258_20190702T010323_027931_03274B_DDDA"
+      start_time_utc: "2019-07-02T01:02:58Z"
+      stop_time_utc: "2019-07-02T01:03:23Z"
+      start_time_ist: "2019-07-02T06:32:58+05:30"
+      stop_time_ist: "2019-07-02T06:33:23+05:30"
+      absolute_orbit: 27931
+      exact_size_bytes: 981880378  # ~936.39 MB
+      provider_md5: "10c400e13cd5b57cb3adb229bee87ee9"
+      verified_sha256: "aa2410d86bce108cffc850d03506c37967c9d899d933eaaf085ec726cf9207e7"
+      download_status: "DOWNLOADED_AND_VALIDATED"
+      spatial_coverage_verified: true
+      download_url: "https://datapool.asf.alaska.edu/GRD_HD/SA/S1A_IW_GRDH_1SDV_20190702T010258_20190702T010323_027931_03274B_DDDA.zip"
+      temporal_role: "CO_EVENT_PEAK_FLOOD_CRISIS"
+      surface_condition_notes: "Acquired 1 hour after intense 200+ mm overnight cloudburst finished. Mithi River actively overflowing; urban waterlogging at maximum extent."
+
+  optional_seasonal_baseline:
+    post_event_recession:
+      granule_name: "S1A_IW_GRDH_1SDV_20190714T010258_20190714T010323_028106_032C97_F1F5"
+      start_time_utc: "2019-07-14T01:02:58Z"
+      stop_time_utc: "2019-07-14T01:03:23Z"
+      start_time_ist: "2019-07-14T06:32:58+05:30"
+      stop_time_ist: "2019-07-14T06:33:23+05:30"
+      absolute_orbit: 28106
+      exact_size_bytes: 978935209  # ~933.58 MB
+      provider_md5: "14b2f99019a971f53fc519c6f524ff59"
+      download_url: "https://datapool.asf.alaska.edu/GRD_HD/SA/S1A_IW_GRDH_1SDV_20190714T010258_20190714T010323_028106_032C97_F1F5.zip"
+      temporal_role: "POST_EVENT_MONSOON_BASELINE"
+      surface_condition_notes: "Acquired 12 days post-event during ongoing monsoon. Enables multi-temporal baseline subtraction to separate seasonal soil moisture from acute flood water."
+
+storage_budget:
+  primary_pair_zips_bytes: 1907194301  # ~1.82 GB (June 8 + July 2)
+  optional_third_zip_bytes: 978935209   # ~0.93 GB (July 14)
+  extracted_safe_directory_bytes_approx: 3600000000  # ~3.4 GB
+  derived_backscatter_geotiffs_bytes_approx: 50000000  # ~50 MB
+  total_storage_required_primary_pair_bytes: 5557194301  # ~5.27 GB
+  available_disk_space_bytes: 66893922304  # ~62.30 GB (verified)
+  disk_headroom_status: "SUFFICIENT (Requires <10% of available free disk space)"
+
+post_download_validation_protocol:
+  step1_archive_integrity:
+    method: "Zip integrity test via zipfile.testzip() to verify non-corrupted extraction table."
+  step2_safe_structure:
+    required_assets:
+      - "manifest.safe"
+      - "measurement/s1a-iw-grd-vv-*.tiff"
+      - "measurement/s1a-iw-grd-vh-*.tiff"
+      - "annotation/s1a-iw-grd-vv-*.xml"
+      - "annotation/s1a-iw-grd-vh-*.xml"
+      - "annotation/calibration/calibration-s1a-iw-grd-vv-*.xml"
+  step3_geolocation_verification:
+    method: "Verify GCPs / geolocation grid points strictly intersect Mithi domain [72.84, 18.99, 72.95, 19.12]."
+  step4_radiometric_calibration:
+    method: "Apply ESA calibration lookup vector: sigma_0 = (DN^2) / (A_sigma^2) to derive authentic radar backscatter in dB."
+
+flood_labeling_scientific_limitations:
+  - "SAR backscatter changes are candidate observational evidence, NOT verified ground truth."
+  - "Seasonal Soil Wetting: Monsoon arrived 25 June. Bare soil moisture causes backscatter increases (+2 to +4 dB) that must not mask water."
+  - "Urban Double-Bounce: Flooded streets between buildings can create corner-reflector anomalies that increase backscatter rather than decrease it."
+  - "Permanent Water Masking: Arabian Sea, Mahim Bay, Thane Creek, and Mithi baseflow river channel must be masked using permanent water layers."
+  - "Radar Shadow & Layover: Steep terrain and skyscrapers cause radar shadows that mimic specular water reflection."
+  - "Independent Truth Boundary: Official municipal vector inundation polygons do NOT exist for July 2019; derived masks must be labeled as candidate flood evidence."

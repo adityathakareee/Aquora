@@ -1,0 +1,353 @@
+manifest_version: 1.1.0-amended
+phase: PHASE_7F_3_6_STAGE_3_DEM_ACQUISITION
+created_at_utc: '2026-10-31T14:33:15.000000+00:00'
+updated_at_utc: '2026-10-31T14:45:00.000000+00:00'
+event_id: DFO_3382
+basin_name: Mahanadi Basin / Odisha Delta
+package_id: CORRECTED_PACKAGE_B
+acquisition_decision: DEM_ACQUISITION_COMPLETE
+operational_status: PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS
+
+acquisition_summary:
+  authorized_package: Corrected Package B (9 Tiles)
+  total_tiles_requested: 9
+  total_tiles_acquired: 9
+  total_size_bytes: 285733588
+  total_size_mb: 272.50
+  total_elapsed_seconds: 219.3
+  target_directory: data/raw/phase7/dem/mahanadi_dfo3382
+  source_endpoint: https://copernicus-dem-30m.s3.amazonaws.com
+  product: Copernicus DEM GLO-30 (30m Cloud-Optimized GeoTIFF Digital Surface Model)
+  vertical_datum: EGM2008 geoid
+  native_crs: EPSG:4326
+  checksum_methodology: Locally calculated SHA-256 on byte stream. Independent source checksum verification was not established (AWS Open Data S3 does not publish SHA-256 metadata headers). File sizes match remote Content-Length exactly.
+  surface_model_qualification: DIGITAL_SURFACE_MODEL_LIMITATION (Captures canopy and structures; bare-earth DTM corrections pending future processing).
+
+tiles:
+- tile_id: N19E084
+  copernicus_filename: Copernicus_DSM_COG_10_N19_00_E084_00_DEM.tif
+  local_path: data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E084_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N19_00_E084_00_DEM/Copernicus_DSM_COG_10_N19_00_E084_00_DEM.tif
+  http_status: 200
+  download_timestamp_utc: '2026-10-31T14:28:35.000000+00:00'
+  file_size_bytes: 44511062
+  file_size_mb: 42.45
+  sha256_local: 11a8de07f960910d3c9e3f4fb542ebd0a12a1b6a9a2b4ee06f6e85da39b2536e
+  source_checksum_verified: false (Remote SHA-256 not published by AWS S3; local hash recorded)
+  role: Southwestern 5,125m terrestrial buffer for N19E085
+  raster_metadata:
+    crs: EPSG:4326
+    width: 3600
+    height: 3600
+    total_pixels: 12960000
+    valid_pixels: 12960000
+    nodata_pixels: 0
+    nodata_percentage: 0.0
+    bounds: [83.99986111111112, 19.000138888888888, 84.99986111111112, 20.000138888888888]
+    pixel_resolution_deg: [0.0002777777777777778, 0.0002777777777777778]
+    data_type: float32
+    nodata_value: NaN
+    elevation_stats_meters:
+      min: -2.75
+      max: 1504.53
+      mean: 301.07
+      median: 147.73
+      std: 300.43
+      pct_below_sea_level: 0.0
+      pct_lowland_delta_0_to_15m: 9.95
+    integrity_status: LOCAL_GEO_TIFF_VALIDATED
+
+- tile_id: N19E085
+  copernicus_filename: Copernicus_DSM_COG_10_N19_00_E085_00_DEM.tif
+  local_path: data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E085_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N19_00_E085_00_DEM/Copernicus_DSM_COG_10_N19_00_E085_00_DEM.tif
+  http_status: 200
+  download_timestamp_utc: '2026-10-31T14:29:45.662170+00:00'
+  file_size_bytes: 15545405
+  file_size_mb: 14.83
+  sha256_local: 038fde4a3bc977d5d1fe31e7c88d81dbb84cb63233ad14b473e75f16376d02a3
+  source_checksum_verified: false (Remote SHA-256 not published by AWS S3; local hash recorded)
+  role: Southern delta plain / Puri / Chilika lagoon / Daya-Bhargavi
+  raster_metadata:
+    crs: EPSG:4326
+    width: 3600
+    height: 3600
+    total_pixels: 12960000
+    valid_pixels: 12960000
+    nodata_pixels: 0
+    nodata_percentage: 0.0
+    bounds: [84.99986111111112, 19.000138888888888, 85.99986111111112, 20.000138888888888]
+    pixel_resolution_deg: [0.0002777777777777778, 0.0002777777777777778]
+    data_type: float32
+    nodata_value: NaN
+    elevation_stats_meters:
+      min: -1.00
+      max: 787.88
+      mean: 15.38
+      median: 0.00
+      std: 55.44
+      pct_below_sea_level: 0.0
+      pct_lowland_delta_0_to_15m: 81.79
+    integrity_status: LOCAL_GEO_TIFF_VALIDATED
+
+- tile_id: N19E086
+  copernicus_filename: Copernicus_DSM_COG_10_N19_00_E086_00_DEM.tif
+  local_path: data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E086_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N19_00_E086_00_DEM/Copernicus_DSM_COG_10_N19_00_E086_00_DEM.tif
+  http_status: 200
+  download_timestamp_utc: '2026-10-31T14:29:48.336495+00:00'
+  file_size_bytes: 2267323
+  file_size_mb: 2.16
+  sha256_local: 8b22518b9f48db4811a43ffb90875e53e414c51475726ce40bc64d1f2e1e3b6d
+  source_checksum_verified: false (Remote SHA-256 not published by AWS S3; local hash recorded)
+  role: Coastal margin / Devi river estuary / Coastal buffer
+  raster_metadata:
+    crs: EPSG:4326
+    width: 3600
+    height: 3600
+    total_pixels: 12960000
+    valid_pixels: 12960000
+    nodata_pixels: 0
+    nodata_percentage: 0.0
+    bounds: [85.99986111111112, 19.000138888888888, 86.99986111111112, 20.000138888888888]
+    pixel_resolution_deg: [0.0002777777777777778, 0.0002777777777777778]
+    data_type: float32
+    nodata_value: NaN
+    elevation_stats_meters:
+      min: -2.66
+      max: 25.30
+      mean: 0.19
+      median: 0.00
+      std: 1.48
+      pct_below_sea_level: 0.08
+      pct_lowland_delta_0_to_15m: 99.88
+    integrity_status: LOCAL_GEO_TIFF_VALIDATED
+
+- tile_id: N20E084
+  copernicus_filename: Copernicus_DSM_COG_10_N20_00_E084_00_DEM.tif
+  local_path: data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E084_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N20_00_E084_00_DEM/Copernicus_DSM_COG_10_N20_00_E084_00_DEM.tif
+  http_status: 200
+  download_timestamp_utc: '2026-10-31T14:30:12.793740+00:00'
+  file_size_bytes: 45814088
+  file_size_mb: 43.69
+  sha256_local: 0853d16d33254c5133ead256fa9feb6719fcc5a3ff642a6d8d36f3de6ac5bdde
+  source_checksum_verified: false (Remote SHA-256 not published by AWS S3; local hash recorded)
+  role: Western 5,125m terrestrial buffer and Banki gorge inflow reach
+  raster_metadata:
+    crs: EPSG:4326
+    width: 3600
+    height: 3600
+    total_pixels: 12960000
+    valid_pixels: 12960000
+    nodata_pixels: 0
+    nodata_percentage: 0.0
+    bounds: [83.99986111111112, 20.000138888888888, 84.99986111111112, 21.000138888888888]
+    pixel_resolution_deg: [0.0002777777777777778, 0.0002777777777777778]
+    data_type: float32
+    nodata_value: NaN
+    elevation_stats_meters:
+      min: 42.49
+      max: 1221.90
+      mean: 338.85
+      median: 279.79
+      std: 218.42
+      pct_below_sea_level: 0.0
+      pct_lowland_delta_0_to_15m: 0.0
+    integrity_status: LOCAL_GEO_TIFF_VALIDATED
+
+- tile_id: N20E085
+  copernicus_filename: Copernicus_DSM_COG_10_N20_00_E085_00_DEM.tif
+  local_path: data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E085_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N20_00_E085_00_DEM/Copernicus_DSM_COG_10_N20_00_E085_00_DEM.tif
+  http_status: 200
+  download_timestamp_utc: '2026-10-31T14:30:46.885834+00:00'
+  file_size_bytes: 47713048
+  file_size_mb: 45.50
+  sha256_local: de5c6c9fb88889fe7341f2f04db1b7b66ec6bf44a688e1a862264944a5790a13
+  source_checksum_verified: false (Remote SHA-256 not published by AWS S3; local hash recorded)
+  role: Delta apex / Cuttack / Bhubaneswar / Naraj barrage
+  raster_metadata:
+    crs: EPSG:4326
+    width: 3600
+    height: 3600
+    total_pixels: 12960000
+    valid_pixels: 12960000
+    nodata_pixels: 0
+    nodata_percentage: 0.0
+    bounds: [84.99986111111112, 20.000138888888888, 85.99986111111112, 21.000138888888888]
+    pixel_resolution_deg: [0.0002777777777777778, 0.0002777777777777778]
+    data_type: float32
+    nodata_value: NaN
+    elevation_stats_meters:
+      min: -38.00
+      max: 835.20
+      mean: 86.57
+      median: 55.45
+      std: 89.65
+      pct_below_sea_level: 0.0
+      pct_lowland_delta_0_to_15m: 14.50
+    integrity_status: LOCAL_GEO_TIFF_VALIDATED
+
+- tile_id: N20E086
+  copernicus_filename: Copernicus_DSM_COG_10_N20_00_E086_00_DEM.tif
+  local_path: data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E086_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N20_00_E086_00_DEM/Copernicus_DSM_COG_10_N20_00_E086_00_DEM.tif
+  http_status: 200
+  download_timestamp_utc: '2026-10-31T14:31:14.629559+00:00'
+  file_size_bytes: 39961485
+  file_size_mb: 38.11
+  sha256_local: 0c4b6911c594af84a822f8f525197dfcc3f3f868212bce31ec06aaf32aefa765
+  source_checksum_verified: false (Remote SHA-256 not published by AWS S3; local hash recorded)
+  role: Eastern delta plain / Kendrapara / Jagatsinghpur / Mahanadi mouth
+  raster_metadata:
+    crs: EPSG:4326
+    width: 3600
+    height: 3600
+    total_pixels: 12960000
+    valid_pixels: 12960000
+    nodata_pixels: 0
+    nodata_percentage: 0.0
+    bounds: [85.99986111111112, 20.000138888888888, 86.99986111111112, 21.000138888888888]
+    pixel_resolution_deg: [0.0002777777777777778, 0.0002777777777777778]
+    data_type: float32
+    nodata_value: NaN
+    elevation_stats_meters:
+      min: -6.49
+      max: 392.04
+      mean: 7.12
+      median: 4.88
+      std: 11.23
+      pct_below_sea_level: 0.27
+      pct_lowland_delta_0_to_15m: 90.72
+    integrity_status: LOCAL_GEO_TIFF_VALIDATED
+
+- tile_id: N20E087
+  copernicus_filename: Copernicus_DSM_COG_10_N20_00_E087_00_DEM.tif
+  local_path: data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E087_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N20_00_E087_00_DEM/Copernicus_DSM_COG_10_N20_00_E087_00_DEM.tif
+  http_status: 200
+  download_timestamp_utc: '2026-10-31T14:31:17.151978+00:00'
+  file_size_bytes: 203300
+  file_size_mb: 0.19
+  sha256_local: c873973492cc84157b84ed7c329469da283332fa59106daa757ed2acd9b9674b
+  source_checksum_verified: false (Remote SHA-256 not published by AWS S3; local hash recorded)
+  role: Eastern terrestrial spit / Gahirmatha / Bhitarkanika mangrove
+  raster_metadata:
+    crs: EPSG:4326
+    width: 3600
+    height: 3600
+    total_pixels: 12960000
+    valid_pixels: 12960000
+    nodata_pixels: 0
+    nodata_percentage: 0.0
+    bounds: [86.99986111111112, 20.000138888888888, 87.99986111111112, 21.000138888888888]
+    pixel_resolution_deg: [0.0002777777777777778, 0.0002777777777777778]
+    data_type: float32
+    nodata_value: NaN
+    elevation_stats_meters:
+      min: -1.05
+      max: 20.01
+      mean: 0.01
+      median: 0.00
+      std: 0.20
+      pct_below_sea_level: 0.0
+      pct_lowland_delta_0_to_15m: 100.00
+    integrity_status: LOCAL_GEO_TIFF_VALIDATED
+
+- tile_id: N21E085
+  copernicus_filename: Copernicus_DSM_COG_10_N21_00_E085_00_DEM.tif
+  local_path: data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E085_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N21_00_E085_00_DEM/Copernicus_DSM_COG_10_N21_00_E085_00_DEM.tif
+  http_status: 200
+  download_timestamp_utc: '2026-10-31T14:31:51.278917+00:00'
+  file_size_bytes: 44393359
+  file_size_mb: 42.34
+  sha256_local: 705b6bdf2b657551eb077eed5a1f4de5878f4497fe34c27019aa0d451be502ba
+  source_checksum_verified: false (Remote SHA-256 not published by AWS S3; local hash recorded)
+  role: Northern buffer & Jajpur / Baitarani-Brahmani confluence
+  raster_metadata:
+    crs: EPSG:4326
+    width: 3600
+    height: 3600
+    total_pixels: 12960000
+    valid_pixels: 12960000
+    nodata_pixels: 0
+    nodata_percentage: 0.0
+    bounds: [84.99986111111112, 21.000138888888888, 85.99986111111112, 22.000138888888888]
+    pixel_resolution_deg: [0.0002777777777777778, 0.0002777777777777778]
+    data_type: float32
+    nodata_value: NaN
+    elevation_stats_meters:
+      min: 16.23
+      max: 1180.12
+      mean: 354.52
+      median: 334.62
+      std: 219.08
+      pct_below_sea_level: 0.0
+      pct_lowland_delta_0_to_15m: 0.0
+    integrity_status: LOCAL_GEO_TIFF_VALIDATED
+
+- tile_id: N21E086
+  copernicus_filename: Copernicus_DSM_COG_10_N21_00_E086_00_DEM.tif
+  local_path: data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E086_00_DEM.tif
+  source_url: https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N21_00_E086_00_DEM/Copernicus_DSM_COG_10_N21_00_E086_00_DEM.tif
+  http_status: 200
+  download_timestamp_utc: '2026-10-31T14:33:04.145889+00:00'
+  file_size_bytes: 45322829
+  file_size_mb: 43.22
+  sha256_local: c9530b4f2458c5b869ea27bfd8e09c46b51ad5c8689b303b32d28e6a4b139051
+  source_checksum_verified: false (Remote SHA-256 not published by AWS S3; local hash recorded)
+  role: Northern buffer & Bhadrak / Dhamra river estuary
+  raster_metadata:
+    crs: EPSG:4326
+    width: 3600
+    height: 3600
+    total_pixels: 12960000
+    valid_pixels: 12960000
+    nodata_pixels: 0
+    nodata_percentage: 0.0
+    bounds: [85.99986111111112, 21.000138888888888, 86.99986111111112, 22.000138888888888]
+    pixel_resolution_deg: [0.0002777777777777778, 0.0002777777777777778]
+    data_type: float32
+    nodata_value: NaN
+    elevation_stats_meters:
+      min: -2.54
+      max: 1186.32
+      mean: 204.41
+      median: 48.72
+      std: 285.49
+      pct_below_sea_level: 0.02
+      pct_lowland_delta_0_to_15m: 35.88
+    integrity_status: LOCAL_GEO_TIFF_VALIDATED
+
+spatial_coverage_verification:
+  metric_crs: EPSG:32645 (WGS 84 / UTM Zone 45N)
+  buffering_methodology: Metric 5,125m geodesic expansion of dissolved flood-pixel footprints (5,000m buffer distance plus 125m half-pixel allowance for native 250m cell size)
+  core_delta_actual_flood_cells: 18686
+  core_delta_cells_covered: 18686 (100.0%)
+  core_delta_5125m_buffer_area_km2: 14391.41
+  core_delta_5125m_buffer_area_covered_km2: 14391.41 (100.0%)
+  core_delta_missing_buffer_km2: 0.00
+  extended_delta_actual_flood_cells: 20581
+  extended_delta_cells_covered: 20581 (100.0%)
+  extended_delta_5125m_buffer_area_km2: 17341.42
+  extended_delta_5125m_buffer_area_covered_km2: 16983.83 (97.94%)
+  extended_delta_missing_buffer_km2: 357.59 (N21E084: 168.17 km2, N21E087: 189.42 km2)
+  seam_alignment_verification: PASS (Mean elevation difference across graticule seams < 1.5m)
+  valid_dem_vs_geometric_coverage_finding:
+    total_acquired_pixels: 116640000 (9 x 12960000)
+    total_valid_dem_pixels: 116640000 (100.0%)
+    total_nodata_pixels: 0
+    coastal_water_handling: Ocean cells are filled with 0.0m elevation in raw DSM rather than NaN NoData.
+    water_masking_limitation: Future terrain processing requires a separately validated land/permanent-water mask. The JRC permanent-water mask alone cannot be assumed to resolve all coastal, tidal mudflat, or estuarine interface issues.
+    dsm_surface_limitation: Copernicus DEM GLO-30 is a Digital Surface Model (DSM), not a bare-earth DTM. Building structures, vegetation canopies, and mangrove stands elevate surface elevations above true bare earth.
+
+governance_invariants:
+  rainfall_imerg_downloaded: false
+  hydrorivers_hydrobasins_downloaded: false
+  additional_dem_tiles_downloaded: false
+  terrain_derivatives_generated: false
+  ml_models_trained_or_tuned: false
+  dfo2507_quarantine_preserved: true
+  phase6_supremacy_preserved: true

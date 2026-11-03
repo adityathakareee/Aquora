@@ -27,7 +27,17 @@ BASELINE_LOCATIONS: Dict[str, Dict[str, Any]] = {
         "centroid_lat": 20.5937,
         "centroid_lon": 78.9629,
         "default_zoom": 5,
-        "child_codes": ["IN-MH"],
+        "child_codes": [
+            "IN-MH",
+            "IN-OD",
+            "BASIN-GANGA",
+            "BASIN-BRAHMAPUTRA",
+            "BASIN-GODAVARI",
+            "BASIN-KRISHNA",
+            "BASIN-NARMADA",
+            "BASIN-SABARMATI",
+            "BASIN-MAHANADI",
+        ],
         "metadata": {
             "iso_code": "IND",
             "coverage": "Subcontinent",
@@ -48,6 +58,136 @@ BASELINE_LOCATIONS: Dict[str, Dict[str, Any]] = {
             "state_code": "27",
             "capital": "Mumbai",
             "tier": "Regional Intelligence",
+        },
+    },
+    "IN-OD": {
+        "entity_code": "IN-OD",
+        "name": "Odisha",
+        "entity_type": EntityType.STATE.value,
+        "parent_code": "IN",
+        "intelligence_level": IntelligenceLevel.REGIONAL.value,
+        "centroid_lat": 20.9517,
+        "centroid_lon": 85.0985,
+        "default_zoom": 7,
+        "child_codes": ["BASIN-MAHANADI"],
+        "metadata": {
+            "state_code": "21",
+            "capital": "Bhubaneswar",
+            "tier": "Regional Intelligence",
+        },
+    },
+    "BASIN-GANGA": {
+        "entity_code": "BASIN-GANGA",
+        "name": "Ganga River Basin",
+        "entity_type": EntityType.BASIN.value,
+        "parent_code": "IN",
+        "intelligence_level": IntelligenceLevel.REGIONAL.value,
+        "centroid_lat": 25.5000,
+        "centroid_lon": 83.0000,
+        "default_zoom": 6,
+        "child_codes": [],
+        "metadata": {
+            "main_river": "Ganga",
+            "area_km2": 1086000.0,
+            "tier": "Regional Watershed Intelligence",
+        },
+    },
+    "BASIN-BRAHMAPUTRA": {
+        "entity_code": "BASIN-BRAHMAPUTRA",
+        "name": "Brahmaputra River Basin",
+        "entity_type": EntityType.BASIN.value,
+        "parent_code": "IN",
+        "intelligence_level": IntelligenceLevel.REGIONAL.value,
+        "centroid_lat": 26.5000,
+        "centroid_lon": 92.5000,
+        "default_zoom": 6,
+        "child_codes": [],
+        "metadata": {
+            "main_river": "Brahmaputra",
+            "area_km2": 580000.0,
+            "tier": "Regional Watershed Intelligence",
+        },
+    },
+    "BASIN-GODAVARI": {
+        "entity_code": "BASIN-GODAVARI",
+        "name": "Godavari River Basin",
+        "entity_type": EntityType.BASIN.value,
+        "parent_code": "IN",
+        "intelligence_level": IntelligenceLevel.REGIONAL.value,
+        "centroid_lat": 19.0000,
+        "centroid_lon": 78.0000,
+        "default_zoom": 6,
+        "child_codes": [],
+        "metadata": {
+            "main_river": "Godavari",
+            "area_km2": 312812.0,
+            "tier": "Regional Watershed Intelligence",
+        },
+    },
+    "BASIN-NARMADA": {
+        "entity_code": "BASIN-NARMADA",
+        "name": "Narmada River Basin",
+        "entity_type": EntityType.BASIN.value,
+        "parent_code": "IN",
+        "intelligence_level": IntelligenceLevel.REGIONAL.value,
+        "centroid_lat": 22.5000,
+        "centroid_lon": 77.0000,
+        "default_zoom": 6,
+        "child_codes": [],
+        "metadata": {
+            "main_river": "Narmada",
+            "area_km2": 98796.0,
+            "tier": "Regional Watershed Intelligence",
+        },
+    },
+    "BASIN-KRISHNA": {
+        "entity_code": "BASIN-KRISHNA",
+        "name": "Krishna River Basin",
+        "entity_type": EntityType.BASIN.value,
+        "parent_code": "IN",
+        "intelligence_level": IntelligenceLevel.REGIONAL.value,
+        "centroid_lat": 16.4800,
+        "centroid_lon": 76.4900,
+        "default_zoom": 6,
+        "child_codes": [],
+        "metadata": {
+            "main_river": "Krishna",
+            "area_km2": 258784.0,
+            "tier": "Regional Watershed Intelligence",
+        },
+    },
+    "BASIN-SABARMATI": {
+        "entity_code": "BASIN-SABARMATI",
+        "name": "Sabarmati River Basin",
+        "entity_type": EntityType.BASIN.value,
+        "parent_code": "IN",
+        "intelligence_level": IntelligenceLevel.REGIONAL.value,
+        "centroid_lat": 23.2900,
+        "centroid_lon": 72.6800,
+        "default_zoom": 7,
+        "child_codes": [],
+        "metadata": {
+            "main_river": "Sabarmati",
+            "area_km2": 29977.0,
+            "tier": "Regional Watershed Intelligence",
+        },
+    },
+    "BASIN-MAHANADI": {
+        "entity_code": "BASIN-MAHANADI",
+        "name": "Mahanadi River Basin",
+        "entity_type": EntityType.BASIN.value,
+        "parent_code": "IN-OD",
+        "intelligence_level": IntelligenceLevel.REGIONAL.value,
+        "centroid_lat": 20.4500,
+        "centroid_lon": 85.8500,
+        "default_zoom": 8,
+        "child_codes": [],
+        "metadata": {
+            "main_river": "Mahanadi",
+            "area_km2": 141589.0,
+            "major_delta_branches": ["Devi", "Daya", "Bhargavi", "Kushabhadra"],
+            "tier": "Regional Watershed Intelligence (Phase 7F DFO 3382 Study)",
+            "governance": "PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS",
         },
     },
     "IN-MH-MUMBAI": {
@@ -146,6 +286,14 @@ async def get_location_by_code(entity_code: str) -> LocationDetail:
         norm_code = "CATCH-MITHI-01"
     elif norm_code in ["INDIA"]:
         norm_code = "IN"
+    elif norm_code in ["GANGA", "BASIN_GANGA"]:
+        norm_code = "BASIN-GANGA"
+    elif norm_code in ["BRAHMAPUTRA", "BASIN_BRAHMAPUTRA"]:
+        norm_code = "BASIN-BRAHMAPUTRA"
+    elif norm_code in ["GODAVARI", "BASIN_GODAVARI"]:
+        norm_code = "BASIN-GODAVARI"
+    elif norm_code in ["NARMADA", "BASIN_NARMADA"]:
+        norm_code = "BASIN-NARMADA"
 
     loc = BASELINE_LOCATIONS.get(norm_code)
     if not loc:

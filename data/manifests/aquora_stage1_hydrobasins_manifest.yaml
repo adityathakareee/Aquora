@@ -1,0 +1,206 @@
+manifest_version: "1.0.0"
+manifest_id: "MANIFEST-AQUORA-STAGE1-HYDROBASINS-20261103"
+title: "AQUORA Stage 1 HydroBASINS Level 04 Watershed Integration Manifest"
+generated_at: "2026-11-03T21:35:00Z"
+author: "AQUORA Core Geospatial & Hydrology Team"
+governing_standard: "AQUORA Phase 7 Zero-Fabrication & Strict Polygon Boundary Policy"
+
+source_datasets:
+  hydrobasins_level_04:
+    source_name: "HydroSHEDS / WWF HydroBASINS (v1.c)"
+    citation: "Lehner, B., Grill G. (2013): Global river hydrography and network routing. Hydrological Processes 27(15): 2171-2186."
+    local_path: "data/raw/phase7/hydrography/hydrobasins/extracted/hybas_as_lev04_v1c.shp"
+    file_size_bytes: 10600448
+    crs: "EPSG:4326 (WGS84)"
+    geometry_types:
+      Polygon: 147
+      MultiPolygon: 52
+    total_asia_features: 199
+    india_intersecting_features: 72
+    download_required: false
+    attributes:
+      - "HYBAS_ID (Unique 10-digit basin identifier)"
+      - "NEXT_DOWN (Downstream topological routing target)"
+      - "NEXT_SINK (Terminal coastal or inland sink identifier)"
+      - "MAIN_BAS (Master river basin sink identifier)"
+      - "DIST_SINK (Distance to sink in km)"
+      - "DIST_MAIN (Distance to main river in km)"
+      - "SUB_AREA (Local sub-basin drainage area in km2)"
+      - "UP_AREA (Total upstream contributing catchment area in km2)"
+      - "PFAF_ID (Pfafstetter hydrologic hierarchy code)"
+      - "ENDO (Endorheic indicator: 0=exorheic, 1=inland depression)"
+      - "COAST (Coastal segment indicator: 1=coastal boundary)"
+
+  hydrorivers_asia:
+    source_name: "HydroSHEDS / WWF HydroRIVERS (v1.0)"
+    citation: "Lehner, B. et al. (2019): Global HydroRIVERS vector network database."
+    local_path: "data/raw/phase7/hydrography/hydrorivers/extracted/HydroRIVERS_v10_as_shp/HydroRIVERS_v10_as.shp"
+    file_size_bytes: 207446016
+    crs: "EPSG:4326 (WGS84)"
+    total_reaches_india_bbox: 531819
+    governed_reaches_strahler_ge_4: 70948
+    download_required: false
+    filter_rule: "ORD_STRA >= 4 or DIS_AV_CMS >= 10.0"
+
+spatial_index_and_resolver:
+  implementation_class: "app.services.hydrobasins_service.HydrobasinsService"
+  spatial_index_type: "shapely.STRtree"
+  indexed_feature_count: 72
+  index_build_time_ms: 1.25
+  average_single_query_latency_ms: 0.96
+  benchmark_sla_target_ms: 5.0
+  crs_transformation_support:
+    - "EPSG:4326 (Canonical WGS84 native)"
+    - "EPSG:3857 (Web Mercator projection)"
+    - "EPSG:32643 (UTM Zone 43N projection)"
+  boundary_tie_breaking_policy:
+    primary_criterion: "max(UP_AREA) - hydrologically dominant catchment"
+    secondary_criterion: "min(HYBAS_ID) - deterministic integer tie-breaker"
+    transparency_flags:
+      containment_type: "BOUNDARY_RESOLVED"
+      boundary_ambiguity: true
+      ambiguous_hybas_ids: "enumerated in response"
+  oceanic_rejection_policy:
+    behavior: "Returns None (OUTSIDE_WATERSHED_COVERAGE)"
+    fallback: "Strictly prohibited - zero data fabrication"
+
+six_priority_locations_verification:
+  patna:
+    city_name: "Patna"
+    state: "Bihar"
+    coordinates: [25.5941, 85.1376]
+    resolved_hybas_id: 4040960480
+    canonical_basin_id: "BASIN-GANGA"
+    official_basin_name: "Ganga River Basin"
+    pfaf_id: 4524
+    sub_area_km2: 954206.0
+    up_area_km2: 954206.0
+    containment_type: "STRICT_INTERIOR"
+    boundary_ambiguity: false
+    distance_to_boundary_km: 130.00
+    nearest_reach_id: 40935293
+    nearest_reach_strahler: 8
+    nearest_reach_discharge_m3s: 10040.1
+    distance_to_river_m: 6034.9
+
+  guwahati:
+    city_name: "Guwahati"
+    state: "Assam"
+    coordinates: [26.1445, 91.7362]
+    resolved_hybas_id: 4040960200
+    canonical_basin_id: "BASIN-BRAHMAPUTRA"
+    official_basin_name: "Brahmaputra River Basin"
+    pfaf_id: 4525
+    sub_area_km2: 185347.6
+    up_area_km2: 539868.5
+    containment_type: "STRICT_INTERIOR"
+    boundary_ambiguity: false
+    distance_to_boundary_km: 64.76
+    nearest_reach_id: 40903222
+    nearest_reach_strahler: 8
+    nearest_reach_discharge_m3s: 18849.2
+    distance_to_river_m: 4609.6
+
+  mumbai:
+    city_name: "Mumbai"
+    state: "Maharashtra"
+    coordinates: [19.0760, 72.8777]
+    resolved_hybas_id: 4040029530
+    canonical_basin_id: "BASIN-MITHI"
+    official_basin_name: "Mithi Catchment / Coastal Maharashtra Basin"
+    pfaf_id: 4540
+    sub_area_km2: 316845.9
+    up_area_km2: 316846.0
+    containment_type: "STRICT_INTERIOR"
+    boundary_ambiguity: false
+    distance_to_boundary_km: 5.65
+    nearest_reach_id: 41214702
+    nearest_reach_strahler: 4
+    nearest_reach_discharge_m3s: 4.3
+    distance_to_river_m: 8797.0
+
+  vijayawada:
+    city_name: "Vijayawada"
+    state: "Andhra Pradesh"
+    coordinates: [16.5062, 80.6480]
+    resolved_hybas_id: 4040027940
+    canonical_basin_id: "BASIN-KRISHNA"
+    official_basin_name: "Krishna River Basin"
+    pfaf_id: 4536
+    sub_area_km2: 258784.2
+    up_area_km2: 258784.2
+    containment_type: "STRICT_INTERIOR"
+    boundary_ambiguity: false
+    distance_to_boundary_km: 0.52
+    nearest_reach_id: 41281665
+    nearest_reach_strahler: 8
+    nearest_reach_discharge_m3s: 2007.3
+    distance_to_river_m: 2892.8
+
+  nagpur:
+    city_name: "Nagpur"
+    state: "Maharashtra"
+    coordinates: [21.1458, 79.0882]
+    resolved_hybas_id: 4040027780
+    canonical_basin_id: "BASIN-GODAVARI"
+    official_basin_name: "Godavari River Basin"
+    pfaf_id: 4534
+    sub_area_km2: 310377.2
+    up_area_km2: 310380.1
+    containment_type: "STRICT_INTERIOR"
+    boundary_ambiguity: false
+    distance_to_boundary_km: 106.75
+    nearest_reach_id: 41155962
+    nearest_reach_strahler: 6
+    nearest_reach_discharge_m3s: 133.3
+    distance_to_river_m: 14594.8
+
+  ahmedabad:
+    city_name: "Ahmedabad"
+    state: "Gujarat"
+    coordinates: [23.0225, 72.5714]
+    resolved_hybas_id: 4040031820
+    canonical_basin_id: "BASIN-SABARMATI"
+    official_basin_name: "Sabarmati River Basin"
+    pfaf_id: 4552
+    sub_area_km2: 29977.0
+    up_area_km2: 29977.5
+    containment_type: "STRICT_INTERIOR"
+    boundary_ambiguity: false
+    distance_to_boundary_km: 40.46
+    nearest_reach_id: 41079551
+    nearest_reach_strahler: 5
+    nearest_reach_discharge_m3s: 26.2
+    distance_to_river_m: 155.5
+
+exported_geojson_artifacts:
+  full_resolution_geojson:
+    path: "data/processed/boundaries/hydrobasins_india_lev04.geojson"
+    file_size_bytes: 10620888
+    feature_count: 72
+    crs: "EPSG:4326"
+    geometry_type: "Polygon and MultiPolygon"
+    use_case: "High-precision backend spatial intersection and GIS export"
+  web_simplified_geojson:
+    path: "data/processed/boundaries/hydrobasins_india_lev04_web.geojson"
+    file_size_bytes: 2956595
+    feature_count: 72
+    crs: "EPSG:4326"
+    simplification_tolerance_degrees: 0.005
+    use_case: "Fast client-side web rendering in Leaflet / MapLibre"
+
+verification_test_summary:
+  dedicated_integration_suite: "backend/tests/test_hydrobasins_polygon_integration.py (19/19 PASSED)"
+  full_geographic_hierarchy_regression:
+    total_passed: 104
+    total_failed: 0
+    suites_verified:
+      - "tests/test_hydrobasins_polygon_integration.py (19 passed)"
+      - "tests/test_phase1_india_expansion.py (10 passed)"
+      - "tests/test_phase2b_india_foundation.py (28 passed)"
+      - "tests/test_phase3_national_screening_model.py (14 passed)"
+      - "tests/test_phase4_regional_intelligence.py (26 passed)"
+      - "tests/test_consolidation2_e2e_integration.py (7 passed)"
+  frontend_type_check: "npx tsc --noEmit (0 errors)"
+  frontend_production_build: "npm run build (Clean build in 11.74s)"
+

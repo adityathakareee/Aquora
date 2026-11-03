@@ -1,0 +1,113 @@
+manifest_version: 1.0.0
+phase: PHASE_7_REAL_FLOOD_DATASET_BUILD
+created_at_utc: '2026-10-28T12:18:45.689759+00:00'
+governance_status: APPROVED_REAL_SATELLITE_GROUND_TRUTH
+pilot_scope_notice: 'PILOT_PIPELINE_VALIDATION_ONLY: Samples originate from a single
+  flood event (DFO 4499, July 2017). Spatial cross-validation across sub-basins represents
+  a within-event spatial holdout. Standalone model evaluation and production calibration
+  remain BLOCKED pending multi-event acquisition.'
+dataset_files:
+  master_dataset:
+    description: Full 5,500-sample dataset including 500 permanent water / excluded
+      controls (label=-1)
+    parquet:
+      path: data/processed/phase7/ml/phase7_gfd_pilot_dataset.parquet
+      bytes: 136711
+      sha256: 4d809d47fdc908121f08f5a00ed3d9bab3d515fd6f242a185f73557225782225
+    csv:
+      path: data/processed/phase7/ml/phase7_gfd_pilot_dataset.csv
+      bytes: 1195069
+      sha256: 6f52bc13ba6d142c78f4f51285c8db641e2af3b7069a5c827f54ab26588ae300
+  binary_training_dataset:
+    description: Gated 5,000-sample binary dataset (2,500 flood vs 2,500 dry) with
+      label=-1 excluded
+    parquet:
+      path: data/processed/phase7/ml/phase7_gfd_pilot_binary_dataset.parquet
+      bytes: 128470
+      sha256: 608be4e3320c092e32e7d7d91934ddbc1394670c9fa4542e833c18e66b63097f
+    csv:
+      path: data/processed/phase7/ml/phase7_gfd_pilot_binary_dataset.csv
+      bytes: 1087321
+      sha256: dcdd828fb24506bf777dcf3029d7ef63ed3e87ffbed430437e249da9fbf57802
+event_provenance:
+  event_id: DFO_4499
+  ifi_correlation: UEI-IMD-FL-2017-0122
+  disaster_name: West Bengal / Lower Ganga Monsoon Flood (July-August 2017)
+  observation_date: '2017-07-27'
+  bounding_box_wgs84:
+    min_lon: 88.0
+    max_lon: 89.0
+    min_lat: 22.0
+    max_lat: 23.0
+  satellite_ground_truth_source:
+    name: Global Flood Database (GFD v1.4 / Tellman et al., Nature 2021)
+    gcs_bucket: gs://gfd_v1_4/DFO_4499_From_20170727_to_20170810.zip
+    license: CC-BY-NC-4.0
+    spatial_resolution_m: 250.0
+    permanent_water_mask: JRC Global Surface Water (30m)
+  observation_quality_accounting:
+    total_valid_observed_cells: 3239389
+    clear_perc_range_on_valid:
+    - 0.8235
+    - 1.0
+    cloudy_cells_below_70_pct: 0
+    permanent_water_cells_jrc: 72887
+    clarification_note: The report value of 72,887 represents JRC permanent water
+      bodies. Because all observed cells during DFO 4499 had clear_perc >= 82.35%,
+      cloud-affected cells (<70%) were exactly 0. The identical figure in preliminary
+      logs was a composite exclusion category (valid - pure_flood - pure_dry = 72,887),
+      which was entirely composed of permanent water.
+  terrain_source:
+    name: AWS Open Data Copernicus DEM GLO-30 (Copernicus_DSM_COG_10_N22_00_E088_00_DEM.tif)
+    spatial_resolution_m: 30.0
+    vertical_datum: EGM96 Geoid
+  precipitation_source:
+    name: UC Santa Barbara CHIRPS v2.0 Daily Precipitation (0.05 deg / ~5km)
+    dates_ingested:
+    - '2017-07-25'
+    - '2017-07-26'
+    - '2017-07-27'
+feature_specification:
+  core_11_predictors:
+  - rainfall_1h_mm
+  - rainfall_3h_mm
+  - rainfall_6h_mm
+  - rainfall_24h_mm
+  - rainfall_72h_mm
+  - rainfall_anomaly_index
+  - elevation_m
+  - slope_deg
+  - distance_to_river_m
+  - historical_flood_frequency
+  - landcover_class
+  predictor_order_enforced: true
+  null_policy: Native missing value handling in gradient boosting. No synthetic zero-imputation.
+spatial_cross_validation:
+  strategy: Spatial GroupKFold by basin_id (zero geographic cell leakage across folds)
+  validation_nature: within_event_spatial_holdout
+  train_sub_basins:
+  - BASIN_4521_SB1
+  - BASIN_4521_SB2
+  - BASIN_4521_SB3
+  validation_sub_basins:
+  - BASIN_4521_SB4
+  test_sub_basins:
+  - BASIN_4521_SB5
+  sub_basin_leakage_audit: PASSED_ZERO_OVERLAP
+dataset_statistics:
+  master_rows: 5500
+  binary_training_rows: 5000
+  labels:
+    verified_flood_count: 2500
+    verified_dry_count: 2500
+    excluded_permanent_water_count: 500
+  binary_splits:
+    test: 1581
+    train: 2688
+    validation: 731
+  sub_basins:
+    test_BASIN_4521_SB5: 1853
+    train_BASIN_4521_SB1: 840
+    train_BASIN_4521_SB2: 1265
+    train_BASIN_4521_SB3: 722
+    validation_BASIN_4521_SB4: 820

@@ -1,0 +1,133 @@
+manifest_version: 1.0.0
+phase: PHASE_7E_EXPERIMENTAL_ML_PACKAGE
+package_name: aquora-phase7e-kaggle-package
+created_at_utc: '2026-10-30T11:33:41.115762+00:00'
+governance_status: EXPERIMENTAL_EVALUATION_ONLY
+holdout_policy:
+  test_event_id: DFO_2507
+  designation: ALREADY_INSPECTED_HOLDOUT
+  rule: Frozen for final qualified benchmark evaluation only. Model selection and
+    threshold tuning restricted strictly to validation data.
+package_assets:
+  phase7c_multievent_binary_dataset.parquet:
+    path: phase7c_multievent_binary_dataset.parquet
+    bytes: 2742428
+    sha256: f31591cf39cd4c542d842128c6782d5206dd7b52449928e674d340acfed4d2f7
+  phase7c_multievent_binary_dataset.csv:
+    path: phase7c_multievent_binary_dataset.csv
+    bytes: 42479340
+    sha256: 754724649d8e856093d21986fcce0e383b21bacf922c333f9b64dcdea2fb27cb
+  aquora_ml_feature_schema_v1.json:
+    path: aquora_ml_feature_schema_v1.json
+    bytes: 1558
+    sha256: 47ffdeedc73ee602f6ea1349347323b5ee3d58180fdc3b20261b94b9afee5911
+  AQUORA_Phase_7E_Experimental_ML.ipynb:
+    path: AQUORA_Phase_7E_Experimental_ML.ipynb
+    bytes: 39922
+    sha256: e0e3e77fd1f2db7fe8153242c5a74a0248e7261ec55c2be6b01f7bb1cec2ebe4
+  DATA_DICTIONARY.md:
+    path: DATA_DICTIONARY.md
+    bytes: 5293
+    sha256: a3888f9b77a61c8c8003b8d5774488fb2d8079a05365023ac660bd5983e0160c
+  TARGET_LABEL_DOCUMENTATION.md:
+    path: TARGET_LABEL_DOCUMENTATION.md
+    bytes: 2800
+    sha256: 0c9c8187c077df8ca53b8b2a42103e1a7388374b869131264ba0eb34a04f15f0
+  SPLIT_DOCUMENTATION.md:
+    path: SPLIT_DOCUMENTATION.md
+    bytes: 2956
+    sha256: c1d19303263c95a6af910ca704671a1e7c9bfb3c6c5ec1c906b8309aab86850f
+  DATA_QUALITY_AND_LIMITATIONS.md:
+    path: DATA_QUALITY_AND_LIMITATIONS.md
+    bytes: 4134
+    sha256: fe42a16895843dbb974f08f7a3551c6cb58fd9c1b1b91eaed5fcce84f88e0ba3
+  README.md:
+    path: README.md
+    bytes: 4004
+    sha256: ea81a4e777de0db48069acf53e003dc0cd165955b133d301851d34cc73513564
+dataset_structure:
+  binary_dataset_rows: 207205
+  columns_count: 24
+  label_column: flood_label
+  event_id_column: event_id
+  split_column: split
+  supervised_labels:
+  - 0
+  - 1
+  excluded_controls:
+  - -1
+split_summary:
+  train:
+    events:
+    - DFO_4499
+    - DFO_2935
+    regions:
+    - Lower Ganga Basin (West Bengal)
+    - Upper Godavari Basin (Maharashtra)
+    binary_samples: 5700
+    flood_samples: 2850
+    dry_samples: 2850
+    class_balance: 50.0% / 50.0% balanced training subset
+  validation:
+    events:
+    - DFO_3372
+    regions:
+    - Upper Brahmaputra Basin (Assam)
+    binary_samples: 5000
+    flood_samples: 2500
+    dry_samples: 2500
+    class_balance: 50.0% / 50.0% balanced validation subset
+  test:
+    events:
+    - DFO_2507
+    regions:
+    - North Bihar / Kosi Basin (Bihar)
+    binary_samples: 196505
+    flood_samples: 11435
+    dry_samples: 185070
+    class_balance: NATURAL_POPULATION (5.819% flood prevalence; zero artificial rebalancing)
+    holdout_status: ALREADY_INSPECTED_HOLDOUT
+governed_features:
+  schema_name: aquora_ml_feature_schema_v1
+  core_11_features:
+  - rainfall_1h_mm
+  - rainfall_3h_mm
+  - rainfall_6h_mm
+  - rainfall_24h_mm
+  - rainfall_72h_mm
+  - rainfall_anomaly_index
+  - elevation_m
+  - slope_deg
+  - distance_to_river_m
+  - historical_flood_frequency
+  - landcover_class
+  model_training_features_10:
+  - rainfall_1h_mm
+  - rainfall_3h_mm
+  - rainfall_6h_mm
+  - rainfall_24h_mm
+  - rainfall_72h_mm
+  - rainfall_anomaly_index
+  - elevation_m
+  - slope_deg
+  - distance_to_river_m
+  - landcover_class
+  excluded_leakage_features:
+  - historical_flood_frequency
+  forbidden_columns:
+  - flood_label
+  - candidate_flood_label
+  - sar_delta_vv_db
+  - sar_scene_id
+  - water_depth_m
+  - flow_velocity_ms
+  - modeled_depth_m
+  - latitude
+  - longitude
+reference_datasets:
+  master_dataset_parquet:
+    path: data/processed/phase7/ml/phase7c_multievent_dataset.parquet
+    rows: 209116
+    permanent_water_controls: 1911
+    purpose: Preserved separately for reference and audit purposes without training
+      package duplication.

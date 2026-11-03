@@ -17,9 +17,14 @@ import {
   ShieldCheck,
   AlertTriangle,
   Info,
+  Globe,
+  Layers,
+  RotateCcw,
+  CheckCircle2,
 } from 'lucide-react';
 import { MapContainer } from '@/map/MapContainer';
 import { useAppStore } from '@/store/useAppStore';
+import { useLocationStore } from '@/store/useLocationStore';
 import { fetchLatestDigitalTwinRun } from '@/api/digitalTwin';
 import { fetchAlerts } from '@/api/alerts';
 import { fetchCriticalFacilities } from '@/api/criticalAccess';
@@ -221,9 +226,272 @@ const Shortcut: React.FC<ShortcutProps> = ({ icon: Icon, label, sub, color, onCl
   </button>
 );
 
+/* ─── Mahanadi Regional Overview Component ─────────────────── */
+interface MahanadiRegionalOverviewProps {
+  onExploreClick: () => void;
+  onResetToMumbai: () => void;
+  onOpenTiers: () => void;
+}
+
+const MahanadiRegionalOverview: React.FC<MahanadiRegionalOverviewProps> = ({
+  onExploreClick,
+  onResetToMumbai,
+  onOpenTiers,
+}) => (
+  <div className="space-y-4 pb-4 font-sans max-w-[1280px] mx-auto">
+    {/* 1. Regional Research Hero Banner */}
+    <div className="relative w-full rounded-[20px] overflow-hidden shadow-lg border border-teal-900/40 bg-gradient-to-r from-[#031920] via-[#052b36] to-[#0a4556] p-6 sm:p-8 text-white">
+      <div className="max-w-[780px] space-y-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="text-[10px] font-bold tracking-[0.25em] text-teal-300 uppercase">
+            AQUORA REGIONAL INTELLIGENCE · LEVEL 2
+          </span>
+          <span className="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30">
+            PROTOTYPE_ONLY
+          </span>
+          <span className="text-[9px] font-extrabold uppercase px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30">
+            NOT_FOR_PUBLIC_ALERTS
+          </span>
+        </div>
+
+        <h1 className="text-[1.9rem] sm:text-[2.4rem] font-extrabold tracking-tight leading-tight text-white">
+          Mahanadi River Basin <br />
+          <span className="text-[#00e5d4]">Regional Research Exploration (DFO 3382)</span>
+        </h1>
+
+        <p className="text-[13px] sm:text-[14px] text-slate-200 leading-relaxed font-normal">
+          Controlled geospatial dataset preparation and model exploration for the September 2008 Mahanadi monsoon flood event. Evaluates 13 authorized features across 27 Level 8 HydroBASINS sub-basins with strict spatial independence.
+        </p>
+
+        <div className="flex flex-wrap items-center gap-3 pt-2">
+          <button
+            onClick={onExploreClick}
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#008080] hover:bg-[#009696] text-white text-[13px] font-bold tracking-wide transition-all duration-200 shadow-md hover:shadow-lg cursor-pointer"
+          >
+            <span>Explore Basin Map Layers</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+          <button
+            onClick={onResetToMumbai}
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white text-[13px] font-semibold border border-white/20 transition-all cursor-pointer"
+          >
+            <RotateCcw className="w-3.5 h-3.5 text-teal-300" />
+            <span>Switch to Mumbai Deep Zone</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {/* Mandatory Governance Warning Box */}
+    <div className="bg-amber-50 border border-amber-200/90 rounded-2xl p-4 shadow-xs">
+      <div className="flex items-start gap-3">
+        <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
+        <div className="space-y-1 text-xs">
+          <h3 className="font-extrabold text-amber-900 uppercase tracking-wider text-[11px]">
+            Experimental Spatial Research — Not an Operational Flood Forecast
+          </h3>
+          <p className="text-amber-800 leading-relaxed">
+            <strong>Primary Authority Invariant:</strong> The Phase 6 2D Hydrodynamic Physics Solver (<code>engines/flood/solver.py</code>) remains the primary operational flood authority. Regional ML exploration models serve diagnostic research purposes and are strictly barred from triggering public or emergency warnings.
+          </p>
+          <p className="text-amber-700 text-[11px]">
+            <strong>Rainfall Availability:</strong> Real-time and historical precipitation are uningested (100% NaN) for this study extent. Zero synthetic rainfall fabrication or imputation was performed.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {/* Hierarchy Bar */}
+    <div className="bg-white rounded-[18px] p-4 border border-slate-200/90 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+      <div className="flex items-center gap-3">
+        <div className="w-9 h-9 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-700 shrink-0">
+          <Globe className="w-5 h-5" />
+        </div>
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs font-extrabold uppercase tracking-wider text-slate-800">
+              AQUORA Geographic Hierarchy
+            </span>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 uppercase">
+              REGIONAL WATERSHED
+            </span>
+          </div>
+          <p className="text-xs text-slate-500 mt-0.5">
+            Active Scope: <strong className="text-slate-700">Mahanadi River Basin · Odisha (BASIN-MAHANADI)</strong> · No Deep Intelligence Available
+          </p>
+        </div>
+      </div>
+      <button
+        onClick={onOpenTiers}
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all cursor-pointer shadow-xs hover:shadow-md shrink-0"
+      >
+        <Layers className="w-3.5 h-3.5 text-teal-400" />
+        <span>Switch Geographic Tier</span>
+        <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+      </button>
+    </div>
+
+    {/* 4 Regional Story KPI cards */}
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">
+      <MetricCard
+        icon={Waves}
+        label="Basin Drainage Extent"
+        value="141,589 km²"
+        sub="Odisha, Chhattisgarh & Jharkhand delta catchment."
+        accent="teal"
+      />
+      <MetricCard
+        icon={Layers}
+        label="Spatial Partitions"
+        value="27 Sub-basins"
+        sub="15 Train / 6 Validation / 6 Test (Level 8 HydroBASINS)."
+        accent="teal"
+      />
+      <MetricCard
+        icon={Info}
+        label="Optical Margin Coupling"
+        value={<span className="text-[1.2rem] text-amber-600 font-bold">66.8%</span>}
+        sub="Flood cells in mixed water margins (dry_fraction < 0.70)."
+        accent="amber"
+      />
+      <MetricCard
+        icon={CloudRain}
+        label="Rainfall Feed"
+        value={<span className="text-[1.1rem] text-slate-600 font-mono font-bold">100% NaN</span>}
+        sub="Preserved honest nulls — zero synthetic imputation."
+        accent="teal"
+      />
+    </div>
+
+    {/* 2-column detailed analysis */}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-stretch">
+      {/* Left Column: Basin Map + Ablation Findings (2/3) */}
+      <div className="lg:col-span-2 space-y-4">
+        <Card padding="md" className="border shadow-xs space-y-3">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <Waves className="w-4 h-4 text-[#008080]" />
+              <h3 className="aq-section-title">Mahanadi Delta Hydrography</h3>
+            </div>
+            <span className="text-xs text-slate-500 font-mono">EPSG:4326 · 30m Copernicus Mosaic</span>
+          </div>
+          <div className="h-[280px] rounded-xl overflow-hidden border border-slate-200">
+            <MapContainer height="280px" />
+          </div>
+          <p className="text-[11.5px] text-slate-500 leading-relaxed">
+            Main river stem splits at Cuttack delta apex into major distributaries: Devi, Daya, Bhargavi, and Kushabhadra discharging into the Bay of Bengal and Chilika Lake.
+          </p>
+        </Card>
+
+        {/* Scientific Review Card */}
+        <Card padding="md" className="border shadow-xs space-y-3">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-[#008080]" />
+              <h3 className="aq-section-title">Stage 4.1 Scientific Robustness Review</h3>
+            </div>
+            <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-100 text-emerald-800">
+              AUDIT COMPLETE
+            </span>
+          </div>
+          <div className="text-xs space-y-2 text-slate-700 leading-relaxed">
+            <p>
+              <strong>Land/Water Boundary Margins vs Terrestrial Inundation:</strong> In the original 13-feature model, <code>land_water_dry_fraction</code> accounted for 21.08% feature importance. An ablation experiment excluding this feature showed negligible global test metric difference (PR-AUC 0.7514 vs 0.7410).
+            </p>
+            <div className="p-3 bg-slate-50 rounded-xl border border-slate-200/80 space-y-2">
+              <span className="font-bold text-slate-900 block text-[11.5px]">Controlled Ablation & Margin Evaluation:</span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-[11px]">
+                <div className="p-2 bg-white rounded border border-slate-200">
+                  <span className="text-slate-500 block">13-feat PR-AUC</span>
+                  <strong className="text-slate-800 font-mono">0.7514</strong>
+                </div>
+                <div className="p-2 bg-white rounded border border-slate-200">
+                  <span className="text-slate-500 block">Ablated PR-AUC</span>
+                  <strong className="text-slate-800 font-mono">0.7410</strong>
+                </div>
+                <div className="p-2 bg-white rounded border border-slate-200">
+                  <span className="text-slate-500 block">Mixed Margin</span>
+                  <strong className="text-amber-700 font-mono">66.8% flood</strong>
+                </div>
+                <div className="p-2 bg-white rounded border border-slate-200">
+                  <span className="text-slate-500 block">Terrestrial PR-AUC</span>
+                  <strong className="text-red-600 font-mono">0.0192</strong>
+                </div>
+              </div>
+            </div>
+            <p className="text-slate-600 text-[11px]">
+              <strong>Key Scientific Finding:</strong> When evaluated strictly on terrestrial cells away from permanent water boundaries (dry_fraction &ge; 0.70), both models collapse to PR-AUC 0.0192 (relative to 0.0157 baseline prevalence). The coarse optical labels (DFO 3382 MODIS) reflect water body proximity rather than true inland precipitation flooding.
+            </p>
+          </div>
+        </Card>
+      </div>
+
+      {/* Right Column: Spatial Partitioning Governance (1/3) */}
+      <div className="space-y-4">
+        <Card padding="md" className="border shadow-xs space-y-3">
+          <h3 className="aq-section-title">Spatial Partitioning Governance</h3>
+          <div className="space-y-2.5 text-xs text-slate-600">
+            <div className="p-2.5 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-between">
+              <div>
+                <span className="font-bold text-blue-900 block">Training Partition</span>
+                <span className="text-[10px] text-blue-700">15 Sub-basins (134,809 samples)</span>
+              </div>
+              <span className="text-xs font-mono font-bold text-blue-900">55.6%</span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-100 flex items-center justify-between">
+              <div>
+                <span className="font-bold text-amber-900 block">Validation Partition</span>
+                <span className="text-[10px] text-amber-700">6 Sub-basins (53,887 samples)</span>
+              </div>
+              <span className="text-xs font-mono font-bold text-amber-900">22.2%</span>
+            </div>
+            <div className="p-2.5 rounded-lg bg-emerald-50 border border-emerald-100 flex items-center justify-between">
+              <div>
+                <span className="font-bold text-emerald-900 block">Test Partition</span>
+                <span className="text-[10px] text-emerald-700">6 Sub-basins (53,912 samples)</span>
+              </div>
+              <span className="text-xs font-mono font-bold text-emerald-900">22.2%</span>
+            </div>
+          </div>
+
+          <div className="pt-2 border-t border-slate-100 space-y-2 text-xs">
+            <div className="flex items-center gap-2 text-slate-700">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Zero Spatial Leakage: Blocked by sub-basin</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-700">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Quarantine: DFO 2507 holdout 100% isolated</span>
+            </div>
+            <div className="flex items-center gap-2 text-slate-700">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+              <span>Contract: Phase 7E 7-feature schema untouched</span>
+            </div>
+          </div>
+
+          <div className="pt-3 border-t border-slate-100 flex flex-col gap-2">
+            <button
+              onClick={onExploreClick}
+              className="w-full py-2.5 px-3 rounded-xl bg-[#008080] hover:bg-[#009696] text-white text-xs font-bold text-center transition-all cursor-pointer shadow-xs"
+            >
+              Inspect Regional Map
+            </button>
+            <button
+              onClick={onResetToMumbai}
+              className="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold text-center transition-all cursor-pointer"
+            >
+              Return to Mumbai Deep Zone
+            </button>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>
+);
+
 /* ─── Main Overview Feature ────────────────────────────────── */
 export const OverviewFeature: React.FC = () => {
   const { setActiveTab } = useAppStore();
+  const { displayName, activeIntelligenceLevel, selectedBasin, setTierModalOpen, resetToMumbai } = useLocationStore();
   const [activeStepIndex, setActiveStepIndex] = useState<number>(2); // Default to +60m (Peak)
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -294,11 +562,53 @@ export const OverviewFeature: React.FC = () => {
     setIsPlaying(!isPlaying);
   };
 
+  const isMahanadiRegional = activeIntelligenceLevel === 'REGIONAL' && selectedBasin === 'BASIN-MAHANADI';
+
+  if (isMahanadiRegional) {
+    return (
+      <MahanadiRegionalOverview
+        onExploreClick={() => setActiveTab('flood-map')}
+        onResetToMumbai={resetToMumbai}
+        onOpenTiers={() => setTierModalOpen(true)}
+      />
+    );
+  }
+
   return (
     <div className="space-y-4 pb-4 font-sans max-w-[1280px] mx-auto">
 
       {/* ── 1. Hero Skyline Banner ──────────────────────────── */}
       <MumbaiSkylineHero onExploreClick={() => setActiveTab('flood-map')} />
+
+      {/* ── 1b. Multiscale Hierarchy & Tier Navigator Bar ───── */}
+      <div className="bg-white rounded-[18px] p-4 border border-slate-200/90 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+        <div className="flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-teal-50 border border-teal-200 flex items-center justify-center text-[#008080] shrink-0">
+            <Globe className="w-5 h-5" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-extrabold uppercase tracking-wider text-slate-800">
+                AQUORA Multiscale Hierarchy & Screening
+              </span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 uppercase">
+                {activeIntelligenceLevel} ZONE
+              </span>
+            </div>
+            <p className="text-xs text-slate-500 mt-0.5">
+              Active Scope: <strong className="text-slate-700">{displayName}</strong> · India → State → Basin → City → Catchment → Deep Zone
+            </p>
+          </div>
+        </div>
+        <button
+          onClick={() => setTierModalOpen(true)}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold transition-all cursor-pointer shadow-xs hover:shadow-md shrink-0"
+        >
+          <Layers className="w-3.5 h-3.5 text-teal-400" />
+          <span>Explore Geographic Tiers & Screening</span>
+          <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+        </button>
+      </div>
 
       {/* ── 2. Four story-oriented KPI cards ───────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 items-stretch">

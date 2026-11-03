@@ -1,0 +1,115 @@
+manifest_version: "1.0.0"
+phase: "5"
+title: "AQUORA Track B Phase 5: Deep Intelligence Integration & Physical Engine Federation"
+created_at: "2026-10-15T01:51:00Z"
+governance_status: "IMPLEMENTED"
+
+domain:
+  zone_id: "deep_mumbai_mithi"
+  name: "Mumbai Mithi River Basin Deep Intelligence Zone"
+  entity_code: "CATCH-MITHI-01"
+  intelligence_level: "DEEP"
+  status: "ACTIVE"
+  analysis_crs: "EPSG:32643"
+  source_geographic_crs: "EPSG:4326"
+
+verified_terrain_rasters:
+  directory: "data/processed/phase7/terrain/"
+  crs: "EPSG:32643"
+  dimensions:
+    height: 476
+    width: 392
+    resolution_m: [30.0, 30.0]
+  bounds_utm_43n:
+    left: 272671.93359098653
+    bottom: 2101151.7022439907
+    right: 284431.93359098653
+    top: 2115431.7022439907
+  bounds_wgs84:
+    min_lon: 72.84064
+    max_lon: 72.95071
+    min_lat: 18.99033
+    max_lat: 19.12057
+  nodata_value: -9999.0
+  layers:
+    - filename: "elevation_30m.tif"
+      description: "Copernicus 30m physical DEM elevation"
+      dtype: "float32"
+      value_range: [0.10, 115.89]
+    - filename: "slope_30m.tif"
+      description: "Copernicus 30m terrain slope in degrees"
+      dtype: "float32"
+      value_range: [0.00, 0.98]
+    - filename: "aspect_30m.tif"
+      description: "Copernicus 30m terrain aspect in degrees"
+      dtype: "float32"
+      value_range: [0.00, 360.00]
+    - filename: "flow_accumulation_30m.tif"
+      description: "D8 deterministic flow accumulation count (rounded integer cells)"
+      dtype: "float32"
+      value_range: [1.00, 183.96]
+      rounding_rationale: "D8 flow accumulation is mathematically defined as discrete unit count of contributing cells."
+    - filename: "drainage_proxy_30m.tif"
+      description: "High-resolution DEM sink and conveyance bottleneck proxy"
+      dtype: "float32"
+      value_range: [3.49, 14.37]
+
+verified_critical_facilities:
+  sources:
+    - file: "data/raw/facilities/osm_critical_facilities.json"
+      provider: "OpenStreetMap"
+      count: 359
+    - file: "data/raw/facilities/mithi_critical_facilities.json"
+      provider: "MCGM Open Data Gateway"
+      count: 7
+  total_facilities_in_zone: 366
+  raster_covered_facilities: 365
+  uncovered_facilities: 1
+  uncovered_facility_details:
+    facility_id: "fac_osm_12683059817"
+    name: "Bandra Bus Station (W)"
+    coordinates: [19.054041344444446, 72.83968434444445]
+    raster_col: -1
+    impact_policy: "OUT_OF_RASTER_BOUNDS (Zero proximity inference enforced)"
+
+zero_fabrication_boundaries:
+  unverified_attributes_preserved_as_null:
+    - field: "built_up_fraction"
+      status: "UNAVAILABLE"
+      note: "No physical built-up landcover raster on disk for Mumbai Mithi."
+    - field: "distance_to_road_m"
+      status: "UNAVAILABLE"
+      note: "No navigable road distance raster on disk for Mumbai Mithi."
+    - field: "distance_to_waterway_m"
+      status: "UNAVAILABLE"
+      note: "No canal / urban stormwater distance raster on disk for Mumbai Mithi."
+    - field: "tide_level_m"
+      status: "UNAVAILABLE"
+      note: "UHSLC tide gauge CSV not ingested on disk."
+    - field: "sar_delta_vv_db"
+      status: "UNAVAILABLE"
+      note: "Sentinel-1 granules catalog-registered pending authenticated download."
+
+physical_engine_federation:
+  service: "FloodProcessingService (db=None)"
+  solver: "engines.flood.solver.run_flood_simulation_loop"
+  forcing: "Open-Meteo ECMWF IFS Global Numerical Weather Prediction"
+  mass_balance_invariant: "overall_mass_balance_error_m3 <= 1e-4"
+  opt_in_policy: "Point inspection (/deep) does NOT automatically launch simulations."
+
+api_endpoints:
+  - path: "POST /api/v1/intelligence/deep"
+    type: "POINT_INSPECTION"
+    description: "High-resolution 30m terrain raster sampling with opt-in simulation"
+  - path: "POST /api/v1/intelligence/deep/simulate"
+    type: "SIMULATION_EXECUTION"
+    description: "On-demand 2D hydrodynamic simulation with mass-balance and facility impacts"
+
+implemented_files:
+  - "backend/app/schemas/deep.py"
+  - "backend/app/services/deep_intelligence_service.py"
+  - "backend/app/api/v1/intelligence.py"
+  - "backend/app/services/calibration_service.py"
+  - "backend/tests/test_phase5_deep_intelligence.py"
+  - "data/manifests/phase5_deep_manifest.yaml"
+  - "docs/PHASE_5_DEEP_INTELLIGENCE.md"

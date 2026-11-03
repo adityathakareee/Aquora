@@ -1,0 +1,119 @@
+manifest_metadata:
+  manifest_id: "phase7f_stage4_experiment_manifest"
+  version: "1.0.0"
+  phase: "PHASE_7F_STAGE_4"
+  timestamp_utc: "2026-11-02T09:30:00Z"
+  author: "Antigravity Agentic Scientific System"
+  benchmark_event: "DFO_3382_MAHANADI_2008"
+  administrative_event_id: "UEI-IMD-FL-2008-0095"
+  geographic_domain: "Mahanadi River Basin, Odisha, India"
+  decision: "EXPLORATORY_MODEL_EVALUATION_COMPLETE"
+  governance_classification: "PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS"
+  primary_operational_authority: "engines/flood/solver.py (Phase 6 2D Hydrodynamic Physics Engine)"
+
+input_dataset:
+  source_dataset: "data/processed/phase7/datasets/dfo3382_native_resolution_dataset.parquet"
+  source_dataset_sha256: "ba0f4df5681add4acead2b91489a61be77e8a3897d7d1bdedbd5be6f448db81f"
+  evaluation_subset: "in_mahanadi_basin == True and elevation_mean_m is not NaN"
+  total_evaluation_samples: 173950
+  total_flood_cells: 4217
+  overall_prevalence_percent: 2.4243
+
+spatial_splits_specification:
+  split_strategy: "HYDROLOGIC_SUBBASIN_SPATIAL_BLOCKING"
+  zero_group_leakage: true
+  splits_file: "data/processed/phase7/experiments/dfo3382_spatial_splits.json"
+  splits_file_sha256: "f54dc939539f49143037230fd3a5601e16f89cba1d8f9470ce8a52a5f9db9b4f"
+  partitions:
+    train:
+      region: "Western Upper Basin Approach Corridor"
+      subbasin_count: 15
+      total_samples: 72140
+      flood_samples: 1036
+      natural_prevalence_percent: 1.4361
+    validation:
+      region: "Central Mid-Reach Valley Corridor"
+      subbasin_count: 6
+      total_samples: 53134
+      flood_samples: 797
+      natural_prevalence_percent: 1.5000
+    test:
+      region: "Eastern Delta Inundation Corridor"
+      subbasin_count: 6
+      total_samples: 48676
+      flood_samples: 2384
+      natural_prevalence_percent: 4.8977
+
+feature_selection:
+  schema_file: "ml/aquora_dfo3382_experimental_feature_set_v1.json"
+  schema_sha256: "ac80a37ff77b38c32c06a9a046ee15dfc4436db355e54d9fa030a59b389598bf"
+  retained_feature_count: 13
+  retained_features:
+    - "elevation_mean_m"
+    - "slope_mean_deg"
+    - "twi_mean"
+    - "aspect_mean_cos"
+    - "aspect_mean_sin"
+    - "aspect_circular_var"
+    - "aspect_flat_fraction"
+    - "plan_curvature_mean"
+    - "flow_accum_log10_max"
+    - "dist_to_river_mean_m"
+    - "dist_to_distributary_min_m"
+    - "strahler_order_max"
+    - "land_water_dry_fraction"
+  excluded_feature_count: 22
+  rainfall_handling: "STRICTLY_EXCLUDED (100% unobserved; zero imputation)"
+
+model_evaluation_summary:
+  metrics_file: "data/processed/phase7/experiments/dfo3382_model_metrics.json"
+  metrics_file_sha256: "08d356696603e2bdb490ec31c12641dc64219f16bb8198ad6e061f7ed7c982ad"
+  test_partition_results:
+    natural_prevalence_baseline:
+      pr_auc: 0.0490
+      roc_auc: 0.5000
+      pr_auc_ratio_over_baseline: 1.00
+    elevation_only_baseline:
+      pr_auc: 0.1981
+      roc_auc: 0.8197
+      pr_auc_ratio_over_baseline: 4.04
+      precision: 0.0847
+      recall: 0.8859
+    logistic_regression_balanced:
+      pr_auc: 0.1990
+      roc_auc: 0.8320
+      pr_auc_ratio_over_baseline: 4.06
+      precision: 0.1014
+      recall: 0.8649
+    random_forest_balanced:
+      pr_auc: 0.2121
+      roc_auc: 0.7982
+      pr_auc_ratio_over_baseline: 4.33
+      precision: 0.2778
+      recall: 0.1988
+    xgboost_weighted:
+      pr_auc: 0.2514
+      roc_auc: 0.8119
+      pr_auc_ratio_over_baseline: 5.13
+      precision: 0.3815
+      recall: 0.2336
+
+experimental_artifacts:
+  feature_importance_csv:
+    path: "data/processed/phase7/experiments/dfo3382_feature_importance.csv"
+    size_bytes: 2135
+    sha256: "1fb768a6dd3b768b598eae9a9bf9de1896324736b46857c916a4187bda150bce"
+  error_analysis_csv:
+    path: "data/processed/phase7/experiments/dfo3382_error_analysis.csv"
+    size_bytes: 833
+    sha256: "29ed5545b7fead20956e13094ec6b83ff2df4ecea00569f146a04c996f888e01"
+  technical_report:
+    path: "docs/phase7/PHASE_7F_STAGE4_MODEL_EXPLORATION_REPORT.md"
+    size_bytes: 26073
+    sha256: "84f92a5803bb8ba6b3222dc68f954fd575f9a35d5e85fe0508186139a577f560"
+
+governance_and_integrity:
+  dfo2507_holdout_status: "QUARANTINED_ALREADY_INSPECTED_HOLDOUT_ZERO_ACCESS"
+  phase7e_artifacts_status: "PRESERVED_UNCHANGED"
+  phase6_physics_solver_status: "SOLE_AUTHORITATIVE_OPERATIONAL_ENGINE"
+  operational_alert_deployment: "PROHIBITED"

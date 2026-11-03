@@ -1,0 +1,151 @@
+{
+  "event_id": "DFO_3382",
+  "phase": "PHASE_7F_STAGE_2",
+  "timestamp_utc": "2026-11-01T05:00:31.266405+00:00",
+  "elapsed_seconds": 253.9,
+  "hydrographic_source": "HydroRIVERS Asia v1.0 and HydroBASINS Asia Level 8",
+  "distributary_definition": "Downstream reaches (east of 85.3\u00b0E, south of 21.0\u00b0N) with Strahler order >= 5 (Mahanadi main stem, Kathajodi, Kuakhai, Daya, Bhargavi, Devi, Birupa, Chitratpala, Luna)",
+  "unrepresented_features_note": "HydroRIVERS maps all natural river channels (down to Strahler 1). Agricultural distribution canals and small tidal creeks are not represented in global hydrography and are intentionally NOT fabricated.",
+  "delta_subbasins": [
+    {
+      "hybas_id": 4080027100,
+      "pfaf_id": 45321011,
+      "sub_basin_name": "Delta Sub-basin 4080027100",
+      "sub_area_km2": 52.3,
+      "upstream_area_km2": 135526.1,
+      "next_down_id": 0,
+      "elevation_summary_m": {
+        "min": -6.49,
+        "max": 20.06,
+        "mean": 2.54,
+        "std": 1.89
+      },
+      "slope_summary_deg": {
+        "min": 0.0,
+        "max": 14.14,
+        "mean": 0.86,
+        "std": 1.2
+      }
+    },
+    {
+      "hybas_id": 4081039630,
+      "pfaf_id": 45321012,
+      "sub_basin_name": "Delta Sub-basin 4081039630",
+      "sub_area_km2": 467.0,
+      "upstream_area_km2": 467.0,
+      "next_down_id": 4080027100,
+      "elevation_summary_m": {
+        "min": -3.85,
+        "max": 26.91,
+        "mean": 7.68,
+        "std": 4.42
+      },
+      "slope_summary_deg": {
+        "min": 0.0,
+        "max": 17.11,
+        "mean": 1.33,
+        "std": 1.66
+      }
+    },
+    {
+      "hybas_id": 4081039610,
+      "pfaf_id": 45321013,
+      "sub_basin_name": "Delta Sub-basin 4081039610",
+      "sub_area_km2": 1081.9,
+      "upstream_area_km2": 135007.2,
+      "next_down_id": 4080027100,
+      "elevation_summary_m": {
+        "min": -1.19,
+        "max": 478.17,
+        "mean": 21.92,
+        "std": 36.93
+      },
+      "slope_summary_deg": {
+        "min": 0.0,
+        "max": 47.4,
+        "mean": 1.77,
+        "std": 3.33
+      }
+    },
+    {
+      "hybas_id": 4081037140,
+      "pfaf_id": 45321015,
+      "sub_basin_name": "Delta Sub-basin 4081037140",
+      "sub_area_km2": 214.0,
+      "upstream_area_km2": 132985.1,
+      "next_down_id": 4081039610,
+      "elevation_summary_m": {
+        "min": 16.0,
+        "max": 224.33,
+        "mean": 51.67,
+        "std": 37.11
+      },
+      "slope_summary_deg": {
+        "min": 0.0,
+        "max": 38.7,
+        "mean": 3.48,
+        "std": 4.59
+      }
+    },
+    {
+      "hybas_id": 4081037070,
+      "pfaf_id": 45321014,
+      "sub_basin_name": "Delta Sub-basin 4081037070",
+      "sub_area_km2": 939.8,
+      "upstream_area_km2": 939.8,
+      "next_down_id": 4081039610,
+      "elevation_summary_m": {
+        "min": 20.0,
+        "max": 750.15,
+        "mean": 121.83,
+        "std": 96.39
+      },
+      "slope_summary_deg": {
+        "min": 0.0,
+        "max": 50.94,
+        "mean": 5.53,
+        "std": 7.55
+      }
+    },
+    {
+      "hybas_id": 4081038340,
+      "pfaf_id": 45321017,
+      "sub_basin_name": "Delta Sub-basin 4081038340",
+      "sub_area_km2": 485.4,
+      "upstream_area_km2": 132299.5,
+      "next_down_id": 4081037140,
+      "elevation_summary_m": {
+        "min": 18.99,
+        "max": 605.22,
+        "mean": 64.34,
+        "std": 56.75
+      },
+      "slope_summary_deg": {
+        "min": 0.0,
+        "max": 48.09,
+        "mean": 3.74,
+        "std": 6.15
+      }
+    },
+    {
+      "hybas_id": 4081038350,
+      "pfaf_id": 45321016,
+      "sub_basin_name": "Delta Sub-basin 4081038350",
+      "sub_area_km2": 471.8,
+      "upstream_area_km2": 471.8,
+      "next_down_id": 4081037140,
+      "elevation_summary_m": {
+        "min": 22.44,
+        "max": 204.67,
+        "mean": 56.13,
+        "std": 27.25
+      },
+      "slope_summary_deg": {
+        "min": 0.0,
+        "max": 37.56,
+        "mean": 1.9,
+        "std": 2.74
+      }
+    }
+  ]
+}

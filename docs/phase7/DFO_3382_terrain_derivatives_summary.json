@@ -1,0 +1,76 @@
+{
+  "event_id": "DFO_3382",
+  "phase": "PHASE_7F_STAGE_2",
+  "timestamp_utc": "2026-11-01T04:51:48.275153+00:00",
+  "elapsed_seconds": 262.2,
+  "source_dem": "data/processed/phase7/terrain/mahanadi_dem_mosaic_30m.vrt",
+  "dimensions": [
+    14400,
+    10800
+  ],
+  "total_pixels": 155520000,
+  "crs": "EPSG:4326",
+  "generated_layers": {
+    "slope_deg": {
+      "path": "data/processed/phase7/terrain/mahanadi_slope_deg_30m.tif",
+      "units": "degrees (0 - 90)",
+      "min": 0.0,
+      "max": 90.0,
+      "mean": 5.3,
+      "valid_pixels": 87760710,
+      "nodata_value": -9999.0
+    },
+    "aspect_deg": {
+      "path": "data/processed/phase7/terrain/mahanadi_aspect_deg_30m.tif",
+      "units": "degrees azimuth (0 - 360 clockwise from North; -1 for flat)",
+      "min": 0.0,
+      "max": 360.0,
+      "flat_cells": 11397355,
+      "nodata_value": -9999.0
+    },
+    "plan_curvature": {
+      "path": "data/processed/phase7/terrain/mahanadi_plan_curvature_30m.tif",
+      "units": "100 / m",
+      "min": -100.0,
+      "max": 100.0,
+      "nodata_value": -9999.0
+    },
+    "profile_curvature": {
+      "path": "data/processed/phase7/terrain/mahanadi_profile_curvature_30m.tif",
+      "units": "100 / m",
+      "min": -100.0,
+      "max": 100.0,
+      "nodata_value": -9999.0
+    },
+    "flow_direction_d8": {
+      "path": "data/processed/phase7/terrain/mahanadi_flow_direction_d8_30m.tif",
+      "units": "D8 bitmask (1=E, 2=SE, 4=S, 8=SW, 16=W, 32=NW, 64=N, 128=NE, 0=sink/nodata)",
+      "pit_count": 13931818,
+      "nodata_value": 0
+    },
+    "flow_accumulation": {
+      "path": "data/processed/phase7/terrain/mahanadi_flow_accumulation_30m.tif",
+      "units": "upstream cells count",
+      "nodata_value": 0
+    },
+    "twi": {
+      "path": "data/processed/phase7/terrain/mahanadi_twi_30m.tif",
+      "units": "dimensionless index ln(a / tan(beta))",
+      "min": -6.37,
+      "max": 12.51,
+      "mean": 7.51,
+      "nodata_value": -9999.0
+    }
+  },
+  "hand_audit": {
+    "derivative_name": "Height Above Nearest Drainage (HAND)",
+    "status": "BLOCKED_EXPERIMENTAL_PENDING_SURVEYED_HYDRO_CONDITIONING",
+    "scientific_rationale": [
+      "Copernicus GLO-30 is a Digital Surface Model (DSM) that includes canopies, road embankments (NH-16), rail lines, and canal dikes.",
+      "In low-relief coastal alluvial delta plains (elevations 2-15m, slopes <0.1 deg), unconditioned D8 flow direction traps runoff behind artificial digital dam walls, creating thousands of artificial sinks.",
+      "Universal stream burning (trenching 2-5m deep everywhere) is scientifically prohibited because it violates true flood overbank physics, alters conveyance thresholds, and cuts artificial gorges through real dikes without surveyed culvert/bridge data.",
+      "Depression filling artificially raises low-elevation polders to the crest elevation of coastal dunes, destroying true flood storage depressions.",
+      "Consequently, HAND computed over an unconditioned DSM produces unphysical drainage heights that misrepresent real fluvial inundation hazard. HAND generation is formally marked BLOCKED until culvert-conditioned DTM data is integrated."
+    ]
+  }
+}

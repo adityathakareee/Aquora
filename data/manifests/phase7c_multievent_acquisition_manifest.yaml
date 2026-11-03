@@ -1,0 +1,271 @@
+manifest_version: 1.0.0
+phase: PHASE_7C_MULTI_EVENT_ACQUISITION
+created_at_utc: '2026-10-28T13:55:23.521431+00:00'
+primary_source:
+  name: Global Flood Database (GFD v1.4 / Nature 2021)
+  gcs_bucket: gs://gfd_v1_4
+  license: CC-BY-NC-4.0
+  sensor: Terra / Aqua MODIS Surface Reflectance @ 250m
+  permanent_water_mask: JRC Global Surface Water (30m)
+total_events_acquired: 4
+acquired_events:
+- dfo_id: 4499
+  basin_name: Lower Ganga Basin
+  state: West Bengal
+  began: '2017-07-27'
+  ended: '2017-08-10'
+  ifi_correlation: UEI-IMD-FL-2017-0122
+  local_zip_path: data/raw/phase7/ground_truth/gfd/DFO_4499/DFO_4499_From_20170727_to_20170810.zip
+  local_tif_path: data/raw/phase7/ground_truth/gfd/DFO_4499/DFO_4499_From_20170727_to_20170810.tif
+  zip_bytes: 4887908
+  tif_bytes: 4772471
+  zip_sha256: 588ef0dd8f45f8e3e86ab57dd5ad08a3d8659b6b9f91bf4220ee1f8606b87573
+  tif_sha256: 9fab987aa7cb9becaf607c0960799b1e72b217ddd9bb7940e08e902349c1f4eb
+  raster_metadata:
+    crs: EPSG:4326
+    bounds:
+    - 83.88243544287062
+    - 20.295188056470288
+    - 91.19696764381382
+    - 24.863121276218056
+    width: 3257
+    height: 2034
+    bands_count: 5
+    band_descriptions:
+    - flooded
+    - duration
+    - clear_views
+    - clear_perc
+    - jrc_perm_water
+    approx_resolution_m: 250.0
+  cell_counts:
+    total_cells: 6624738
+    valid_observed_cells: 3239389
+    unmapped_nan_cells: 3385349
+    raw_flooded_cells: 80164
+    permanent_water_cells: 72887
+    cloudy_cells_below_70_pct: 0
+    verified_episodic_flood_cells: 67267
+    verified_dry_cells: 3099235
+    clear_perc_range:
+    - 0.8235294222831726
+    - 1.0
+  properties:
+    dfo_centroid_y: 22.906125
+    dfo_main_cause: Monsoonal Rain
+    gfd_country_name: '[''BANGLADESH'', ''INDIA'']'
+    dfo_centroid_x: 88.084765
+    glide_index: ''
+    slope_threshold: 5
+    dfo_severity: 1
+    threshold_b1b2: 0.7
+    dfo_displaced: 47000
+    id: 4499
+    cc: IND, BGD
+    began: '2017-07-27'
+    dfo_validation_type: News
+    composite_type: 3Day
+    dfo_country: India
+    countries: India, Bangladesh
+    dfo_other_country: ''
+    dfo_dead: 39
+    gfd_country_code: '[''BG'', ''IN'']'
+    ended: '2017-08-10'
+    threshold_type: standard
+    threshold_b7: 675
+- dfo_id: 2935
+  basin_name: Upper Godavari Basin
+  state: Maharashtra
+  began: '2006-07-28'
+  ended: '2006-09-12'
+  ifi_correlation: UEI-IMD-FL-2006-0045
+  local_zip_path: data/raw/phase7/ground_truth/gfd/DFO_2935/DFO_2935_From_20060728_to_20060912.zip
+  local_tif_path: data/raw/phase7/ground_truth/gfd/DFO_2935/DFO_2935_From_20060728_to_20060912.tif
+  zip_bytes: 70707998
+  tif_bytes: 70592388
+  zip_sha256: a38e35daa96e30b40a10c2e9b9b88e2a21db11e04d859641a479f8c8182e6c34
+  tif_sha256: ad0b331f7ef84fd32a787ef7f698df9aba3a385974e05c4b24d8cdeb98d4b4ff
+  raster_metadata:
+    crs: EPSG:4326
+    bounds:
+    - 67.99572964321689
+    - 8.073608616024199
+    - 89.7506800363814
+    - 31.459001249865644
+    width: 9687
+    height: 10413
+    bands_count: 5
+    band_descriptions:
+    - flooded
+    - duration
+    - clear_views
+    - clear_perc
+    - jrc_perm_water
+    approx_resolution_m: 250.0
+  cell_counts:
+    total_cells: 100870731
+    valid_observed_cells: 34636171
+    unmapped_nan_cells: 66234560
+    raw_flooded_cells: 611944
+    permanent_water_cells: 195443
+    cloudy_cells_below_70_pct: 0
+    verified_episodic_flood_cells: 511655
+    verified_dry_cells: 33929073
+    clear_perc_range:
+    - 0.7789473533630371
+    - 1.0
+  properties:
+    dfo_centroid_y: 20.194292
+    dfo_main_cause: Monsoonal rain
+    gfd_country_name: '[''BANGLADESH'', ''INDIA'', ''CHINA'', ''PAKISTAN'', ''In dispute
+      CHINA/INDIA'', ''NEPAL'', ''In dispute INDIA/NEPAL'']'
+    dfo_centroid_x: 73.824174
+    glide_index: FL-2006-000137-IND
+    slope_threshold: 5
+    dfo_severity: 2
+    threshold_b1b2: 0.7
+    dfo_displaced: 140000
+    id: 2935
+    cc: CHN, IND, PAK, NPL, BGD
+    began: '2006-07-28'
+    dfo_validation_type: News
+    composite_type: 3Day
+    dfo_country: India
+    countries: China, India, Pakistan, Nepal, Bangladesh
+    dfo_other_country: Pakistan
+    dfo_dead: 457
+    gfd_country_code: '[''BG'', ''IN'', ''CH'', ''PK'', ''UU'', ''NP'']'
+    ended: '2006-09-12'
+    threshold_type: standard
+    threshold_b7: 675
+- dfo_id: 3372
+  basin_name: Upper Brahmaputra Basin
+  state: Assam
+  began: '2008-08-30'
+  ended: '2008-09-08'
+  ifi_correlation: UEI-IMD-FL-2008-0019
+  local_zip_path: data/raw/phase7/ground_truth/gfd/DFO_3372/DFO_3372_From_20080830_to_20080908.zip
+  local_tif_path: data/raw/phase7/ground_truth/gfd/DFO_3372/DFO_3372_From_20080830_to_20080908.tif
+  zip_bytes: 16645353
+  tif_bytes: 16529756
+  zip_sha256: 9e7bc071d9552489475dfdd7120e70927ec5e01486ed6ce1a64230689ffef95d
+  tif_sha256: e7ebc1376c217e8268cfc6762b6e274315dbe0c09fbeb537768c85ddd3fd97f4
+  raster_metadata:
+    crs: EPSG:4326
+    bounds:
+    - 82.01393965190202
+    - 16.34933817097529
+    - 98.83489334704007
+    - 31.27933819304174
+    width: 7490
+    height: 6648
+    bands_count: 5
+    band_descriptions:
+    - flooded
+    - duration
+    - clear_views
+    - clear_perc
+    - jrc_perm_water
+    approx_resolution_m: 250.0
+  cell_counts:
+    total_cells: 49793520
+    valid_observed_cells: 5886037
+    unmapped_nan_cells: 43907483
+    raw_flooded_cells: 344932
+    permanent_water_cells: 86009
+    cloudy_cells_below_70_pct: 0
+    verified_episodic_flood_cells: 302186
+    verified_dry_cells: 5497842
+    clear_perc_range:
+    - 0.7200000286102295
+    - 1.0
+  properties:
+    dfo_centroid_y: 27.044183
+    dfo_main_cause: Monsoon Rains
+    gfd_country_name: '[''BURMA'', ''BANGLADESH'', ''INDIA'', ''CHINA'', ''BHUTAN'',
+      ''In dispute BHUTAN/CHINA'', ''NEPAL'']'
+    dfo_centroid_x: 94.55033
+    glide_index: NA
+    slope_threshold: 5
+    dfo_severity: 1.5
+    threshold_b1b2: 0.7
+    dfo_displaced: 1000000
+    id: 3372
+    cc: CHN, IND, MMR, NPL, BGD, BTN
+    began: '2008-08-30'
+    dfo_validation_type: News
+    composite_type: 3Day
+    dfo_country: India
+    countries: China, India, Myanmar (Burma), Nepal, Bangladesh, Bhutan
+    dfo_other_country: NA
+    dfo_dead: 900
+    gfd_country_code: '[''BM'', ''BG'', ''IN'', ''CH'', ''BT'', ''UU'', ''NP'']'
+    ended: '2008-09-08'
+    threshold_type: standard
+    threshold_b7: 675
+- dfo_id: 2507
+  basin_name: North Bihar / Kosi Basin
+  state: Bihar
+  began: '2004-06-20'
+  ended: '2004-10-07'
+  ifi_correlation: UEI-IMD-FL-2004-0058
+  local_zip_path: data/raw/phase7/ground_truth/gfd/DFO_2507/DFO_2507_From_20040620_to_20041007.zip
+  local_tif_path: data/raw/phase7/ground_truth/gfd/DFO_2507/DFO_2507_From_20040620_to_20041007.tif
+  zip_bytes: 82960602
+  tif_bytes: 82844925
+  zip_sha256: def813674d598bc2e11b40471418d4a51c4e88ea51ff2644cb55d1823a99ed3c
+  tif_sha256: 0cd6b8b23f55cfa768dc3966226ce4c0020e05b0652909ed966e6031eac356da
+  raster_metadata:
+    crs: EPSG:4326
+    bounds:
+    - 73.38562134793402
+    - 15.668864343254757
+    - 100.22952782563561
+    - 32.77278735289045
+    width: 11953
+    height: 7616
+    bands_count: 5
+    band_descriptions:
+    - flooded
+    - duration
+    - clear_views
+    - clear_perc
+    - jrc_perm_water
+    approx_resolution_m: 250.0
+  cell_counts:
+    total_cells: 91034048
+    valid_observed_cells: 25766271
+    unmapped_nan_cells: 65267777
+    raw_flooded_cells: 1550173
+    permanent_water_cells: 325953
+    cloudy_cells_below_70_pct: 0
+    verified_episodic_flood_cells: 1362413
+    verified_dry_cells: 24077905
+    clear_perc_range:
+    - 0.8846153616905212
+    - 1.0
+  properties:
+    dfo_centroid_y: 25.498908
+    dfo_main_cause: Monsoonal rain
+    gfd_country_name: '[''THAILAND'', ''BURMA'', ''BANGLADESH'', ''INDIA'', ''CHINA'',
+      ''BHUTAN'', ''In dispute BHUTAN/CHINA'', ''In dispute CHINA/INDIA'', ''NEPAL'',
+      ''In dispute INDIA/NEPAL'']'
+    dfo_centroid_x: 85.891802
+    glide_index: NA
+    slope_threshold: 5
+    dfo_severity: 2
+    threshold_b1b2: 0.7
+    dfo_displaced: 40000000
+    id: 2507
+    cc: CHN, IND, MMR, NPL, BGD, BTN
+    began: '2004-06-20'
+    dfo_validation_type: News
+    composite_type: 3Day
+    dfo_country: India
+    countries: China, India, Myanmar (Burma), Nepal, Bangladesh, Bhutan
+    dfo_other_country: Bangladesh
+    dfo_dead: 3000
+    gfd_country_code: '[''TH'', ''BM'', ''BG'', ''IN'', ''CH'', ''BT'', ''UU'', ''NP'']'
+    ended: '2004-10-07'
+    threshold_type: standard
+    threshold_b7: 675

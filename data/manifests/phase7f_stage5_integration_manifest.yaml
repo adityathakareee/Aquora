@@ -1,0 +1,68 @@
+manifest_metadata:
+  manifest_id: "phase7f_stage5_integration_manifest"
+  version: "1.0.0"
+  phase: "PHASE_7F_STAGE_5"
+  timestamp_utc: "2026-11-02T14:35:00Z"
+  author: "Antigravity Agentic Scientific System"
+  benchmark_event: "DFO_3382_MAHANADI_2008"
+  administrative_event_id: "UEI-IMD-FL-2008-0095"
+  geographic_domains:
+    - "India National Extent (Level 1 National Screening)"
+    - "Mahanadi River Basin, Odisha, India (Level 2 Regional Research)"
+    - "Mumbai Mithi River Catchment, Maharashtra, India (Level 3 Foundational Deep Zone)"
+  decision: "SYSTEM_INTEGRATION_COMPLETE"
+  governance_classification: "PROTOTYPE_ONLY / NOT_CALIBRATED / NOT_FOR_PUBLIC_ALERTS"
+  primary_operational_authority: "engines/flood/solver.py (Phase 6 2D Hydrodynamic Physics Engine)"
+
+safeguard_declarations:
+  dfo2507_quarantine: "STRICTLY_ENFORCED_ZERO_ACCESS (Quarantined holdout never sampled or modified)"
+  phase6_physics_authority: "PRESERVED_PRIMARY_FLOOD_AUTHORITY (Sole operational simulation engine)"
+  phase7e_artifacts_immutable: "PRESERVED_UNCHANGED (Models, metrics, and schema intact)"
+  phase7e_feature_schema: "PRESERVED_UNCHANGED (ml/aquora_ml_feature_schema_v1.json)"
+  rainfall_fabrication: "ZERO_FABRICATION_PRESERVED (100% missing/unobserved retained honestly)"
+  experimental_alert_isolation: "ENFORCED_ZERO_LEAKAGE (Experimental ML completely isolated from emergency alerts)"
+  geographic_hierarchy_invariants: "ENFORCED (No silent fallback to Mumbai for unsupported zones)"
+
+integrated_backend_components:
+  locations_api:
+    path: "backend/app/api/v1/locations.py"
+    description: "Registered IN-OD (Odisha) and BASIN-MAHANADI in canonical BASELINE_LOCATIONS"
+  intelligence_api:
+    path: "backend/app/api/v1/intelligence.py"
+    description: "Registered regional_mahanadi_basin in REGISTERED_ZONES, added capabilities mapping and research endpoints (/experiments, /subbasins, /layers)"
+  spatial_resolver:
+    path: "backend/app/services/spatial_resolver.py"
+    description: "Registered canonical aliases (mahanadi, mahanadi_basin, basin-mahanadi) with strict UnsupportedZoneError enforcement"
+  regional_service:
+    path: "backend/app/services/regional_intelligence_service.py"
+    description: "Added BASIN-MAHANADI to get_basin_summary with experimental_research_layers enabled and physical_flood_solver disabled"
+
+integrated_frontend_components:
+  api_client:
+    path: "frontend/src/api/intelligence.ts"
+    description: "Added fetchMahanadiExperiments, fetchMahanadiSubbasins, fetchMahanadiLayers"
+  location_store:
+    path: "frontend/src/store/useLocationStore.ts"
+    description: "Added selectMahanadi and selectNational preset helper actions"
+  tier_modal:
+    path: "frontend/src/components/layout/GeographicTierModal.tsx"
+    description: "Integrated Mahanadi Basin selection and regional testing presets"
+  map_container:
+    path: "frontend/src/map/MapContainer.tsx"
+    description: "Geographic-tier aware rendering of Mahanadi hydrographic network vs Mumbai Mithi corridor"
+  overview_feature:
+    path: "frontend/src/features/overview/index.tsx"
+    description: "Conditional rendering of MahanadiRegionalOverview with Stage 4.1 robustness review and prominent warning banner"
+  flood_map_feature:
+    path: "frontend/src/features/flood-map/index.tsx"
+    description: "Conditional rendering of MahanadiRegionalMapFeature with 5 layer toggles and optical margin findings"
+
+verification_test_suite:
+  path: "backend/tests/test_phase7f_stage5_integration.py"
+  total_tests: 10
+  passed: 10
+  failed: 0
+  execution_time_seconds: 4.22
+  full_regression_tests: 63
+  full_regression_passed: 63
+  frontend_build_status: "SUCCESS (tsc + vite build clean, zero errors)"

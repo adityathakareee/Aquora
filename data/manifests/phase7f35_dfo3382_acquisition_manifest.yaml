@@ -1,0 +1,159 @@
+manifest_version: 1.0.0
+phase: PHASE_7F_3_5_CONTROLLED_ACQUISITION
+created_at_utc: '2026-10-31T13:16:27.104567+00:00'
+event_id: DFO_3382
+basin_name: Mahanadi Basin / Odisha Delta
+state: Odisha
+country: India
+disaster_type: Riverine & Deltaic Flood
+reported_causes: Dam release (Hirakud Dam) and heavy monsoonal rain
+ifi_correlation: UEI-IMD-FL-2008-0095
+acceptance_decision: ACCEPTED_FOR_FURTHER_DATA_PREPARATION
+
+provenance:
+  source_name: Global Flood Database (GFD v1.4)
+  citation: 'Tellman et al., Nature 2021 (DOI: 10.1038/s41586-021-03695-w)'
+  source_bucket: gs://gfd_v1_4
+  source_url: https://storage.googleapis.com/download/storage/v1/b/gfd_v1_4/o/DFO_3382_From_20080922_to_20080929.zip?alt=media
+  license: Creative Commons Attribution-NonCommercial 4.0 International (CC-BY-NC-4.0)
+  sensor: NASA Terra and Aqua MODIS Surface Reflectance (3-Day Composite)
+  permanent_water_source: JRC Global Surface Water (30m, Pekel et al. 2016)
+
+archive_verification:
+  archive_filename: DFO_3382_From_20080922_to_20080929.zip
+  destination_directory: data/raw/phase7/ground_truth/gfd/DFO_3382
+  local_archive_path: data/raw/phase7/ground_truth/gfd/DFO_3382/DFO_3382_From_20080922_to_20080929.zip
+  file_size_bytes: 39644622
+  expected_size_bytes: 39644622
+  sha256: 252da1463fe41efd4e92da6727dec3976d967836e6d644c4a126f33f24aef2a4
+  archive_integrity: PASSED (testzip OK, 0 corrupt blocks)
+  archive_members:
+  - filename: DFO_3382_From_20080922_to_20080929.tif
+    file_size_bytes: 39529059
+    compress_size_bytes: 39529059
+    crc32: 1db5fb1d
+  - filename: README_GFD.pdf
+    file_size_bytes: 101051
+    compress_size_bytes: 101051
+    crc32: 269690d3
+  - filename: LICENSE.txt
+    file_size_bytes: 13319
+    compress_size_bytes: 13319
+    crc32: 3deccc7a
+  - filename: DFO_3382_properties.json
+    file_size_bytes: 693
+    compress_size_bytes: 693
+    crc32: 404d4110
+
+extracted_file_inventory:
+- filename: DFO_3382_From_20080922_to_20080929.tif
+  path: data/raw/phase7/ground_truth/gfd/DFO_3382/DFO_3382_From_20080922_to_20080929.tif
+  size_bytes: 39529059
+  sha256: 4c8c8f6e3927d71f3e7db3f6762c91c22b8de2bffa633b47f34df73d70c663de
+  role: primary_ground_truth_multiband_geotiff
+- filename: DFO_3382_properties.json
+  path: data/raw/phase7/ground_truth/gfd/DFO_3382/DFO_3382_properties.json
+  size_bytes: 693
+  sha256: 3f5471b3020f2abb5e41d9249f02ea2ccf91ba4129d91b9c8061f63b3ec43dca
+  role: event_properties_metadata
+- filename: LICENSE.txt
+  path: data/raw/phase7/ground_truth/gfd/DFO_3382/LICENSE.txt
+  size_bytes: 13319
+  sha256: c2ca2f08eac60f04f65403daa6997e9a3bf254a18ba2f75a4500e23329fa4f4b
+  role: license_terms
+- filename: README_GFD.pdf
+  path: data/raw/phase7/ground_truth/gfd/DFO_3382/README_GFD.pdf
+  size_bytes: 101051
+  sha256: d87f838b260a3d7164449dc0b7408c7ffb317ccab3f5897ad186bcea09bb3fd9
+  role: product_documentation
+
+raster_metadata:
+  crs: EPSG:4326
+  width: 8326
+  height: 10413
+  total_cells: 86698638
+  pixel_resolution_deg:
+  - 0.002245788210298804
+  - 0.002245788210298804
+  approx_resolution_m: 250.001
+  spatial_resolution_note: Nominal approximately 250 m spatial resolution in geographic coordinates (EPSG:4326); actual ground spacing varies with latitude (~234.9 m easting at 20 deg N).
+  bounds:
+  - 72.49853500486599
+  - 8.073608616024199
+  - 91.19696764381382
+  - 31.459001249865644
+  bands_count: 5
+  band_semantics:
+  - band: 1
+    name: flooded
+    dtype: float32
+    nodata: null
+    semantics: Binary water observation (1.0 = water present, 0.0 = non-flooded)
+  - band: 2
+    name: duration
+    dtype: float32
+    nodata: null
+    semantics: Inundation duration in days during composite period
+  - band: 3
+    name: clear_views
+    dtype: float32
+    nodata: null
+    semantics: Number of cloud-free MODIS observations during composite window
+  - band: 4
+    name: clear_perc
+    dtype: float32
+    nodata: null
+    semantics: Clear-sky observation fraction (0.0 to 1.0; threshold >= 0.70)
+  - band: 5
+    name: jrc_perm_water
+    dtype: float32
+    nodata: null
+    semantics: Permanent water mask (1.0 = permanent water, 0.0 = non-permanent)
+
+pixel_count_statistics:
+  total_raster_cells: 86698638
+  valid_observed_cells: 27371220
+  valid_observed_percentage: 31.57053
+  unmapped_nan_cells: 59327418
+  unmapped_nan_percentage: 68.42947
+  raw_flooded_cells: 464781
+  raw_non_flooded_cells: 26906439
+  permanent_water_cells: 239958
+  low_clear_sky_excluded_cells: 339
+  low_clear_sky_pct_of_valid: 0.0012385
+  low_clear_sky_denominator: 27371220
+  verified_episodic_flood_cells: 339963
+  verified_dry_cells: 26790960
+  cloud_or_perm_excluded_cells: 240297
+  raw_flood_prevalence_pct: 1.69806
+  verified_flood_prevalence_pct: 1.25305
+  verified_flood_duration_mean_days: 3.82
+  verified_flood_duration_max_days: 11.0
+
+temporal_compatibility_assessment:
+  administrative_period: '2008-09-15 to 2008-09-28'
+  gfd_observation_period: '2008-09-22 to 2008-09-29'
+  overlap_days: 7
+  flood_phase_compatibility: Archive overlaps administrative event period (7 days); precise flood-stage timing remains provisional unless supported by independent temporal evidence.
+  temporal_limitation_note: The GFD composite does not document the initial flood onset or peak breach propagation from 15-21 September; exact crest timing relative to observations is provisional.
+
+gfd_properties:
+  dfo_centroid_y: 20.95224
+  dfo_centroid_x: 84.406372
+  dfo_main_cause: Dam release and Heavy Rain
+  dfo_severity: 2
+  composite_type: 3Day
+  began: '2008-09-22'
+  ended: '2008-09-29'
+  slope_threshold: 5
+  threshold_b1b2: 0.7
+  threshold_b7: 675
+  threshold_type: standard
+  dfo_dead: 2400
+  countries: China, India, Nepal, Bangladesh
+
+known_limitations:
+- Spatial resolution is native MODIS 250m; sub-pixel distributary channels and village levees are not resolved.
+- Temporal coverage begins 2008-09-22, missing the initial rising limb and reservoir filling phase (15-21 Sept).
+- Copernicus DEM 30m tiles (N19E085, N19E086, N20E085, N20E086) and CHIRPS precipitation (2008.09.20-26) are not yet acquired or aligned.
+- Holdout quarantine for DFO 2507 remains strictly independent and unaffected.

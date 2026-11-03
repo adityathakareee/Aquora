@@ -1,0 +1,479 @@
+{
+  "phase": "PHASE_7F_3_6_STAGE_3_DEM_ACQUISITION",
+  "package_id": "CORRECTED_PACKAGE_B",
+  "status": "DEM_ACQUISITION_COMPLETE",
+  "total_tiles": 9,
+  "total_size_bytes": 285733588,
+  "total_size_mb": 272.5,
+  "total_elapsed_seconds": 219.3,
+  "tiles": [
+    {
+      "tile_id": "N19E084",
+      "copernicus_filename": "Copernicus_DSM_COG_10_N19_00_E084_00_DEM.tif",
+      "local_path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E084_00_DEM.tif",
+      "source_url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N19_00_E084_00_DEM/Copernicus_DSM_COG_10_N19_00_E084_00_DEM.tif",
+      "http_status": 200,
+      "download_start_utc": "2026-10-31T14:29:28.287337+00:00",
+      "download_end_utc": "2026-10-31T14:29:28.287337+00:00",
+      "download_elapsed_seconds": 0.0,
+      "file_size_bytes": 44511062,
+      "file_size_mb": 42.45,
+      "sha256": "11a8de07f960910d3c9e3f4fb542ebd0a12a1b6a9a2b4ee06f6e85da39b2536e",
+      "role": "Southwestern 5km terrestrial buffer for N19E085",
+      "lat_bounds": [
+        19.0,
+        20.0
+      ],
+      "lon_bounds": [
+        84.0,
+        85.0
+      ],
+      "raster_inspection": {
+        "crs": "EPSG:4326",
+        "width": 3600,
+        "height": 3600,
+        "total_pixels": 12960000,
+        "valid_pixels": 12960000,
+        "nodata_pixels": 0,
+        "nodata_percentage": 0.0,
+        "bounds": [
+          83.99986111111112,
+          19.000138888888888,
+          84.99986111111112,
+          20.000138888888888
+        ],
+        "pixel_resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "data_type": "float32",
+        "nodata_value": "NaN",
+        "elevation_stats_meters": {
+          "min": -2.75,
+          "max": 1504.53,
+          "mean": 301.07,
+          "median": 147.73,
+          "std": 300.43,
+          "pct_below_sea_level": 0.0,
+          "pct_lowland_delta_0_to_15m": 9.95
+        }
+      }
+    },
+    {
+      "tile_id": "N19E085",
+      "copernicus_filename": "Copernicus_DSM_COG_10_N19_00_E085_00_DEM.tif",
+      "local_path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E085_00_DEM.tif",
+      "source_url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N19_00_E085_00_DEM/Copernicus_DSM_COG_10_N19_00_E085_00_DEM.tif",
+      "http_status": 200,
+      "download_start_utc": "2026-10-31T14:29:30.540460+00:00",
+      "download_end_utc": "2026-10-31T14:29:45.662170+00:00",
+      "download_elapsed_seconds": 15.12,
+      "file_size_bytes": 15545405,
+      "file_size_mb": 14.83,
+      "sha256": "038fde4a3bc977d5d1fe31e7c88d81dbb84cb63233ad14b473e75f16376d02a3",
+      "role": "Southern delta plain / Puri / Chilika lagoon / Daya-Bhargavi",
+      "lat_bounds": [
+        19.0,
+        20.0
+      ],
+      "lon_bounds": [
+        85.0,
+        86.0
+      ],
+      "raster_inspection": {
+        "crs": "EPSG:4326",
+        "width": 3600,
+        "height": 3600,
+        "total_pixels": 12960000,
+        "valid_pixels": 12960000,
+        "nodata_pixels": 0,
+        "nodata_percentage": 0.0,
+        "bounds": [
+          84.99986111111112,
+          19.000138888888888,
+          85.99986111111112,
+          20.000138888888888
+        ],
+        "pixel_resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "data_type": "float32",
+        "nodata_value": "NaN",
+        "elevation_stats_meters": {
+          "min": -1.0,
+          "max": 787.88,
+          "mean": 15.38,
+          "median": 0.0,
+          "std": 56.48,
+          "pct_below_sea_level": 0.0,
+          "pct_lowland_delta_0_to_15m": 87.3
+        }
+      }
+    },
+    {
+      "tile_id": "N19E086",
+      "copernicus_filename": "Copernicus_DSM_COG_10_N19_00_E086_00_DEM.tif",
+      "local_path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E086_00_DEM.tif",
+      "source_url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N19_00_E086_00_DEM/Copernicus_DSM_COG_10_N19_00_E086_00_DEM.tif",
+      "http_status": 200,
+      "download_start_utc": "2026-10-31T14:29:46.695413+00:00",
+      "download_end_utc": "2026-10-31T14:29:49.527831+00:00",
+      "download_elapsed_seconds": 2.83,
+      "file_size_bytes": 2268263,
+      "file_size_mb": 2.16,
+      "sha256": "8b22518b9f48db4839537f0ac34a307540d9a10d79f71000e1adc030c45e9993",
+      "role": "Coastal margin / Devi river estuary / Coastal buffer",
+      "lat_bounds": [
+        19.0,
+        20.0
+      ],
+      "lon_bounds": [
+        86.0,
+        87.0
+      ],
+      "raster_inspection": {
+        "crs": "EPSG:4326",
+        "width": 3600,
+        "height": 3600,
+        "total_pixels": 12960000,
+        "valid_pixels": 12960000,
+        "nodata_pixels": 0,
+        "nodata_percentage": 0.0,
+        "bounds": [
+          85.99986111111112,
+          19.000138888888888,
+          86.99986111111112,
+          20.000138888888888
+        ],
+        "pixel_resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "data_type": "float32",
+        "nodata_value": "NaN",
+        "elevation_stats_meters": {
+          "min": -2.66,
+          "max": 25.3,
+          "mean": 0.19,
+          "median": 0.0,
+          "std": 1.1,
+          "pct_below_sea_level": 0.0,
+          "pct_lowland_delta_0_to_15m": 99.98
+        }
+      }
+    },
+    {
+      "tile_id": "N20E084",
+      "copernicus_filename": "Copernicus_DSM_COG_10_N20_00_E084_00_DEM.tif",
+      "local_path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E084_00_DEM.tif",
+      "source_url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N20_00_E084_00_DEM/Copernicus_DSM_COG_10_N20_00_E084_00_DEM.tif",
+      "http_status": 200,
+      "download_start_utc": "2026-10-31T14:29:50.319500+00:00",
+      "download_end_utc": "2026-10-31T14:30:13.419805+00:00",
+      "download_elapsed_seconds": 23.1,
+      "file_size_bytes": 45814837,
+      "file_size_mb": 43.69,
+      "sha256": "0853d16d33254c5133ead256fa9feb6719fcc5a3ff642a6d8d36f3de6ac5bdde",
+      "role": "Western 5km terrestrial buffer and Banki gorge inflow reach",
+      "lat_bounds": [
+        20.0,
+        21.0
+      ],
+      "lon_bounds": [
+        84.0,
+        85.0
+      ],
+      "raster_inspection": {
+        "crs": "EPSG:4326",
+        "width": 3600,
+        "height": 3600,
+        "total_pixels": 12960000,
+        "valid_pixels": 12960000,
+        "nodata_pixels": 0,
+        "nodata_percentage": 0.0,
+        "bounds": [
+          83.99986111111112,
+          20.000138888888888,
+          84.99986111111112,
+          21.000138888888888
+        ],
+        "pixel_resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "data_type": "float32",
+        "nodata_value": "NaN",
+        "elevation_stats_meters": {
+          "min": 42.49,
+          "max": 1221.9,
+          "mean": 338.85,
+          "median": 253.24,
+          "std": 231.58,
+          "pct_below_sea_level": 0.0,
+          "pct_lowland_delta_0_to_15m": 0.0
+        }
+      }
+    },
+    {
+      "tile_id": "N20E085",
+      "copernicus_filename": "Copernicus_DSM_COG_10_N20_00_E085_00_DEM.tif",
+      "local_path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E085_00_DEM.tif",
+      "source_url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N20_00_E085_00_DEM/Copernicus_DSM_COG_10_N20_00_E085_00_DEM.tif",
+      "http_status": 200,
+      "download_start_utc": "2026-10-31T14:30:14.632351+00:00",
+      "download_end_utc": "2026-10-31T14:30:47.913763+00:00",
+      "download_elapsed_seconds": 33.28,
+      "file_size_bytes": 47713048,
+      "file_size_mb": 45.5,
+      "sha256": "de5c6c9fb88889fe7341f2f04db1b7b66ec6bf44a688e1a862264944a5790a13",
+      "role": "Delta apex / Cuttack / Bhubaneswar / Naraj barrage",
+      "lat_bounds": [
+        20.0,
+        21.0
+      ],
+      "lon_bounds": [
+        85.0,
+        86.0
+      ],
+      "raster_inspection": {
+        "crs": "EPSG:4326",
+        "width": 3600,
+        "height": 3600,
+        "total_pixels": 12960000,
+        "valid_pixels": 12960000,
+        "nodata_pixels": 0,
+        "nodata_percentage": 0.0,
+        "bounds": [
+          84.99986111111112,
+          20.000138888888888,
+          85.99986111111112,
+          21.000138888888888
+        ],
+        "pixel_resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "data_type": "float32",
+        "nodata_value": "NaN",
+        "elevation_stats_meters": {
+          "min": -38.0,
+          "max": 835.2,
+          "mean": 86.57,
+          "median": 64.74,
+          "std": 84.33,
+          "pct_below_sea_level": 0.0,
+          "pct_lowland_delta_0_to_15m": 8.26
+        }
+      }
+    },
+    {
+      "tile_id": "N20E086",
+      "copernicus_filename": "Copernicus_DSM_COG_10_N20_00_E086_00_DEM.tif",
+      "local_path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E086_00_DEM.tif",
+      "source_url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N20_00_E086_00_DEM/Copernicus_DSM_COG_10_N20_00_E086_00_DEM.tif",
+      "http_status": 200,
+      "download_start_utc": "2026-10-31T14:30:49.153421+00:00",
+      "download_end_utc": "2026-10-31T14:31:16.242640+00:00",
+      "download_elapsed_seconds": 27.09,
+      "file_size_bytes": 39961485,
+      "file_size_mb": 38.11,
+      "sha256": "0c4b6911c594af84a822f8f525197dfcc3f3f868212bce31ec06aaf32aefa765",
+      "role": "Eastern delta plain / Kendrapara / Jagatsinghpur / Mahanadi mouth",
+      "lat_bounds": [
+        20.0,
+        21.0
+      ],
+      "lon_bounds": [
+        86.0,
+        87.0
+      ],
+      "raster_inspection": {
+        "crs": "EPSG:4326",
+        "width": 3600,
+        "height": 3600,
+        "total_pixels": 12960000,
+        "valid_pixels": 12960000,
+        "nodata_pixels": 0,
+        "nodata_percentage": 0.0,
+        "bounds": [
+          85.99986111111112,
+          20.000138888888888,
+          86.99986111111112,
+          21.000138888888888
+        ],
+        "pixel_resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "data_type": "float32",
+        "nodata_value": "NaN",
+        "elevation_stats_meters": {
+          "min": -6.49,
+          "max": 392.04,
+          "mean": 7.12,
+          "median": 3.55,
+          "std": 11.98,
+          "pct_below_sea_level": 0.01,
+          "pct_lowland_delta_0_to_15m": 87.65
+        }
+      }
+    },
+    {
+      "tile_id": "N20E087",
+      "copernicus_filename": "Copernicus_DSM_COG_10_N20_00_E087_00_DEM.tif",
+      "local_path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E087_00_DEM.tif",
+      "source_url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N20_00_E087_00_DEM/Copernicus_DSM_COG_10_N20_00_E087_00_DEM.tif",
+      "http_status": 200,
+      "download_start_utc": "2026-10-31T14:31:17.333632+00:00",
+      "download_end_utc": "2026-10-31T14:31:19.261011+00:00",
+      "download_elapsed_seconds": 1.93,
+      "file_size_bytes": 203300,
+      "file_size_mb": 0.19,
+      "sha256": "c873973492cc84157b84ed7c329469da283332fa59106daa757ed2acd9b9674b",
+      "role": "Eastern terrestrial spit / Gahirmatha / Bhitarkanika mangrove",
+      "lat_bounds": [
+        20.0,
+        21.0
+      ],
+      "lon_bounds": [
+        87.0,
+        88.0
+      ],
+      "raster_inspection": {
+        "crs": "EPSG:4326",
+        "width": 3600,
+        "height": 3600,
+        "total_pixels": 12960000,
+        "valid_pixels": 12960000,
+        "nodata_pixels": 0,
+        "nodata_percentage": 0.0,
+        "bounds": [
+          86.99986111111112,
+          20.000138888888888,
+          87.99986111111112,
+          21.000138888888888
+        ],
+        "pixel_resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "data_type": "float32",
+        "nodata_value": "NaN",
+        "elevation_stats_meters": {
+          "min": -1.05,
+          "max": 20.01,
+          "mean": 0.01,
+          "median": 0.0,
+          "std": 0.23,
+          "pct_below_sea_level": 0.0,
+          "pct_lowland_delta_0_to_15m": 100.0
+        }
+      }
+    },
+    {
+      "tile_id": "N21E085",
+      "copernicus_filename": "Copernicus_DSM_COG_10_N21_00_E085_00_DEM.tif",
+      "local_path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E085_00_DEM.tif",
+      "source_url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N21_00_E085_00_DEM/Copernicus_DSM_COG_10_N21_00_E085_00_DEM.tif",
+      "http_status": 200,
+      "download_start_utc": "2026-10-31T14:31:19.935556+00:00",
+      "download_end_utc": "2026-10-31T14:31:53.306441+00:00",
+      "download_elapsed_seconds": 33.37,
+      "file_size_bytes": 44393359,
+      "file_size_mb": 42.34,
+      "sha256": "705b6bdf2b657551eb077eed5a1f4de5878f4497fe34c27019aa0d451be502ba",
+      "role": "Northern buffer & Jajpur / Baitarani-Brahmani confluence",
+      "lat_bounds": [
+        21.0,
+        22.0
+      ],
+      "lon_bounds": [
+        85.0,
+        86.0
+      ],
+      "raster_inspection": {
+        "crs": "EPSG:4326",
+        "width": 3600,
+        "height": 3600,
+        "total_pixels": 12960000,
+        "valid_pixels": 12960000,
+        "nodata_pixels": 0,
+        "nodata_percentage": 0.0,
+        "bounds": [
+          84.99986111111112,
+          21.000138888888888,
+          85.99986111111112,
+          22.000138888888888
+        ],
+        "pixel_resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "data_type": "float32",
+        "nodata_value": "NaN",
+        "elevation_stats_meters": {
+          "min": 16.23,
+          "max": 1180.12,
+          "mean": 354.52,
+          "median": 355.29,
+          "std": 198.33,
+          "pct_below_sea_level": 0.0,
+          "pct_lowland_delta_0_to_15m": 0.0
+        }
+      }
+    },
+    {
+      "tile_id": "N21E086",
+      "copernicus_filename": "Copernicus_DSM_COG_10_N21_00_E086_00_DEM.tif",
+      "local_path": "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E086_00_DEM.tif",
+      "source_url": "https://copernicus-dem-30m.s3.amazonaws.com/Copernicus_DSM_COG_10_N21_00_E086_00_DEM/Copernicus_DSM_COG_10_N21_00_E086_00_DEM.tif",
+      "http_status": 200,
+      "download_start_utc": "2026-10-31T14:31:54.430706+00:00",
+      "download_end_utc": "2026-10-31T14:33:06.563815+00:00",
+      "download_elapsed_seconds": 72.13,
+      "file_size_bytes": 45322829,
+      "file_size_mb": 43.22,
+      "sha256": "c9530b4f2458c5b869ea27bfd8e09c46b51ad5c8689b303b32d28e6a4b139051",
+      "role": "Northern buffer & Bhadrak / Dhamra river estuary",
+      "lat_bounds": [
+        21.0,
+        22.0
+      ],
+      "lon_bounds": [
+        86.0,
+        87.0
+      ],
+      "raster_inspection": {
+        "crs": "EPSG:4326",
+        "width": 3600,
+        "height": 3600,
+        "total_pixels": 12960000,
+        "valid_pixels": 12960000,
+        "nodata_pixels": 0,
+        "nodata_percentage": 0.0,
+        "bounds": [
+          85.99986111111112,
+          21.000138888888888,
+          86.99986111111112,
+          22.000138888888888
+        ],
+        "pixel_resolution_deg": [
+          0.0002777777777777778,
+          0.0002777777777777778
+        ],
+        "data_type": "float32",
+        "nodata_value": "NaN",
+        "elevation_stats_meters": {
+          "min": -2.54,
+          "max": 1186.32,
+          "mean": 204.41,
+          "median": 55.94,
+          "std": 276.79,
+          "pct_below_sea_level": 0.0,
+          "pct_lowland_delta_0_to_15m": 18.7
+        }
+      }
+    }
+  ]
+}

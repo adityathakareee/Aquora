@@ -1,0 +1,41 @@
+manifest_version: '1.0'
+phase: PHASE_6C_2G_21_MULTI_DECADE_NATIONAL_RAINFALL_EXPANSION
+generated_timestamp_utc: '2026-10-28T10:00:35.422254+00:00'
+governance:
+  decision: NATIONAL_BATCH_AND_READINESS_VALIDATED
+  ml_readiness_decision: BLOCKED_BY_GROUND_TRUTH
+  zero_synthetic_rainfall: true
+  zero_supervised_models: true
+  immutable_foundational_assets: true
+core_assets:
+  copernicus_dsm:
+    path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\raw\phase7\dem\Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+    sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_dem:
+    path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\processed\phase7\terrain\elevation_30m_study_extent.tif
+    sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  raw_ifi_v3:
+    path: C:\Users\thaka\OneDrive\Desktop\Hackathon\AQUORA\Aquoraa\data\raw\phase7\ground_truth\india_flood_inventory_v3.csv
+    sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+phase21_deliverables:
+  acquisition_script:
+    path: scripts/acquire_phase6c2g21_national_rainfall.py
+    sha256: 1d9d646610c51f0e704c8c686d3ecba647218311c9b60cbe71805337b1f7a0a1
+  validation_script:
+    path: scripts/validate_phase6c2g21_national_rainfall.py
+    sha256: 3729864da0514d02f8b41413dd2cd9728fdbd1b409e61770166aba86b40284ae
+  ml_readiness_script:
+    path: scripts/audit_phase6c2g21_ml_readiness.py
+    sha256: 7ca0cd6a4b070145e346b61cf4976c2909499c9ea125711d4200b4aca4ff44f8
+  checkpoint_json:
+    path: data/processed/phase7/rainfall/phase6c2g21_acquisition_checkpoint.json
+    sha256: 316c6fc7d0be143a86d94168f010e4c346d8e40edd957df7dd3235a78ef1324a
+  inventory_csv:
+    path: data/processed/phase7/rainfall/phase6c2g21_acquisition_inventory.csv
+    sha256: 9c15f542b9e399398082ba0c42ad45e140b3e929845c286b5e2836465111c01b
+  quality_assessment_json:
+    path: data/processed/phase7/rainfall/phase6c2g21_quality_assessment.json
+    sha256: e481f5f7748eb233e21dc633e442604cafdd1a364aa59e235a1c4c24f0460160
+  ml_readiness_json:
+    path: data/processed/phase7/ml/phase6c2g21_ml_readiness.json
+    sha256: bd587659c12361f8ebb19033b9095053d0d459a9b8bb701757f777f6efe37e6c

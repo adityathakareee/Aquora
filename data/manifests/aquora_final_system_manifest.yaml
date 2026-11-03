@@ -1,0 +1,169 @@
+schema_version: "2.0.0"
+manifest_id: "MANIFEST-AQUORA-FINAL-SYSTEM-2026-V1"
+generated_at: "2026-11-03T17:30:00Z"
+project: "AQUORA 2.0 — Multi-Tier Flood Intelligence System"
+classification: "Operational System Manifest & Integrity Baseline"
+
+governance:
+  governance_status: "PROTOTYPE_ONLY"
+  calibration_status: "NOT_CALIBRATED"
+  operational_readiness: "NOT_FOR_PUBLIC_ALERTS"
+  hydrodynamic_authority: "Phase 6 deterministic physics engine remains primary authority"
+  zero_fabrication_rule: "STRICT_ENFORCEMENT"
+  partial_feature_policy: "SUPPRESS_INFERENCE_UNDER_POLICY_GATE_3"
+  benchmark_isolation_policy: "MANDATORY_EXPLICIT_OPT_IN_ONLY"
+
+frozen_models:
+  national_screening_model:
+    model_id: "aquora_national_screening_xgboost_v1"
+    model_version: "1.2.0-phase7e"
+    algorithm: "XGBClassifier"
+    artifact_path: "ml/models/aquora_national_screening_model.joblib"
+    sha256: "62fff9430390aa745b169802007b4032a6e446567463c88898dc52f2340a7e20"
+    training_dataset_missingness: 0.0000
+    trained_predictors:
+      - "rainfall_24h_mm"
+      - "rainfall_72h_mm"
+      - "rainfall_anomaly_index"
+      - "elevation_m"
+      - "slope_deg"
+      - "distance_to_river_m"
+      - "landcover_class"
+    feature_semantic_definition:
+      distance_to_river_m: "Euclidean metric distance to JRC GSW permanent surface water pixels (>=80% occurrence). HydroRIVERS reach distance must NOT be substituted."
+      hydrorivers_reach_distance_m: "Independent metric distance to HydroRIVERS streamline reach centerlines. Preserved separately in API contracts."
+
+deterministic_physics_engine:
+  engine_id: "aquora_phase6_2d_shallow_water_solver"
+  spatial_resolution_m: 30.0
+  conservation_tolerance_m3: 0.0001
+  exclusive_operational_zone: "deep_mumbai_mithi"
+  mass_balance_status: "VERIFIED"
+  drainage_coupling_status: "VERIFIED"
+
+geographic_hierarchy:
+  hierarchy: "Country -> State -> District -> Regional Basin -> City -> Local Catchment -> Deep Intelligence Zone"
+  deep_intelligence_zone_exclusive: "deep_mumbai_mithi"
+  hydrobasins_level: "Level 04"
+
+hydrographic_vector_assets:
+  hydrobasins_level04:
+    path: "data/raw/phase7/hydrography/hydrobasins/extracted/hybas_as_lev04_v1c.shp"
+    sha256: "f75cce5bdbe5da8de96ec9834d6571c528e11746b2f7ff0288ea30477e4b7a2a"
+    spatial_index: "Shapely STRtree"
+    feature_count: 524
+  hydrorivers_asia:
+    path: "data/raw/phase7/hydrography/hydrorivers/extracted/HydroRIVERS_v10_as_shp/HydroRIVERS_v10_as.shp"
+    sha256: "827e03a8e419b9578d5f246bcce1c93de1a0bd561a9f572fe84606c5d36d31fa"
+    min_strahler_order: 4
+
+verified_city_domains:
+  patna:
+    domain_id: "ganga_patna"
+    city: "Patna"
+    state: "Bihar (IN-BR)"
+    hydrobasins_lev04_id: 4040960480
+    basin_name: "Ganga River Basin"
+    elevation_path: "data/processed/dem/ganga_patna_elevation_30m.tif"
+    elevation_sha256: "5d8ed4614bc39c2bf8cf9b6e438367a798bcb8c917decbd62b065d5796166fd5"
+    slope_path: "data/processed/terrain/ganga_patna_slope_30m.tif"
+    jrc_water_distance_path: "data/processed/terrain/ganga_patna_jrc_water_distance_30m.tif"
+    jrc_water_distance_sha256: "9e8c77ad36c9061c094d8707edae799730e54844b84961489df9af0067061dce"
+    hydrorivers_reach_distance_path: "data/processed/terrain/ganga_patna_distance_to_river_30m.tif"
+    hydrorivers_reach_distance_sha256: "45f0ba49f2b3e8c1bce98aa0a4175b0b1357564d2621cb3f20b3ea1e7df7e742"
+    landcover_path: "data/processed/landcover/ganga_patna_landcover_30m.tif"
+    builtup_path: "data/processed/landcover/ganga_patna_built_up_fraction_30m.tif"
+
+  guwahati:
+    domain_id: "brahmaputra_guwahati"
+    city: "Guwahati"
+    state: "Assam (IN-AS)"
+    hydrobasins_lev04_id: 4040960200
+    basin_name: "Brahmaputra River Basin"
+    elevation_path: "data/processed/dem/brahmaputra_guwahati_elevation_30m.tif"
+    elevation_sha256: "457f153c14d106a67d9e067bae090fe137709760253e3cd16f1a4491ebc23eb6"
+    slope_path: "data/processed/terrain/brahmaputra_guwahati_slope_30m.tif"
+    jrc_water_distance_path: null
+    hydrorivers_reach_distance_path: "data/processed/terrain/brahmaputra_guwahati_distance_to_river_30m.tif"
+    hydrorivers_reach_distance_sha256: "e8c20f84dee8a27eaa7d926950a09a12fa5af85aa332f036c121e754cbc6210b"
+    landcover_path: "data/processed/landcover/brahmaputra_guwahati_landcover_30m.tif"
+    builtup_path: "data/processed/landcover/brahmaputra_guwahati_built_up_fraction_30m.tif"
+
+  mumbai:
+    domain_id: "mumbai_mithi"
+    city: "Mumbai"
+    state: "Maharashtra (IN-MH)"
+    hydrobasins_lev04_id: 4040029530
+    basin_name: "Mithi Catchment / Coastal Maharashtra Basin"
+    deep_intelligence_status: "ACTIVE_EXCLUSIVE"
+    elevation_path: "data/processed/dem/elevation_30m.tif"
+    slope_path: "data/processed/terrain/slope_30m.tif"
+    jrc_water_distance_path: null
+    hydrorivers_reach_distance_path: null
+
+  vijayawada:
+    domain_id: "krishna_vijayawada"
+    city: "Vijayawada"
+    state: "Andhra Pradesh (IN-AP)"
+    hydrobasins_lev04_id: 4040027940
+    basin_name: "Krishna River Basin"
+    elevation_path: "data/processed/dem/krishna_vijayawada_elevation_30m.tif"
+    elevation_sha256: "74e6395d6d9c985da53c33b50502ddc68b69b325b4891d948acf633ed5323b4d"
+    slope_path: "data/processed/terrain/krishna_vijayawada_slope_30m.tif"
+    jrc_water_distance_path: "data/processed/terrain/krishna_vijayawada_jrc_water_distance_30m.tif"
+    jrc_water_distance_sha256: "c8f57c050057750af8f7a435beff154a389257618e356688adfdbee3d7c66e18"
+    hydrorivers_reach_distance_path: "data/processed/terrain/krishna_vijayawada_distance_to_river_30m.tif"
+    hydrorivers_reach_distance_sha256: "5b6791cabbb2ddf2d2afc31b54c9b26689a6477486ccc30c1d45102a4f95ff85"
+    landcover_path: "data/processed/landcover/krishna_vijayawada_landcover_30m.tif"
+    builtup_path: "data/processed/landcover/krishna_vijayawada_built_up_fraction_30m.tif"
+
+  nagpur:
+    domain_id: "godavari_nagpur"
+    city: "Nagpur"
+    state: "Maharashtra (IN-MH)"
+    hydrobasins_lev04_id: 4040027780
+    basin_name: "Godavari River Basin"
+    elevation_path: "data/processed/dem/godavari_nagpur_elevation_30m.tif"
+    elevation_sha256: "e06f8b0b12a43a86fee92a4b55c15db4e1da986265180a3f82e5cbc9c417275f"
+    slope_path: "data/processed/terrain/godavari_nagpur_slope_30m.tif"
+    jrc_water_distance_path: null
+    hydrorivers_reach_distance_path: "data/processed/terrain/godavari_nagpur_distance_to_river_30m.tif"
+    hydrorivers_reach_distance_sha256: "974a742eb66546edce7b9300629ffb5b6c230133eeaa114510916c83595640f2"
+    landcover_path: "data/processed/landcover/godavari_nagpur_landcover_30m.tif"
+    builtup_path: "data/processed/landcover/godavari_nagpur_built_up_fraction_30m.tif"
+
+  ahmedabad:
+    domain_id: "sabarmati_ahmedabad"
+    city: "Ahmedabad"
+    state: "Gujarat (IN-GJ)"
+    hydrobasins_lev04_id: 4040031820
+    basin_name: "Sabarmati River Basin"
+    elevation_path: "data/processed/dem/sabarmati_ahmedabad_elevation_30m.tif"
+    elevation_sha256: "f539b233551552efe019bf8ad865ff96dfd58aabbadec16cad8a38e43874775d"
+    slope_path: "data/processed/terrain/sabarmati_ahmedabad_slope_30m.tif"
+    jrc_water_distance_path: null
+    hydrorivers_reach_distance_path: "data/processed/terrain/sabarmati_ahmedabad_distance_to_river_30m.tif"
+    hydrorivers_reach_distance_sha256: "ea0340c981cfd11b8d3047ee89b68998ba1b58c9b74fb22e096e4529ef8419e1"
+    landcover_path: "data/processed/landcover/sabarmati_ahmedabad_landcover_30m.tif"
+    builtup_path: "data/processed/landcover/sabarmati_ahmedabad_built_up_fraction_30m.tif"
+
+quarantined_holdouts:
+  dfo_2507:
+    event_id: "DFO2507"
+    region: "Bihar Kosi River Flood (2008)"
+    quarantine_status: "UNTOUCHED_BLIND_EVALUATION_HOLDOUT"
+    access_count_during_training: 0
+    access_count_during_testing: 0
+
+verification_summary:
+  backend_tests_passed: 207
+  backend_tests_failed: 0
+  frontend_typecheck: "0 errors (strict mode)"
+  frontend_vite_build: "CLEAN_PRODUCTION_BUILD"
+  browser_qa_defects: 0
+  browser_qa_viewports:
+    - "Desktop (1920x1080)"
+    - "Laptop (1366x768)"
+    - "Tablet (768x1024)"
+    - "Mobile (375x812)"
+

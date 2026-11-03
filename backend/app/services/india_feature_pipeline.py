@@ -117,10 +117,12 @@ class IndiaFeaturePipelineService:
         ):
             return ("DEEP_ZONE", "Mumbai Mithi River Basin Deep Zone", "deep_mumbai_mithi")
 
-        # 2. Check Registered Regional Corridors
-        from app.api.v1.intelligence import REGISTERED_ZONES
+        # 2. Check Registered Regional Corridors (only ACTIVE or PROTOTYPE)
+        from app.api.v1.intelligence import REGISTERED_ZONES, ZoneStatus
         for z_id, z_data in REGISTERED_ZONES.items():
             if z_data.get("level") == IntelligenceLevel.REGIONAL.value:
+                if z_data.get("status") not in (ZoneStatus.ACTIVE.value, ZoneStatus.PROTOTYPE.value):
+                    continue
                 bounds = z_data.get("spatial_bounds", {})
                 if (
                     bounds.get("min_lat", 0.0) <= latitude <= bounds.get("max_lat", 0.0)
@@ -164,15 +166,20 @@ class IndiaFeaturePipelineService:
         if terrain:
             features["elevation_m"] = terrain.get("elevation_m")
             features["slope_deg"] = terrain.get("slope_deg")
-            features["distance_to_river_m"] = terrain.get("distance_to_river_m")
+            # Feature semantic compatibility: Phase 7E ML model was trained on JRC permanent surface water distance.
+            # HydroRIVERS reach distance is semantically distinct and must NOT be fed into the frozen model.
+            features["distance_to_river_m"] = terrain.get("jrc_water_distance_m")
             features["landcover_class"] = terrain.get("landcover_class")
             provenance["terrain_source"] = f"VERIFIED_DOMAIN_{terrain.get('domain_id')}"
+            provenance["jrc_water_distance_m"] = terrain.get("jrc_water_distance_m")
+            provenance["hydrorivers_reach_distance_m"] = terrain.get("hydrorivers_reach_distance_m")
         else:
             features["elevation_m"] = None
             features["slope_deg"] = None
             features["distance_to_river_m"] = None
             features["landcover_class"] = None
             provenance["terrain_source"] = "UNAVAILABLE"
+            provenance["hydrorivers_reach_distance_m"] = None
 
         # ----------------------------------------------------------------------
         # 1. Historical Flood Frequency: Zero-Fabrication Rule

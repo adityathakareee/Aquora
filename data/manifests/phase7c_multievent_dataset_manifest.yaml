@@ -1,0 +1,204 @@
+manifest_version: 1.0.0
+phase: PHASE_7C_MULTI_EVENT_DATASET
+created_at_utc: '2026-10-28T14:40:13.169948+00:00'
+master_dataset:
+  parquet_path: data\processed\phase7\ml\phase7c_multievent_dataset.parquet
+  csv_path: data\processed\phase7\ml\phase7c_multievent_dataset.csv
+  parquet_bytes: 2766983
+  csv_bytes: 42869635
+  parquet_sha256: a3ed9802640551c54566a117fdf9c7c0a187a68cb7d78405bde3f3772b85e4e3
+  csv_sha256: e2e26d03ccd590bb21caa2de95a812e934f646a13118f7c2a449e54c0d3dc4b0
+  total_rows: 209116
+  total_columns: 24
+binary_dataset:
+  parquet_path: data\processed\phase7\ml\phase7c_multievent_binary_dataset.parquet
+  csv_path: data\processed\phase7\ml\phase7c_multievent_binary_dataset.csv
+  parquet_bytes: 2742428
+  csv_bytes: 42479340
+  parquet_sha256: f31591cf39cd4c542d842128c6782d5206dd7b52449928e674d340acfed4d2f7
+  csv_sha256: 754724649d8e856093d21986fcce0e383b21bacf922c333f9b64dcdea2fb27cb
+  total_rows: 207205
+  total_columns: 24
+events:
+- event_id: DFO_4499
+  dfo_id: 4499
+  basin_name: Lower Ganga Basin
+  state: West Bengal
+  observation_date: '2017-07-27'
+  split: train
+  bounds:
+    min_lon: 88.0
+    max_lon: 89.0
+    min_lat: 22.0
+    max_lat: 23.0
+  raw_gfd_tif_sha256: 9fab987aa7cb9becaf607c0960799b1e72b217ddd9bb7940e08e902349c1f4eb
+  raw_dem_tif_sha256: 018d3e47ae82f12f08e22681ebbf553f3dd0ebd0a33aff248d5dd717bf9a61ed
+  raw_worldcover_tif_sha256: a652fbd8e327ceb600d309f1934223a8d95d7ab0902dbc524c830aba9587b160
+- event_id: DFO_2935
+  dfo_id: 2935
+  basin_name: Upper Godavari Basin
+  state: Maharashtra
+  observation_date: '2006-07-28'
+  split: train
+  bounds:
+    min_lon: 73.0
+    max_lon: 74.0
+    min_lat: 20.0
+    max_lat: 21.0
+  raw_gfd_tif_sha256: ad0b331f7ef84fd32a787ef7f698df9aba3a385974e05c4b24d8cdeb98d4b4ff
+  raw_dem_tif_sha256: 4fc2ff36a7a830233e5fb86b8a33a8ad2ed4824fb6e247a7fc45e28f284aa3af
+  raw_worldcover_tif_sha256: 2d28650e0eba865efb08656e45b75a269eaf535f9260a245ae5aad72ee5a5c63
+- event_id: DFO_3372
+  dfo_id: 3372
+  basin_name: Upper Brahmaputra Basin
+  state: Assam
+  observation_date: '2008-08-30'
+  split: validation
+  bounds:
+    min_lon: 94.0
+    max_lon: 95.0
+    min_lat: 27.0
+    max_lat: 28.0
+  raw_gfd_tif_sha256: e7ebc1376c217e8268cfc6762b6e274315dbe0c09fbeb537768c85ddd3fd97f4
+  raw_dem_tif_sha256: 088f251fe4fa1b30c23b3f660b660958f10aa828b9fc92882d64e2db187312f3
+  raw_worldcover_tif_sha256: 648aa16f0448cb08eefd46bbd83e3f0dc8ef69af965d9249f59f7f4db29b9eb9
+- event_id: DFO_2507
+  dfo_id: 2507
+  basin_name: North Bihar / Kosi Basin
+  state: Bihar
+  observation_date: '2004-06-20'
+  split: test
+  bounds:
+    min_lon: 85.0
+    max_lon: 86.0
+    min_lat: 25.0
+    max_lat: 26.0
+  raw_gfd_tif_sha256: 0cd6b8b23f55cfa768dc3966226ce4c0020e05b0652909ed966e6031eac356da
+  raw_dem_tif_sha256: 1f2e00a1a5488f0d94e2842fff1ba0ea564967710dfbe56181fd997869d33a00
+  raw_worldcover_tif_sha256: 8b1d2333c81cc8ac0de1d9cbdfe5bd8ff85259e919caf8f21502ea8a7f2b4f1b
+splits:
+  train_events:
+  - DFO_4499
+  - DFO_2935
+  validation_events:
+  - DFO_3372
+  test_events:
+  - DFO_2507
+  train_binary_samples: 5700
+  validation_binary_samples: 5000
+  test_binary_samples: 196505
+governance_invariants:
+  zero_synthetic_labels: true
+  missing_subdaily_rainfall_preserved_as_nan: true
+  authentic_esa_worldcover_10m: true
+  disjoint_event_level_splits: true
+  no_overwrite_of_phase7_pilot: true
+summary_statistics:
+  total_master_samples: 209116
+  total_binary_samples: 207205
+  events_count: 4
+  events:
+  - DFO_4499
+  - DFO_2935
+  - DFO_3372
+  - DFO_2507
+  samples_per_event:
+    DFO_2507: 197316
+    DFO_2935: 800
+    DFO_3372: 5500
+    DFO_4499: 5500
+  labels_per_event:
+    DFO_4499:
+      1: 2500
+      0: 2500
+      -1: 500
+    DFO_2935:
+      1: 350
+      0: 350
+      -1: 100
+    DFO_3372:
+      1: 2500
+      0: 2500
+      -1: 500
+    DFO_2507:
+      0: 185070
+      1: 11435
+      -1: 811
+  split_distribution:
+    master:
+      test/DFO_2507: 197316
+      train/DFO_2935: 800
+      train/DFO_4499: 5500
+      validation/DFO_3372: 5500
+    binary:
+      test/DFO_2507: 196505
+      train/DFO_2935: 700
+      train/DFO_4499: 5000
+      validation/DFO_3372: 5000
+  predictors_summary:
+    rainfall_1h_mm:
+      null_count: 209116
+      min: null
+      max: null
+      mean: null
+      std: null
+    rainfall_3h_mm:
+      null_count: 209116
+      min: null
+      max: null
+      mean: null
+      std: null
+    rainfall_6h_mm:
+      null_count: 209116
+      min: null
+      max: null
+      mean: null
+      std: null
+    rainfall_24h_mm:
+      null_count: 0
+      min: 0.0
+      max: 157.8800048828125
+      mean: 27.148223876953125
+      std: 10.797113418579102
+    rainfall_72h_mm:
+      null_count: 0
+      min: 0.0
+      max: 180.44000244140625
+      mean: 71.67770385742188
+      std: 18.23305320739746
+    rainfall_anomaly_index:
+      null_count: 0
+      min: -1.8569999933242798
+      max: 4.181000232696533
+      mean: 0.7249235510826111
+      std: 0.6305099129676819
+    elevation_m:
+      null_count: 0
+      min: -0.6200000047683716
+      max: 2505.090087890625
+      mean: 52.619407653808594
+      std: 34.40977096557617
+    slope_deg:
+      null_count: 0
+      min: 0.0
+      max: 52.689998626708984
+      mean: 1.2764570713043213
+      std: 1.8556277751922607
+    distance_to_river_m:
+      null_count: 0
+      min: 0.0
+      max: 64629.23828125
+      mean: 18178.880859375
+      std: 14855.86328125
+    historical_flood_frequency:
+      null_count: 0
+      min: 2.7799999713897705
+      max: 8.329999923706055
+      mean: 6.111725807189941
+      std: 0.4953729510307312
+    landcover_class:
+      null_count: 0
+      min: 10.0
+      max: 95.0
+      mean: 37.47104477897435
+      std: 15.218058855659672

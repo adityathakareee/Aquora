@@ -1,0 +1,218 @@
+manifest_version: "1.0.0"
+phase: "PHASE_6A_AUTHENTIC_DATASET_ACQUISITION_PREPARATION"
+created_at: "2026-10-15T01:57:00Z"
+governance:
+  status: "ACQUISITION_PREPARATION_COMPLETED"
+  zero_fabrication_enforced: true
+  zero_label_fabrication_enforced: true
+  credential_security_policy: "Environment variables only (.env / EARTHDATA_TOKEN). Zero hardcoded secrets."
+
+pilot_study_area:
+  zone_id: "deep_mumbai_mithi"
+  name: "Mumbai Mithi River Catchment"
+  bounding_box_wgs84:
+    min_lat: 18.99033
+    max_lat: 19.12057
+    min_lon: 72.84064
+    max_lon: 72.95071
+  projected_crs: "EPSG:32643"
+
+recommended_pilot_event:
+  event_id: "E02"
+  title: "Mumbai 29 August 2017 Monsoon Deluge"
+  event_date: "2017-08-29"
+  rainfall_window: "2017-08-29T00:00:00Z to 2017-08-29T23:59:59Z"
+  historical_context: "Extreme urban deluge; 315.8 mm observed in 24 hr; widespread Mithi River overtopping."
+  coincident_satellite_match:
+    sar_pass_29aug_time_utc: "2017-08-29T01:02:48Z"
+    sar_pass_29aug_time_ist: "2017-08-29T06:32:48+05:30"
+    sar_pass_17aug_time_utc: "2017-08-17T01:02:48Z"
+    sar_pass_17aug_time_ist: "2017-08-17T06:32:48+05:30"
+    temporal_gap_to_cloudburst_onset_hours: 2.0  # Acquired ~2 hr BEFORE extreme rain commenced (08:30 IST)
+    temporal_gap_to_peak_flood_hours: 7.0        # Acquired ~7 hr BEFORE Mithi River overtopping (13:30-18:00 IST)
+    orbit: "Track / Relative Orbit 34 (Descending), Frame 528"
+    pair_status: "INCOMPLETE_PAIR_FOR_FLOOD_LABELING (Pre-deluge baseline only; no peak-flood SAR)"
+
+authoritative_data_sources:
+  historical_precipitation:
+    primary_source:
+      product: "NASA GPM IMERG Final Run V07B Half-Hourly (GPM_3IMERGHH.07)"
+      provider: "NASA Goddard Earth Sciences Data and Information Services Center (GES DISC)"
+      endpoint_url: "https://gpm1.gesdisc.eosdis.nasa.gov/data/GPM_L3/GPM_3IMERGHH.07/2017/241/3B-HHR.MS.MRG.3IMERG.20170829-S233000-E235959.1410.V07B.HDF5"
+      format: "HDF5 (.HDF5)"
+      spatial_resolution: "0.1 degree (~10 km global grid)"
+      temporal_resolution: "30 minutes"
+      native_units: "mm/hr (precipitationCal)"
+      file_size_bytes_approx: 12000000  # ~11.5 MB per half-hour granule
+      access_conditions: "Free NASA Earthdata Login required (open data)"
+      required_env_vars:
+        - "EARTHDATA_TOKEN"
+        - "or NASA_EARTHDATA_USERNAME and NASA_EARTHDATA_PASSWORD"
+      acquisition_script: "scripts/acquire_phase6a_rainfall_pilot.py"
+      target_raw_path: "data/raw/phase7/rainfall/imerg/final/2017/08/3B-HHR.MS.MRG.3IMERG.20170829-S233000-E235959.1410.V07B.HDF5"
+      actual_retrieval_timestamp: "2026-10-15T02:07:30Z"
+      actual_file_size_bytes: 8170876
+      sha256: "fafd7e6cb238d925e744a89f3457c508b0ff7bb2f5290337ca7e6364e0ab6625"
+      magic_bytes: "\\x89HDF\\r\\n\\x1a\\n"
+      validation_status: "VALIDATED_AUTHENTIC_NASA_HDF5"
+      status: "DOWNLOADED_AND_VALIDATED"
+      scientific_attributes:
+        dataset_name: "Grid/precipitation"
+        dimensions: "(time: 1, lon: 3600, lat: 1800)"
+        native_spatial_resolution: "0.1 degree (~10 km)"
+        units: "mm/hr"
+        fill_value_raw: -9999.9
+        time_coverage_utc: "2017-08-29T23:30:00.000Z to 2017-08-29T23:59:59.999Z"
+        time_coverage_ist: "2017-08-30T05:00:00.000+05:30 to 2017-08-30T05:30:00.000+05:30"
+        time_interval: "HALF_HOUR (30 minutes)"
+        event_phase: "POST_EVENT_TRAILING_DISSIPATION"
+        quality_indicator: "Grid/precipitationQualityIndex"
+        mumbai_cell_rate_mm_hr: 0.43
+        mumbai_cell_half_hour_accumulation_mm: 0.215
+        primary_scientific_output:
+          target_path: "data/processed/phase7/rainfall/E02_rainfall_native_0.1deg.tif"
+          spatial_resolution: "0.1 degree (~10 km)"
+          crs: "EPSG:4326"
+          shape: [10, 10]
+          extent_wgs84: [72.5, 18.5, 73.5, 19.5]
+          is_native_resolution: true
+          resampling_applied: false
+        convenience_resampled_layer:
+          target_path: "data/processed/phase7/rainfall/E02_rainfall_30m.tif"
+          purpose: "DEM-aligned grid compatibility for physical hydrodynamic simulation mesh"
+          genuine_source_resolution: "0.1 degree (~10 km)"
+          derived_grid_resolution: "30.0 m"
+          resampling_method: "bilinear"
+          is_resampled_convenience_layer: true
+          is_genuine_30m_resolution: false
+          crs: "EPSG:32643"
+          shape: [476, 392]
+          nodata_handling:
+            source_nodata: -9999.9
+            dest_nodata: -9999.0
+            missing_source_pixels_to_zero: false
+          mean_intensity_mm_hr: 0.447
+          max_intensity_mm_hr: 0.474
+          min_intensity_mm_hr: 0.406
+      temporal_context_and_limitations:
+        - "Granule window: 23:30-23:59 UTC on 29 Aug 2017 = 05:00-05:30 IST on 30 Aug 2017."
+        - "Captures late-night / early-morning post-event trailing storm dissipation."
+        - "NOT coincident with the main daytime cloudburst of 29 Aug IST (which occurred 08:30-20:30 IST / 03:00-15:00 UTC)."
+        - "Observed precipitation rate (0.43 mm/hr) yields 0.215 mm half-hourly accumulation."
+        - "Must NEVER be inferred as or mistaken for the 24-hr flood deluge total (315.8 mm)."
+        - "Cannot be used as a flood extent label."
+        - "Resampled 30m raster is strictly for numerical solver mesh alignment; genuine resolution remains ~10 km."
+        - "ECMWF ERA5-Land benchmark hourly accumulation for 23:00-24:00 UTC agrees with this post-deluge rate (0.3-0.5 mm)."
+
+
+
+    verified_open_access_alternative:
+      product: "ECMWF ERA5-Land Hourly Reanalysis"
+      provider: "Copernicus Climate Change Service (C3S) via Open-Meteo Historical Archive API"
+      endpoint_url: "https://archive-api.open-meteo.com/v1/archive?latitude=19.076&longitude=72.877&start_date=2017-08-28&end_date=2017-08-30&hourly=precipitation"
+      format: "JSON / Parquet"
+      spatial_resolution: "0.1 degree (~9 km)"
+      temporal_resolution: "1 hour"
+      access_conditions: "Open Access (No API key required)"
+      status: "COMPATIBLE_BENCHMARK_FALLBACK"
+
+  satellite_flood_evidence:
+    product: "Copernicus Sentinel-1 C-band SAR Ground Range Detected (GRD) IW Dual-Pol (VV+VH)"
+    provider: "European Space Agency (ESA) / Alaska Satellite Facility (ASF) DAAC"
+    access_conditions: "Free NASA Earthdata Login (open access via ASF Datapool)"
+    audit_date: "2026-10-15T21:18:35Z"
+    audit_decision: "INCOMPLETE_PAIR_UNSUITABLE_FOR_CO_EVENT_FLOOD_LABELING"
+    decision_rationale: "The proposed 29 August 2017 scene (06:32 IST) preceded the extreme cloudburst (08:30 IST) and peak inundation (13:30-18:00 IST). It captured pre-deluge baseline conditions, NOT active flooding. Comparing 17 August against 29 August yields two dry/pre-storm baselines. No post-flood Sentinel-1 pass occurred until 10 September 2017 (12 days later), by which time floodwaters had completely drained."
+    candidate_scenes:
+      pre_event_scene:
+        scene_id: "S1A_IW_GRDH_1SDV_20170817T010248_20170817T010313_017956_01E202_67C3"
+        url: "https://datapool.asf.alaska.edu/GRD_HD/SA/S1A_IW_GRDH_1SDV_20170817T010248_20170817T010313_017956_01E202_67C3.zip"
+        start_time_utc: "2017-08-17T01:02:48Z"
+        start_time_ist: "2017-08-17T06:32:48+05:30"
+        platform: "Sentinel-1A"
+        relative_orbit_track: 34
+        frame: 528
+        pass_direction: "DESCENDING"
+        mode: "IW"
+        polarization: "VV+VH"
+        expected_bytes: 958897134
+        status: "VERIFIED_PRE_EVENT_BASELINE"
+      co_date_pre_deluge_scene:
+        scene_id: "S1A_IW_GRDH_1SDV_20170829T010248_20170829T010313_018131_01E74F_E820"
+        url: "https://datapool.asf.alaska.edu/GRD_HD/SA/S1A_IW_GRDH_1SDV_20170829T010248_20170829T010313_018131_01E74F_E820.zip"
+        start_time_utc: "2017-08-29T01:02:48Z"
+        start_time_ist: "2017-08-29T06:32:48+05:30"
+        platform: "Sentinel-1A"
+        relative_orbit_track: 34
+        frame: 528
+        pass_direction: "DESCENDING"
+        mode: "IW"
+        polarization: "VV+VH"
+        expected_bytes: 1001382353
+        status: "VERIFIED_PRE_DELUGE_BASELINE (NOT CO-EVENT CRISIS)"
+      post_event_recession_scene:
+        scene_id: "S1A_IW_GRDH_1SDV_20170910T010249_20170910T010314_018306_01ECB1_E159"
+        url: "https://datapool.asf.alaska.edu/GRD_HD/SA/S1A_IW_GRDH_1SDV_20170910T010249_20170910T010314_018306_01ECB1_E159.zip"
+        start_time_utc: "2017-09-10T01:02:49Z"
+        start_time_ist: "2017-09-10T06:32:49+05:30"
+        platform: "Sentinel-1A"
+        relative_orbit_track: 34
+        frame: 528
+        pass_direction: "DESCENDING"
+        mode: "IW"
+        polarization: "VV+VH"
+        status: "VERIFIED_POST_EVENT_DRYDOWN (12 DAYS POST-FLOOD)"
+
+  historical_flood_labels_and_extents:
+    official_registry:
+      - source: "Dartmouth Flood Observatory (DFO) Large Flood Archive"
+        event_code: "DFO Event #4517 (India, Mumbai)"
+        date_range: "2017-08-29 to 2017-08-31"
+        verified_deaths: 14
+        cause: "Monsoonal rain"
+      - source: "Municipal Corporation of Greater Mumbai (MCGM) Disaster Management Cell"
+        event_record: "29 August 2017 Inundation Log (Sion, Kurla, BKC, Hindmata, Dadar)"
+      - source: "ISRO / NRSC Disaster Management Support Programme (DMSP)"
+        reference: "Bhuvan Indian Flood Inundation Geoportal"
+    governance_status: "HISTORICAL_EVENTS_IDENTIFIED_OFFICIAL_POLYGONS_NOT_INGESTED"
+    label_policy: "Zero label fabrication. Missing labels are marked unobserved (-1). Never treat missing SAR as dry."
+
+supporting_geographic_features_status:
+  elevation_30m:
+    path: "data/processed/phase7/terrain/elevation_30m.tif"
+    status: "VERIFIED_ON_DISK"
+  slope_30m:
+    path: "data/processed/phase7/terrain/slope_30m.tif"
+    status: "VERIFIED_ON_DISK"
+  flow_accumulation_30m:
+    path: "data/processed/phase7/terrain/flow_accumulation_30m.tif"
+    status: "VERIFIED_ON_DISK"
+  drainage_proxy_30m:
+    path: "data/processed/phase7/terrain/drainage_proxy_30m.tif"
+    status: "VERIFIED_ON_DISK"
+  critical_facilities:
+    osm_path: "data/raw/facilities/osm_critical_facilities.json"
+    mcgm_path: "data/raw/facilities/mithi_critical_facilities.json"
+    total_count: 366
+    status: "VERIFIED_ON_DISK"
+  built_up_landcover:
+    status: "UNINGESTED"
+  road_and_waterway_distances:
+    status: "UNINGESTED"
+  tide_gauge_csv:
+    status: "UNINGESTED"
+
+prerequisites_and_blockers:
+  blocker_1:
+    title: "NASA Earthdata Authentication"
+    description: "NASA GES DISC and ASF DAAC require free Earthdata login credentials."
+    resolution_steps:
+      - "Step 1: Register at https://urs.earthdata.nasa.gov/"
+      - "Step 2: Generate personal access token under Profile -> Generate Token"
+      - "Step 3: Add EARTHDATA_TOKEN=your_token to .env or environment variable"
+  storage_budget_pilot:
+    rainfall_single_granule_mb: 11.5
+    rainfall_full_day_48_granules_mb: 550.0
+    sar_bitemporal_pair_gb: 1.96
+    derived_processed_rasters_mb: 15.0
+    total_pilot_budget_gb: 2.5

@@ -1,0 +1,496 @@
+manifest_version: "1.0.0"
+manifest_id: "MANIFEST-AQUORA-NAT-DATA-COV-20261103"
+title: "AQUORA National Flood Intelligence Data Coverage & Asset Inventory"
+generated_at: "2026-11-03T15:00:00Z"
+author: "AQUORA Core Geospatial & Hydrology Team"
+governing_standard: "AQUORA Phase 7E Zero-Fabrication & Strict Missing-Feature Governance Policy"
+license_summary: "Non-commercial research, open scientific data, and government open data licenses"
+
+governance_invariants:
+  zero_fabrication: true
+  strict_missing_feature_suppression: true
+  operational_benchmark_isolation: true
+  blind_quarantine_dfo2507: true
+  uncalibrated_score_terminology: true
+
+hydrographic_datasets:
+  hydrobasins_asia:
+    source: "HydroSHEDS / WWF HydroBASINS (v1.c), Lehner & Grill (2013)"
+    status: "ACQUIRED_AND_EXTRACTED_LOCALLY"
+    format: "ESRI Shapefile (.shp)"
+    crs: "EPSG:4326 (WGS84)"
+    spatial_coverage: "Pan-Asia (including complete Indian subcontinent)"
+    storage_directory: "data/raw/phase7/hydrography/hydrobasins/extracted"
+    hierarchy_levels:
+      level_01:
+        file: "hybas_as_lev01_v1c.shp"
+        size_bytes: 2841600
+        feature_count: 1
+        description: "Continental Asia master basin"
+      level_02:
+        file: "hybas_as_lev02_v1c.shp"
+        size_bytes: 3932160
+        feature_count: 9
+        description: "Sub-continental drainage zones"
+      level_03:
+        file: "hybas_as_lev03_v1c.shp"
+        size_bytes: 6246400
+        feature_count: 45
+        description: "Macro-regional hydrographic regions (18 intersect India bbox)"
+      level_04:
+        file: "hybas_as_lev04_v1c.shp"
+        size_bytes: 10600448
+        feature_count: 199
+        india_intersecting_count: 72
+        suitability: "AUTHORITATIVE_NATIONAL_SCREENING_TIER"
+        description: "Primary river basins (Ganga, Brahmaputra, Krishna, Godavari, Sabarmati, etc.)"
+      level_05:
+        file: "hybas_as_lev05_v1c.shp"
+        size_bytes: 17637376
+        feature_count: 711
+        india_intersecting_count: 232
+        suitability: "REGIONAL_BASIN_CORRIDOR_TIER"
+        description: "Major tributary sub-basins"
+      level_06:
+        file: "hybas_as_lev06_v1c.shp"
+        size_bytes: 29097984
+        feature_count: 2489
+        india_intersecting_count: 822
+        suitability: "SUB_CATCHMENT_ALERTING_TIER"
+        description: "Catchment-scale physical monitoring units"
+      levels_07_to_12:
+        status: "EXTRACTED_LOCAL"
+        files: "hybas_as_lev07_v1c.shp through hybas_as_lev12_v1c.shp"
+        max_level_feature_count: 160508
+        description: "High-resolution micro-catchments for local and deep hydrodynamic routing"
+
+  hydrorivers_asia:
+    source: "HydroSHEDS / WWF HydroRIVERS (v1.0)"
+    status: "ACQUIRED_AND_EXTRACTED_LOCALLY"
+    format: "ESRI Shapefile (.shp)"
+    crs: "EPSG:4326 (WGS84)"
+    spatial_coverage: "Pan-Asia (complete river network)"
+    file_path: "data/raw/phase7/hydrography/hydrorivers/extracted/HydroRIVERS_v10_as_shp/HydroRIVERS_v10_as.shp"
+    size_bytes: 207446016
+    reach_attributes:
+      - "HYRIV_ID (Unique reach identifier)"
+      - "NEXT_DOWN (Topological routing target reach)"
+      - "MAIN_RIV (Master river identifier)"
+      - "LENGTH_KM (Reach line length)"
+      - "DIS_AV_CMS (Mean annual natural discharge in cubic meters/sec)"
+      - "ORD_STRA (Strahler stream order, 1 to 10)"
+    suitability: "AUTHORITATIVE_RIVER_NETWORK_PAN_INDIA"
+    download_required: false
+
+  legacy_processed_boundaries:
+    status: "DEPRECATED_BOUNDING_BOXES"
+    files:
+      - path: "data/processed/boundaries/hydrobasins_india.json"
+        basin_count: 9
+        geometry_type: "5-point rectangular bounding boxes"
+      - path: "data/processed/boundaries/hydrobasins_india.geojson"
+        feature_count: 8
+        geometry_type: "5-point rectangular bounding boxes"
+    action_item: "Replace with genuine Level 04 polygons from hybas_as_lev04_v1c.shp"
+
+terrain_and_elevation_datasets:
+  copernicus_dem_glo30:
+    source: "ESA / Copernicus Open Access Hub / AWS Open Data"
+    resolution: "1 arc-second (~30m)"
+    crs: "EPSG:4326 (WGS84, EGM2008 vertical datum)"
+    format: "Cloud-Optimized GeoTIFF (COG)"
+    suitability: "OPERATIONAL_AND_BENCHMARK"
+    local_processed_rasters_30m:
+      - name: "Ganga (Patna)"
+        elevation: "data/processed/dem/ganga_patna_elevation_30m.tif"
+        slope: "data/processed/terrain/ganga_patna_slope_30m.tif"
+        river_distance: "data/processed/terrain/ganga_patna_distance_to_river_30m.tif"
+      - name: "Brahmaputra (Guwahati)"
+        elevation: "data/processed/dem/brahmaputra_guwahati_elevation_30m.tif"
+        slope: "data/processed/terrain/brahmaputra_guwahati_slope_30m.tif"
+        river_distance: "data/processed/terrain/brahmaputra_guwahati_distance_to_river_30m.tif"
+      - name: "Godavari (Nashik)"
+        elevation: "data/processed/dem/godavari_nashik_elevation_30m.tif"
+        slope: "data/processed/terrain/godavari_nashik_slope_30m.tif"
+        river_distance: "data/processed/terrain/godavari_nashik_distance_to_river_30m.tif"
+      - name: "Narmada (Bharuch)"
+        elevation: "data/processed/dem/narmada_bharuch_elevation_30m.tif"
+        slope: "data/processed/terrain/narmada_bharuch_slope_30m.tif"
+        river_distance: "data/processed/terrain/narmada_bharuch_distance_to_river_30m.tif"
+    local_raw_cog_tiles:
+      - file: "data/raw/phase7/dem/Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif"
+        size_mb: 12.72
+        coverage: "Mumbai / Thane Coastal Corridor (19°N–20°N, 72°E–73°E)"
+      - file: "data/raw/phase7/dem/Copernicus_DSM_COG_10_N20_00_E073_00_DEM.tif"
+        size_mb: 43.68
+        coverage: "Nashik / Upper Godavari (20°N–21°N, 73°E–74°E)"
+      - file: "data/raw/phase7/dem/Copernicus_DSM_COG_10_N22_00_E088_00_DEM.tif"
+        size_mb: 48.19
+        coverage: "Kolkata / Lower Ganga Delta (22°N–23°N, 88°E–89°E)"
+      - file: "data/raw/phase7/dem/Copernicus_DSM_COG_10_N25_00_E085_00_DEM.tif"
+        size_mb: 42.69
+        coverage: "Patna / Middle Ganga Basin (25°N–26°N, 85°E–86°E)"
+      - file: "data/raw/phase7/dem/Copernicus_DSM_COG_10_N27_00_E094_00_DEM.tif"
+        size_mb: 41.34
+        coverage: "Upper Brahmaputra / Assam (27°N–28°N, 94°E–95°E)"
+      - file: "data/raw/phase7/dem/mahanadi_dfo3382/*.tif"
+        size_mb: 272.49
+        coverage: "Mahanadi Delta (9 COG tiles, 19°N–22°N, 84°E–87°E)"
+
+landcover_datasets:
+  esa_worldcover_10m:
+    source: "European Space Agency (ESA)"
+    version: "2021 v200"
+    resolution: "10m native (resampled to 30m Copernicus grid alignment)"
+    crs: "EPSG:4326 (WGS84)"
+    format: "GeoTIFF"
+    suitability: "OPERATIONAL_AND_BENCHMARK"
+    classification_schema:
+      10: "Tree cover"
+      20: "Shrubland"
+      30: "Grassland"
+      40: "Cropland"
+      50: "Built-up"
+      60: "Bare / sparse vegetation"
+      70: "Snow and ice"
+      80: "Permanent water bodies"
+      90: "Herbaceous wetland"
+      95: "Mangroves"
+      100: "Moss and lichen"
+    local_processed_rasters_30m:
+      - name: "Ganga (Patna)"
+        landcover: "data/processed/landcover/ganga_patna_landcover_30m.tif"
+        built_up_fraction: "data/processed/landcover/ganga_patna_built_up_fraction_30m.tif"
+      - name: "Brahmaputra (Guwahati)"
+        landcover: "data/processed/landcover/brahmaputra_guwahati_landcover_30m.tif"
+        built_up_fraction: "data/processed/landcover/brahmaputra_guwahati_built_up_fraction_30m.tif"
+      - name: "Godavari (Nashik)"
+        landcover: "data/processed/landcover/godavari_nashik_landcover_30m.tif"
+        built_up_fraction: "data/processed/landcover/godavari_nashik_built_up_fraction_30m.tif"
+      - name: "Narmada (Bharuch)"
+        landcover: "data/processed/landcover/narmada_bharuch_landcover_30m.tif"
+        built_up_fraction: "data/processed/landcover/narmada_bharuch_built_up_fraction_30m.tif"
+    local_raw_tiles_3x3_deg:
+      - file: "data/raw/phase7/landcover/ESA_WorldCover_10m_2021_v200_N18E072_Map.tif"
+        size_mb: 119.94
+        coverage: "Western Maharashtra (Mumbai, Pune, Nashik: 18°N–21°N, 72°E–75°E)"
+      - file: "data/raw/phase7/landcover/ESA_WorldCover_10m_2021_v200_N24E084_Map.tif"
+        size_mb: 117.75
+        coverage: "Bihar / Middle Ganga (Patna, Gaya, Kosi: 24°N–27°N, 84°E–87°E)"
+      - file: "data/raw/phase7/landcover/ESA_WorldCover_10m_2021_v200_N21E087_Map.tif"
+        size_mb: 77.98
+        coverage: "Lower Bengal / Sundarbans (21°N–24°N, 87°E–90°E)"
+      - file: "data/raw/phase7/landcover/ESA_WorldCover_10m_2021_v200_N27E093_Map.tif"
+        size_mb: 75.40
+        coverage: "Assam / Upper Brahmaputra (27°N–30°N, 93°E–96°E)"
+      - file: "data/raw/phase7/landcover/worldcover/ESA_WorldCover_10m_2021_v200_N18E084_Map.tif"
+        size_mb: 51.76
+        coverage: "Coastal Odisha / Andhra (18°N–21°N, 84°E–87°E)"
+      - file: "data/raw/phase7/landcover/worldcover/ESA_WorldCover_10m_2021_v200_N21E084_Map.tif"
+        size_mb: 122.06
+        coverage: "Mahanadi Basin (21°N–24°N, 84°E–87°E)"
+
+precipitation_datasets:
+  nasa_gpm_imerg_final_v07b:
+    source: "NASA Goddard Space Flight Center / PMM"
+    format: "NetCDF4 (.nc4)"
+    resolution: "0.1° (~10km)"
+    temporal_resolution: "Daily (accumulated from half-hourly observations)"
+    latency: "3.5 months (Latency prevents real-time operational inference)"
+    suitability: "HISTORICAL_BENCHMARK_SCENARIOS_ONLY"
+    storage_directory: "data/raw/phase7/rainfall/imerg/daily"
+    total_local_files: 13
+    total_size_mb: 401.74
+    event_inventory:
+      - date: "2001-07-04"
+        event: "Odisha Mahanadi delta flood (DFO 2088)"
+        file: "3B-DAY.MS.MRG.3IMERG.20010704-S000000-E235959.V07B.nc4"
+      - date: "2005-07-26"
+        event: "Mumbai catastrophic deluge (DFO 2786, 944 mm 24h)"
+        file: "3B-DAY.MS.MRG.3IMERG.20050726-S000000-E235959.V07B.nc4"
+      - date: "2006-08-07"
+        event: "Surat Tapi basin flood (Ukai dam discharge)"
+        file: "3B-DAY.MS.MRG.3IMERG.20060807-S000000-E235959.V07B.nc4"
+      - date: "2008-08-18"
+        event: "Kosi river avulsion / Bihar catastrophic flood (DFO 3372)"
+        file: "3B-DAY.MS.MRG.3IMERG.20080818-S000000-E235959.V07B.nc4"
+      - date: "2009-10-02"
+        event: "Krishna river basin flood (Kurnool & Vijayawada inundation)"
+        file: "3B-DAY.MS.MRG.3IMERG.20091002-S000000-E235959.V07B.nc4"
+      - date: "2013-06-16"
+        event: "Uttarakhand Himalayan cloudburst & Kedarnath deluge"
+        file: "3B-DAY.MS.MRG.3IMERG.20130616-S000000-E235959.V07B.nc4"
+      - date: "2014-09-04"
+        event: "Jammu & Kashmir Jhelum basin flood (Srinagar inundation)"
+        file: "3B-DAY.MS.MRG.3IMERG.20140904-S000000-E235959.V07B.nc4"
+      - date: "2015-12-01"
+        event: "Chennai extreme rainfall & Adyar/Cooum river flood"
+        file: "3B-DAY.MS.MRG.3IMERG.20151201-S000000-E235959.V07B.nc4"
+      - date: "2017-08-29"
+        event: "Mumbai extreme monsoon deluge (330 mm 24h)"
+        file: "3B-DAY.MS.MRG.3IMERG.20170829-S000000-E235959.V07B.nc4"
+      - date: "2018-08-16"
+        event: "Kerala extreme monsoon floods (Periyar & Pamba basins)"
+        file: "3B-DAY.MS.MRG.3IMERG.20180816-S000000-E235959.V07B.nc4"
+      - date: "2019-07-01"
+        event: "Mumbai suburban flooding"
+        file: "3B-DAY.MS.MRG.3IMERG.20190701-S000000-E235959.V07B.nc4"
+      - date: "2019-07-10"
+        event: "Assam Brahmaputra riverine floods (Guwahati & Kaziranga)"
+        file: "3B-DAY.MS.MRG.3IMERG.20190710-S000000-E235959.V07B.nc4"
+      - date: "2022-09-05"
+        event: "Bengaluru urban convective flash flood"
+        file: "3B-DAY.MS.MRG.3IMERG.20220905-S000000-E235959.V07B.nc4"
+
+  chirps_daily_v2:
+    source: "UCSB Climate Hazards Center"
+    format: "GeoTIFF (.tif.gz)"
+    resolution: "0.05° (~5.5km)"
+    temporal_resolution: "Daily"
+    latency: "15 to 45 days"
+    suitability: "HISTORICAL_BENCHMARKING_AND_CLIMATOLOGICAL_NORMAL_BASELINE"
+    storage_directory: "data/raw/phase7/rainfall/chirps/daily"
+    total_local_files: 35
+    total_size_mb: 102.3
+    description: "Multi-decadal satellite-gauge daily precipitation archive used for baseline variance calculations"
+
+  operational_precipitation_candidates:
+    primary_candidate:
+      source: "India Meteorological Department (IMD) High-Resolution Daily Gridded Rainfall"
+      resolution: "0.25° x 0.25° (~27km)"
+      temporal_resolution: "Daily (08:30 IST to 08:30 IST)"
+      update_latency: "6 to 12 hours post-observation window"
+      suitability: "TARGET_OPERATIONAL_INFERENCE_FEED"
+      ingestion_architecture: "Automated daily script maintaining 3-day sliding window array"
+    secondary_candidate:
+      source: "NASA GPM IMERG Early Run"
+      resolution: "0.1° (~10km)"
+      temporal_resolution: "Half-hourly"
+      update_latency: "4 hours"
+      suitability: "BACKUP_OPERATIONAL_INFERENCE_FEED"
+
+surface_water_and_ground_truth:
+  jrc_global_surface_water:
+    source: "European Commission Joint Research Centre (JRC)"
+    resolution: "30m"
+    format: "GeoTIFF"
+    suitability: "PERMANENT_WATER_MASKING_AND_RECURRENCE_ANCHOR"
+    storage_directory: "data/raw/phase7/water/jrc_gsw"
+    files:
+      - file: "occurrence_80E_20N.tif"
+        size_mb: 25.98
+        coverage: "Krishna / Godavari delta region"
+      - file: "occurrence_80E_30N.tif"
+        size_mb: 78.37
+        coverage: "Ganga basin / Patna region"
+      - file: "seasonality_80E_20N.tif"
+        size_mb: 13.33
+        coverage: "Krishna / Godavari delta region"
+      - file: "seasonality_80E_30N.tif"
+        size_mb: 27.88
+        coverage: "Ganga basin / Patna region"
+
+  global_flood_database:
+    source: "Cloud to Street / Dartmouth Flood Observatory"
+    format: "GeoTIFF inundation extent rasters"
+    resolution: "250m MODIS"
+    storage_directory: "data/raw/phase7/ground_truth/gfd"
+    events:
+      - id: "DFO_2935"
+        event: "Surat 2006 Tapi basin flood"
+        file: "DFO_2935/DFO_2935_From_20060728_to_20060912.tif"
+        size_mb: 67.32
+      - id: "DFO_3372"
+        event: "Bihar 2008 Kosi avulsion"
+        file: "DFO_3372/DFO_3372_From_20080830_to_20080908.tif"
+        size_mb: 15.76
+      - id: "DFO_3382"
+        event: "Odisha 2008 Mahanadi basin flood"
+        file: "DFO_3382/DFO_3382_From_20080922_to_20080929.tif"
+        size_mb: 37.70
+      - id: "DFO_4499"
+        event: "Gujarat 2017 flood"
+        file: "DFO_4499/DFO_4499_From_20170727_to_20170810.tif"
+        size_mb: 4.55
+    quarantined_holdout:
+      id: "DFO_2507"
+      status: "STRICT_QUARANTINE_BLIND_EVALUATION_ONLY"
+      file: "DFO_2507/DFO_2507_From_20040620_to_20041007.tif"
+      size_mb: 79.01
+      restriction: "No access permitted during feature extraction or policy calibration"
+
+six_location_baseline_coverage_matrix:
+  patna:
+    city_name: "Patna"
+    state: "Bihar"
+    coordinates:
+      latitude: 25.5941
+      longitude: 85.1376
+    hydrobasins_l04:
+      hybas_id: 4040960480
+      main_bas: 4040025450
+      basin_name: "Ganga River Basin"
+    predictor_availability:
+      elevation_m: true
+      slope_deg: true
+      distance_to_river_m: true
+      landcover_class: true
+      rainfall_24h_mm: false
+      rainfall_72h_mm: false
+      rainfall_anomaly_index: false
+    operational_inference_status: "SUPPRESSED (Gate 3 Policy: Missing live rainfall)"
+    benchmark_inference_status: "VALID_COMPLETE_SCORE (IMERG 2008-08-18 Kosi event)"
+
+  guwahati:
+    city_name: "Guwahati"
+    state: "Assam"
+    coordinates:
+      latitude: 26.1445
+      longitude: 91.7362
+    hydrobasins_l04:
+      hybas_id: 4040960200
+      main_bas: 4040025450
+      basin_name: "Brahmaputra River Basin"
+    predictor_availability:
+      elevation_m: true
+      slope_deg: true
+      distance_to_river_m: true
+      landcover_class: true
+      rainfall_24h_mm: false
+      rainfall_72h_mm: false
+      rainfall_anomaly_index: false
+    operational_inference_status: "SUPPRESSED (Gate 3 Policy: Missing live rainfall)"
+    benchmark_inference_status: "VALID_COMPLETE_SCORE (IMERG 2019-07-10 Assam event)"
+
+  mumbai:
+    city_name: "Mumbai"
+    state: "Maharashtra"
+    coordinates:
+      latitude: 19.0760
+      longitude: 72.8777
+    hydrobasins_l04:
+      hybas_id: 4040029530
+      main_bas: 4040029530
+      basin_name: "Coastal Maharashtra / Konkan Basin"
+    predictor_availability:
+      elevation_m: true
+      slope_deg: true
+      distance_to_river_m: true
+      landcover_class: true
+      rainfall_24h_mm: false
+      rainfall_72h_mm: false
+      rainfall_anomaly_index: false
+    operational_inference_status: "SUPPRESSED (Gate 3 Policy: Missing live rainfall)"
+    benchmark_inference_status: "VALID_COMPLETE_SCORE (IMERG 2005-07-26 Deluge)"
+
+  vijayawada:
+    city_name: "Vijayawada"
+    state: "Andhra Pradesh"
+    coordinates:
+      latitude: 16.5062
+      longitude: 80.6480
+    hydrobasins_l04:
+      hybas_id: 4040027940
+      main_bas: 4040027940
+      basin_name: "Krishna River Basin"
+    predictor_availability:
+      elevation_m: false
+      slope_deg: false
+      distance_to_river_m: true
+      landcover_class: false
+      rainfall_24h_mm: false
+      rainfall_72h_mm: false
+      rainfall_anomaly_index: false
+    operational_inference_status: "SUPPRESSED (Gate 2 Policy: Missing geomorphic anchors)"
+    benchmark_inference_status: "SUPPRESSED (Missing DEM & Landcover tiles)"
+    missing_tiles_required:
+      dem: "Copernicus_DSM_COG_10_N16_00_E080_00_DEM.tif (~18 MB)"
+      landcover: "ESA_WorldCover_10m_2021_v200_N15E078_Map.tif (~50 MB)"
+
+  nagpur:
+    city_name: "Nagpur"
+    state: "Maharashtra"
+    coordinates:
+      latitude: 21.1458
+      longitude: 79.0882
+    hydrobasins_l04:
+      hybas_id: 4040027780
+      main_bas: 4040027780
+      basin_name: "Godavari River Basin"
+    predictor_availability:
+      elevation_m: false
+      slope_deg: false
+      distance_to_river_m: true
+      landcover_class: false
+      rainfall_24h_mm: false
+      rainfall_72h_mm: false
+      rainfall_anomaly_index: false
+    operational_inference_status: "SUPPRESSED (Gate 2 Policy: Missing geomorphic anchors)"
+    benchmark_inference_status: "SUPPRESSED (Missing DEM & Landcover tiles)"
+    missing_tiles_required:
+      dem: "Copernicus_DSM_COG_10_N21_00_E079_00_DEM.tif (~20 MB)"
+      landcover: "ESA_WorldCover_10m_2021_v200_N21E078_Map.tif (~60 MB)"
+
+  ahmedabad:
+    city_name: "Ahmedabad"
+    state: "Gujarat"
+    coordinates:
+      latitude: 23.0225
+      longitude: 72.5714
+    hydrobasins_l04:
+      hybas_id: 4040031820
+      main_bas: 4040031820
+      basin_name: "Sabarmati River Basin"
+    predictor_availability:
+      elevation_m: false
+      slope_deg: false
+      distance_to_river_m: true
+      landcover_class: false
+      rainfall_24h_mm: false
+      rainfall_72h_mm: false
+      rainfall_anomaly_index: false
+    operational_inference_status: "SUPPRESSED (Gate 2 Policy: Missing geomorphic anchors)"
+    benchmark_inference_status: "SUPPRESSED (Missing DEM & Landcover tiles)"
+    missing_tiles_required:
+      dem: "Copernicus_DSM_COG_10_N23_00_E072_00_DEM.tif (~22 MB)"
+      landcover: "ESA_WorldCover_10m_2021_v200_N21E072_Map.tif (~55 MB)"
+
+minimum_additional_acquisition_plan:
+  summary:
+    total_download_bytes_approx: 235929600
+    total_download_mb_approx: 225
+    total_tiles_to_acquire: 6
+    hydrography_download_required: false
+  copernicus_dem_glo30_tiles:
+    - city: "Vijayawada"
+      tile_filename: "Copernicus_DSM_COG_10_N16_00_E080_00_DEM.tif"
+      bounds: [80.0, 16.0, 81.0, 17.0]
+      estimated_mb: 18.0
+      source_url_pattern: "https://copernicus-dem-30m.s3.amazonaws.com/2021/Copernicus_DSM_COG_10_N16_00_E080_00_DEM.tif"
+    - city: "Nagpur"
+      tile_filename: "Copernicus_DSM_COG_10_N21_00_E079_00_DEM.tif"
+      bounds: [79.0, 21.0, 80.0, 22.0]
+      estimated_mb: 20.0
+      source_url_pattern: "https://copernicus-dem-30m.s3.amazonaws.com/2021/Copernicus_DSM_COG_10_N21_00_E079_00_DEM.tif"
+    - city: "Ahmedabad"
+      tile_filename: "Copernicus_DSM_COG_10_N23_00_E072_00_DEM.tif"
+      bounds: [72.0, 23.0, 73.0, 24.0]
+      estimated_mb: 22.0
+      source_url_pattern: "https://copernicus-dem-30m.s3.amazonaws.com/2021/Copernicus_DSM_COG_10_N23_00_E072_00_DEM.tif"
+  esa_worldcover_10m_tiles:
+    - city: "Vijayawada"
+      tile_filename: "ESA_WorldCover_10m_2021_v200_N15E078_Map.tif"
+      bounds: [78.0, 15.0, 81.0, 18.0]
+      estimated_mb: 50.0
+      source_url_pattern: "https://esa-worldcover.s3.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N15E078_Map.tif"
+    - city: "Nagpur"
+      tile_filename: "ESA_WorldCover_10m_2021_v200_N21E078_Map.tif"
+      bounds: [78.0, 21.0, 81.0, 24.0]
+      estimated_mb: 60.0
+      source_url_pattern: "https://esa-worldcover.s3.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N21E078_Map.tif"
+    - city: "Ahmedabad"
+      tile_filename: "ESA_WorldCover_10m_2021_v200_N21E072_Map.tif"
+      bounds: [72.0, 21.0, 75.0, 24.0]
+      estimated_mb: 55.0
+      source_url_pattern: "https://esa-worldcover.s3.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N21E072_Map.tif"
+

@@ -1,0 +1,215 @@
+manifest_metadata:
+  manifest_id: "phase7f_stage2_terrain_hydro_manifest"
+  version: "1.0.0"
+  phase: "PHASE_7F_STAGE_2"
+  timestamp_utc: "2026-11-01T05:05:00Z"
+  author: "Antigravity Agentic Scientific System"
+  benchmark_event: "DFO_3382_MAHANADI_2008"
+  geographic_domain: "Mahanadi Basin and Odisha Coastal Delta, India"
+  spatial_extent:
+    longitude_min: 84.0000
+    longitude_max: 88.0000
+    latitude_min: 19.0000
+    latitude_max: 22.0000
+  grid_definition:
+    crs: "EPSG:4326"
+    resolution_deg: 0.000277777777778
+    resolution_m_approx: 30.0
+    width_pixels: 14400
+    height_pixels: 10800
+    total_cells: 155520000
+  decision: "ACCEPTED_FOR_DATASET_ASSEMBLY"
+
+input_raw_assets:
+  dem_tiles:
+    source_bucket: "s3://copernicus-dem-30m/"
+    tile_count: 9
+    tiles:
+      - tile_id: "N19E085"
+        path: "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E085_00_DEM.tif"
+        size_bytes: 26038473
+        sha256: "0cfa3c162985160c8789547d63604f8db847c20ca8f430543662d9894458f2d5"
+      - tile_id: "N19E086"
+        path: "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N19_00_E086_00_DEM.tif"
+        size_bytes: 26139115
+        sha256: "25b9024f228807d2ff6ebfd8bb7622830f5313988cb6222b39eb5110ebf6d177"
+      - tile_id: "N20E085"
+        path: "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E085_00_DEM.tif"
+        size_bytes: 26143093
+        sha256: "2eecbe0876483488f5c64bf2625c15ee9c2794ebf33a92b2ff5434d70889ecae"
+      - tile_id: "N20E086"
+        path: "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E086_00_DEM.tif"
+        size_bytes: 26139265
+        sha256: "ea829033306dbfe3372f4f22f83a45dfbb846467332da114eb31d68a2bfb63ec"
+      - tile_id: "N21E085"
+        path: "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E085_00_DEM.tif"
+        size_bytes: 26127815
+        sha256: "a092895fc2c710323382ea08d2459fc542ba2c5108ec7552fc380e2d312bc8ca"
+      - tile_id: "N21E086"
+        path: "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E086_00_DEM.tif"
+        size_bytes: 26140517
+        sha256: "3051da0ebfa35b0d668c2eeecfe4a1e948fc0021b658d57d4ccf0ff1cc122ea8"
+      - tile_id: "N20E084"
+        path: "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N20_00_E084_00_DEM.tif"
+        size_bytes: 26117399
+        sha256: "f4a1ceebcf3753b87961b369f9f23f4c62c9c2be0eb1fe3cf38dca34f8263595"
+      - tile_id: "N21E084"
+        path: "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E084_00_DEM.tif"
+        size_bytes: 26127929
+        sha256: "c149eb0f3684a0d84a7ba3d0383398c8cb5f4705574c803239a04f26038f8280"
+      - tile_id: "N21E083"
+        path: "data/raw/phase7/dem/mahanadi_dfo3382/Copernicus_DSM_COG_10_N21_00_E083_00_DEM.tif"
+        size_bytes: 26107415
+        sha256: "e751d9d93617154dd7f66a987d60e659b8be0092c68fae08f51df1c7501b44ec"
+  water_body_mask_tiles:
+    source_bucket: "s3://copernicus-dem-30m/"
+    tile_count: 9
+    format: "GeoTIFF (WBM: 1=Ocean, 2=Lake, 3=River)"
+  hydrography:
+    hydrorivers:
+      path: "data/processed/phase7/hydrography/mahanadi_hydrorivers.geojson"
+      feature_count: 28792
+      size_bytes: 16968941
+    hydrobasins_lev08:
+      path: "data/processed/phase7/boundaries/mahanadi_hydrobasins/mahanadi_hydrobasins_lev08.geojson"
+      feature_count: 189
+      total_area_km2: 135524.8
+
+processed_terrain_derivatives:
+  dem_mosaic_vrt:
+    path: "data/processed/phase7/terrain/mahanadi_dem_mosaic_30m.vrt"
+    size_bytes: 4886
+    sha256: "14cd31385c11e6e5cfa53ea472c25a58f911dd0b46e13fd4fcf76db1347ee0c9"
+    dtype: "float32"
+    nodata: -999999.0
+  land_water_mask:
+    path: "data/processed/phase7/terrain/mahanadi_land_water_mask_30m.tif"
+    size_bytes: 1800993
+    sha256: "dca2985a257d2e5d11fd300fb9014834b26e59f4502f06ca739eb9ab96eca918"
+    dtype: "uint8"
+    nodata: 8
+  slope_deg:
+    path: "data/processed/phase7/terrain/mahanadi_slope_deg_30m.tif"
+    size_bytes: 301367981
+    sha256: "f1b432841e1a8296b0a2050964284b4fac5554228ae54284fcda5f9c19905e74"
+    dtype: "float32"
+    units: "degrees"
+    nodata: -9999.0
+    summary:
+      min: 0.00
+      max: 90.00
+      mean: 5.30
+      valid_terrestrial_cells: 87760710
+  aspect_deg:
+    path: "data/processed/phase7/terrain/mahanadi_aspect_deg_30m.tif"
+    size_bytes: 296249515
+    sha256: "0c2394e4560aa862fcc60eeb18c7b6d1edd7fa0bd582c125b0ed103428a59fe0"
+    dtype: "float32"
+    units: "degrees (0-360, -1=flat)"
+    nodata: -9999.0
+    summary:
+      flat_cells: 11397355
+  plan_curvature:
+    path: "data/processed/phase7/terrain/mahanadi_plan_curvature_30m.tif"
+    size_bytes: 45034210
+    sha256: "53404e122b1e5c2a0a5c4525ba5304ba10ff61eca3c58b59aa62ed2fab064b3c"
+    dtype: "float32"
+    units: "100/m"
+    nodata: -9999.0
+  profile_curvature:
+    path: "data/processed/phase7/terrain/mahanadi_profile_curvature_30m.tif"
+    size_bytes: 243097813
+    sha256: "161b6e032753451dd5864ce40f95cf90502bd6cf85b12132370269bdd6588600"
+    dtype: "float32"
+    units: "100/m"
+    nodata: -9999.0
+  flow_direction_d8:
+    path: "data/processed/phase7/terrain/mahanadi_flow_direction_d8_30m.tif"
+    size_bytes: 27870202
+    sha256: "1132dc476ff51953ac6dfe1e6fe230823393edac1dc40c8a62185db22d3e92ea"
+    dtype: "uint8"
+    units: "D8 bitmask"
+    nodata: 0
+    summary:
+      sink_pit_count: 13931818
+      sink_pit_percentage: 15.87
+  flow_accumulation:
+    path: "data/processed/phase7/terrain/mahanadi_flow_accumulation_30m.tif"
+    size_bytes: 35098160
+    sha256: "ff3f38a98ff74a58b483d14def5c7ec79286ba908d58af5fa26d0e53ea690eed"
+    dtype: "uint32"
+    units: "upstream cells count"
+    nodata: 0
+  twi:
+    path: "data/processed/phase7/terrain/mahanadi_twi_30m.tif"
+    size_bytes: 287320195
+    sha256: "295d77df9f41a49b58c51520eed9543fed168a2334db7b76d5e1e166d959614e"
+    dtype: "float32"
+    units: "dimensionless"
+    nodata: -9999.0
+    summary:
+      min: -6.37
+      max: 12.51
+      mean: 7.51
+
+hydrographic_derivatives:
+  strahler_order:
+    path: "data/processed/phase7/hydrography/mahanadi_strahler_order_30m.tif"
+    size_bytes: 1189029
+    sha256: "40f63f71cfbe62e73ae4479be455613db0f4c587a1be72bb37c3476404167e1a"
+    dtype: "uint8"
+    nodata: 0
+    summary:
+      stream_cells_burned: 715463
+  distance_to_river_m:
+    path: "data/processed/phase7/hydrography/mahanadi_distance_to_river_m_30m.tif"
+    size_bytes: 266527650
+    sha256: "d0b3f874866db6161baa0759527050d0a27f04ed71fb64c302fdca2f7f177772"
+    dtype: "float32"
+    units: "meters"
+    nodata: -9999.0
+    summary:
+      min: 0.0
+      mean: 25025.9
+  distance_to_distributary_m:
+    path: "data/processed/phase7/hydrography/mahanadi_distance_to_distributary_m_30m.tif"
+    size_bytes: 453864068
+    sha256: "efcfef6ed4f5ff53bd949c1f7ca91babd88eab0471f386e42080a419a4b14711"
+    dtype: "float32"
+    units: "meters"
+    nodata: -9999.0
+    summary:
+      distributary_reaches_count: 196
+  subbasin_id_lev08:
+    path: "data/processed/phase7/hydrography/mahanadi_subbasin_id_lev08_30m.tif"
+    size_bytes: 1682227
+    sha256: "831e699cbe2fc54ca615bca67f351d7d4cf317d887da6a44af1e3bd6d1e775c9"
+    dtype: "float64"
+    nodata: 0.0
+  upstream_catchment_area_km2:
+    path: "data/processed/phase7/hydrography/mahanadi_upstream_catchment_area_km2_30m.tif"
+    size_bytes: 927778
+    sha256: "5220bd142f2adf9fcfea6496453c7f51e6db3b01253768989e9a2427a81612fe"
+    dtype: "float32"
+    units: "km2"
+    nodata: -9999.0
+
+ml_feature_contract:
+  schema_path: "ml/aquora_mahanadi_feature_schema_v1.json"
+  size_bytes: 11169
+  sha256: "876e9c0ed9c68dadd41fbe992f71dece9fde39d5ce3581e7efa6de67c8282960"
+  phase7e_features_status:
+    elevation_m: "VERIFIED_AVAILABLE"
+    slope_deg: "VERIFIED_AVAILABLE"
+    drainage_proxy_score: "VERIFIED_AVAILABLE"
+    rainfall_accum_6h_mm: "NOT_AVAILABLE_LOCALLY"
+    rainfall_accum_24h_mm: "NOT_AVAILABLE_LOCALLY"
+    rainfall_accum_72h_mm: "NOT_AVAILABLE_LOCALLY"
+    temporal_window_hours: "VERIFIED_AVAILABLE"
+
+audit_and_summary_reports:
+  dem_mosaic_summary: "docs/phase7/DFO_3382_dem_mosaic_summary.json"
+  land_water_mask_summary: "docs/phase7/DFO_3382_land_water_mask_summary.json"
+  terrain_derivatives_summary: "docs/phase7/DFO_3382_terrain_derivatives_summary.json"
+  subbasin_terrain_summary: "docs/phase7/DFO_3382_subbasin_terrain_summary.json"
+  comprehensive_stage2_report: "docs/phase7/PHASE_7F_STAGE2_TERRAIN_HYDRO_REPORT.md"

@@ -1,0 +1,38 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_15_NATIONAL_HISTORICAL_PRECIPITATION_INGESTION_AND_MULTI_SOURCE_SCALING
+timestamp_utc: '2026-10-19T17:36:24.425321+00:00'
+governance:
+  final_decision: PARTIAL_NATIONAL_ACQUISITION
+  pilot_reconciliation_passed: true
+  controlled_cohort_acquired: true
+  national_inventory_built: true
+  supervised_training_permitted: false
+  national_trigger_modeling_permitted: false
+  zero_synthetic_rainfall_enforced: true
+  zero_missing_rainfall_imputation_enforced: true
+  summary: Phase 6C.2G.15 completed the pilot forensic audit (explaining E03 221.78mm
+    vs 243.12mm timezone shift and resolving pilot UEI clerical mismatches), calculated
+    deduplicated national archive requirements (3684 unique dates = 79.88 GB), acquired
+    a representative 16-event national landmark cohort across India, and classified
+    all 6,876 IFI records.
+immutability_verification:
+  raw_copernicus_dsm_sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+  working_study_extent_dem_sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+  raw_ifi_sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+  verified_unmodified: true
+national_inventory_summary:
+  total_records: 6876
+  match_status_counts:
+    NOT_ACQUIRED: 6519
+    UNAVAILABLE_ERA: 321
+    DATE_UNCERTAIN: 20
+    MATCHED_RAINFALL_COVERAGE: 16
+national_cohort_size: 16
+safeguards:
+- Missing rainfall values remain strictly NULL (never zero-filled).
+- Never infer physical causation or calibrated thresholds from rainfall co-occurrence
+  alone.
+- Point ground gauge observations must never be combined with satellite areal grids
+  as identical quantities.
+- Supervised 30m ML training remains blocked until verified spatial flood and non-flood
+  labels exist.

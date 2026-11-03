@@ -1,0 +1,45 @@
+manifest_version: 1.0.0
+phase: PHASE_6C_2G_9_AUTHENTIC_FLOOD_GROUND_TRUTH_ACQUISITION
+timestamp_utc: '2026-10-19T14:43:14.823461+00:00'
+governance:
+  final_decision: PARTIAL_DATA_ACQUIRED
+  supervised_training_permitted: false
+  zero_label_fabrication_enforced: true
+  zero_synthetic_interpolation_enforced: true
+  data_readiness_assessment: Authoritative national flood event records (6,876 events
+    across India) have been acquired from the peer-reviewed India Flood Inventory
+    (IIT Delhi / IMD). However, defensible non-flood negative observations and 30m
+    street-scale inundation boundary vectors remain unacquired. Supervised training
+    remains strictly blocked.
+dem_immutability_audit:
+  raw_copernicus_dsm:
+    path: data\raw\phase7\dem\Copernicus_DSM_COG_10_N19_00_E072_00_DEM.tif
+    sha256: b90f91a2b8cd69da327d8c133417d119a44f9880c8bb080114be5d8e9cf3dcdd
+    verified: true
+  working_study_extent_dem:
+    path: data\processed\phase7\terrain\elevation_30m_study_extent.tif
+    sha256: 25ac4e254f6bef29c65d18d1cd6b3e24a5ef6bec3c6de4952b1466df4b471bda
+    verified: true
+acquired_datasets:
+  india_flood_inventory:
+    file: data\raw\phase7\ground_truth\india_flood_inventory_v3.csv
+    sha256: ef9ab2cd0db7bf917dcc22c7cb094ec599f5013ef1b96ba525d816f26ff1b108
+    size_bytes: 1801579
+    records_count: 6876
+    mumbai_records_count: 182
+    doi: 10.5281/zenodo.4742142
+  dfo_masterlist_shapefile:
+    file: data\raw\phase7\ground_truth\dfo_masterlist_20190418.zip
+    sha256: 976f0904c603ba31e8aa62f6d1b55cec4c153be783495593ed247d01629ffe09
+    size_bytes: 610578
+    global_records_count: 4029
+    india_records_count: 12
+target_event_alignment:
+  event_e03_july_2019_matched: EXACT_DATE_AND_LOCATION_MATCH
+  event_e02_august_2017_matched: EXACT_DATE_AND_LOCATION_MATCH
+epistemological_invariants:
+- Absence of reported flood != proof of dry ground
+- District-scale flood inventory != 30m street inundation polygon
+- Candidate SAR backscatter drop != verified flood truth
+- Simulated physical depths != supervised training ground truth
+- Multi-day monsoon storms must not leak across train/test splits

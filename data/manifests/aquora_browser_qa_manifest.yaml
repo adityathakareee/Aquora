@@ -1,0 +1,95 @@
+schema_version: "aquora_browser_qa_manifest_v1"
+phase: "Final Comprehensive Automated Browser QA & Feature Verification"
+created_at_utc: "2026-11-02T16:15:00Z"
+verification_status: "BROWSER_QA_COMPLETE"
+author: "Antigravity Engineering QA Agent"
+workspace_root: "c:/Users/thaka/OneDrive/Desktop/Hackathon/AQUORA/Aquoraa"
+
+harness_configuration:
+  engine: "Playwright Headless Chrome"
+  browser_binary: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"
+  browser_version: "156.0.8078.74"
+  frontend_target: "http://127.0.0.1:5173"
+  backend_target: "http://127.0.0.1:8000"
+  test_script: "frontend/run_comprehensive_browser_qa.mjs"
+  audit_log: "artifacts/browser_qa/browser_qa_audit_log.json"
+  screenshots_directory: "artifacts/browser_qa/screenshots"
+
+viewports_tested:
+  - name: "Desktop"
+    dimensions: "1440x900"
+  - name: "Laptop"
+    dimensions: "1366x768"
+  - name: "Tablet"
+    dimensions: "768x1024"
+  - name: "Mobile"
+    dimensions: "390x844"
+
+test_execution_summary:
+  pages_and_routes_tested: 9
+  pages_passed: 9
+  pages_failed: 0
+  interactive_elements_tested: 28
+  intelligence_tiers_verified: 3
+  direct_api_checks_executed: 10
+  direct_api_checks_passed: 10
+  screenshots_captured_count: 45
+  unresolved_defects: 0
+  final_exit_code: 0
+
+pages_inventory:
+  - id: "landing"
+    route: "/"
+    status: "PASS"
+  - id: "overview"
+    route: "/app#overview"
+    status: "PASS"
+  - id: "flood-map"
+    route: "/app#flood-map"
+    status: "PASS"
+  - id: "travel-window"
+    route: "/app#travel-window"
+    status: "PASS"
+  - id: "critical-access"
+    route: "/app#critical-access"
+    status: "PASS"
+  - id: "protect-city"
+    route: "/app#protect-city"
+    status: "PASS"
+  - id: "ground-truth"
+    route: "/app#ground-truth"
+    status: "PASS"
+  - id: "simulator"
+    route: "/app#simulator"
+    status: "PASS"
+  - id: "alerts"
+    route: "/app#alerts"
+    status: "PASS"
+
+defects_summary:
+  total_discovered: 4
+  resolved: 4
+  unresolved: 0
+  p0_critical: 1  # DEF-01: React Hook violation in FloodMapFeature on tier switch -> FIXED
+  p1_high: 0
+  p2_medium: 2  # DEF-02: User menu backdrop pointer interception -> FIXED; DEF-03: ProtectCity initial busy state -> FIXED
+  p3_low: 1     # DEF-04: Tier modal explicit close flow -> FIXED
+
+governance_and_invariants:
+  primary_operational_flood_authority: "Phase 6 Deterministic 2D Hydraulic Physics Engine (engines/flood/)"
+  solver_equations_altered: false
+  dfo2507_quarantine_preserved: true
+  ml_status: "PROTOTYPE_ONLY"
+  calibration_status: "NOT_CALIBRATED"
+  alert_eligibility: "NOT_FOR_PUBLIC_ALERTS"
+  authorized_deep_zones: ["mumbai_mithi_deep"]
+  unsupported_zone_rejection:
+    patna_tested: true
+    patna_status: "OUTSIDE_DEEP_ZONE_COVERAGE"
+    patna_point_in_zone: false
+    zero_silent_fallback: true
+
+build_and_regression_verification:
+  typescript_typecheck: "PASSED (npx tsc --noEmit exited code 0)"
+  vite_production_bundle: "PASSED (built in 12.73s, exited code 0)"
+  backend_pytest_suite: "PASSED (26/26 passed in 92.25s, exited code 0)"
