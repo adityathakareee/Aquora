@@ -11,6 +11,11 @@ from app.schemas.health import LivenessResponse, ReadinessResponse, ServicesHeal
 
 router = APIRouter(prefix="/health", tags=["Health"])
 
+@router.api_route("", methods=["GET", "HEAD"], response_model=ReadinessResponse, summary="Health Readiness Alias", include_in_schema=False)
+async def health_index(response: Response) -> ReadinessResponse:
+    """Alias for /api/v1/health/ready."""
+    return await health_ready(response)
+
 @router.api_route("/live", methods=["GET", "HEAD"], response_model=LivenessResponse, summary="Application Process Liveness Check")
 async def health_live() -> LivenessResponse:
     """
